@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+    </dependencies>
+    <scenes>
+        <!--Haiku View Controller - First-->
+        <scene sceneID="11">
+            <objects>
+                <viewController title="First" id="2" customClass="GHHaikuViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="16">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-Br-tqB">
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="U69-5G-7cp" appends="YES" id="wTC-jd-PCE"/>
+                                    <outletCollection property="gestureRecognizers" destination="kGT-do-vm8" appends="YES" id="X2M-Wt-RM3"/>
+                                    <outletCollection property="gestureRecognizers" destination="6A6-fR-yXk" appends="YES" id="D2F-NG-Y2N"/>
+                                </connections>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VB8-hZ-3T0">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="124" id="Lq3-Bm-Mbi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VB8-hZ-3T0" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="0y3-Rq-GgF"/>
+                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="top" secondItem="16" secondAttribute="top" constant="186" id="13B-nl-742"/>
+                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CZ4-pP-p08"/>
+                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="top" secondItem="16" secondAttribute="top" type="default" id="T6I-aX-CoK"/>
+                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="ly5-Y7-AbX"/>
+                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="bottom" secondItem="16" secondAttribute="bottom" type="default" id="pD2-EA-88F"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="53-house.png" id="7"/>
+                    <connections>
+                        <outlet property="displayHaikuTextView" destination="VB8-hZ-3T0" id="ZYj-DH-kqX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="U69-5G-7cp"/>
+                <swipeGestureRecognizer direction="right" id="kGT-do-vm8">
+                    <connections>
+                        <action selector="goToNextHaiku" destination="2" id="eZE-v8-zbS"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="6A6-fR-yXk">
+                    <connections>
+                        <action selector="goToPreviousHaiku" destination="2" id="ZDa-xK-xN2"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="653" y="-138"/>
+        </scene>
+        <!--Web View Controller - Buy-->
+        <scene sceneID="KRY-lj-8c0">
+            <objects>
+                <viewController id="raS-l8-cPH" customClass="GHWebViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uyy-qe-rpZ">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleAspectFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEH-nW-h1T">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0D-2A-SDV">
+                                <items>
+                                    <navigationItem title="Buy" id="Oxb-mR-gmg"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="S0D-2A-SDV" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="2sI-lJ-Whm"/>
+                            <constraint firstItem="S0D-2A-SDV" firstAttribute="bottom" secondItem="oEH-nW-h1T" secondAttribute="top" type="default" id="6aQ-hH-dqW"/>
+                            <constraint firstItem="S0D-2A-SDV" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="9VS-DJ-nZ5"/>
+                            <constraint firstItem="oEH-nW-h1T" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="VIu-L1-ciE"/>
+                            <constraint firstItem="oEH-nW-h1T" firstAttribute="bottom" secondItem="Uyy-qe-rpZ" secondAttribute="bottom" type="default" id="YUb-4m-G9t"/>
+                            <constraint firstItem="S0D-2A-SDV" firstAttribute="top" secondItem="Uyy-qe-rpZ" secondAttribute="top" type="default" id="mEX-5v-ksU"/>
+                            <constraint firstItem="oEH-nW-h1T" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="zAB-QG-eWf"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Buy" image="80-shopping-cart.png" id="lig-bM-dxF"/>
+                    <connections>
+                        <outlet property="webV" destination="oEH-nW-h1T" id="FOH-Af-jI4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nAX-lh-Amy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="881"/>
+        </scene>
+        <!--Compose View Controller - Second-->
+        <scene sceneID="13">
+            <objects>
+                <viewController title="Second" id="3" customClass="GHComposeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="17">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN2-hu-UWh"/>
+                            <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-tp-ldf">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Tfz-RM-aTH"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30A-Ja-HaY">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ggi-vi-4El"/>
+                                    <constraint firstAttribute="width" constant="44" id="pfB-HW-Kf4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="trycheckbox_no.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="trycheckbox.png"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkCheckbox" destination="3" eventType="touchUpInside" id="79S-1J-5vw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="30A-Ja-HaY" secondAttribute="bottom" constant="146" id="1tA-xP-SBI"/>
+                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="9zi-NX-Aa1"/>
+                            <constraint firstItem="30A-Ja-HaY" firstAttribute="trailing" secondItem="mTP-tp-ldf" secondAttribute="trailing" type="default" id="GRG-gO-Vbm"/>
+                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="leading" secondItem="17" secondAttribute="leading" type="default" id="UlN-Lt-kbz"/>
+                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="17" secondAttribute="centerX" type="default" id="Wqf-qX-tws"/>
+                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="bottom" secondItem="17" secondAttribute="bottom" type="default" id="cNL-Cj-RxS"/>
+                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="ZN2-hu-UWh" secondAttribute="centerX" type="default" id="iqq-zr-coH"/>
+                            <constraint firstAttribute="bottom" secondItem="mTP-tp-ldf" secondAttribute="bottom" constant="192" id="pqt-4p-PV4"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
+                    <connections>
+                        <outlet property="checkboxButton" destination="30A-Ja-HaY" id="BIn-ms-G6I"/>
+                        <outlet property="nameField" destination="mTP-tp-ldf" id="RcY-IO-bnU"/>
+                        <outlet property="screenBackground" destination="ZN2-hu-UWh" id="YWE-1z-WgN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="653" y="531"/>
+        </scene>
+        <!--Feedback - Feedback-->
+        <scene sceneID="42u-pL-5PE">
+            <objects>
+                <viewController id="OiU-5v-Tw7" customClass="GHFeedback" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Iv-h5-BYU">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ODL-Br-7iJ"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-us-G3U">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Lb5-7r-YGF"/>
+                                    <constraint firstAttribute="height" constant="131" id="xhE-ro-AhQ"/>
+                                </constraints>
+                                <string key="text">Thank you for buying Gay Haiku.  If you have any problems with the app, or if you want to share any thoughts or suggestions, please email me at joel@joelderfner.com.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lPe-us-G3U" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" constant="167" id="2ra-lE-BO0"/>
+                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="bottom" secondItem="7Iv-h5-BYU" secondAttribute="bottom" type="default" id="REr-zH-2HX"/>
+                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" type="default" id="S0W-ZW-gul"/>
+                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="leading" secondItem="7Iv-h5-BYU" secondAttribute="leading" type="default" id="SpT-5O-Vha"/>
+                            <constraint firstItem="lPe-us-G3U" firstAttribute="centerX" secondItem="ODL-Br-7iJ" secondAttribute="centerX" type="default" id="ZQL-WB-lVd"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Feedback" image="90-lifebuoy.png" id="Kld-oc-0Ck"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bl8-Xo-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="653" y="1200"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="15">
+            <objects>
+                <tabBarController id="4" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="5">
+                        <rect key="frame" x="0.0" y="431" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="viewControllers" id="26"/>
+                        <segue destination="3" kind="relationship" relationship="viewControllers" id="27"/>
+                        <segue destination="raS-l8-cPH" kind="relationship" relationship="viewControllers" id="w7d-xX-dzh"/>
+                        <segue destination="OiU-5v-Tw7" kind="relationship" relationship="viewControllers" id="f0V-VL-g7t"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="180"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="216-compose.png" width="23" height="18"/>
+        <image name="53-house.png" width="22" height="22"/>
+        <image name="80-shopping-cart.png" width="26" height="19"/>
+        <image name="90-lifebuoy.png" width="24" height="24"/>
+        <image name="temp background.jpg" width="320" height="400"/>
+        <image name="trycheckbox.png" width="16" height="16"/>
+        <image name="trycheckbox_no.png" width="16" height="16"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
