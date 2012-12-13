@@ -110,8 +110,6 @@
     self.previousInstructions.text = text;
     self.previousInstructions.textColor = [UIColor purpleColor];
     
-    
-    
     [self.view addSubview:self.previousInstructions];
 }
 
@@ -243,7 +241,8 @@
         transition.delegate = self;
             
         //set view
-            
+        
+        [self.navBar removeFromSuperview];
         [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
         self.displayHaikuTextView.editable=NO;
         [self.view addSubview:self.displayHaikuTextView];

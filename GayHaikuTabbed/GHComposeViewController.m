@@ -85,8 +85,12 @@
         self.checkboxChecked = [defaults boolForKey:@"checked?"];
     }
     else self.checkboxChecked = YES;
-    self.optOutSeen=NO;
-    self.instructionsSeen=NO;
+    
+    //UNCOMMENT THESE LINES TO TEST OPTOUT/INSTRUCTIONS SEEN
+    
+    //self.optOutSeen=NO;
+    //self.instructionsSeen=NO;
+    
     if (!self.ghhaiku)
     {
         self.ghhaiku = [GHHaiku sharedInstance];
