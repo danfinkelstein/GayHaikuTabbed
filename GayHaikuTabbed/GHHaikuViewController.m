@@ -195,11 +195,6 @@
         [self addSwipeForPreviousView];
         self.swipePreviousInstructionsSeen=YES;
     }
-    
-    if (self.actionMenuShowing)
-    {
-        [self showNavBarOnTap];
-    }
 }
 
 -(void)goToPreviousHaiku
@@ -314,7 +309,6 @@
 //No method "editHaiku" exists yet.
 
 {
-    
     //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:NSSelectorFromString(@"deleteHaiku")];
