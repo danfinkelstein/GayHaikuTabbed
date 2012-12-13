@@ -204,12 +204,6 @@
     }
 }
 
-/*- (void) adjustArraysAndIndices
-{
-    self.theseHaikuHaveBeenSeen = self.ghhaiku.arrayOfSeen;
-    self.index = self.ghhaiku.index;
-}*/
-
 -(void)goToPreviousHaiku
 {
     if (self.ghhaiku.arrayOfSeen.count>1 && self.ghhaiku.index>1)
@@ -219,21 +213,26 @@
     
         //adjust index
         self.ghhaiku.index -= 1;
-            
+        
+        if ([[[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"category"] isEqualToString:@"user"])
+        {
+            self.ghhaiku.isUserHaiku=YES;
+        }
+        
         //set haiku
-        NSString *textForNextHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //replace textForNextHaiku with self.displayHaikuTextView and see what happens
+        NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //replace textForNextHaiku with self.displayHaikuTextView and see what happens
     
         //set CGSize
     
         CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-        CGSize xySize = [textForNextHaiku sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
+        CGSize xySize = [textForPreviousHaiku sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     
         //set UITextView
     
         self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
         self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
-        self.displayHaikuTextView.text=textForNextHaiku;
+        self.displayHaikuTextView.text=textForPreviousHaiku;
     
         //set animation
         CATransition *transition = [CATransition animation];
@@ -260,25 +259,37 @@
 {
     if (self.actionMenuShowing==NO)
     {
-    if (!self.navBar)
-    {
+        
+        //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear. 
+        
         self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
-    }
-    self.titleBar = [[UINavigationItem alloc] init];
-    self.titleBar.hidesBackButton=YES;
-    [self.navBar pushNavigationItem:self.titleBar animated:YES];
-    [self addShareButton];
-    if (self.ghhaiku.isUserHaiku==YES)
-    {
-        [self addLeftButtons];
-    }
-    [self.navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    self.navBar.alpha = 0.75;
-    self.navBar.translucent=YES;
-    [self.view addSubview:self.navBar];
-    double delayInSeconds = 4.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+        self.navBar.alpha = 0.75;
+        self.navBar.translucent=YES;
+        
+        //Create the UINavigationItem.
+    
+        self.titleBar = [[UINavigationItem alloc] init];
+        self.titleBar.hidesBackButton=YES;
+        
+        //Add share button and, if appropriate, delete and edit buttons
+        
+        [self addShareButton];
+        if (self.ghhaiku.isUserHaiku==YES)
+        {
+            [self addLeftButtons];
+        }
+
+        //Add navigation bar to screen.
+        
+        [self.navBar pushNavigationItem:self.titleBar animated:YES];
+        [self.view addSubview:self.navBar];
+        
+        //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
+        
+        double delayInSeconds = 4.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [UIView animateWithDuration:.5
                              animations:^{
                                  self.navBar.alpha = 0;
@@ -291,6 +302,9 @@
 
 -(void)addShareButton
 {
+    
+    //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
+    
     UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:NSSelectorFromString(@"showMessage")];
     send.style=UIBarButtonItemStyleBordered;
     self.titleBar.rightBarButtonItem = send;
@@ -298,9 +312,12 @@
 
 -(void)addLeftButtons
 
-//so far this only works after goToNextHaiku, not goToPreviousHaiku.  Also, no method "editHaiku" exists yet.
+//No method "editHaiku" exists yet.
 
 {
+    
+    //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
+    
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:NSSelectorFromString(@"deleteHaiku")];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:NSSelectorFromString(@"editHaiku")];
     UIImage *edit = [UIImage imageNamed:@"187-pencil.png"];
@@ -312,7 +329,9 @@
 -(void)deleteHaiku
 {
     NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
-    //adjust gayHaiku array so that there isn't a blank space at the index formerly containing the haiku.
+    
+    //Replace each haiku with the one just ahead of it in the gayHaiku array so that there are no blank spaces.
+    
     for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
     {
         if ([[[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"] isEqualToString:self.displayHaikuTextView.text])
@@ -329,12 +348,13 @@
     {
         NSLog(@"index:  %d; haiku:  %@",i,[self.ghhaiku.gayHaiku objectAtIndex:i]);
     }
-    if (self.navBar)
-    {
-        [self.navBar removeFromSuperview];
-    }
-    [self goToNextHaiku];
-    //save the new set of user haiku to the docs folder.
+    
+    //Remove the navigation bar so that the haiku that replaces the deleted haiku in self.displayHaikuTextView can't be deleted if it isn't a user haiku.
+    
+    [self.navBar removeFromSuperview];
+
+    //Save the new set of user haiku to the docs folder.
+    
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
@@ -347,11 +367,19 @@
         }
     }
     [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
+    
+    //Go to the next haiku so the screen won't be blank.
+    
+    [self goToNextHaiku];
+    
     NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    
+    //Take user to email, Facebook, or Twitter, depending on which option s/he's selected in the action sheet.
+    
     {
         if (buttonIndex == 0)
         {
