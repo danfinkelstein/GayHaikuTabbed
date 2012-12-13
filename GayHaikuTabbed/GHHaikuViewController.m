@@ -27,7 +27,7 @@
 @implementation GHHaikuViewController
 
 @synthesize ghhaiku;
-@synthesize displayHaikuTextView, serviceType;
+@synthesize displayHaikuTextView, serviceType, userIsEditing;
 @synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen, actionMenuShowing;
 
 -(void)viewDidLoad
@@ -317,6 +317,12 @@
     editButton.image=edit;
     NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
     self.titleBar.leftBarButtonItems = leftItems;
+}
+
+-(void)editHaiku
+{
+    self.userIsEditing=YES;
+    [self.tabBarController setSelectedIndex:1];
 }
 
 -(void)deleteHaiku

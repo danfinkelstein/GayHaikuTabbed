@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Joel Derfner. All rights reserved.
 //
 
-#import "GHComposeViewController.h"
+#import "GHComposeViewController.h" 
 
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
@@ -14,7 +14,7 @@
 
 @implementation GHComposeViewController
 
-@synthesize checkboxChecked, textView, optOut, screenBackground, checkboxButton, nameField, alert, instructions, ghhaiku, instructionsSeen, optOutSeen, screen, nextInstructions, previousInstructions;
+@synthesize checkboxChecked, textView, optOut, screenBackground, checkboxButton, nameField, alert, instructions, ghhaiku, instructionsSeen, optOutSeen, screen, nextInstructions, previousInstructions, homeView;
 
 -(void)displayScreen:(int)x
 {
@@ -96,13 +96,18 @@
         self.ghhaiku = [GHHaiku sharedInstance];
     }
     
+    if (!self.homeView)
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        self.homeView = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //Should this whole method be replaced with viewWillAppear?
-        
+
     //set background image
     
     UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
@@ -251,7 +256,18 @@
     self.textView.delegate = self;
     self.textView.hidden=NO;
     [self.textView becomeFirstResponder];
-    self.textView.text = @"";
+    if (self.homeView.userIsEditing==NO)
+        
+//This BOOL (self.homeView.userIsEditing) isn't getting called.  Logging shows that in GHHaikuViewController, self.userIsEditing is YES before tab switches to compose but that in GHComposeViewController, self.homeView.userIsEditing is NO.  How do I fix this?
+        
+    {
+        self.textView.text = @"";
+    }
+    else
+    {
+        self.textView.text = self.homeView.displayHaikuTextView.text;
+        NSLog(@"Yup");
+    }
     [self.view addSubview:self.textView];
     
     //Set the compose screen's background
@@ -430,13 +446,15 @@
     }
 }
 
--(void)saveUserHaiku
+-(BOOL)saveUserHaiku
 {
-    if (self.textView.text.length>0)
+    
+    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+    
+    if (self.textView.text.length>0 && self.homeView.userIsEditing==NO)
     {
-        NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
-        NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-        NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
         int i;
         for (i=0; i<self.ghhaiku.gayHaiku.count; i++)
         {
@@ -444,33 +462,66 @@
             if ([self.textView.text isEqualToString:haikuToCheck])
             {
                 [self.tabBarController setSelectedIndex:0];
+                return YES;
             }
         }
+//Does this next line add the haiku whether it's there or not already?  If so, fix that!
         [self.ghhaiku.gayHaiku addObject:dictToSave];
-        NSLog(@"%@",[self.ghhaiku.gayHaiku lastObject]);
-        [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
-        
-        PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
-        [haikuObject setObject:self.textView.text forKey:@"haiku"];
-        if (self.nameField.text)
-        {
-            [haikuObject setObject:self.nameField.text forKey:@"author"];
-        }
-        NSString *perm;
-        if (self.checkboxChecked)
-        {
-            perm=@"Yes";
-        }
-        else
-        {
-            perm=@"No";
-        }
-        [haikuObject setObject:perm forKey:@"permission"];
-        [haikuObject saveEventually];
-        self.ghhaiku.justComposed=YES;
-        [self.textView removeFromSuperview];
-        [self.tabBarController setSelectedIndex:0];
     }
+         //THE FOLLOWING apotasis IS UNTESTED.
+         //If it's an edited old haiku:
+    
+    else if (self.homeView.userIsEditing==YES && self.textView.text.length>0)
+        
+//This BOOL (self.homeView.userIsEditing) isn't getting called.  Logging shows that in GHHaikuViewController, self.userIsEditing is YES before tab switches to compose but that in GHComposeViewController, self.homeView.userIsEditing is NO.  How do I fix this?
+        
+    {
+        NSLog(@"editing? %d", self.homeView.userIsEditing);
+        for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
+        {
+            NSString *checkThis = [[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
+            if ([self.homeView.displayHaikuTextView.text isEqualToString:checkThis])
+            {
+                [self.ghhaiku.gayHaiku removeObjectAtIndex:i];
+                [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:i];
+            }
+         }
+         self.homeView.userIsEditing=NO;
+    }
+    
+    //end of untested apotasis
+    
+    else if (!self.textView.text.length>0)
+    {
+        [self.tabBarController setSelectedIndex:0];
+        return YES;
+    }
+    
+        
+    NSLog(@"%@",[self.ghhaiku.gayHaiku lastObject]);
+    [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
+        
+    PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
+    [haikuObject setObject:self.textView.text forKey:@"haiku"];
+    if (self.nameField.text)
+    {
+        [haikuObject setObject:self.nameField.text forKey:@"author"];
+    }
+    NSString *perm;
+    if (self.checkboxChecked)
+    {
+        perm=@"Yes";
+    }
+    else
+    {
+        perm=@"No";
+    }
+    [haikuObject setObject:perm forKey:@"permission"];
+    [haikuObject saveEventually];
+    self.ghhaiku.justComposed=YES;
+    [self.textView removeFromSuperview];
+    [self.tabBarController setSelectedIndex:0];
+    return YES;
 }
 
 - (IBAction)checkCheckbox

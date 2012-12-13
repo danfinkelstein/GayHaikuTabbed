@@ -25,6 +25,7 @@
 @property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) GHHaiku *ghhaiku;
+@property (nonatomic, strong) GHHaikuViewController *homeView;
 @property (nonatomic) int screen;
 @property (nonatomic, strong) UITextView *nextInstructions;
 @property (nonatomic, strong) UITextView *previousInstructions;
