@@ -27,7 +27,7 @@
 @implementation GHHaikuViewController
 
 @synthesize ghhaiku;
-@synthesize displayHaikuTextView, serviceType, userIsEditing;
+@synthesize displayHaikuTextView, serviceType;
 @synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen, actionMenuShowing;
 
 -(void)viewDidLoad
@@ -117,7 +117,6 @@
 {
     if (self.ghhaiku.justComposed==YES)
     {
-        NSLog(@"Just composed.");
         [super viewWillAppear:animated];
         self.displayHaikuTextView.text = [[self.ghhaiku.gayHaiku lastObject] valueForKey:@"quote"];
         self.ghhaiku.justComposed=NO;
@@ -148,7 +147,8 @@
     
     //select haiku at random
     
-    NSString *textForNextHaiku = [self.ghhaiku haikuToShow]; //try making this self.displayHaikuTextView.text (and changing rest of method to match) and seeing what happens?
+    [self.ghhaiku haikuToShow];
+    NSString *textForNextHaiku = self.ghhaiku.text; //try making this self.displayHaikuTextView.text (and changing rest of method to match) and seeing what happens?
     
     //set CGSize
     
@@ -213,8 +213,13 @@
         }
         
         //set haiku
-        NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //replace textForNextHaiku with self.displayHaikuTextView and see what happens
+        //NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //replace textForNextHaiku with self.displayHaikuTextView and see what happens
     
+        //This is experimental--if it doesn't work, delete!
+        self.ghhaiku.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"];
+        
+        NSString *textForPreviousHaiku = self.ghhaiku.text;
+        
         //set CGSize
     
         CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -321,13 +326,13 @@
 
 -(void)editHaiku
 {
-    self.userIsEditing=YES;
+    self.ghhaiku.userIsEditing=YES;
     [self.tabBarController setSelectedIndex:1];
 }
 
 -(void)deleteHaiku
 {
-    NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
+    //NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
     
     //Replace each haiku with the one just ahead of it in the gayHaiku array so that there are no blank spaces.
     
@@ -343,10 +348,10 @@
             }
         }
     }
-    for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
+    /*for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
     {
         NSLog(@"index:  %d; haiku:  %@",i,[self.ghhaiku.gayHaiku objectAtIndex:i]);
-    }
+    }*/
     
     //Remove the navigation bar so that the haiku that replaces the deleted haiku in self.displayHaikuTextView can't be deleted if it isn't a user haiku.
     
@@ -371,7 +376,7 @@
     
     [self goToNextHaiku];
     
-    NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
+    //NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex

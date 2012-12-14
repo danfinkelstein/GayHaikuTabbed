@@ -10,7 +10,7 @@
 
 @implementation GHHaiku
 
-@synthesize arrayOfSeen, mutArr, mutArrUser, arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku;
+@synthesize arrayOfSeen, mutArr, mutArrUser, arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text;
 
 + (GHHaiku *)sharedInstance
 {
@@ -30,7 +30,7 @@
     return x;
 }
 
--(NSString *)haikuToShow
+-(void)haikuToShow
 {
     NSString *txt;
     int sortingHat;
@@ -107,7 +107,7 @@
         }
         self.index += 1;
     }
-    return txt;
+    self.text = txt;
 }
 
 

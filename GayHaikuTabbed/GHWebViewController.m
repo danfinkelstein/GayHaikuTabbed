@@ -51,7 +51,6 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
-    NSLog(@"Yup!");
     // Do any additional setup after loading the view from its nib.
 }
 

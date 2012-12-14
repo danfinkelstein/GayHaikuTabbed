@@ -14,7 +14,7 @@
 +(GHHaiku *)sharedInstance;
 
 -(int)chooseNumber;
--(NSString *)haikuToShow;
+-(void)haikuToShow;
 
 @property (nonatomic) int index;
 @property (nonatomic, strong) NSMutableArray *gayHaiku;
@@ -23,8 +23,10 @@
 @property (nonatomic, strong) NSMutableArray *mutArrUser;
 @property (nonatomic, strong) NSArray *arrayAfterFiltering;
 @property (nonatomic, strong) NSString *selectedCategory;
+@property (nonatomic, strong) NSString *text;
 @property (nonatomic) BOOL justComposed;
 @property (nonatomic) BOOL isUserHaiku;
+@property (nonatomic) BOOL userIsEditing;
 
 -(void) loadHaiku;
 -(void) saveToDocsFolder:(NSString *)string;

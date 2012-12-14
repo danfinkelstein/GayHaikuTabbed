@@ -16,7 +16,6 @@
 @property (nonatomic) BOOL actionMenuShowing;
 @property (nonatomic) BOOL swipeNextInstructionsSeen;
 @property (nonatomic) BOOL swipePreviousInstructionsSeen;
-@property (nonatomic) BOOL userIsEditing;
 @property (nonatomic, strong) NSString *serviceType;
 @property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) UINavigationBar *navBar;

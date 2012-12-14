@@ -95,12 +95,20 @@
     {
         self.ghhaiku = [GHHaiku sharedInstance];
     }
+
+    /*
+     
+     Thought this would help solve the issue of self.userIsEditing (in GHHaikuViewController) not carrying over to self.homeView.userIsEditing.
+     
+     Was wrong.
     
     if (!self.homeView)
     {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         self.homeView = [storyboard instantiateViewControllerWithIdentifier:@"home"];
     }
+     
+     */
     
 }
 
@@ -247,6 +255,7 @@
     {
         self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 150)];
         self.textView.backgroundColor = [UIColor whiteColor];
+        self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     }
     
     //Set the textView's attributes and delegate.
@@ -256,7 +265,7 @@
     self.textView.delegate = self;
     self.textView.hidden=NO;
     [self.textView becomeFirstResponder];
-    if (self.homeView.userIsEditing==NO)
+    if (self.ghhaiku.userIsEditing==NO)
         
 //This BOOL (self.homeView.userIsEditing) isn't getting called.  Logging shows that in GHHaikuViewController, self.userIsEditing is YES before tab switches to compose but that in GHComposeViewController, self.homeView.userIsEditing is NO.  How do I fix this?
         
@@ -265,8 +274,7 @@
     }
     else
     {
-        self.textView.text = self.homeView.displayHaikuTextView.text;
-        NSLog(@"Yup");
+        self.textView.text = self.ghhaiku.text;
     }
     [self.view addSubview:self.textView];
     
@@ -453,7 +461,7 @@
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
     
-    if (self.textView.text.length>0 && self.homeView.userIsEditing==NO)
+    if (self.textView.text.length>0 && self.ghhaiku.userIsEditing==NO)
     {
         int i;
         for (i=0; i<self.ghhaiku.gayHaiku.count; i++)
@@ -466,29 +474,28 @@
             }
         }
 //Does this next line add the haiku whether it's there or not already?  If so, fix that!
+        NSLog(@"%d", self.ghhaiku.gayHaiku.count);
         [self.ghhaiku.gayHaiku addObject:dictToSave];
+        NSLog(@"%d", self.ghhaiku.gayHaiku.count);
     }
-         //THE FOLLOWING apotasis IS UNTESTED.
+    
          //If it's an edited old haiku:
     
-    else if (self.homeView.userIsEditing==YES && self.textView.text.length>0)
-        
-//This BOOL (self.homeView.userIsEditing) isn't getting called.  Logging shows that in GHHaikuViewController, self.userIsEditing is YES before tab switches to compose but that in GHComposeViewController, self.homeView.userIsEditing is NO.  How do I fix this?
+    else if (self.ghhaiku.userIsEditing==YES && self.textView.text.length>0)
         
     {
-        NSLog(@"editing? %d", self.homeView.userIsEditing);
         for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
         {
             NSString *checkThis = [[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
-            if ([self.homeView.displayHaikuTextView.text isEqualToString:checkThis])
+            if ([self.ghhaiku.text isEqualToString:checkThis])
             {
                 [self.ghhaiku.gayHaiku removeObjectAtIndex:i];
-                [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:i];
+                [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:i];   
             }
          }
-         self.homeView.userIsEditing=NO;
+         self.ghhaiku.userIsEditing=NO;
     }
-    
+
     //end of untested apotasis
     
     else if (!self.textView.text.length>0)
@@ -497,8 +504,6 @@
         return YES;
     }
     
-        
-    NSLog(@"%@",[self.ghhaiku.gayHaiku lastObject]);
     [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
         
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
@@ -528,7 +533,6 @@
 {
     self.checkboxChecked=!self.checkboxChecked;
     [self displayButton];
-    NSLog(@"box checked? %d", self.checkboxChecked);
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:self.checkboxChecked forKey:@"checked?"];
     [defaults synchronize];
