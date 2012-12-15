@@ -13,7 +13,6 @@
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
-@property (nonatomic) BOOL actionMenuShowing;
 @property (nonatomic) BOOL swipeNextInstructionsSeen;
 @property (nonatomic) BOOL swipePreviousInstructionsSeen;
 @property (nonatomic, strong) NSString *serviceType;

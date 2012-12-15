@@ -28,7 +28,7 @@
 
 @synthesize ghhaiku;
 @synthesize displayHaikuTextView, serviceType;
-@synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen, actionMenuShowing;
+@synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen;
 
 -(void)viewDidLoad
 {
@@ -63,7 +63,6 @@
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    self.actionMenuShowing=NO;
     
     self.tabBarController.delegate=self;
     self.swipeNextInstructionsSeen=NO;
@@ -147,20 +146,19 @@
     
     //select haiku at random
     
-    [self.ghhaiku haikuToShow];
-    NSString *textForNextHaiku = self.ghhaiku.text; //try making this self.displayHaikuTextView.text (and changing rest of method to match) and seeing what happens?
+    [self.ghhaiku haikuToShow]; //This produces self.ghhaiku.text as the new haiku.
     
     //set CGSize
     
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [textForNextHaiku sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     
     //set UITextView
     
     self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
     self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
-    self.displayHaikuTextView.text=textForNextHaiku;
+    self.displayHaikuTextView.text=self.ghhaiku.text;
     
     //set animation
     
@@ -176,6 +174,7 @@
     [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
     self.displayHaikuTextView.editable=NO;
     [self.view addSubview:self.displayHaikuTextView];
+    [self.navBar removeFromSuperview];
     
     if (self.swipeNextInstructionsSeen==YES)
     {
@@ -213,24 +212,21 @@
         }
         
         //set haiku
-        //NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //replace textForNextHaiku with self.displayHaikuTextView and see what happens
+        //NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //If things get fucked up, replace self.ghhaiku.text in the following lines with NSString *textToDisplay.
     
-        //This is experimental--if it doesn't work, delete!
         self.ghhaiku.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"];
-        
-        NSString *textForPreviousHaiku = self.ghhaiku.text;
         
         //set CGSize
     
         CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-        CGSize xySize = [textForPreviousHaiku sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
+        CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     
         //set UITextView
     
         self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
         self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
-        self.displayHaikuTextView.text=textForPreviousHaiku;
+        self.displayHaikuTextView.text=self.ghhaiku.text;
     
         //set animation
         CATransition *transition = [CATransition animation];
@@ -256,21 +252,25 @@
 
 -(void)showNavBarOnTap
 {
-    if (self.actionMenuShowing==NO)
+    
+//PROBLEM:  if user taps screen while UINavigationBar is already showing, somehow a second UINavigationBar appears (you can tell because the UINavigationBar darkens) and one of the two persists.
+    
+    if (self.navBar)
     {
-        
-        //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear. 
+        [self.navBar removeFromSuperview];
+    }
+        //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
         
         self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
         [self.navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-        self.navBar.alpha = 0.75;
         self.navBar.translucent=YES;
-        
-        //Create the UINavigationItem.
+        self.navBar.alpha = 0.75;
+    
+        //Create UINavigationItem
     
         self.titleBar = [[UINavigationItem alloc] init];
         self.titleBar.hidesBackButton=YES;
-        
+    
         //Add share button and, if appropriate, delete and edit buttons
         
         [self addShareButton];
@@ -286,7 +286,7 @@
         
         //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
         
-        double delayInSeconds = 4.0;
+        double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [UIView animateWithDuration:.5
@@ -294,9 +294,6 @@
                                  self.navBar.alpha = 0;
                              }];
         });
-
-    }
-    else [self.navBar removeFromSuperview];
 }
 
 -(void)addShareButton

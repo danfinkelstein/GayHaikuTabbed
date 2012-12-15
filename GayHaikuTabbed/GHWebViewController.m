@@ -36,6 +36,9 @@
 
     //create nav bar
     [self loadNavBar:@"Buy"];
+    
+//What does this next line actually do?
+    
     self.navBarTitle.hidesBackButton=YES;
     [self seeNavBar];
     
@@ -51,7 +54,6 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)addNavBarButtons
@@ -153,10 +155,6 @@
         {
             self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [self.alert show];
-            
-            //Need to dismiss webView if user presses cancel button, but this isn't working:
-            
-            [self.alert.delegate alertViewCancel:self.alert];
         }
     }
     return YES;
@@ -175,7 +173,6 @@
     if (connectio)
     {
         [self.webV loadRequest:reques];
-        //[self.ghwebview.webV loadRequest:reques];
     }
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];

@@ -10,20 +10,25 @@
 
 @implementation GHHaiku
 
-@synthesize arrayOfSeen, mutArr, mutArrUser, arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text;
+@synthesize arrayOfSeen, arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text;
 
 + (GHHaiku *)sharedInstance
+
+    //Make GHHaiku a singleton class.
+
 {
     static GHHaiku *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[GHHaiku alloc] init];
-        // Do any other initialisation stuff here
     });
     return sharedInstance;
 }
 
 -(int)chooseNumber
+
+    //Choose a random number between 0 and the number of haiku in the array of all haiku, minus 1.
+
 {
     int x;
     x = (arc4random() % self.gayHaiku.count);
@@ -31,18 +36,26 @@
 }
 
 -(void)haikuToShow
+
+    //Choose the next haiku for GHHaikuViewController -(void)goToNextHaiku.
+
 {
+    
+    //Create terms
+    
     NSString *txt;
     int sortingHat;
     if (!self.index) self.index=0;
+    if (!self.arrayOfSeen) self.arrayOfSeen = [[NSMutableArray alloc] init];
+    
+    //If you've gone through the entire array, empty the array of haiku seen and reset the index.
+    
     if (self.gayHaiku.count==self.arrayOfSeen.count)
     {
         [self.arrayOfSeen removeAllObjects];
         self.index=0;
     }
-    if (!self.arrayOfSeen) self.arrayOfSeen = [[NSMutableArray alloc] init];
-    
-        
+
     //If you haven't called previousHaiku
         
     if (self.index == self.arrayOfSeen.count)
@@ -65,6 +78,9 @@
         //Set text to quote for chosen number
             
         txt = [[self.gayHaiku objectAtIndex:sortingHat] valueForKey:@"quote"];
+        
+        //Indicate whether it's a user-generated haiku or not.
+        
         if ([[[self.gayHaiku objectAtIndex:sortingHat] valueForKey:@"category"] isEqualToString:@"user"])
         {
             self.isUserHaiku=YES;
@@ -84,12 +100,13 @@
             
         //If the haiku just chosen was the last available, start over.
             
+//This code is repeated from the beginning of the method.  Is there a reason to have it both at the beginning and here?
+         
         if (self.arrayOfSeen.count == self.gayHaiku.count)
         {
             [self.arrayOfSeen removeAllObjects];
             self.index=0;
         }
-            
     }
         
     //If you HAVE called previousHaiku
@@ -109,8 +126,6 @@
     }
     self.text = txt;
 }
-
-
 
 -(void) loadHaiku
 {
@@ -137,7 +152,7 @@
     
     //Loads an array with the contents of "path".
     
-    self.mutArr = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    NSMutableArray *mutArr = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
     //This loads the haiku from userHaiku.plist to the file "userPath".
     
@@ -161,10 +176,9 @@
     
     //Loads an array with the contents of "userPath".
 
-    self.mutArrUser = [[NSMutableArray alloc] initWithContentsOfFile:userPath];
-    //NSLog(@"%@",self.mutArrUser);
-    self.gayHaiku = [[NSMutableArray alloc] initWithArray:self.mutArr];
-    [self.gayHaiku addObjectsFromArray:self.mutArrUser];
+    NSMutableArray *mutArrUser = [[NSMutableArray alloc] initWithContentsOfFile:userPath];
+    self.gayHaiku = [[NSMutableArray alloc] initWithArray:mutArr];
+    [self.gayHaiku addObjectsFromArray:mutArrUser];
 }
 
 -(void)saveToDocsFolder:(NSString *)string

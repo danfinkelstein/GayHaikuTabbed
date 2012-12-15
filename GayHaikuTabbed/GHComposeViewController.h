@@ -14,6 +14,7 @@
 #import <Parse/Parse.h>
 #import "GHHaiku.h"
 #import "GHHaikuViewController.h"
+#import "NSString+RNTextStatistics.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate>
 
@@ -25,10 +26,13 @@
 @property (nonatomic) BOOL checkboxChecked;
 @property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) GHHaiku *ghhaiku;
-@property (nonatomic, strong) GHHaikuViewController *homeView;
+@property (nonatomic, strong) GHVerify *ghverify;
 @property (nonatomic) int screen;
 @property (nonatomic, strong) UITextView *nextInstructions;
 @property (nonatomic, strong) UITextView *previousInstructions;
+@property (nonatomic) BOOL instructionsHaveBeenSeenThisSession;
+@property (nonatomic) BOOL optOutHasBeenSeenThisSession;
+@property (nonatomic) BOOL bypassSyllableCheck;
 
 @property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
 @property (nonatomic, weak) IBOutlet UIButton *checkboxButton;

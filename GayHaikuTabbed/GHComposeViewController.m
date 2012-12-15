@@ -14,7 +14,7 @@
 
 @implementation GHComposeViewController
 
-@synthesize checkboxChecked, textView, optOut, screenBackground, checkboxButton, nameField, alert, instructions, ghhaiku, instructionsSeen, optOutSeen, screen, nextInstructions, previousInstructions, homeView;
+@synthesize checkboxChecked, textView, optOut, screenBackground, checkboxButton, nameField, alert, instructions, ghhaiku, instructionsSeen, optOutSeen, screen, nextInstructions, previousInstructions,instructionsHaveBeenSeenThisSession, optOutHasBeenSeenThisSession, ghverify, bypassSyllableCheck;
 
 -(void)displayScreen:(int)x
 {
@@ -33,8 +33,6 @@
 }
 
 -(int)chooseRightSwipeMethod
-
-//PROBLEM:  this works when instructionsSeen and optOutSeen are set to NO in viewDidLoad but not when they're set to default and default is YES--in the latter case, it's impossible to right swipe from displayInstructionsScreen to displayComposeScreen.  What's going on?
 
 {
     if (self.screen-1>=0)
@@ -95,27 +93,15 @@
     {
         self.ghhaiku = [GHHaiku sharedInstance];
     }
-
-    /*
-     
-     Thought this would help solve the issue of self.userIsEditing (in GHHaikuViewController) not carrying over to self.homeView.userIsEditing.
-     
-     Was wrong.
-    
-    if (!self.homeView)
-    {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        self.homeView = [storyboard instantiateViewControllerWithIdentifier:@"home"];
-    }
-     
-     */
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
+    self.bypassSyllableCheck=NO;
+    NSLog(@"%d",self.bypassSyllableCheck);
+    
     //set background image
     
     UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
@@ -165,6 +151,7 @@
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake(10, 340, xySize.width, (xySize.height*2));
+//Why is there a line break after "opt"?  It should be just one line.
     self.previousInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.previousInstructions.editable=NO;
 //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.self.previousInstructions.backgroundColor = [UIColor clearColor];
@@ -237,6 +224,7 @@
 -(void)displayComposeScreen
 {
     
+    
     [self.nextInstructions removeFromSuperview];
     [self.previousInstructions removeFromSuperview];
     
@@ -266,9 +254,6 @@
     self.textView.hidden=NO;
     [self.textView becomeFirstResponder];
     if (self.ghhaiku.userIsEditing==NO)
-        
-//This BOOL (self.homeView.userIsEditing) isn't getting called.  Logging shows that in GHHaikuViewController, self.userIsEditing is YES before tab switches to compose but that in GHComposeViewController, self.homeView.userIsEditing is NO.  How do I fix this?
-        
     {
         self.textView.text = @"";
     }
@@ -332,13 +317,17 @@
     }
     if (self.screen==0) [self animateView:self.instructions withDirection:@"left"];
     else if (self.screen==2) [self animateView:self.instructions withDirection:@"right"];
-    //if (self.instructionsSeen==NO)
+    if (self.instructionsSeen==NO)
     {
-        [self addSwipeForLeft];
-        [self addSwipeForRight];
         self.instructionsSeen=YES;
         [self saveData];
     }
+    if (self.instructionsHaveBeenSeenThisSession==NO)
+    {
+        [self addSwipeForLeft];
+        [self addSwipeForRight];
+    }
+    self.instructionsHaveBeenSeenThisSession=YES;
     self.instructions.hidden=NO;
     self.screen=1;
     [self.view addSubview:self.instructions];
@@ -396,12 +385,16 @@
     [self.view bringSubviewToFront:self.nameField];
     self.screen=2;
     
-    //if (self.optOutSeen==NO)
+    if (self.optOutSeen==NO)
     {
-        [self addSwipeForRight];
-        self.optOutSeen=YES;
+        self.instructionsSeen=YES;
         [self saveData];
     }
+    if (self.optOutHasBeenSeenThisSession==NO)
+    {
+        [self addSwipeForRight];
+    }
+    self.optOutHasBeenSeenThisSession=YES;
 }
 
 -(void)displayButton
@@ -455,11 +448,59 @@
 }
 
 -(BOOL)saveUserHaiku
+
+//Question:  if a user approves a hybersyllabic haiku, should that approval be saved along with the haiku so that if s/he edits, the alertview won't show again?
+
 {
-    
     NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+    NSLog(@"%d",self.bypassSyllableCheck);
+    if (self.bypassSyllableCheck==NO)
+    {
+        if (!self.ghverify)
+        {
+            self.ghverify = [[GHVerify alloc] init];
+        }
+    
+        [self.ghverify splitHaikuIntoLines:self.textView.text];
+        [self.ghverify checkHaikuSyllables];
+    
+        NSString *alertMessage=@"I'm sorry, but ";
+    
+        if (self.ghverify.correctNumberOfLines!=@"Just right.")
+        {
+            alertMessage = [alertMessage stringByAppendingFormat:@" %@",self.ghverify.correctNumberOfLines];
+        }
+        for (int i=0; i<3; i++)
+        {
+            if ([self.ghverify.linesAfterCheck objectAtIndex:i])
+            {
+            //NSLog(@"%@",[self.ghverify.linesAfterCheck objectAtIndex:i]);
+                if (![[self.ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"Just right."])
+                {
+                    if ([alertMessage characterAtIndex:alertMessage.length-1]=='.')
+                    {
+                        alertMessage = [alertMessage stringByAppendingFormat:@" Also, %@",[self.ghverify.linesAfterCheck objectAtIndex:i]];
+                    }
+                    else alertMessage = [alertMessage stringByAppendingFormat:@" %@",[self.ghverify.linesAfterCheck objectAtIndex:i]];
+                }
+            }
+        }
+    if (alertMessage.length>15)
+    {
+        NSString *add = @"Are you certain you'd like to continue saving?";
+        alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
+        self.alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
+        [self.alert show];
+        return YES;
+    }
+    else
+    {
+        alertMessage=@"Golden!";
+    }
+    NSLog(@"%@",alertMessage);
+    }
     
     if (self.textView.text.length>0 && self.ghhaiku.userIsEditing==NO)
     {
@@ -527,6 +568,22 @@
     [self.textView removeFromSuperview];
     [self.tabBarController setSelectedIndex:0];
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView
+didDismissWithButtonIndex:(NSInteger) buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        NSLog(@"Cancel Tapped.");
+    }
+    else if (buttonIndex == 1)
+    {
+        self.bypassSyllableCheck=YES;
+        NSLog(@"%d",self.bypassSyllableCheck);
+        [self saveUserHaiku];
+        self.bypassSyllableCheck=NO;
+    }
 }
 
 - (IBAction)checkCheckbox
