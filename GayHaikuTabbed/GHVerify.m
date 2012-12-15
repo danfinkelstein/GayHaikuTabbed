@@ -41,18 +41,27 @@
     self.linesAfterCheck = [[NSMutableArray alloc] init];
     NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
 
-    for (int i=0; i<3; i++)
+    int k;
+    if (self.listOfLines.count<3)
+    {
+        k=self.listOfLines.count;
+    }
+    else
+    {
+        k=3;
+    }
+    for (int i=0; i<k; i++)
     {
         int extant = [self syllablesInLine:[self.listOfLines objectAtIndex:i]];
         int ideal = [[syllablesInLine objectAtIndex:i] integerValue];
         if (extant<ideal)
         {
-            NSString *tooFew = [NSString stringWithFormat:@"line %d seems to have too few syllables.",i+1];
+            NSString *tooFew = [NSString stringWithFormat:@"line %d might have too few syllables.",i+1];
             [self.linesAfterCheck addObject:tooFew];
         }
         else if (extant>ideal)
         {
-            NSString *tooMany = [NSString stringWithFormat:@"line %d seems to have too many syllables.", i+1];
+            NSString *tooMany = [NSString stringWithFormat:@"line %d might have too many syllables.", i+1];
             [self.linesAfterCheck addObject:tooMany];
         }
         else if (extant==ideal)

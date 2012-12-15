@@ -77,6 +77,9 @@
 
 -(void)addSwipeForNextView
 {
+    
+    //Create "swipe for next haiku" message and set its characteristics.
+    
     NSString *text = @"Swipe for next haiku.";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
@@ -88,18 +91,16 @@
     self.nextInstructions.backgroundColor = [UIColor clearColor];
     self.nextInstructions.text = text;
     
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.25;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
-    transition.subtype =kCATransitionFromLeft;
-    transition.delegate = self;
+    //Display it.
     
     [self.view addSubview:self.nextInstructions];
 }
 
 -(void)addSwipeForPreviousView
 {
+    
+    //Create "swipe for previous haiku" message and set its characteristics.
+    
     NSString *text = @"Swipe for previous haiku.";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
@@ -111,15 +112,25 @@
     self.previousInstructions.text = text;
     self.previousInstructions.textColor = [UIColor purpleColor];
     
+    //Display it.
+    
     [self.view addSubview:self.previousInstructions];
 }
 
 - (void) viewWillAppear:(BOOL)animated
+
+    //This replaces, when the user returns from the compose screen, whatever haiku was showing in the main screen with the new user haiku.
+
 {
     if (self.ghhaiku.justComposed==YES)
     {
         [super viewWillAppear:animated];
-        self.displayHaikuTextView.text = [[self.ghhaiku.gayHaiku lastObject] valueForKey:@"quote"];
+        if (self.displayHaikuTextView)
+        {
+            [self.displayHaikuTextView removeFromSuperview];
+        }
+        [self displayHaiku];
+        [self showNavBarOnTap];
         self.ghhaiku.justComposed=NO;
     }
 }
@@ -134,7 +145,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:@"swipeForNextSeen?"])
 
-    //reset screen, saved text, composed text, segment controller
+    //reset screen
     
     [self.displayHaikuTextView removeFromSuperview];
     if (!self.ghhaiku)
@@ -197,7 +208,9 @@
 {
     [self.displayHaikuTextView removeFromSuperview];
     self.ghhaiku.newIndex++;
-    
+    //NSLog
+    self.comingFromPrevious=NO;
+    [self displayHaiku];
     if (self.swipePreviousInstructionsSeen==NO)
     {
         [self addSwipeForPreviousView];
@@ -207,8 +220,6 @@
     {
         [self.previousInstructions removeFromSuperview];
     }
-    self.comingFromPrevious=NO;
-    [self displayHaiku];
 }
 
 -(void)goToPreviousHaiku
@@ -307,6 +318,7 @@
     //Delete the haiku
     
     [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
+    [self.displayHaikuTextView removeFromSuperview];
     
     [self.navBar removeFromSuperview];
 

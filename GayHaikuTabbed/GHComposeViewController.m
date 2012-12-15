@@ -496,7 +496,16 @@
         {
             alertMessage = [alertMessage stringByAppendingFormat:@" %@",self.ghverify.correctNumberOfLines];
         }
-        for (int i=0; i<3; i++)
+        int k;
+        if (self.ghverify.listOfLines.count<3)
+        {
+            k=self.ghverify.listOfLines.count;
+        }
+        else
+        {
+            k=3;
+        }
+        for (int i=0; i<k; i++)
         {
             if ([self.ghverify.linesAfterCheck objectAtIndex:i])
             {
@@ -521,7 +530,11 @@
 
     }
     if (self.textView.text.length>0 && self.ghhaiku.userIsEditing==NO)
+        
+    //If it's a new haiku:
+        
     {
+        self.ghhaiku.newIndex++;
         [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:self.ghhaiku.newIndex];
     }
     
