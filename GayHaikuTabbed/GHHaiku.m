@@ -115,7 +115,6 @@
     
     //Loads an array with the contents of "path".
     
-    //NSMutableArray *mutArr = [[NSMutableArray alloc] initWithContentsOfFile: path];
     self.haikuLoaded = [[NSMutableArray alloc] initWithContentsOfFile:path];
     
     //This loads the haiku from userHaiku.plist to the file "userPath".
@@ -142,9 +141,6 @@
 
     NSMutableArray *mutArrUser = [[NSMutableArray alloc] initWithContentsOfFile:userPath];
     [self.haikuLoaded addObjectsFromArray:mutArrUser];
-    
-    //self.gayHaiku = [[NSMutableArray alloc] initWithArray:mutArr];
-    //[self.gayHaiku addObjectsFromArray:mutArrUser];
 }
 
 -(void)saveToDocsFolder:(NSString *)string

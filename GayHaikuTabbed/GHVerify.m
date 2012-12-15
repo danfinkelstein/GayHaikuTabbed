@@ -15,14 +15,11 @@
 -(NSArray *)splitHaikuIntoLines: (NSString *)haiku
 {
     self.listOfLines = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@"\n"] ];
-    //self.listOfLines = ;
-    NSLog(@"list of lines: %@", self.listOfLines);
     return self.listOfLines;
 }
 
 -(int) syllablesInLine: (NSString *)line {
     int number = [line syllableCount];
-    NSLog(@"Syllables in line: %d",number);
     return number;
 }
 
@@ -32,7 +29,6 @@
     {
         self.ghhaiku = [[GHHaiku alloc] init];
     }
-    NSLog(@"list of lines: %@ count: %d",self.listOfLines, self.listOfLines.count);
     if (self.listOfLines.count>3)
     {
         self.correctNumberOfLines=@"your haiku seems to have too many lines.";
@@ -49,7 +45,6 @@
     {
         int extant = [self syllablesInLine:[self.listOfLines objectAtIndex:i]];
         int ideal = [[syllablesInLine objectAtIndex:i] integerValue];
-        NSLog(@"extant: %d ideal: %d",extant, ideal);
         if (extant<ideal)
         {
             NSString *tooFew = [NSString stringWithFormat:@"line %d seems to have too few syllables.",i+1];

@@ -84,9 +84,9 @@
     self.nextInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.nextInstructions.editable=NO;
 //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
+    self.nextInstructions.textColor = [UIColor purpleColor];
     self.nextInstructions.backgroundColor = [UIColor clearColor];
     self.nextInstructions.text = text;
-    self.nextInstructions.textColor = [UIColor purpleColor];
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
@@ -219,7 +219,6 @@
     {
         [self.displayHaikuTextView removeFromSuperview];
         self.ghhaiku.newIndex--;
-            NSLog(@"%d",self.ghhaiku.newIndex);
         self.previousHaikuJustCalled=YES;
     
         self.comingFromPrevious=YES;
@@ -230,48 +229,45 @@
 
 -(void)showNavBarOnTap
 {
-    
-//PROBLEM:  if user taps screen while UINavigationBar is already showing, somehow a second UINavigationBar appears (you can tell because the UINavigationBar darkens) and one of the two persists.
-    
     if (self.navBar)
     {
         [self.navBar removeFromSuperview];
     }
-        //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
+    //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
         
-        self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
-        [self.navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-        self.navBar.translucent=YES;
-        self.navBar.alpha = 0.75;
+    self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    [self.navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    self.navBar.translucent=YES;
+    self.navBar.alpha = 0.75;
     
-        //Create UINavigationItem
-    
-        self.titleBar = [[UINavigationItem alloc] init];
-        self.titleBar.hidesBackButton=YES;
-    
-        //Add share button and, if appropriate, delete and edit buttons
-        
-        [self addShareButton];
-        if (self.ghhaiku.isUserHaiku==YES)
-        {
-            [self addLeftButtons];
-        }
+    //Create UINavigationItem
 
-        //Add navigation bar to screen.
+    self.titleBar = [[UINavigationItem alloc] init];  //Is this necessary?  There's no title.
+    self.titleBar.hidesBackButton=YES; //What does this actually do?  Is it necessary?
+    
+    //Add share button and, if appropriate, delete and edit buttons
         
-        [self.navBar pushNavigationItem:self.titleBar animated:YES];
-        [self.view addSubview:self.navBar];
+    [self addShareButton];
+    if (self.ghhaiku.isUserHaiku==YES)
+    {
+        [self addLeftButtons];
+    }
+
+    //Add navigation bar to screen.
         
-        //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
+    [self.navBar pushNavigationItem:self.titleBar animated:YES];
+    [self.view addSubview:self.navBar];
         
-        double delayInSeconds = 3.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
+        
+    double delayInSeconds = 3.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [UIView animateWithDuration:.5
                              animations:^{
                                  self.navBar.alpha = 0;
                              }];
-        });
+    });
 }
 
 -(void)addShareButton

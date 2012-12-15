@@ -100,7 +100,6 @@
     [super viewWillAppear:animated];
     
     self.bypassSyllableCheck=NO;
-    NSLog(@"%d",self.bypassSyllableCheck);
     
     //set background image
     
@@ -431,7 +430,6 @@
     [self.textView resignFirstResponder];
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
     [actSheet showFromTabBar:self.tabBarController.tabBar];
-    NSLog(@"destructive:  %d, cancel:  %d", actSheet.destructiveButtonIndex, actSheet.cancelButtonIndex);
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -502,7 +500,6 @@
         {
             if ([self.ghverify.linesAfterCheck objectAtIndex:i])
             {
-            //NSLog(@"%@",[self.ghverify.linesAfterCheck objectAtIndex:i]);
                 if (![[self.ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"Just right."])
                 {
                     if ([alertMessage characterAtIndex:alertMessage.length-1]=='.')
@@ -582,7 +579,6 @@ didDismissWithButtonIndex:(NSInteger) buttonIndex
     else if (buttonIndex == 1)
     {
         self.bypassSyllableCheck=YES;
-        NSLog(@"%d",self.bypassSyllableCheck);
         [self saveUserHaiku];
         self.bypassSyllableCheck=NO;
     }
