@@ -28,7 +28,7 @@
 
 @synthesize ghhaiku;
 @synthesize displayHaikuTextView, serviceType;
-@synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen;
+@synthesize alert, navBar, nextInstructions, previousInstructions, swipeNextInstructionsSeen, swipePreviousInstructionsSeen, previousHaikuJustCalled, comingFromPrevious;
 
 -(void)viewDidLoad
 {
@@ -68,7 +68,9 @@
     self.swipeNextInstructionsSeen=NO;
     self.swipePreviousInstructionsSeen=NO;
     
-    [self goToNextHaiku];
+    if (!self.ghhaiku.newIndex) self.ghhaiku.newIndex=0;
+    
+    [self displayHaiku];
 
     [self showNavBarOnTap];
 }
@@ -127,25 +129,18 @@
     [super didReceiveMemoryWarning];
 }
 
--(void)goToNextHaiku
+-(void)displayHaiku
 {
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:@"swipeForNextSeen?"])
-    {
-        self.swipeNextInstructionsSeen = YES;
-        [self nextInstructions];
-        [defaults setBool:self.swipeNextInstructionsSeen forKey:@"swipeForNextSeen?"];
-        [defaults synchronize];
-        [self addSwipeForNextView];
-    }
-    
+
     //reset screen, saved text, composed text, segment controller
     
-    self.displayHaikuTextView.text=@"";
-    
-    //select haiku at random
-    
+    [self.displayHaikuTextView removeFromSuperview];
+    if (!self.ghhaiku)
+    {
+        self.ghhaiku=[[GHHaiku alloc] init];
+    }
     [self.ghhaiku haikuToShow]; //This produces self.ghhaiku.text as the new haiku.
     
     //set CGSize
@@ -158,95 +153,78 @@
     self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
     self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
+    self.displayHaikuTextView.editable=NO;
+
     self.displayHaikuTextView.text=self.ghhaiku.text;
-    
-    //set animation
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush;
-    transition.subtype =kCATransitionFromRight;
-    transition.delegate = self;
-    
-    //set view
-    
-    [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
-    self.displayHaikuTextView.editable=NO;
-    [self.view addSubview:self.displayHaikuTextView];
-    [self.navBar removeFromSuperview];
-    
-    if (self.swipeNextInstructionsSeen==YES)
+    if (self.comingFromPrevious==NO)
     {
-        [self.nextInstructions removeFromSuperview];
+        transition.subtype =kCATransitionFromRight;
     }
     else
     {
+        transition.subtype=kCATransitionFromLeft;
+    }
+    transition.delegate = self;
+    
+    [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
+    self.displayHaikuTextView.editable=NO;    
+    [self.view addSubview:self.displayHaikuTextView];
+
+    [self.navBar removeFromSuperview];
+    
+    if (self.swipeNextInstructionsSeen==NO)
+    {
         [self addSwipeForNextView];
         self.swipeNextInstructionsSeen=YES;
+    }
+    else
+    {
+        [self.nextInstructions removeFromSuperview];
     }
     if (self.swipePreviousInstructionsSeen==YES)
     {
         [self.previousInstructions removeFromSuperview];
     }
-    else if (self.ghhaiku.arrayOfSeen.count!=1)
+    self.previousHaikuJustCalled=NO;
+}
+
+-(void)goToNextHaiku
+{
+    [self.displayHaikuTextView removeFromSuperview];
+    self.ghhaiku.newIndex++;
+    
+    if (self.swipePreviousInstructionsSeen==NO)
     {
         [self addSwipeForPreviousView];
         self.swipePreviousInstructionsSeen=YES;
     }
+    else
+    {
+        [self.previousInstructions removeFromSuperview];
+    }
+    self.comingFromPrevious=NO;
+    [self displayHaiku];
 }
 
 -(void)goToPreviousHaiku
 {
-    if (self.ghhaiku.arrayOfSeen.count>1 && self.ghhaiku.index>1)
+    //select haiku at random
+    
+    if (!self.ghhaiku.newIndex<1)
     {
-        //reset screen, saved text, composed text, segment controller
-        self.displayHaikuTextView.text=@"";
+        [self.displayHaikuTextView removeFromSuperview];
+        self.ghhaiku.newIndex--;
+            NSLog(@"%d",self.ghhaiku.newIndex);
+        self.previousHaikuJustCalled=YES;
     
-        //adjust index
-        self.ghhaiku.index -= 1;
-        
-        if ([[[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"category"] isEqualToString:@"user"])
-        {
-            self.ghhaiku.isUserHaiku=YES;
-        }
-        
-        //set haiku
-        //NSString *textForPreviousHaiku = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"]; //If things get fucked up, replace self.ghhaiku.text in the following lines with NSString *textToDisplay.
-    
-        self.ghhaiku.text = [[self.ghhaiku.arrayOfSeen objectAtIndex:self.ghhaiku.index-1] valueForKey:@"quote"];
-        
-        //set CGSize
-    
-        CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-        CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    
-        //set UITextView
-    
-        self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
-        self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-        self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
-        self.displayHaikuTextView.text=self.ghhaiku.text;
-    
-        //set animation
-        CATransition *transition = [CATransition animation];
-        transition.duration = 0.25;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionPush;
-        transition.subtype =kCATransitionFromLeft;
-        transition.delegate = self;
-            
-        //set view
-        
-        [self.navBar removeFromSuperview];
-        [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
-        self.displayHaikuTextView.editable=NO;
-        [self.view addSubview:self.displayHaikuTextView];
-        
-        if (self.swipePreviousInstructionsSeen==YES)
-        {
-            [self.previousInstructions removeFromSuperview];
-        }
+        self.comingFromPrevious=YES;
+        self.swipePreviousInstructionsSeen=YES;
+        [self displayHaiku];
     }
 }
 
@@ -329,28 +307,10 @@
 
 -(void)deleteHaiku
 {
-    //NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
     
-    //Replace each haiku with the one just ahead of it in the gayHaiku array so that there are no blank spaces.
+    //Delete the haiku
     
-    for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
-    {
-        if ([[[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"] isEqualToString:self.displayHaikuTextView.text])
-        {
-            [self.ghhaiku.gayHaiku removeObjectAtIndex:i];
-            for (int j=i; j<self.ghhaiku.gayHaiku.count-1; j++)
-            {
-                [self.ghhaiku.gayHaiku insertObject:[self.ghhaiku.gayHaiku objectAtIndex:j+1] atIndex:j];
-                [self.ghhaiku.gayHaiku removeObjectAtIndex:j+1];
-            }
-        }
-    }
-    /*for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
-    {
-        NSLog(@"index:  %d; haiku:  %@",i,[self.ghhaiku.gayHaiku objectAtIndex:i]);
-    }*/
-    
-    //Remove the navigation bar so that the haiku that replaces the deleted haiku in self.displayHaikuTextView can't be deleted if it isn't a user haiku.
+    [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
     
     [self.navBar removeFromSuperview];
 
@@ -369,18 +329,15 @@
     }
     [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
     
-    //Go to the next haiku so the screen won't be blank.
+    //Display haiku so the screen won't be blank.
     
-    [self goToNextHaiku];
+    [self displayHaiku];
     
-    //NSLog(@"number of haiku:  %d",self.ghhaiku.gayHaiku.count);
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
     //Take user to email, Facebook, or Twitter, depending on which option s/he's selected in the action sheet.
-    
     {
         if (buttonIndex == 0)
         {

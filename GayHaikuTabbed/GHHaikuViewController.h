@@ -15,6 +15,8 @@
 @property (nonatomic, strong) GHHaiku *ghhaiku;
 @property (nonatomic) BOOL swipeNextInstructionsSeen;
 @property (nonatomic) BOOL swipePreviousInstructionsSeen;
+@property (nonatomic) BOOL previousHaikuJustCalled;
+@property (nonatomic) BOOL comingFromPrevious;
 @property (nonatomic, strong) NSString *serviceType;
 @property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) UINavigationBar *navBar;

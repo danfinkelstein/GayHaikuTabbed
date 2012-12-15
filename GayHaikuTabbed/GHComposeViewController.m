@@ -206,7 +206,7 @@
 
 -(void)saveData
 
-//Persistent record of whether user has seen instructions and opt out screen.
+    //Persistent record of whether user has seen instructions and opt out screen.
 
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -223,13 +223,9 @@
 
 -(void)displayComposeScreen
 {
-    
-    
     [self.nextInstructions removeFromSuperview];
     [self.previousInstructions removeFromSuperview];
-    
-//Still to come:  there will be an image specifically for entering user haiku, so at some point in this method the UIImageView in the Interface Builder will have to be hidden and a new UIImageView created to show that image.
-
+        
     //Hide the instructions and opt-out.
     
     self.instructions.hidden=YES;
@@ -266,8 +262,8 @@
     //Set the compose screen's background
     
 //REPLACE THIS LATER WITH CORRECT IMAGE.
-    UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-    self.screenBackground.image = fullBackground;
+    UIImage *composeBackground = [UIImage imageNamed:@"temp background.jpg"];
+    self.screenBackground.image = composeBackground;
     self.screen=0;
     [self animateView:self.view withDirection:@"right"];
 }
@@ -296,7 +292,16 @@
 
 -(void)displayInstructionsScreen
 {
-    //Hide the textView.
+    
+    //In case user is coming from the compose screen, which has a different background image.
+    
+    if (self.screenBackground.image!=[UIImage imageNamed:@"temp background.jpg"])
+    {
+        UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
+        self.screenBackground.image = fullBackground;
+    }
+    
+    //Hide the appropriate views.
     
     self.optOut.hidden=YES;
     [self.nextInstructions removeFromSuperview];
@@ -423,10 +428,10 @@
 
 -(void)doActionSheet
 {
-    //self.textToSave=self.textView;
     [self.textView resignFirstResponder];
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
+    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
     [actSheet showFromTabBar:self.tabBarController.tabBar];
+    NSLog(@"destructive:  %d, cancel:  %d", actSheet.destructiveButtonIndex, actSheet.cancelButtonIndex);
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -452,10 +457,31 @@
 //Question:  if a user approves a hybersyllabic haiku, should that approval be saved along with the haiku so that if s/he edits, the alertview won't show again?
 
 {
+    
+    //This makes sure the new haiku isn't a repeat of a haiku that's already in the database.
+    
+    int i;
+    for (i=0; i<self.ghhaiku.gayHaiku.count; i++)
+    {
+        NSString *haikuToCheck = [[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
+        if ([self.textView.text isEqualToString:haikuToCheck])
+        {
+            [self.tabBarController setSelectedIndex:0];
+            
+//Do we want to make the home screen display the haiku that's a repeat?  Probably....
+            
+            return YES;
+        }
+    }
+    
+    //This creates the dictionary item of the new haiku to save in userHaiku.plist.
+    
     NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", self.textView.text, nil];
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-    NSLog(@"%d",self.bypassSyllableCheck);
+
+    //This checks to make sure the syllable counts are correct.
+    
     if (self.bypassSyllableCheck==NO)
     {
         if (!self.ghverify)
@@ -487,57 +513,33 @@
                 }
             }
         }
-    if (alertMessage.length>15)
-    {
-        NSString *add = @"Are you certain you'd like to continue saving?";
-        alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
-        self.alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
-        [self.alert show];
-        return YES;
+        if (alertMessage.length>15)
+        {
+            NSString *add = @"Are you certain you'd like to continue saving?";
+            alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
+            self.alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
+            [self.alert show];
+            return YES;
+        }
+
     }
-    else
-    {
-        alertMessage=@"Golden!";
-    }
-    NSLog(@"%@",alertMessage);
-    }
-    
     if (self.textView.text.length>0 && self.ghhaiku.userIsEditing==NO)
     {
-        int i;
-        for (i=0; i<self.ghhaiku.gayHaiku.count; i++)
-        {
-            NSString *haikuToCheck = [[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
-            if ([self.textView.text isEqualToString:haikuToCheck])
-            {
-                [self.tabBarController setSelectedIndex:0];
-                return YES;
-            }
-        }
-//Does this next line add the haiku whether it's there or not already?  If so, fix that!
-        NSLog(@"%d", self.ghhaiku.gayHaiku.count);
-        [self.ghhaiku.gayHaiku addObject:dictToSave];
-        NSLog(@"%d", self.ghhaiku.gayHaiku.count);
+        [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:self.ghhaiku.newIndex];
     }
     
-         //If it's an edited old haiku:
+    //If it's an edited old haiku:
     
     else if (self.ghhaiku.userIsEditing==YES && self.textView.text.length>0)
-        
     {
-        for (int i=0; i<self.ghhaiku.gayHaiku.count; i++)
-        {
-            NSString *checkThis = [[self.ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
-            if ([self.ghhaiku.text isEqualToString:checkThis])
-            {
-                [self.ghhaiku.gayHaiku removeObjectAtIndex:i];
-                [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:i];   
-            }
-         }
-         self.ghhaiku.userIsEditing=NO;
+        
+//Check this functionality.
+        
+        [self.ghhaiku.gayHaiku insertObject:dictToSave atIndex:self.ghhaiku.newIndex];
+        [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex+1];
+    
+        self.ghhaiku.userIsEditing=NO;
     }
-
-    //end of untested apotasis
     
     else if (!self.textView.text.length>0)
     {
@@ -575,7 +577,7 @@ didDismissWithButtonIndex:(NSInteger) buttonIndex
 {
     if (buttonIndex == 0)
     {
-        NSLog(@"Cancel Tapped.");
+        NSLog(@"Cancel tapped.");
     }
     else if (buttonIndex == 1)
     {

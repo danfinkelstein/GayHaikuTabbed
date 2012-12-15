@@ -10,7 +10,7 @@
 
 @implementation GHHaiku
 
-@synthesize arrayOfSeen, arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text;
+@synthesize arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text, newIndex;
 
 + (GHHaiku *)sharedInstance
 
@@ -25,14 +25,33 @@
     return sharedInstance;
 }
 
--(int)chooseNumber
+-(int)chooseNumber: (int)blah
 
     //Choose a random number between 0 and the number of haiku in the array of all haiku, minus 1.
 
 {
     int x;
-    x = (arc4random() % self.gayHaiku.count);
+    x = (arc4random() % blah);
     return x;
+}
+
+-(void)shuffle
+{
+    self.newIndex=0;
+    NSMutableArray *arrayForShuffling = [[NSMutableArray alloc] initWithArray:self.gayHaiku];
+    int arrayCount = arrayForShuffling.count;
+    self.gayHaiku = [[NSMutableArray alloc] init];
+    for (int i=0; i<arrayCount; i++)
+    {
+        int sortingHat = [self chooseNumber:arrayForShuffling.count];
+        [self.gayHaiku addObject:[arrayForShuffling objectAtIndex:sortingHat]];
+        [arrayForShuffling removeObjectAtIndex:sortingHat];
+        if (arrayForShuffling.count>0)
+        {
+        [arrayForShuffling insertObject:[arrayForShuffling lastObject] atIndex:sortingHat];
+        [arrayForShuffling removeLastObject];
+        }
+    }
 }
 
 -(void)haikuToShow
@@ -40,91 +59,35 @@
     //Choose the next haiku for GHHaikuViewController -(void)goToNextHaiku.
 
 {
-    
     //Create terms
-    
-    NSString *txt;
-    int sortingHat;
-    if (!self.index) self.index=0;
-    if (!self.arrayOfSeen) self.arrayOfSeen = [[NSMutableArray alloc] init];
+
+    if (!self.newIndex) self.newIndex=0;
+    if (!self.gayHaiku)
+    {
+        self.gayHaiku=[[NSMutableArray alloc] initWithArray:self.haikuLoaded];
+        self.newIndex=0;
+        [self shuffle];
+    }
     
     //If you've gone through the entire array, empty the array of haiku seen and reset the index.
     
-    if (self.gayHaiku.count==self.arrayOfSeen.count)
+    if (self.newIndex==self.gayHaiku.count)
     {
-        [self.arrayOfSeen removeAllObjects];
-        self.index=0;
+        [self shuffle];
     }
-
-    //If you haven't called previousHaiku
+    
+    self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"quote"];
         
-    if (self.index == self.arrayOfSeen.count)
+    //Indicate whether it's a user-generated haiku or not.
+        
+    if ([[[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"category"] isEqualToString:@"user"])
     {
-        
-        //Choose a number
-        
-        while (true)
-        {
-            sortingHat = [self chooseNumber];
-                
-            //Make sure you haven't already seen the haiku at the chosen number....
-                                
-            if (![self.arrayOfSeen containsObject:[self.gayHaiku objectAtIndex:sortingHat]])
-            {
-                break;
-            }
-        }
-            
-        //Set text to quote for chosen number
-            
-        txt = [[self.gayHaiku objectAtIndex:sortingHat] valueForKey:@"quote"];
-        
-        //Indicate whether it's a user-generated haiku or not.
-        
-        if ([[[self.gayHaiku objectAtIndex:sortingHat] valueForKey:@"category"] isEqualToString:@"user"])
-        {
-            self.isUserHaiku=YES;
-        }
-        else
-        {
-            self.isUserHaiku=NO;
-        }
-            
-        //Add haiku to array of haiku seen.
-            
-        [self.arrayOfSeen addObject:[self.gayHaiku objectAtIndex:sortingHat]];
-            
-        //change index to new index
-            
-        self.index = self.arrayOfSeen.count;
-            
-        //If the haiku just chosen was the last available, start over.
-            
-//This code is repeated from the beginning of the method.  Is there a reason to have it both at the beginning and here?
-         
-        if (self.arrayOfSeen.count == self.gayHaiku.count)
-        {
-            [self.arrayOfSeen removeAllObjects];
-            self.index=0;
-        }
+        self.isUserHaiku=YES;
     }
-        
-    //If you HAVE called previousHaiku
-
     else
     {
-        txt = [[self.arrayOfSeen objectAtIndex:self.index] valueForKey:@"quote"];
-        if ([[[self.arrayOfSeen objectAtIndex:self.index] valueForKey:@"category"] isEqualToString: @"user"])
-        {
-            self.isUserHaiku=YES;
-        }
-        else
-        {
-            self.isUserHaiku=NO;
-        }
-        self.index += 1;
+        self.isUserHaiku=NO;
     }
-    self.text = txt;
 }
 
 -(void) loadHaiku
@@ -152,7 +115,8 @@
     
     //Loads an array with the contents of "path".
     
-    NSMutableArray *mutArr = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    //NSMutableArray *mutArr = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    self.haikuLoaded = [[NSMutableArray alloc] initWithContentsOfFile:path];
     
     //This loads the haiku from userHaiku.plist to the file "userPath".
     
@@ -177,8 +141,10 @@
     //Loads an array with the contents of "userPath".
 
     NSMutableArray *mutArrUser = [[NSMutableArray alloc] initWithContentsOfFile:userPath];
-    self.gayHaiku = [[NSMutableArray alloc] initWithArray:mutArr];
-    [self.gayHaiku addObjectsFromArray:mutArrUser];
+    [self.haikuLoaded addObjectsFromArray:mutArrUser];
+    
+    //self.gayHaiku = [[NSMutableArray alloc] initWithArray:mutArr];
+    //[self.gayHaiku addObjectsFromArray:mutArrUser];
 }
 
 -(void)saveToDocsFolder:(NSString *)string
