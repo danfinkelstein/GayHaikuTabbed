@@ -117,7 +117,7 @@
     [self.view addSubview:self.previousInstructions];
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 
     //This replaces, when the user returns from the compose screen, whatever haiku was showing in the main screen with the new user haiku.
 
@@ -254,7 +254,7 @@
     //Create UINavigationItem
 
     self.titleBar = [[UINavigationItem alloc] init];  //Is this necessary?  There's no title.
-    self.titleBar.hidesBackButton=YES; //What does this actually do?  Is it necessary?
+    //self.titleBar.hidesBackButton=YES; //What does this actually do?  Is it necessary?
     
     //Add share button and, if appropriate, delete and edit buttons
         
@@ -271,7 +271,7 @@
         
     //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
         
-    double delayInSeconds = 3.0;
+    double delayInSeconds = 3.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [UIView animateWithDuration:.5
@@ -319,7 +319,6 @@
     
     [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
     [self.displayHaikuTextView removeFromSuperview];
-    
     [self.navBar removeFromSuperview];
 
     //Save the new set of user haiku to the docs folder.
@@ -430,7 +429,7 @@
         }
         else if (self.serviceType==SLServiceTypeFacebook)
         {
-            msgText = @"Here is a gay haiku.  Please love me?";
+            msgText = @"Testing something";
         }
         [controller setInitialText:msgText];
         [controller addURL:[NSURL URLWithString:@"http://www.gayhaiku.com"]];
@@ -438,8 +437,7 @@
         UIImage *pic;
         if (self.serviceType==SLServiceTypeFacebook)
         {
-            CGSize size = CGSizeMake((404*320)/([[UIScreen mainScreen] bounds].size.height - 64), 404);
-            pic = [img imageScaledToFitSize:size];
+            pic = [self scaleImage:img];
         }
         else if (self.serviceType==SLServiceTypeTwitter)
         {
@@ -457,6 +455,14 @@
 
 -(UIImage *)createImage
 {
+    if (self.nextInstructions)
+    {
+        [self.nextInstructions removeFromSuperview];
+    }
+    if (self.previousInstructions)
+    {
+        [self.previousInstructions removeFromSuperview];
+    }
     CGRect newRect = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44);
     UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
@@ -471,17 +477,22 @@
 
 - (UIImage*) scaleImage:(UIImage*)image
 {
+    
 //Check to make sure this is right.  Then clean it up.
+    int widthToUse = [[UIScreen mainScreen] bounds].size.width;
+    int heightToUse = [[UIScreen mainScreen] bounds].size.height;
     CGSize scaledSize;
-    scaledSize.height = 156;
-    scaledSize.width = 120; 
-    UIGraphicsBeginImageContextWithOptions( scaledSize, NO, 0.0 );
+    scaledSize.height = 350;
+    scaledSize.width = ((350*widthToUse)/heightToUse);
+    UIGraphicsBeginImageContextWithOptions( scaledSize, NO, 0.975 );
     CGRect scaledImageRect = CGRectMake(0.0, 0.0, scaledSize.width, scaledSize.height);
     [image drawInRect:scaledImageRect];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
 }
+
+
 
 -(void)showMessage
 {
