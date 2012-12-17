@@ -33,7 +33,6 @@
 }
 
 -(int)chooseRightSwipeMethod
-
 {
     if (self.screen-1>=0)
     {
@@ -123,9 +122,7 @@
 }
 
 -(void)addSwipeForRight
-
 //Adds the text telling the user to swipe right to continue.
-
 {
     NSString *text=@"Swipe to continue";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -137,14 +134,11 @@
     self.nextInstructions.backgroundColor = [UIColor clearColor];
     self.nextInstructions.text = text;
     self.nextInstructions.textColor = [UIColor purpleColor];
-    
     [self.view addSubview:self.nextInstructions];
 }
 
 -(void)addSwipeForLeft
-
 //Adds the text telling the user to swipe left to opt out.
-
 {
     NSString *text = @"Swipe to opt out.";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -157,7 +151,6 @@
     self.previousInstructions.backgroundColor = [UIColor clearColor];
     self.previousInstructions.text = text;
     self.previousInstructions.textColor = [UIColor purpleColor];
-    
     [self.view addSubview:self.previousInstructions];
 }
 
@@ -204,9 +197,7 @@
 }
 
 -(void)saveData
-
     //Persistent record of whether user has seen instructions and opt out screen.
-
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (self.optOutSeen)
@@ -291,7 +282,6 @@
 
 -(void)displayInstructionsScreen
 {
-    
     //In case user is coming from the compose screen, which has a different background image.
     
     if (self.screenBackground.image!=[UIImage imageNamed:@"temp background.jpg"])
@@ -350,7 +340,6 @@
 
 -(void)displayOptOutScreen
 {
-    
     //Hide the textView and instructions.
     
     self.textView.hidden=YES;
@@ -413,22 +402,18 @@
     }
 }
 
--(void)userFinishedWritingHaiku
-{
-    if (!self.textView || self.textView.text.length==0)
-    {
-        [self.tabBarController setSelectedIndex:0];
-    }
-    else
-    {
-        [self doActionSheet];
-    }
-}
-
 -(void)doActionSheet
 {
     [self.textView resignFirstResponder];
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Cancel" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
+    UIActionSheet *actSheet;
+    if (self.ghhaiku.userIsEditing)
+    {
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
+    }
+    else
+    {
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];      
+    }
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
@@ -451,9 +436,6 @@
 }
 
 -(BOOL)saveUserHaiku
-
-//Question:  if a user approves a hybersyllabic haiku, should that approval be saved along with the haiku so that if s/he edits, the alertview won't show again?
-
 {
     
     //This makes sure the new haiku isn't a repeat of a haiku that's already in the database.
@@ -527,7 +509,6 @@
             [self.alert show];
             return YES;
         }
-
     }
     if (self.textView.text.length>0 && self.ghhaiku.userIsEditing==NO)
         

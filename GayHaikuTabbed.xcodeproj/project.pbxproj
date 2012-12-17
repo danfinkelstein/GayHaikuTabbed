@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D6489021679005800A87596 /* GHApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6489011679005800A87596 /* GHApplication.m */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
 		5D64890716791F4100A87596 /* 80-shopping-cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */; };
 		5D64890A16791F5C00A87596 /* 90-lifebuoy.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890816791F5C00A87596 /* 90-lifebuoy.png */; };
@@ -102,8 +101,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5D6489001679005800A87596 /* GHApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHApplication.h; sourceTree = "<group>"; };
-		5D6489011679005800A87596 /* GHApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHApplication.m; sourceTree = "<group>"; };
 		5D64890416791F4100A87596 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart.png"; sourceTree = "<group>"; };
 		5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart@2x.png"; sourceTree = "<group>"; };
 		5D64890816791F5C00A87596 /* 90-lifebuoy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "90-lifebuoy.png"; sourceTree = "<group>"; };
@@ -306,8 +303,6 @@
 				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
-				5D6489001679005800A87596 /* GHApplication.h */,
-				5D6489011679005800A87596 /* GHApplication.m */,
 				5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */,
 				5DBC945D16743DFF000406DF /* Supporting Files */,
 			);
@@ -522,7 +517,6 @@
 				5D88261816745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */,
 				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
 				5D88261E16745CE6007DF2E2 /* UIImage+ProportionalFill.m in Sources */,
-				5D6489021679005800A87596 /* GHApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

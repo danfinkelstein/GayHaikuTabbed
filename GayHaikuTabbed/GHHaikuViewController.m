@@ -425,11 +425,11 @@
         NSString *msgText;
         if (self.serviceType==SLServiceTypeTwitter)
         {
-            msgText = @"A gay haiku for your viewing pleasure.";
+            msgText = self.ghhaiku.text;
         }
         else if (self.serviceType==SLServiceTypeFacebook)
         {
-            msgText = @"Testing something";
+            msgText = @"Here is a gay haiku.  Please love me?";
         }
         [controller setInitialText:msgText];
         [controller addURL:[NSURL URLWithString:@"http://www.gayhaiku.com"]];
