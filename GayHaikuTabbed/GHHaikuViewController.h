@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
-#import "UIImage+ProportionalFill.h"
 
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate>
 

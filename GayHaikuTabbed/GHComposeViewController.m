@@ -408,11 +408,11 @@
     UIActionSheet *actSheet;
     if (self.ghhaiku.userIsEditing)
     {
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
     }
     else
     {
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil]; // @"Opt Out", nil];      
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil];      
     }
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
@@ -568,7 +568,7 @@ didDismissWithButtonIndex:(NSInteger) buttonIndex
 {
     if (buttonIndex == 0)
     {
-        NSLog(@"Cancel tapped.");
+        [self.textView becomeFirstResponder];
     }
     else if (buttonIndex == 1)
     {

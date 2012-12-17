@@ -185,7 +185,7 @@
                             <constraint firstItem="lPe-us-G3U" firstAttribute="centerX" secondItem="ODL-Br-7iJ" secondAttribute="centerX" type="default" id="ZQL-WB-lVd"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feedback" image="90-lifebuoy.png" id="Kld-oc-0Ck"/>
+                    <tabBarItem key="tabBarItem" title="Feedback" image="18-envelope.png" id="Kld-oc-0Ck"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl8-Xo-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -214,14 +214,45 @@
         </scene>
     </scenes>
     <resources>
+        <image name="18-envelope.png" width="24" height="16"/>
         <image name="216-compose.png" width="23" height="18"/>
         <image name="53-house.png" width="22" height="22"/>
         <image name="80-shopping-cart.png" width="26" height="19"/>
-        <image name="90-lifebuoy.png" width="24" height="24"/>
         <image name="temp background.jpg" width="320" height="400"/>
         <image name="trycheckbox.png" width="16" height="16"/>
         <image name="trycheckbox_no.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="GHComposeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHComposeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="checkCheckbox"/>
+                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="screenBackground" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="GHFeedback" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHFeedback.h"/>
+        </class>
+        <class className="GHHaikuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHHaikuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goToNextHaiku"/>
+                <relationship kind="action" name="goToPreviousHaiku"/>
+                <relationship kind="outlet" name="displayHaikuTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="GHWebViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHWebViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webV" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
