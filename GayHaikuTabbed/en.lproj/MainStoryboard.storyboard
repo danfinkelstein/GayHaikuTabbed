@@ -9,11 +9,14 @@
             <objects>
                 <viewController storyboardIdentifier="home" title="First" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2" customClass="GHHaikuViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-Br-tqB">
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="520" id="KW9-Cl-w6t"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="U69-5G-7cp" appends="YES" id="wTC-jd-PCE"/>
                                     <outletCollection property="gestureRecognizers" destination="kGT-do-vm8" appends="YES" id="X2M-Wt-RM3"/>
@@ -36,10 +39,10 @@
                             <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CZ4-pP-p08"/>
                             <constraint firstItem="Bs2-Br-tqB" firstAttribute="top" secondItem="16" secondAttribute="top" type="default" id="T6I-aX-CoK"/>
                             <constraint firstItem="Bs2-Br-tqB" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="ly5-Y7-AbX"/>
-                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="bottom" secondItem="16" secondAttribute="bottom" type="default" id="pD2-EA-88F"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="53-house.png" id="7"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="displayHaikuTextView" destination="VB8-hZ-3T0" id="ZYj-DH-kqX"/>
                     </connections>
@@ -64,31 +67,40 @@
             <objects>
                 <viewController id="raS-l8-cPH" customClass="GHWebViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Uyy-qe-rpZ">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleAspectFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEH-nW-h1T">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="476" id="5Zy-MA-qOy"/>
+                                </constraints>
                             </webView>
                             <navigationBar contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0D-2A-SDV">
                                 <items>
                                     <navigationItem title="Buy" id="Oxb-mR-gmg"/>
                                 </items>
                             </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5iQ-pX-O6S">
+                                <color key="color" red="0.85098039219999999" green="0.57647058819999997" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="2sI-lJ-Whm"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="bottom" secondItem="oEH-nW-h1T" secondAttribute="top" type="default" id="6aQ-hH-dqW"/>
+                            <constraint firstItem="5iQ-pX-O6S" firstAttribute="centerX" secondItem="S0D-2A-SDV" secondAttribute="centerX" type="default" id="7mh-we-ovi"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="9VS-DJ-nZ5"/>
+                            <constraint firstItem="5iQ-pX-O6S" firstAttribute="centerY" secondItem="oEH-nW-h1T" secondAttribute="centerY" type="default" id="UoM-kk-sr7"/>
                             <constraint firstItem="oEH-nW-h1T" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="VIu-L1-ciE"/>
-                            <constraint firstItem="oEH-nW-h1T" firstAttribute="bottom" secondItem="Uyy-qe-rpZ" secondAttribute="bottom" type="default" id="YUb-4m-G9t"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="top" secondItem="Uyy-qe-rpZ" secondAttribute="top" type="default" id="mEX-5v-ksU"/>
                             <constraint firstItem="oEH-nW-h1T" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="zAB-QG-eWf"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Buy" image="80-shopping-cart.png" id="lig-bM-dxF"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="indicator" destination="5iQ-pX-O6S" id="Wrz-5J-U8l"/>
                         <outlet property="webV" destination="oEH-nW-h1T" id="FOH-Af-jI4"/>
                     </connections>
                 </viewController>
@@ -101,10 +113,14 @@
             <objects>
                 <viewController title="Second" id="3" customClass="GHComposeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN2-hu-UWh"/>
+                            <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN2-hu-UWh">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="520" id="qSP-4z-NOk"/>
+                                </constraints>
+                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-tp-ldf">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Tfz-RM-aTH"/>
@@ -136,15 +152,15 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="30A-Ja-HaY" secondAttribute="bottom" constant="146" id="1tA-xP-SBI"/>
                             <constraint firstItem="ZN2-hu-UWh" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="9zi-NX-Aa1"/>
+                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" type="default" id="Fwq-Lf-hqA"/>
                             <constraint firstItem="30A-Ja-HaY" firstAttribute="trailing" secondItem="mTP-tp-ldf" secondAttribute="trailing" type="default" id="GRG-gO-Vbm"/>
                             <constraint firstItem="ZN2-hu-UWh" firstAttribute="leading" secondItem="17" secondAttribute="leading" type="default" id="UlN-Lt-kbz"/>
-                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="17" secondAttribute="centerX" type="default" id="Wqf-qX-tws"/>
-                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="bottom" secondItem="17" secondAttribute="bottom" type="default" id="cNL-Cj-RxS"/>
                             <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="ZN2-hu-UWh" secondAttribute="centerX" type="default" id="iqq-zr-coH"/>
                             <constraint firstAttribute="bottom" secondItem="mTP-tp-ldf" secondAttribute="bottom" constant="192" id="pqt-4p-PV4"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="checkboxButton" destination="30A-Ja-HaY" id="BIn-ms-G6I"/>
                         <outlet property="nameField" destination="mTP-tp-ldf" id="RcY-IO-bnU"/>
@@ -160,10 +176,14 @@
             <objects>
                 <viewController id="OiU-5v-Tw7" customClass="GHFeedback" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Iv-h5-BYU">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ODL-Br-7iJ"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ODL-Br-7iJ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="520" id="hKo-gt-cId"/>
+                                </constraints>
+                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-us-G3U">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -179,13 +199,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lPe-us-G3U" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" constant="167" id="2ra-lE-BO0"/>
-                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="bottom" secondItem="7Iv-h5-BYU" secondAttribute="bottom" type="default" id="REr-zH-2HX"/>
                             <constraint firstItem="ODL-Br-7iJ" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" type="default" id="S0W-ZW-gul"/>
                             <constraint firstItem="ODL-Br-7iJ" firstAttribute="leading" secondItem="7Iv-h5-BYU" secondAttribute="leading" type="default" id="SpT-5O-Vha"/>
                             <constraint firstItem="lPe-us-G3U" firstAttribute="centerX" secondItem="ODL-Br-7iJ" secondAttribute="centerX" type="default" id="ZQL-WB-lVd"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Feedback" image="18-envelope.png" id="Kld-oc-0Ck"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl8-Xo-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,6 +215,7 @@
         <scene sceneID="15">
             <objects>
                 <tabBarController id="4" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>

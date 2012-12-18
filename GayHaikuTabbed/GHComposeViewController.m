@@ -117,6 +117,7 @@
     }
     else
     {
+        
         [self displayComposeScreen];
     }
 }
@@ -230,15 +231,14 @@
         self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 150)];
         self.textView.backgroundColor = [UIColor whiteColor];
         self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+        self.textView.delegate = self;
     }
     
     //Set the textView's attributes and delegate.
     
     [self addTranslucentToolbarAboveKeyboard];
     self.textView.editable=YES;
-    self.textView.delegate = self;
     self.textView.hidden=NO;
-    [self.textView becomeFirstResponder];
     if (self.ghhaiku.userIsEditing==NO)
     {
         self.textView.text = @"";
@@ -248,6 +248,7 @@
         self.textView.text = self.ghhaiku.text;
     }
     [self.view addSubview:self.textView];
+    [self.textView becomeFirstResponder];
     
     //Set the compose screen's background
     
@@ -408,10 +409,29 @@
     UIActionSheet *actSheet;
     if (self.ghhaiku.userIsEditing)
     {
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
+        
+        //If user is editing a haiku that already exists
+        
+        if ([self.textView.text isEqualToString: self.ghhaiku.text])
+            
+            //If user hasn't made any changes
+            
+        {
+            actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        }
+        else
+            
+            //If user has made changes
+            
+        {
+            actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
+        }
     }
     else
     {
+        
+        //If this is a new haiku
+        
         actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil];      
     }
     [actSheet showFromTabBar:self.tabBarController.tabBar];

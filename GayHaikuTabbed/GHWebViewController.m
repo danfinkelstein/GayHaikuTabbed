@@ -20,6 +20,7 @@
 @synthesize bar;
 @synthesize navBarTitle;
 @synthesize alert;
+@synthesize indicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,9 +30,14 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+//- (void)viewWillAppear:(BOOL)animated
+//{
+  //  [super viewWillAppear:animated];
+
+
+-(void)viewDidLoad
 {
-    [super viewWillAppear:animated];
+    [super viewDidLoad];
     // Custom initialization
 
     //create nav bar
@@ -39,7 +45,8 @@
     
 //What does this next line actually do?
     
-    self.navBarTitle.hidesBackButton=YES;
+    //self.navBarTitle.hidesBackButton=YES;
+    //should this next line be put into a viewWillAppear method?
     [self seeNavBar];
     
     //Create UIWebView.
@@ -53,49 +60,42 @@
     
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
-    [self connectWithURL:urlString andBaseURLString:baseURLString];
-}
-
--(void)addNavBarButtons
-{
-    NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
-    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
-    UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
-    [rightButtons addObject:stop];
-    [rightButtons addObject:refresh];
     
-    NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
-    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:NSSelectorFromString(@"webBack")];
-    UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:NSSelectorFromString(@"webForward")];
-    [leftButtons addObject:backButt];
-    [leftButtons addObject:forwardButt];
+        //Not certain this is the right place for this line:
+    
+    [self.indicator startAnimating];
+    [self connectWithURL:urlString andBaseURLString:baseURLString];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //Set up and display the navigation bar for the webview.
-    NSMutableArray *leftButtonsForWebView = [[NSMutableArray alloc] init];
-    NSMutableArray *rightButtonsForWebView = [[NSMutableArray alloc] init];
+    NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
+    NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
     UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
-    [rightButtonsForWebView addObject:stop];
-    [rightButtonsForWebView addObject:refresh];
+    [rightButtons addObject:stop];
+    [rightButtons addObject:refresh];
     [self.bar removeFromSuperview];
     [self loadNavBar:@"Buy"];
-    self.navBarTitle.rightBarButtonItems=rightButtonsForWebView;
+    self.navBarTitle.rightBarButtonItems=rightButtons;
     self.navBarTitle.hidesBackButton=YES;
     if (self.webV.canGoBack)
     {
-        UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:NSSelectorFromString(@"webBack")];
-        [leftButtonsForWebView addObject:backButt];
+        UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
+        [leftButtons addObject:backButt];
     }
     if (self.webV.canGoForward)
     {
-        UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:NSSelectorFromString(@"webForward")];
-        [leftButtonsForWebView addObject:forwardButt];
+        UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
+        [leftButtons addObject:forwardButt];
     }
-    self.navBarTitle.leftBarButtonItems=leftButtonsForWebView;
+    self.navBarTitle.leftBarButtonItems=leftButtons;
     [self seeNavBar];
+    
+    //Not certain this is the right place for this line:
+    
+    [self.indicator stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,6 +153,7 @@
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil)
         {
+            [self.indicator stopAnimating];
             self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [self.alert show];
         }

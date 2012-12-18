@@ -17,6 +17,7 @@
 
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
+    [UIApplication sharedApplication].statusBarHidden=YES;
     return YES;
 }
 							
