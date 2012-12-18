@@ -222,37 +222,6 @@
         <image name="trycheckbox.png" width="16" height="16"/>
         <image name="trycheckbox_no.png" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="GHComposeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHComposeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="checkCheckbox"/>
-                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="screenBackground" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="GHFeedback" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHFeedback.h"/>
-        </class>
-        <class className="GHHaikuViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHHaikuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goToNextHaiku"/>
-                <relationship kind="action" name="goToPreviousHaiku"/>
-                <relationship kind="outlet" name="displayHaikuTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GHWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webV" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
