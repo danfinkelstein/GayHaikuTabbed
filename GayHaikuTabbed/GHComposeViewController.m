@@ -125,26 +125,27 @@
 -(void)addSwipeForRight
 //Adds the text telling the user to swipe right to continue.
 {
-    NSString *text=@"Swipe to continue";
+    NSString *text=@"Swipe";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-10), 340, xySize.width, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 340, xySize.width*1.5, (xySize.height*2));
     self.nextInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.nextInstructions.editable=NO;
 //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
     self.nextInstructions.backgroundColor = [UIColor clearColor];
     self.nextInstructions.text = text;
     self.nextInstructions.textColor = [UIColor purpleColor];
+    self.nextInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     [self.view addSubview:self.nextInstructions];
 }
 
 -(void)addSwipeForLeft
 //Adds the text telling the user to swipe left to opt out.
 {
-    NSString *text = @"Swipe to opt out.";
+    NSString *text = @"Swipe";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake(10, 340, xySize.width, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake(10, 340, xySize.width*1.5, (xySize.height*2));
 //Why is there a line break after "opt"?  It should be just one line.
     self.previousInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.previousInstructions.editable=NO;
@@ -152,6 +153,7 @@
     self.previousInstructions.backgroundColor = [UIColor clearColor];
     self.previousInstructions.text = text;
     self.previousInstructions.textColor = [UIColor purpleColor];
+    self.previousInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     [self.view addSubview:self.previousInstructions];
 }
 
@@ -352,9 +354,9 @@
     
     if (!self.optOut)
     {
-        self.optOut = [[UITextView alloc] initWithFrame:CGRectMake(20, 90, [[UIScreen mainScreen] bounds].size.width - 20, [[UIScreen mainScreen] bounds].size.height)];
+        self.optOut = [[UITextView alloc] initWithFrame:CGRectMake(20, 95, [[UIScreen mainScreen] bounds].size.width - 20, [[UIScreen mainScreen] bounds].size.height)];
         self.optOut.backgroundColor=[UIColor clearColor];
-        self.optOut.text = @"\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you don't want your haiku included in \nfuture updates (which would make me \nsad), check this box.";
+        self.optOut.text = @"\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you don't want your haiku included in \nfuture updates (which would make me \nsad), check this box.";
         self.optOut.editable=NO;
     }
     if (self.screen==1) [self animateView:self.optOut withDirection:@"left"];

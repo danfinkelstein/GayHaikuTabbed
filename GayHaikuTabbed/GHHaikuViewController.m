@@ -79,16 +79,17 @@
     
     //Create "swipe for next haiku" message and set its characteristics.
     
-    NSString *text = @"Swipe for next haiku.";
+    NSString *text = @"Swipe";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-10), 240, xySize.width, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, (xySize.height*2));
     self.nextInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.nextInstructions.editable=NO;
 //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
     self.nextInstructions.textColor = [UIColor purpleColor];
     self.nextInstructions.backgroundColor = [UIColor clearColor];
     self.nextInstructions.text = text;
+    self.nextInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     
     //Display it.
     
@@ -100,16 +101,17 @@
     
     //Create "swipe for previous haiku" message and set its characteristics.
     
-    NSString *text = @"Swipe for previous haiku.";
+    NSString *text = @"Swipe";
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake(10, 240, xySize.width, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake(10, 240, xySize.width*1.5, (xySize.height*2));
     self.previousInstructions = [[UITextView alloc] initWithFrame:(rect)];
     self.previousInstructions.editable=NO;
 //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
     self.previousInstructions.backgroundColor = [UIColor clearColor];
     self.previousInstructions.text = text;
     self.previousInstructions.textColor = [UIColor purpleColor];
+    self.previousInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     
     //Display it.
     
@@ -153,6 +155,10 @@
     }
     [self.ghhaiku haikuToShow]; //This produces self.ghhaiku.text as the new haiku.
     
+    //[self setFontSize];
+    
+//Still to do:  draw text using Zapfino font.
+    
     //set CGSize
     
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -160,12 +166,13 @@
     
     //set UITextView
     
-    self.displayHaikuTextView = [[UITextView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
-    self.displayHaikuTextView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    self.displayHaikuTextView = [[UITextView alloc] init];
     self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
     self.displayHaikuTextView.editable=NO;
-
+    self.displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
     self.displayHaikuTextView.text=self.ghhaiku.text;
+    [self.displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
+
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;

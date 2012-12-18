@@ -15,7 +15,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-Br-tqB">
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="520" id="KW9-Cl-w6t"/>
+                                    <constraint firstAttribute="height" constant="520" type="user" id="TLw-AO-8fl"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="U69-5G-7cp" appends="YES" id="wTC-jd-PCE"/>
@@ -34,10 +34,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="VB8-hZ-3T0" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="0y3-Rq-GgF"/>
                             <constraint firstItem="VB8-hZ-3T0" firstAttribute="top" secondItem="16" secondAttribute="top" constant="186" id="13B-nl-742"/>
-                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="CZ4-pP-p08"/>
+                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="Cza-6y-f9d"/>
                             <constraint firstItem="Bs2-Br-tqB" firstAttribute="top" secondItem="16" secondAttribute="top" type="default" id="T6I-aX-CoK"/>
+                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="bZH-2N-r7X"/>
                             <constraint firstItem="Bs2-Br-tqB" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="ly5-Y7-AbX"/>
                         </constraints>
                     </view>
@@ -81,17 +81,12 @@
                                     <navigationItem title="Buy" id="Oxb-mR-gmg"/>
                                 </items>
                             </navigationBar>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5iQ-pX-O6S">
-                                <color key="color" red="0.85098039219999999" green="0.57647058819999997" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="2sI-lJ-Whm"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="bottom" secondItem="oEH-nW-h1T" secondAttribute="top" type="default" id="6aQ-hH-dqW"/>
-                            <constraint firstItem="5iQ-pX-O6S" firstAttribute="centerX" secondItem="S0D-2A-SDV" secondAttribute="centerX" type="default" id="7mh-we-ovi"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="9VS-DJ-nZ5"/>
-                            <constraint firstItem="5iQ-pX-O6S" firstAttribute="centerY" secondItem="oEH-nW-h1T" secondAttribute="centerY" type="default" id="UoM-kk-sr7"/>
                             <constraint firstItem="oEH-nW-h1T" firstAttribute="leading" secondItem="Uyy-qe-rpZ" secondAttribute="leading" type="default" id="VIu-L1-ciE"/>
                             <constraint firstItem="S0D-2A-SDV" firstAttribute="top" secondItem="Uyy-qe-rpZ" secondAttribute="top" type="default" id="mEX-5v-ksU"/>
                             <constraint firstItem="oEH-nW-h1T" firstAttribute="trailing" secondItem="Uyy-qe-rpZ" secondAttribute="trailing" type="default" id="zAB-QG-eWf"/>
@@ -100,7 +95,6 @@
                     <tabBarItem key="tabBarItem" title="Buy" image="80-shopping-cart.png" id="lig-bM-dxF"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="indicator" destination="5iQ-pX-O6S" id="Wrz-5J-U8l"/>
                         <outlet property="webV" destination="oEH-nW-h1T" id="FOH-Af-jI4"/>
                     </connections>
                 </viewController>

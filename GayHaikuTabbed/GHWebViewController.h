@@ -10,10 +10,11 @@
 
 @interface GHWebViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *indicator;
+@property (nonatomic, strong) UIActivityIndicatorView *indicator;
 @property (nonatomic, weak) IBOutlet UIWebView *webV;
 @property (nonatomic, strong) UINavigationBar *bar;
 @property (nonatomic, strong) UINavigationItem *navBarTitle;
 @property (nonatomic, strong) UIAlertView *alert;
+@property (nonatomic, strong) NSTimer *timer;
 
 @end

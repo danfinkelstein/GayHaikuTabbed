@@ -21,6 +21,7 @@
 @synthesize navBarTitle;
 @synthesize alert;
 @synthesize indicator;
+@synthesize timer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,16 +31,10 @@
     return self;
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-  //  [super viewWillAppear:animated];
-
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Custom initialization
-
+    
     //create nav bar
     [self loadNavBar:@"Buy"];
     
@@ -60,11 +55,25 @@
     
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
-    
-        //Not certain this is the right place for this line:
-    
-    [self.indicator startAnimating];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    //start animating
+
+//But this never starts animating.  Or if it does it animates invisibly.  Why?  What's wrong?
+    
+    if (!self.indicator)
+    {
+    self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+        [self.indicator setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2)];
+	[self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    }
+	[self.view addSubview:self.indicator];
+	
+    [self.indicator startAnimating];
+    NSLog(@"%d",[self.indicator isAnimating]);
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
@@ -91,11 +100,8 @@
         [leftButtons addObject:forwardButt];
     }
     self.navBarTitle.leftBarButtonItems=leftButtons;
-    [self seeNavBar];
-    
-    //Not certain this is the right place for this line:
-    
     [self.indicator stopAnimating];
+    [self seeNavBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -169,11 +175,11 @@
 //Connect to the Internet.
 -(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus
 {
-    NSURLRequest *reques = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
-    NSURLConnection *connectio = [[NSURLConnection alloc] initWithRequest:reques delegate:self];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
+    NSURLConnection *connectio = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (connectio)
     {
-        [self.webV loadRequest:reques];
+        [self.webV loadRequest:request];
     }
     self.webV.scalesPageToFit=YES;
     [self.webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];
