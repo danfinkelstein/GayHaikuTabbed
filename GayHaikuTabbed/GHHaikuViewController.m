@@ -252,8 +252,7 @@
     
     //Create UINavigationItem
 
-    self.titleBar = [[UINavigationItem alloc] init];  //Is this necessary?  There's no title.
-    //self.titleBar.hidesBackButton=YES; //What does this actually do?  Is it necessary?
+    self.titleBar = [[UINavigationItem alloc] init];
     
     //Add share button and, if appropriate, delete and edit buttons
         
@@ -299,8 +298,6 @@
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:NSSelectorFromString(@"deleteHaiku")];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:NSSelectorFromString(@"editHaiku")];
-    UIImage *edit = [UIImage imageNamed:@"187-pencil.png"];
-    editButton.image=edit;
     NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
     self.titleBar.leftBarButtonItems = leftItems;
 }

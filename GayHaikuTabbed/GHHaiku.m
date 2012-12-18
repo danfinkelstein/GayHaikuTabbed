@@ -37,10 +37,22 @@
 
 -(void)shuffle
 {
+    
+    //(Re)set the index to 0.
+    
     self.newIndex=0;
+    
+    //Populate a temporary array with the haiku in self.gayHaiku.
+    
     NSMutableArray *arrayForShuffling = [[NSMutableArray alloc] initWithArray:self.gayHaiku];
     int arrayCount = arrayForShuffling.count;
+    
+    //Empty self.gayHaiku.
+    
     self.gayHaiku = [[NSMutableArray alloc] init];
+    
+    //Repopulate self.gayHaiku randomly with the items it used to hold (items now in the temporary array).
+    
     for (int i=0; i<arrayCount; i++)
     {
         int sortingHat = [self chooseNumber:arrayForShuffling.count];
@@ -48,8 +60,8 @@
         [arrayForShuffling removeObjectAtIndex:sortingHat];
         if (arrayForShuffling.count>0)
         {
-        [arrayForShuffling insertObject:[arrayForShuffling lastObject] atIndex:sortingHat];
-        [arrayForShuffling removeLastObject];
+            [arrayForShuffling insertObject:[arrayForShuffling lastObject] atIndex:sortingHat];
+            [arrayForShuffling removeLastObject];
         }
     }
 }
