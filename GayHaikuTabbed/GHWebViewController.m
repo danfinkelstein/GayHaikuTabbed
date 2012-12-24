@@ -17,11 +17,10 @@
 @implementation GHWebViewController
 
 @synthesize webV;
-@synthesize bar;
-@synthesize navBarTitle;
-@synthesize alert;
-@synthesize indicator;
-@synthesize timer;
+//@synthesize bar;
+//@synthesize navBarTitle;
+//@synthesize alert;
+//@synthesize indicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,17 +62,16 @@
 
 //But this never starts animating.  Or if it does it animates invisibly.  Why?  What's wrong?
     
-    if (!self.indicator)
+    if (!indicator)
     {
-    self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-        [self.indicator setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2)];
-	[self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+        [indicator setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2)];
+	[indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
-	[self.view addSubview:self.indicator];
+	[self.view addSubview:indicator];
 	
-    [self.indicator startAnimating];
-    NSLog(@"%d",[self.indicator isAnimating]);
+    [indicator startAnimating];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
@@ -85,10 +83,10 @@
     UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
     [rightButtons addObject:stop];
     [rightButtons addObject:refresh];
-    [self.bar removeFromSuperview];
+    [bar removeFromSuperview];
     [self loadNavBar:@"Buy"];
-    self.navBarTitle.rightBarButtonItems=rightButtons;
-    self.navBarTitle.hidesBackButton=YES;
+    navBarTitle.rightBarButtonItems=rightButtons;
+    navBarTitle.hidesBackButton=YES;
     if (self.webV.canGoBack)
     {
         UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
@@ -99,8 +97,8 @@
         UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
         [leftButtons addObject:forwardButt];
     }
-    self.navBarTitle.leftBarButtonItems=leftButtons;
-    [self.indicator stopAnimating];
+    navBarTitle.leftBarButtonItems=leftButtons;
+    [indicator stopAnimating];
     [self seeNavBar];
 }
 
@@ -138,16 +136,16 @@
 
 -(void)loadNavBar:(NSString *)t
 {
-    [self.bar removeFromSuperview];
-    self.bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
-    self.navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
+    [bar removeFromSuperview];
+    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
 }
 
 -(void)seeNavBar
 {
-    [self.bar pushNavigationItem:self.navBarTitle animated:YES];
-    [self.bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    [self.view addSubview:self.bar];
+    [bar pushNavigationItem:navBarTitle animated:YES];
+    [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    [self.view addSubview:bar];
 }
 
 //Sets up and displays error message in case of failure to connect.
@@ -159,9 +157,9 @@
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil)
         {
-            [self.indicator stopAnimating];
-            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [self.alert show];
+            [indicator stopAnimating];
+            alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }
     return YES;
@@ -189,8 +187,8 @@
 //What to do in case of failure to connect.
 -(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [self.alert show];
+    alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
     return YES;
 }
 

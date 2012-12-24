@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GHWebViewController : UIViewController
+@interface GHWebViewController : UIViewController {
+    UIActivityIndicatorView *indicator;
+    UINavigationBar *bar;
+    UINavigationItem *navBarTitle;
+    UIAlertView *alert;
+}
 
-@property (nonatomic, strong) UIActivityIndicatorView *indicator;
+//@property (nonatomic, strong) UIActivityIndicatorView *indicator;
 @property (nonatomic, weak) IBOutlet UIWebView *webV;
-@property (nonatomic, strong) UINavigationBar *bar;
-@property (nonatomic, strong) UINavigationItem *navBarTitle;
-@property (nonatomic, strong) UIAlertView *alert;
-@property (nonatomic, strong) NSTimer *timer;
+//@property (nonatomic, strong) UINavigationBar *bar;
+//@property (nonatomic, strong) UINavigationItem *navBarTitle;
+//@property (nonatomic, strong) UIAlertView *alert;
 
 @end

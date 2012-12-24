@@ -10,6 +10,4 @@
 
 @interface GHFeedback : UIViewController
 
-@property (nonatomic, strong) UITextView *feedbackInstructions;
-
 @end
