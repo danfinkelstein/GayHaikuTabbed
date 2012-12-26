@@ -122,38 +122,44 @@
     }
 }
 
+-(UITextView *)createSwipeToAdd {
+    NSString *text = @"Swipe";
+    UITextView *show = [[UITextView alloc] init];
+    show.editable=NO;
+    //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
+    show.textColor = [UIColor purpleColor];
+    show.backgroundColor = [UIColor clearColor];
+    show.text = text;
+    show.font = [UIFont fontWithName:@"Zapfino" size:14];
+    
+    //Display it.
+    
+    return show;
+}
+
 -(void)addSwipeForRight
 //Adds the text telling the user to swipe right to continue.
 {
-    NSString *text=@"Swipe";
+    nextInstructions = [self createSwipeToAdd];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 340, xySize.width*1.5, (xySize.height*2));
-    nextInstructions = [[UITextView alloc] initWithFrame:(rect)];
-    nextInstructions.editable=NO;
-//Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
-    nextInstructions.backgroundColor = [UIColor clearColor];
-    nextInstructions.text = text;
-    nextInstructions.textColor = [UIColor purpleColor];
-    nextInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
+    nextInstructions.frame = rect; //[[UITextView alloc] initWithFrame:(rect)];
+        
+    //Display it.
+        
     [self.view addSubview:nextInstructions];
 }
 
 -(void)addSwipeForLeft
 //Adds the text telling the user to swipe left to opt out.
 {
-    NSString *text = @"Swipe";
+    previousInstructions = [self createSwipeToAdd];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake(10, 340, xySize.width*1.5, (xySize.height*2));
-//Why is there a line break after "opt"?  It should be just one line.
-    previousInstructions = [[UITextView alloc] initWithFrame:(rect)];
-    previousInstructions.editable=NO;
-//Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.self.previousInstructions.backgroundColor = [UIColor clearColor];
-    previousInstructions.backgroundColor = [UIColor clearColor];
-    previousInstructions.text = text;
-    previousInstructions.textColor = [UIColor purpleColor];
-    previousInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
+    previousInstructions.frame = rect;
+    
     [self.view addSubview:previousInstructions];
 }
 
@@ -459,7 +465,7 @@
 -(BOOL)saveUserHaiku
 {
     
-    //This makes sure the new haiku isn't a repeat of a haiku that's already in the database.
+    //This makes sure the new haiku isn't a repeat of a haiku that's already in the database.  If it is, this dismisses the compose screen and puts the haiku already in the database on the main screen.
     
     int i;
     for (i=0; i<ghhaiku.gayHaiku.count; i++)
@@ -467,11 +473,9 @@
         NSString *haikuToCheck = [[ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
         if ([textView.text isEqualToString:haikuToCheck])
         {
+            ghhaiku.justComposed=YES;
             ghhaiku.newIndex = i;
             [self.tabBarController setSelectedIndex:0];
-            
-//Do we want to make the home screen display the haiku that's a repeat?  Probably....
-
             return YES;
         }
     }

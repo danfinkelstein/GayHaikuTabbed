@@ -13,9 +13,7 @@
 @synthesize arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text, newIndex;
 
 + (GHHaiku *)sharedInstance
-
     //Make GHHaiku a singleton class.
-
 {
     static GHHaiku *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -25,19 +23,16 @@
     return sharedInstance;
 }
 
--(int)chooseNumber: (int)blah
-
+-(int)chooseNumber: (int)howManyHaiku
     //Choose a random number between 0 and the number of haiku in the array of all haiku, minus 1.
-
 {
     int x;
-    x = (arc4random() % blah);
+    x = (arc4random() % howManyHaiku);
     return x;
 }
 
 -(void)shuffle
 {
-    
     //(Re)set the index to 0.
     
     self.newIndex=0;
@@ -64,6 +59,10 @@
             [arrayForShuffling removeLastObject];
         }
     }
+    
+    //Destroy the temporary array
+    
+    arrayForShuffling = nil; //(NULL?  null?)
 }
 
 -(void)haikuToShow
@@ -71,14 +70,17 @@
     //Choose the next haiku for GHHaikuViewController -(void)goToNextHaiku.
 
 {
-    //Create terms
+    //If properties haven't been created before, create them.
 
-    if (!self.newIndex) self.newIndex=0;
     if (!self.gayHaiku)
     {
-        self.gayHaiku=[[NSMutableArray alloc] initWithArray:self.haikuLoaded];
-        self.newIndex=0;
+        self.gayHaiku = [[NSMutableArray alloc] initWithArray:self.haikuLoaded];
+        self.newIndex=0; 
         [self shuffle];
+    }
+//Is this next protasis/apodosis necessary?
+    if (!self.newIndex) {
+        self.newIndex=0;
     }
     
     //If you've gone through the entire array, empty the array of haiku seen and reset the index.
@@ -87,6 +89,8 @@
     {
         [self shuffle];
     }
+    
+    //set the current text to be the text of the haiku at newIndex
     
     self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"quote"];
         

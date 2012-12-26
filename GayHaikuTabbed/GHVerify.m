@@ -14,11 +14,17 @@
 
 -(NSArray *)splitHaikuIntoLines: (NSString *)haiku
 {
+    
+    //Splits NSString into lines separated by \n character.
+    
     self.listOfLines = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@"\n"] ];
     return self.listOfLines;
 }
 
 -(int) syllablesInLine: (NSString *)line {
+    
+    //Counts number of lines in haiku.
+    
     int number = [line syllableCount];
     return number;
 }

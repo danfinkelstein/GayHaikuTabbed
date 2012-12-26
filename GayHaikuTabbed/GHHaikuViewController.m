@@ -143,21 +143,22 @@
 
 -(void)displayHaiku
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults boolForKey:@"swipeForNextSeen?"])
+    //What is this protasis doing?  Is it just something I forgot to delete?
+    
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //if (![defaults boolForKey:@"swipeForNextSeen?"])
 
     //reset screen
     
     [self.displayHaikuTextView removeFromSuperview];
+    
+    //This produces self.ghhaiku.text as the new haiku.
+    
     if (!self.ghhaiku)
     {
         self.ghhaiku=[[GHHaiku alloc] init];
     }
-    [self.ghhaiku haikuToShow]; //This produces self.ghhaiku.text as the new haiku.
-    
-    //[self setFontSize];
-    
-//Still to do:  draw text using Zapfino font.
+    [self.ghhaiku haikuToShow]; 
     
     //set CGSize
     
@@ -172,7 +173,8 @@
     self.displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
     self.displayHaikuTextView.text=self.ghhaiku.text;
     [self.displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
-
+    
+    //set animation
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
@@ -189,10 +191,17 @@
     transition.delegate = self;
     
     [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
-    self.displayHaikuTextView.editable=NO;    
+    self.displayHaikuTextView.editable=NO;
+    
+    //Add text to view
+    
     [self.view addSubview:self.displayHaikuTextView];
+    
+    //Remove navBar from view, just in case delete/edit version has been showing for user-generated haiku, so that user can't accidentally delete or edit default haiku.
 
     [navBar removeFromSuperview];
+    
+    //Show swipe for next/swipe for previous instructions if appropriate
     
     if (swipeNextInstructionsSeen==NO)
     {
@@ -207,15 +216,21 @@
     {
         [previousInstructions removeFromSuperview];
     }
-    previousHaikuJustCalled=NO;
+    //previousHaikuJustCalled=NO;
 }
 
 -(void)goToNextHaiku
 {
+    
+    //Show next haiku in array
+    
     [self.displayHaikuTextView removeFromSuperview];
     self.ghhaiku.newIndex++;
     comingFromPrevious=NO;
     [self displayHaiku];
+    
+    //Show swipe instructions if appropriate
+    
     if (swipePreviousInstructionsSeen==NO)
     {
         [self addSwipeForPreviousView];
@@ -229,13 +244,13 @@
 
 -(void)goToPreviousHaiku
 {
-    //select haiku at random
+    //Show previous haiku in array
     
     if (!self.ghhaiku.newIndex<1)
     {
         [self.displayHaikuTextView removeFromSuperview];
         self.ghhaiku.newIndex--;
-        previousHaikuJustCalled=YES;
+        //previousHaikuJustCalled=YES;
     
         comingFromPrevious=YES;
         swipePreviousInstructionsSeen=YES;
@@ -296,8 +311,6 @@
 }
 
 -(void)addLeftButtons
-
-//No method "editHaiku" exists yet.
 
 {
     //Add buttons allowing the user to delete and/or edit haiku s/he's composed.

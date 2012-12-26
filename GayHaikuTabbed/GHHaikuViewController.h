@@ -18,7 +18,7 @@
     NSString *serviceType;
     UINavigationItem *titleBar;
     UINavigationBar *navBar;
-    BOOL previousHaikuJustCalled;
+    //BOOL previousHaikuJustCalled;
     BOOL comingFromPrevious;
 }
 

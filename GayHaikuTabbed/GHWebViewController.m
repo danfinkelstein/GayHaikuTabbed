@@ -37,9 +37,6 @@
     //create nav bar
     [self loadNavBar:@"Buy"];
     
-//What does this next line actually do?
-    
-    //self.navBarTitle.hidesBackButton=YES;
     //should this next line be put into a viewWillAppear method?
     [self seeNavBar];
     
