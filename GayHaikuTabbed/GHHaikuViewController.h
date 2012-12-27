@@ -19,11 +19,10 @@
     UINavigationItem *titleBar;
     UINavigationBar *navBar;
     BOOL comingFromPrevious;
+    IBOutlet UITextView *displayHaikuTextView;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
-
-@property (nonatomic, strong) IBOutlet UITextView *displayHaikuTextView;
 
 -(IBAction)goToNextHaiku;
 -(IBAction)goToPreviousHaiku;

@@ -13,8 +13,7 @@
     UINavigationBar *bar;
     UINavigationItem *navBarTitle;
     UIAlertView *alert;
+    IBOutlet UIWebView *webV;
 }
-
-@property (nonatomic, weak) IBOutlet UIWebView *webV;
 
 @end

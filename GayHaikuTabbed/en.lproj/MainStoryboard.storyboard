@@ -44,7 +44,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="53-house.png" id="7"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="displayHaikuTextView" destination="VB8-hZ-3T0" id="ZYj-DH-kqX"/>
+                        <outlet property="displayHaikuTextView" destination="VB8-hZ-3T0" id="imv-Ox-xmj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>

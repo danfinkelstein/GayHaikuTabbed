@@ -16,8 +16,6 @@
 
 @implementation GHWebViewController
 
-@synthesize webV;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,11 +35,11 @@
     [self seeNavBar];
     
     //Create UIWebView.
-    if (!self.webV)
+    if (!webV)
     {
-        self.webV = [[UIWebView alloc] init];
+        webV = [[UIWebView alloc] init];
     }
-    self.webV.delegate = self;
+    webV.delegate = self;
     
     //Load Amazon page.
     
@@ -80,12 +78,12 @@
     [self loadNavBar:@"Buy"];
     navBarTitle.rightBarButtonItems=rightButtons;
     navBarTitle.hidesBackButton=YES;
-    if (self.webV.canGoBack)
+    if (webV.canGoBack)
     {
         UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
         [leftButtons addObject:backButt];
     }
-    if (self.webV.canGoForward)
+    if (webV.canGoForward)
     {
         UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
         [leftButtons addObject:forwardButt];
@@ -106,25 +104,25 @@
 //Allow the user to go to the previous web page.
 -(void)webBack
 {
-    [self.webV goBack];
+    [webV goBack];
 }
 
 //Allow the user to follow a link.
 -(void)webForward
 {
-    [self.webV goForward];
+    [webV goForward];
 }
 
 //Refreshes the current web page.
 -(void)webRefresh
 {
-    [self.webV reload];
+    [webV reload];
 }
 
 //Interrupts loading the current web page.
 -(void)webStop
 {
-    [self.webV stopLoading];
+    [webV stopLoading];
 }
 
 -(void)loadNavBar:(NSString *)t
@@ -170,11 +168,11 @@
     NSURLConnection *connectio = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (connectio)
     {
-        [self.webV loadRequest:request];
+        [webV loadRequest:request];
     }
-    self.webV.scalesPageToFit=YES;
-    [self.webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];
-    [self.view addSubview:self.webV];
+    webV.scalesPageToFit=YES;
+    [webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];
+    [self.view addSubview:webV];
 }
 
 //What to do in case of failure to connect.

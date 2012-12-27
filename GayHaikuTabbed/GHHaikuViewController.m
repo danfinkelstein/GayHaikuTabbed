@@ -26,7 +26,6 @@
 @implementation GHHaikuViewController
 
 @synthesize ghhaiku;
-@synthesize displayHaikuTextView;
 
 -(void)viewDidLoad
 {
@@ -125,9 +124,9 @@
     if (self.ghhaiku.justComposed==YES)
     {
         [super viewWillAppear:animated];
-        if (self.displayHaikuTextView)
+        if (displayHaikuTextView)
         {
-            [self.displayHaikuTextView removeFromSuperview];
+            [displayHaikuTextView removeFromSuperview];
         }
         [self displayHaiku];
         [self showNavBarOnTap];
@@ -149,7 +148,7 @@
 
     //reset screen
     
-    [self.displayHaikuTextView removeFromSuperview];
+    [displayHaikuTextView removeFromSuperview];
     
     //This produces self.ghhaiku.text as the new haiku.
     
@@ -166,12 +165,12 @@
     
     //set UITextView
     
-    self.displayHaikuTextView = [[UITextView alloc] init];
-    self.displayHaikuTextView.backgroundColor = [UIColor clearColor];
-    self.displayHaikuTextView.editable=NO;
-    self.displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
-    self.displayHaikuTextView.text=self.ghhaiku.text;
-    [self.displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
+    displayHaikuTextView = [[UITextView alloc] init];
+    displayHaikuTextView.backgroundColor = [UIColor clearColor];
+    displayHaikuTextView.editable=NO;
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
+    displayHaikuTextView.text=self.ghhaiku.text;
+    [displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
     
     //set animation
     
@@ -189,12 +188,12 @@
     }
     transition.delegate = self;
     
-    [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
-    self.displayHaikuTextView.editable=NO;
+    [displayHaikuTextView.layer addAnimation:transition forKey:nil];
+    displayHaikuTextView.editable=NO;
     
     //Add text to view
     
-    [self.view addSubview:self.displayHaikuTextView];
+    [self.view addSubview:displayHaikuTextView];
     
     //Remove navBar from view, just in case delete/edit version has been showing for user-generated haiku, so that user can't accidentally delete or edit default haiku.
 
@@ -223,7 +222,7 @@
     
     //Show next haiku in array
     
-    [self.displayHaikuTextView removeFromSuperview];
+    [displayHaikuTextView removeFromSuperview];
     self.ghhaiku.newIndex++;
     comingFromPrevious=NO;
     [self displayHaiku];
@@ -247,7 +246,7 @@
     
     if (!self.ghhaiku.newIndex<1)
     {
-        [self.displayHaikuTextView removeFromSuperview];
+        [displayHaikuTextView removeFromSuperview];
         self.ghhaiku.newIndex--;
         //previousHaikuJustCalled=YES;
     
@@ -332,7 +331,7 @@
     //Delete the haiku
     
     [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
-    [self.displayHaikuTextView removeFromSuperview];
+    [displayHaikuTextView removeFromSuperview];
     [navBar removeFromSuperview];
 
     //Save the new set of user haiku to the docs folder.
@@ -341,7 +340,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
     {
-        if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:self.displayHaikuTextView.text])
+        if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:displayHaikuTextView.text])
         {
             [self.ghhaiku.gayHaiku removeObjectIdenticalTo:[self.ghhaiku.gayHaiku objectAtIndex:i]];
             [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];

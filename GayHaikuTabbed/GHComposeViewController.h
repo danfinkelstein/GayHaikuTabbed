@@ -32,11 +32,10 @@
     int screen;
     GHHaiku *ghhaiku;
     GHVerify *ghverify;
+    IBOutlet UIImageView *screenBackground;
+    IBOutlet UIButton *checkboxButton;
+    IBOutlet UITextField *nameField;
 }
-
-@property (nonatomic, weak) IBOutlet UIImageView *screenBackground;
-@property (nonatomic, weak) IBOutlet UIButton *checkboxButton;
-@property (nonatomic, weak) IBOutlet UITextField *nameField;
 
 -(IBAction)checkCheckbox;
 

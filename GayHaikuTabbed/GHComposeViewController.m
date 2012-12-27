@@ -14,10 +14,11 @@
 
 @implementation GHComposeViewController
 
-@synthesize screenBackground, checkboxButton, nameField;
-
 -(void)displayScreen:(int)x
 {
+    
+    //This lets us know whether we're on the composition screen, the instructions screen, or the opt-out screen.
+    
     if (x==0)
     {
         [self displayComposeScreen];
@@ -34,6 +35,9 @@
 
 -(int)chooseRightSwipeMethod
 {
+    
+    //This lets us know what screen to go to if we swipe right.
+    
     if (screen-1>=0)
     {
         [self displayScreen:screen-1];        
@@ -43,6 +47,9 @@
 
 -(int)chooseLeftSwipeMethod
 {
+    
+    //This lets us know what screen to go to if we swipe left.
+    
     if (screen+1<=2)
     {
         [self displayScreen:screen+1];
@@ -103,20 +110,28 @@
     //set background image
     
     UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-    self.screenBackground.image = fullBackground;
+    screenBackground.image = fullBackground;
     
     //send user to appropriate screen
     
     if (optOutSeen==NO)
     {
+        
+        //If the user hasn't ever seen the opt out screen, show it.
+        
         [self displayOptOutScreen];
     }
     else if (instructionsSeen==NO)
     {
+        
+        //If the user hasn't ever seen the instructions screen, show it.
+        
         [self displayInstructionsScreen];
     }
     else
     {
+        
+        //Show the compose screen.
         
         [self displayComposeScreen];
     }
@@ -140,11 +155,17 @@
 -(void)addSwipeForRight
 //Adds the text telling the user to swipe right to continue.
 {
+    
+    //Create the text to tell the user to swipe to the next screen.
+    
     nextInstructions = [self createSwipeToAdd];
+    
+    //Locate and frame the text on the right side of the view.
+    
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 340, xySize.width*1.5, (xySize.height*2));
-    nextInstructions.frame = rect; //[[UITextView alloc] initWithFrame:(rect)];
+    nextInstructions.frame = rect;
         
     //Display it.
         
@@ -154,11 +175,19 @@
 -(void)addSwipeForLeft
 //Adds the text telling the user to swipe left to opt out.
 {
+    
+    //Create the text to tell the user to swipe to the previous screen.
+    
     previousInstructions = [self createSwipeToAdd];
+    
+    //Locate and frame the text on the left side of the view.
+    
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake(10, 340, xySize.width*1.5, (xySize.height*2));
     previousInstructions.frame = rect;
+    
+    //Display it.
     
     [self.view addSubview:previousInstructions];
 }
@@ -229,8 +258,8 @@
     
     instructions.hidden=YES;
     optOut.hidden=YES;
-    self.checkboxButton.hidden=YES;
-    self.nameField.hidden=YES;
+    checkboxButton.hidden=YES;
+    nameField.hidden=YES;
     
     //Create the textView if it doesn't exist.
     
@@ -262,16 +291,21 @@
     
 //REPLACE THIS LATER WITH CORRECT IMAGE.
     UIImage *composeBackground = [UIImage imageNamed:@"temp background.jpg"];
-    self.screenBackground.image = composeBackground;
+    screenBackground.image = composeBackground;
     screen=0;
     [self animateView:self.view withDirection:@"right"];
 }
 
 -(void)addTranslucentToolbarAboveKeyboard
 {
+    
+    //Create translucent toolbar to sit above keyboard.
+    
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setBarStyle:UIBarStyleBlackTranslucent];
     [toolbar sizeToFit];
+    
+    //Create "instructions" and "done" buttons.
 
     UIBarButtonItem *instructionsButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"displayInstructionsScreen")];
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
@@ -293,10 +327,10 @@
 {
     //In case user is coming from the compose screen, which has a different background image.
     
-    if (self.screenBackground.image!=[UIImage imageNamed:@"temp background.jpg"])
+    if (screenBackground.image!=[UIImage imageNamed:@"temp background.jpg"])
     {
         UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-        self.screenBackground.image = fullBackground;
+        screenBackground.image = fullBackground;
     }
     
     //Hide the appropriate views.
@@ -304,8 +338,8 @@
     optOut.hidden=YES;
     [nextInstructions removeFromSuperview];
     [previousInstructions removeFromSuperview];
-    self.checkboxButton.hidden=YES;
-    self.nameField.hidden=YES;
+    checkboxButton.hidden=YES;
+    nameField.hidden=YES;
     textView.hidden=YES;
     [textView resignFirstResponder];
     
@@ -318,8 +352,14 @@
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         instructions.editable=NO;
     }
-    if (screen==0) [self animateView:instructions withDirection:@"left"];
-    else if (screen==2) [self animateView:instructions withDirection:@"right"];
+    
+    if (screen==0) { //If we're on the opt-out screen,
+        [self animateView:instructions withDirection:@"left"]; //tell the user to swipe right
+    }
+    else if (screen==2) //If we're on the instructions screen,
+    {
+        [self animateView:instructions withDirection:@"right"]; //tell the user to swipe right
+    }
     if (instructionsSeen==NO)
     {
         instructionsSeen=YES;
@@ -369,22 +409,22 @@
     else [self animateView:optOut withDirection:@"right"];
     [self.view addSubview:optOut];
     optOut.hidden=NO;
-    self.checkboxButton.hidden=NO;
+    checkboxButton.hidden=NO;
     [textView resignFirstResponder];
-    if (!self.nameField)
+    if (!nameField)
     {
-        self.nameField=[[UITextField alloc] init];
+        nameField=[[UITextField alloc] init];
     }
     for(UIView *view in [self view].subviews){
         [view setUserInteractionEnabled:YES];
     }
     [instructions removeFromSuperview];
-    self.nameField.hidden=NO;
-    self.nameField.delegate = self;
-    self.nameField.returnKeyType = UIReturnKeyDone;
-    [self textFieldShouldReturn:self.nameField];
-    [self.view bringSubviewToFront:self.checkboxButton];
-    [self.view bringSubviewToFront:self.nameField];
+    nameField.hidden=NO;
+    nameField.delegate = self;
+    nameField.returnKeyType = UIReturnKeyDone;
+    [self textFieldShouldReturn:nameField];
+    [self.view bringSubviewToFront:checkboxButton];
+    [self.view bringSubviewToFront:nameField];
     screen=2;
     
     if (optOutSeen==NO)
@@ -403,11 +443,11 @@
 {
     if (checkboxChecked)
     {
-        [self.checkboxButton setImage:[UIImage imageNamed:@"trycheckbox_no.png"] forState:UIControlStateNormal];
+        [checkboxButton setImage:[UIImage imageNamed:@"trycheckbox_no.png"] forState:UIControlStateNormal];
     }
     else if (!checkboxChecked)
     {
-        [self.checkboxButton setImage:[UIImage imageNamed:@"trycheckbox.png"] forState:UIControlStateNormal];
+        [checkboxButton setImage:[UIImage imageNamed:@"trycheckbox.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -439,7 +479,7 @@
         
         //If this is a new haiku
         
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Save", nil];      
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];      
     }
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
@@ -550,8 +590,6 @@
     else if (ghhaiku.userIsEditing==YES && textView.text.length>0)
     {
         
-//Check this functionality.
-        
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
         [ghhaiku.gayHaiku removeObjectAtIndex:ghhaiku.newIndex+1];
     
@@ -568,9 +606,9 @@
         
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
-    if (self.nameField.text)
+    if (nameField.text)
     {
-        [haikuObject setObject:self.nameField.text forKey:@"author"];
+        [haikuObject setObject:nameField.text forKey:@"author"];
     }
     NSString *perm;
     if (checkboxChecked)
