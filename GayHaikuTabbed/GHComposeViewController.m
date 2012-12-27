@@ -14,7 +14,7 @@
 
 @implementation GHComposeViewController
 
-@synthesize screenBackground, checkboxButton, nameField; //, bypassSyllableCheck, instructionsSeen, optOutSeen, alert, checkboxChecked, optOutHasBeenSeenThisSession, instructionsHaveBeenSeenThisSession, textView, instructions, optOut, screen, nextInstructions, previousInstructions, , ghhaiku, ghverify;
+@synthesize screenBackground, checkboxButton, nameField;
 
 -(void)displayScreen:(int)x
 {

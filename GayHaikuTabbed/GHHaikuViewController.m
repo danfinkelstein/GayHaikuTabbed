@@ -27,7 +27,6 @@
 
 @synthesize ghhaiku;
 @synthesize displayHaikuTextView;
-//@synthesize swipeNextInstructionsSeen, swipePreviousInstructionsSeen, nextInstructions, previousInstructions, alert, , serviceType, navBar,  previousHaikuJustCalled, comingFromPrevious; 
 
 -(void)viewDidLoad
 {

@@ -17,10 +17,6 @@
 @implementation GHWebViewController
 
 @synthesize webV;
-//@synthesize bar;
-//@synthesize navBarTitle;
-//@synthesize alert;
-//@synthesize indicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
