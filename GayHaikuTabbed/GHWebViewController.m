@@ -29,12 +29,15 @@
     [super viewDidLoad];
     
     //create nav bar
+    
     [self loadNavBar:@"Buy"];
     
     //should this next line be put into a viewWillAppear method?
+    
     [self seeNavBar];
     
     //Create UIWebView.
+    
     if (!webV)
     {
         webV = [[UIWebView alloc] init];
@@ -49,10 +52,6 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    //start animating
-
-//But this never starts animating.  Or if it does it animates invisibly.  Why?  What's wrong?
-    
     if (!indicator)
     {
     indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];

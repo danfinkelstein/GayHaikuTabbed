@@ -62,12 +62,12 @@
         int ideal = [[syllablesInLine objectAtIndex:i] integerValue];
         if (extant<ideal)
         {
-            NSString *tooFew = [NSString stringWithFormat:@"line %d might have too few syllables.",i+1];
+            NSString *tooFew = [NSString stringWithFormat:@"too few"];
             [self.linesAfterCheck addObject:tooFew];
         }
         else if (extant>ideal)
         {
-            NSString *tooMany = [NSString stringWithFormat:@"line %d might have too many syllables.", i+1];
+            NSString *tooMany = [NSString stringWithFormat:@"too many"];
             [self.linesAfterCheck addObject:tooMany];
         }
         else if (extant==ideal)

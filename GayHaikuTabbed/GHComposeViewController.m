@@ -105,6 +105,8 @@
 {
     [super viewWillAppear:animated];
     
+    //Make sure that the function to bypass syllable check is turned off.
+    
     bypassSyllableCheck=NO;
     
     //set background image
@@ -138,13 +140,15 @@
 }
 
 -(UITextView *)createSwipeToAdd {
-    NSString *text = @"Swipe";
+    
+    //Create the text "swipe" to let the user know there's a previous/next screen.
+    
     UITextView *show = [[UITextView alloc] init];
     show.editable=NO;
     //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
     show.textColor = [UIColor purpleColor];
     show.backgroundColor = [UIColor clearColor];
-    show.text = text;
+    show.text = @"Swipe";
     show.font = [UIFont fontWithName:@"Zapfino" size:14];
     
     //Display it.
@@ -238,19 +242,16 @@
     //Persistent record of whether user has seen instructions and opt out screen.
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (optOutSeen)
-    {
-        [defaults setBool:optOutSeen forKey:@"optOutSeen?"];
-    }
-    if (instructionsSeen)
-    {
-        [defaults setBool:instructionsSeen forKey:@"instructionsSeen?"];
-    }
+    [defaults setBool:optOutSeen forKey:@"optOutSeen?"];
+    [defaults setBool:instructionsSeen forKey:@"instructionsSeen?"];
     [defaults synchronize];
 }
 
 -(void)displayComposeScreen
 {
+    
+    //Clear screen of swipe notifications
+    
     [nextInstructions removeFromSuperview];
     [previousInstructions removeFromSuperview];
         
@@ -265,9 +266,10 @@
     
     if (!textView)
     {
-        textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 150)];
-        textView.backgroundColor = [UIColor whiteColor];
+        textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 180)];
+        //textView.backgroundColor = [UIColor whiteColor];
         textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+
         textView.delegate = self;
     }
     
@@ -275,15 +277,25 @@
     
     [self addTranslucentToolbarAboveKeyboard];
     textView.editable=YES;
+    textView.backgroundColor = [UIColor colorWithRed:216/255.0 green:121/255.0 blue:158/255.0 alpha:1];
     textView.hidden=NO;
     if (ghhaiku.userIsEditing==NO)
+        
+        //If the user is NOT editing a user haiku, set the text to nil.
+        
     {
         textView.text = @"";
     }
     else
     {
+        
+        //If the user IS editing a user haiku, set the text to that haiku.
+        
         textView.text = ghhaiku.text;
     }
+    
+    //Show the textView and set up the keyboard.
+    
     [self.view addSubview:textView];
     [textView becomeFirstResponder];
     
@@ -360,17 +372,17 @@
     {
         [self animateView:instructions withDirection:@"right"]; //tell the user to swipe right
     }
-    if (instructionsSeen==NO)
+    if (instructionsSeen==NO) //If the instructions have never been seen,
     {
-        instructionsSeen=YES;
+        instructionsSeen=YES; //Mark them seen and save that setting.
         [self saveData];
     }
-    if (instructionsHaveBeenSeenThisSession==NO)
+    if (instructionsHaveBeenSeenThisSession==NO) //If the instructions haven't been seen this time,
     {
-        [self addSwipeForLeft];
+        [self addSwipeForLeft]; //Add them.
         [self addSwipeForRight];
     }
-    instructionsHaveBeenSeenThisSession=YES;
+    instructionsHaveBeenSeenThisSession=YES; 
     instructions.hidden=NO;
     screen=1;
     [self.view addSubview:instructions];
@@ -405,8 +417,12 @@
         optOut.text = @"\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you don't want your haiku included in \nfuture updates (which would make me \nsad), check this box.";
         optOut.editable=NO;
     }
-    if (screen==1) [self animateView:optOut withDirection:@"left"];
-    else [self animateView:optOut withDirection:@"right"];
+    if (screen==1) { //If we've come from the instructions screen
+        [self animateView:optOut withDirection:@"left"]; //animate the text appearance from the right
+    }
+    else {
+        [self animateView:optOut withDirection:@"right"]; //otherwise, animate it from the left
+    }
     [self.view addSubview:optOut];
     optOut.hidden=NO;
     checkboxButton.hidden=NO;
@@ -467,6 +483,7 @@
             textView.text=@"";
             [self.tabBarController setSelectedIndex:0];
         }
+        
         else
             
             //If user has made changes
@@ -478,8 +495,19 @@
     {
         
         //If this is a new haiku
+        if (textView.text.length==0)
+            
+            //If user has composed nothing
+            
+        {
+            textView.text=@"";
+            [self.tabBarController setSelectedIndex:0];
+        }
         
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];      
+        else {
+        
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
+        }
     }
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
@@ -502,6 +530,78 @@
     }
 }
 
+-(void)verifySyllables {
+    
+    //Create an instance of GHVerify if one doesn't exist.
+    
+    if (!ghverify)
+    {
+        ghverify = [[GHVerify alloc] init];
+    }
+    
+    //Divide the current haiku into lines.
+    
+    [ghverify splitHaikuIntoLines:textView.text];
+    
+    //Check the number of syllables in each line.
+    
+    [ghverify checkHaikuSyllables];
+    
+    NSString *alertMessage=@"I'm sorry, but ";
+    
+    if (ghverify.correctNumberOfLines!=@"Just right.")
+    {
+        alertMessage = [alertMessage stringByAppendingFormat:@" %@",ghverify.correctNumberOfLines];
+    }
+    int k;
+    if (ghverify.listOfLines.count<3)
+    {
+        k=ghverify.listOfLines.count;
+    }
+    else
+    {
+        k=3;
+    }
+    NSMutableArray *arrayOfLinesToAlert = [[NSMutableArray alloc] init];
+    for (int i=0; i<k; i++)
+    {
+        if ([ghverify.linesAfterCheck objectAtIndex:i])
+        {
+            if (![[ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"Just right."]) {
+                [arrayOfLinesToAlert addObject:[NSNumber numberWithInt:i+1].stringValue];
+            }
+        }
+    }
+    if (arrayOfLinesToAlert.count>0) {
+        NSString *phrase;
+        NSString *number;
+        if (arrayOfLinesToAlert.count==1) {
+            number = [NSString stringWithFormat:@"line %@",[arrayOfLinesToAlert objectAtIndex:0] ];
+        }
+        else if (arrayOfLinesToAlert.count==2) {
+            number = [NSString stringWithFormat:@"lines %@ and %@",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1]];
+            }
+        else if (arrayOfLinesToAlert.count==3) {
+            number = [NSString stringWithFormat:@"lines %@, %@, and %@",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
+        }
+        phrase = [NSString stringWithFormat:@"%@ might have the wrong number of syllables. You need 5-7-5. ",number];
+        if ([alertMessage characterAtIndex:alertMessage.length-1]=='.')
+            {
+                alertMessage = [alertMessage stringByAppendingFormat:@" Also, %@",phrase];
+            }
+        else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
+        }
+    
+    arrayOfLinesToAlert=Nil;
+    if (alertMessage.length>15)
+    {
+        NSString *add = @"Are you certain you'd like to continue saving?";
+        alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
+        alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
+        [alert show];
+    }
+}
+
 -(BOOL)saveUserHaiku
 {
     
@@ -520,62 +620,27 @@
         }
     }
     
-    //This creates the dictionary item of the new haiku to save in userHaiku.plist.
-    
-    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", textView.text, nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-
     //This checks to make sure the syllable counts are correct.
     
     if (bypassSyllableCheck==NO)
     {
-        if (!ghverify)
-        {
-            ghverify = [[GHVerify alloc] init];
-        }
-    
-        [ghverify splitHaikuIntoLines:textView.text];
-        [ghverify checkHaikuSyllables];
-    
-        NSString *alertMessage=@"I'm sorry, but ";
-    
-        if (ghverify.correctNumberOfLines!=@"Just right.")
-        {
-            alertMessage = [alertMessage stringByAppendingFormat:@" %@",ghverify.correctNumberOfLines];
-        }
-        int k;
-        if (ghverify.listOfLines.count<3)
-        {
-            k=ghverify.listOfLines.count;
-        }
-        else
-        {
-            k=3;
-        }
-        for (int i=0; i<k; i++)
-        {
-            if ([ghverify.linesAfterCheck objectAtIndex:i])
-            {
-                if (![[ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"Just right."])
-                {
-                    if ([alertMessage characterAtIndex:alertMessage.length-1]=='.')
-                    {
-                        alertMessage = [alertMessage stringByAppendingFormat:@" Also, %@",[ghverify.linesAfterCheck objectAtIndex:i]];
-                    }
-                    else alertMessage = [alertMessage stringByAppendingFormat:@" %@",[ghverify.linesAfterCheck objectAtIndex:i]];
-                }
-            }
-        }
-        if (alertMessage.length>15)
-        {
-            NSString *add = @"Are you certain you'd like to continue saving?";
-            alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
-            alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
-            [alert show];
-            return YES;
-        }
+        [self verifySyllables];
+        return YES;
     }
+    
+    //This creates the dictionary item of the new haiku to save in userHaiku.plist.
+    NSString *textWithAttribution;
+    if (nameField.text) {
+        textWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t\t%@",nameField.text];
+    }
+    else {
+        textWithAttribution = textView.text;
+    }
+    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", textWithAttribution, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
+    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
+
+
     if (textView.text.length>0 && ghhaiku.userIsEditing==NO)
         
     //If it's a new haiku:
@@ -603,7 +668,7 @@
     }
     
     [ghhaiku saveToDocsFolder:@"userHaiku.plist"];
-        
+    
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
     if (nameField.text)

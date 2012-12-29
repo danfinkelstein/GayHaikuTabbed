@@ -16,6 +16,7 @@
     UITextView *nextInstructions;
     UIAlertView *alert;
     NSString *serviceType;
+    NSString *authorName;
     UINavigationItem *titleBar;
     UINavigationBar *navBar;
     BOOL comingFromPrevious;

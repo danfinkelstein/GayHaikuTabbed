@@ -216,6 +216,8 @@
     @"giu",
     @"ion",
     @"iou",
+    @"twelve",
+    @"Twelve",
     @"sia$",
     @"[^aeiuoyt]{2}ed$",
     @".ely$",

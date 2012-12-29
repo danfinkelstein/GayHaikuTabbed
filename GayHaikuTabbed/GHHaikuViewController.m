@@ -46,49 +46,41 @@
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showNavBarOnTap)];
     [self.view addGestureRecognizer:tapBar];
     
-    //load arrays of haiku
+    //load array of haiku and set index to 0
     
     if (!self.ghhaiku)
     {
         self.ghhaiku = [GHHaiku sharedInstance];
     }
     [self.ghhaiku loadHaiku];
+    if (!self.ghhaiku.newIndex) self.ghhaiku.newIndex=0;
 
     //Add Parse
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     
+    //set up tab bar
+    
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     
     self.tabBarController.delegate=self;
+    
+    //indicate that "swipe" for previous/next have not been seen yet this session
+    
     swipeNextInstructionsSeen=NO;
     swipePreviousInstructionsSeen=NO;
     
-    if (!self.ghhaiku.newIndex) self.ghhaiku.newIndex=0;
+    //display a haiku and show (and fade) the nav bar
     
     [self displayHaiku];
-
     [self showNavBarOnTap];
 }
 
--(void)addSwipeForNextView
-{
-    
-    //Create "swipe for next haiku" message and set its characteristics.
-    
-    nextInstructions = [self createSwipeToAdd];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, (xySize.height*2));
-    nextInstructions.frame = rect; //[[UITextView alloc] initWithFrame:(rect)];
-    
-    //Display it.
-    
-    [self.view addSubview:nextInstructions];
-}
-
 -(UITextView *)createSwipeToAdd {
+    
+    //Create "Swipe" text and its characteristics
+    
     NSString *text = @"Swipe";
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
@@ -97,29 +89,50 @@
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = text;
     instructions.font = [UIFont fontWithName:@"Zapfino" size:14];
+    return instructions;
+}
+
+-(void)addSwipeForNextView
+{
+    
+    //Create "swipe" message and set its location
+    
+    nextInstructions = [self createSwipeToAdd];
+    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+    
+    //Why did I choose 400?
+    
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, (xySize.height*2));
+    nextInstructions.frame = rect;
     
     //Display it.
     
-    return instructions;
+    [self.view addSubview:nextInstructions];
 }
 
 -(void)addSwipeForPreviousView
 {
     
-    //Create "swipe for previous haiku" message and set its characteristics.
+    //Create "swipe" message and set its location.
     
     previousInstructions = [self createSwipeToAdd];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
+    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+    
+    //Why did I choose 400?
+    
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake(10, 240, xySize.width*1.5, (xySize.height*2));
     previousInstructions.frame = rect;
+    
+    //Display it
     
     [self.view addSubview:previousInstructions];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 
-    //This replaces, when the user returns from the compose screen, whatever haiku was showing in the main screen with the new user haiku.
+    //When the user returns from the compose screen having just composed a new haiku, this replaces whatever haiku was showing with the new user haiku.
 {
     if (self.ghhaiku.justComposed==YES)
     {
@@ -141,16 +154,12 @@
 
 -(void)displayHaiku
 {
-    //What is this protasis doing?  Is it just something I forgot to delete?
-    
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //if (![defaults boolForKey:@"swipeForNextSeen?"])
 
     //reset screen
     
     [displayHaikuTextView removeFromSuperview];
     
-    //This produces self.ghhaiku.text as the new haiku.
+    //Produce self.ghhaiku.text as the new haiku.
     
     if (!self.ghhaiku)
     {
@@ -163,7 +172,7 @@
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     
-    //set UITextView
+    //set UITextView and its characteristics
     
     displayHaikuTextView = [[UITextView alloc] init];
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
@@ -214,7 +223,6 @@
     {
         [previousInstructions removeFromSuperview];
     }
-    //previousHaikuJustCalled=NO;
 }
 
 -(void)goToNextHaiku
@@ -248,7 +256,6 @@
     {
         [displayHaikuTextView removeFromSuperview];
         self.ghhaiku.newIndex--;
-        //previousHaikuJustCalled=YES;
     
         comingFromPrevious=YES;
         swipePreviousInstructionsSeen=YES;
@@ -512,7 +519,7 @@
     {
         [navBar removeFromSuperview];
     }
-    actSheet.tag=2;
+    //actSheet.tag=2;
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
