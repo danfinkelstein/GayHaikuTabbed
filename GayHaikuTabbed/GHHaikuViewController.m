@@ -137,10 +137,6 @@
     if (self.ghhaiku.justComposed==YES)
     {
         [super viewWillAppear:animated];
-        /*if (displayHaikuTextView)
-        {
-            [displayHaikuTextView removeFromSuperview];
-        }*/
         [self displayHaiku];
         [self showNavBarOnTap];
         self.ghhaiku.justComposed=NO;
@@ -154,7 +150,6 @@
 
 -(void)displayHaiku
 {
-
     //reset screen
     
     [displayHaikuTextView removeFromSuperview];
@@ -253,7 +248,6 @@
     {
         [displayHaikuTextView removeFromSuperview];
         self.ghhaiku.newIndex--;
-    
         comingFromPrevious=YES;
         swipePreviousInstructionsSeen=YES;
         [self displayHaiku];
@@ -304,7 +298,6 @@
 
 -(void)addShareButton
 {
-    
     //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
     
     UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:NSSelectorFromString(@"showMessage")];

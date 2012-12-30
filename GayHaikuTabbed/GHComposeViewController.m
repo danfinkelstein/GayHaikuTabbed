@@ -88,6 +88,10 @@
     {
         checkboxChecked = [defaults boolForKey:@"checked?"];
     }
+    if ([defaults objectForKey:@"author"])
+    {
+        nameField.text = [defaults objectForKey:@"author"];
+    }
     else checkboxChecked = YES;
     
     //UNCOMMENT THESE LINES TO TEST OPTOUT/INSTRUCTIONS SEEN
@@ -279,9 +283,9 @@
     textView.editable=YES;
     textView.backgroundColor = [UIColor colorWithRed:216/255.0 green:121/255.0 blue:158/255.0 alpha:1];
     textView.hidden=NO;
-    if (ghhaiku.userIsEditing==NO)
+    if (ghhaiku.userIsEditing==NO || ghhaiku.isUserHaiku==NO)
         
-        //If the user is NOT editing a user haiku, set the text to nil.
+        //If the user is NOT editing a user haiku, or if it's not a user haiku, set the text to nil.
         
     {
         textView.text = @"";
@@ -453,6 +457,14 @@
         [self addSwipeForRight];
     }
     optOutHasBeenSeenThisSession=YES;
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    if (nameField.text.length>0) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:nameField.text forKey:@"author"];
+    [defaults synchronize];
+    }
 }
 
 -(void)displayButton
@@ -671,10 +683,10 @@
     
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
-    if (nameField.text)
+    /*if (nameField.text)
     {
         [haikuObject setObject:nameField.text forKey:@"author"];
-    }
+    }*/
     NSString *perm;
     if (checkboxChecked)
     {
