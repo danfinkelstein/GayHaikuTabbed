@@ -137,10 +137,10 @@
     if (self.ghhaiku.justComposed==YES)
     {
         [super viewWillAppear:animated];
-        if (displayHaikuTextView)
+        /*if (displayHaikuTextView)
         {
             [displayHaikuTextView removeFromSuperview];
-        }
+        }*/
         [self displayHaiku];
         [self showNavBarOnTap];
         self.ghhaiku.justComposed=NO;
@@ -161,11 +161,8 @@
     
     //Produce self.ghhaiku.text as the new haiku.
     
-    if (!self.ghhaiku)
-    {
-        self.ghhaiku=[[GHHaiku alloc] init];
-    }
-    [self.ghhaiku haikuToShow]; 
+    self.ghhaiku=[GHHaiku sharedInstance];
+    [self.ghhaiku haikuToShow];
     
     //set CGSize
     
