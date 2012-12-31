@@ -10,7 +10,7 @@
 
 @implementation GHVerify
 
-@synthesize listOfLines, ghhaiku, correctNumberOfLines, correctNumberOfSyllablesInFirstLine, correctNumberOfSyllablesInSecondLine, correctNumberOfSyllablesInThirdLine, linesAfterCheck;
+@synthesize listOfLines, ghhaiku, linesAfterCheck, numberOfLinesAsProperty;
 
 -(NSArray *)splitHaikuIntoLines: (NSString *)haiku
 {
@@ -37,13 +37,16 @@
     }
     if (self.listOfLines.count>3)
     {
-        self.correctNumberOfLines=@"your haiku seems to have too many lines.";
+        self.numberOfLinesAsProperty=tooManyLines;
     }
     else if (self.listOfLines.count<3)
     {
-        self.correctNumberOfLines=@"your haiku seems to have too few lines.";
+        self.numberOfLinesAsProperty=tooFewLines;
     }
-    else self.correctNumberOfLines=@"Just right.";
+    else
+    {
+        self.numberOfLinesAsProperty = rightNumberOfLines;
+    }
     self.linesAfterCheck = [[NSMutableArray alloc] init];
     NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
 

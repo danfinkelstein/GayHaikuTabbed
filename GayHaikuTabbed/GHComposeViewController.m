@@ -318,7 +318,9 @@
     //Create translucent toolbar to sit above keyboard.
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    //[toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    [toolbar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    //toolbar.translucent=YES;
     [toolbar sizeToFit];
     
     //Create "instructions" and "done" buttons.
@@ -561,9 +563,15 @@
     
     NSString *alertMessage=@"I'm sorry, but ";
     
-    if (ghverify.correctNumberOfLines!=@"Just right.")
+    NSLog(@"%u",ghverify.numberOfLinesAsProperty);
+    
+    if (ghverify.numberOfLinesAsProperty==0)
     {
-        alertMessage = [alertMessage stringByAppendingFormat:@" %@",ghverify.correctNumberOfLines];
+        alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too few lines."];
+    }
+    else if (ghverify.numberOfLinesAsProperty==2)
+    {
+        alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too many lines."];
     }
     int k;
     if (ghverify.listOfLines.count<3)

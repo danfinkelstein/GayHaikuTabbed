@@ -264,8 +264,7 @@
         
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
     [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    navBar.translucent=YES;
-    navBar.alpha = 0.75;
+    //navBar.translucent=YES;
     
     //Create UINavigationItem
 
