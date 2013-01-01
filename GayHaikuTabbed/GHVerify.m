@@ -73,7 +73,7 @@
         }
         else if (extant==ideal)
         {
-            [self.linesAfterCheck addObject:@"Just right."];
+            [self.linesAfterCheck addObject:@"just right"];
         }
     }
     return YES;

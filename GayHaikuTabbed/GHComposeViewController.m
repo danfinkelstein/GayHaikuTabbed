@@ -147,17 +147,16 @@
     
     //Create the text "swipe" to let the user know there's a previous/next screen.
     
-    UITextView *show = [[UITextView alloc] init];
-    show.editable=NO;
-    //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
-    show.textColor = [UIColor purpleColor];
-    show.backgroundColor = [UIColor clearColor];
-    show.text = @"Swipe";
-    show.font = [UIFont fontWithName:@"Zapfino" size:14];
+    UITextView *showSwipeInstructions = [[UITextView alloc] init];
+    showSwipeInstructions.editable=NO;
+    showSwipeInstructions.textColor = [UIColor purpleColor];
+    showSwipeInstructions.backgroundColor = [UIColor clearColor];
+    showSwipeInstructions.text = @"Swipe";
+    showSwipeInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     
     //Display it.
     
-    return show;
+    return showSwipeInstructions;
 }
 
 -(void)addSwipeForRight
@@ -273,7 +272,6 @@
         textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 180)];
         //textView.backgroundColor = [UIColor whiteColor];
         textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-
         textView.delegate = self;
     }
     
@@ -420,7 +418,7 @@
     {
         optOut = [[UITextView alloc] initWithFrame:CGRectMake(20, 95, [[UIScreen mainScreen] bounds].size.width - 20, [[UIScreen mainScreen] bounds].size.height)];
         optOut.backgroundColor=[UIColor clearColor];
-        optOut.text = @"\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you don't want your haiku included in \nfuture updates (which would make me \nsad), check this box.";
+        optOut.text = @"\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
         optOut.editable=NO;
     }
     if (screen==1) { //If we've come from the instructions screen
@@ -562,9 +560,7 @@
     [ghverify checkHaikuSyllables];
     
     NSString *alertMessage=@"I'm sorry, but ";
-    
-    NSLog(@"%u",ghverify.numberOfLinesAsProperty);
-    
+
     if (ghverify.numberOfLinesAsProperty==0)
     {
         alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too few lines."];
@@ -587,7 +583,7 @@
     {
         if ([ghverify.linesAfterCheck objectAtIndex:i])
         {
-            if (![[ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"Just right."]) {
+            if (![[ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"just right"]) {
                 [arrayOfLinesToAlert addObject:[NSNumber numberWithInt:i+1].stringValue];
             }
         }
@@ -651,7 +647,7 @@
     //This creates the dictionary item of the new haiku to save in userHaiku.plist.
     NSString *textWithAttribution;
     if (nameField.text) {
-        textWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t\t%@",nameField.text];
+        textWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t%@",nameField.text];
     }
     else {
         textWithAttribution = textView.text;

@@ -61,8 +61,9 @@
     }
     
     //Destroy the temporary array
+    //Is this necessary?
     
-    arrayForShuffling = nil; //(NULL?  null?)
+    arrayForShuffling = nil;
 }
 
 -(void)haikuToShow

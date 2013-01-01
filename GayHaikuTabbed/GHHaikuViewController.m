@@ -81,13 +81,11 @@
     
     //Create "Swipe" text and its characteristics
     
-    NSString *text = @"Swipe";
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
-    //Why doesn't this work?  [UIColor colorWithRed:123 green:47 blue:85 alpha:.75]; Replaced it with next line and changing text color to purple.
     instructions.textColor = [UIColor purpleColor];
     instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = text;
+    instructions.text = @"Swipe";
     instructions.font = [UIFont fontWithName:@"Zapfino" size:14];
     return instructions;
 }
@@ -100,7 +98,7 @@
     nextInstructions = [self createSwipeToAdd];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
-    //Why did I choose 400?
+//Why did I choose 400?
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, (xySize.height*2));
@@ -493,7 +491,7 @@
     CGSize scaledSize;
     scaledSize.height = 350;
     scaledSize.width = ((350*widthToUse)/heightToUse);
-    UIGraphicsBeginImageContextWithOptions( scaledSize, NO, 0.975 );
+    UIGraphicsBeginImageContextWithOptions(scaledSize, NO, 0.975 );
     CGRect scaledImageRect = CGRectMake(0.0, 0.0, scaledSize.width, scaledSize.height);
     [image drawInRect:scaledImageRect];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
