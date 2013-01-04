@@ -47,9 +47,14 @@
     {
         self.numberOfLinesAsProperty = rightNumberOfLines;
     }
+    
+    //Create an array to hold evaluations of lines in the haiku.
+    
     self.linesAfterCheck = [[NSMutableArray alloc] init];
+    
+    //Create an array to hold the correct number of syllables in the lines to evaluate against.
+    
     NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
-
     int k;
     if (self.listOfLines.count<3)
     {

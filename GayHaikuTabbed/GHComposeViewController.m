@@ -323,7 +323,7 @@
     
     //Create "instructions" and "done" buttons.
 
-    UIBarButtonItem *instructionsButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"displayInstructionsScreen")];
+    UIBarButtonItem *instructionsButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:@selector(displayInstructionsScreen)];
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
 
@@ -626,9 +626,10 @@
     int i;
     for (i=0; i<ghhaiku.gayHaiku.count; i++)
     {
-        NSString *haikuToCheck = [[ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"quote"];
+        NSString *haikuToCheck = [[ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"haiku"];
         if ([textView.text isEqualToString:haikuToCheck])
         {
+            //Even though a new haiku has not been composed, this will display the version of the haiku already in the database.
             ghhaiku.justComposed=YES;
             ghhaiku.newIndex = i;
             [self.tabBarController setSelectedIndex:0];
@@ -641,21 +642,22 @@
     if (bypassSyllableCheck==NO)
     {
         [self verifySyllables];
+//Check this next line--shouldn't function continue after syllables are verified if they're verified yes?
         return YES;
     }
     
     //This creates the dictionary item of the new haiku to save in userHaiku.plist.
     NSString *textWithAttribution;
     if (nameField.text) {
+        //Add the user's name to the haiku
         textWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t%@",nameField.text];
     }
     else {
         textWithAttribution = textView.text;
     }
-    NSArray *quotes = [[NSArray alloc] initWithObjects:@"user", textWithAttribution, nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"quote",nil];
-    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:quotes forKeys:keys];
-
+    NSArray *collectionOfHaiku = [[NSArray alloc] initWithObjects:@"user", textWithAttribution, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"haiku",nil];
+    NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:collectionOfHaiku forKeys:keys];
 
     if (textView.text.length>0 && ghhaiku.userIsEditing==NO)
         

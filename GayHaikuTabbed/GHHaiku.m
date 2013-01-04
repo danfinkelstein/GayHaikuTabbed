@@ -10,7 +10,7 @@
 
 @implementation GHHaiku
 
-@synthesize arrayAfterFiltering, index, selectedCategory, gayHaiku,justComposed, isUserHaiku, userIsEditing, text, newIndex;
+@synthesize arrayAfterFiltering, index, selectedCategory, gayHaiku, justComposed, isUserHaiku, userIsEditing, text, newIndex;
 
 + (GHHaiku *)sharedInstance
     //Make GHHaiku a singleton class.
@@ -24,7 +24,7 @@
 }
 
 -(int)chooseNumber: (int)howManyHaiku
-    //Choose a random number between 0 and the number of haiku in the array of all haiku, minus 1.
+    //Choose a random number between 0 and a given number of haiku.
 {
     int x;
     x = (arc4random() % howManyHaiku);
@@ -63,7 +63,7 @@
     //Destroy the temporary array
     //Is this necessary?
     
-    arrayForShuffling = nil;
+    //arrayForShuffling = nil;
 }
 
 -(void)haikuToShow
@@ -93,7 +93,7 @@
     
     //set the current text to be the text of the haiku at newIndex
     
-    self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"quote"];
+    self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"haiku"];
         
     //Indicate whether it's a user-generated haiku or not.
         

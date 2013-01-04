@@ -17,8 +17,6 @@
 #import <Parse/Parse.h>
 #import <Social/Social.h>
 
-#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
-
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
 
 @end
@@ -46,14 +44,13 @@
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showNavBarOnTap)];
     [self.view addGestureRecognizer:tapBar];
     
-    //load array of haiku and set index to 0
+    //load array of haiku
     
     if (!self.ghhaiku)
     {
         self.ghhaiku = [GHHaiku sharedInstance];
     }
     [self.ghhaiku loadHaiku];
-    if (!self.ghhaiku.newIndex) self.ghhaiku.newIndex=0;
 
     //Add Parse
     
@@ -262,7 +259,6 @@
         
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
     [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    //navBar.translucent=YES;
     
     //Create UINavigationItem
 
@@ -297,7 +293,7 @@
 {
     //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
     
-    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:NSSelectorFromString(@"showMessage")];
+    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showMessage)];
     send.style=UIBarButtonItemStyleBordered;
     titleBar.rightBarButtonItem = send;
 }
@@ -307,8 +303,8 @@
 {
     //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
     
-    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:NSSelectorFromString(@"deleteHaiku")];
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:NSSelectorFromString(@"editHaiku")];
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
     NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
     titleBar.leftBarButtonItems = leftItems;
 }
@@ -325,6 +321,9 @@
     //Delete the haiku
     
     [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
+    
+    //Clear the screen
+    
     [displayHaikuTextView removeFromSuperview];
     [navBar removeFromSuperview];
 
@@ -334,7 +333,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
     {
-        if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"quote"] isEqualToString:displayHaikuTextView.text])
+        if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"haiku"] isEqualToString:displayHaikuTextView.text])
         {
             [self.ghhaiku.gayHaiku removeObjectIdenticalTo:[self.ghhaiku.gayHaiku objectAtIndex:i]];
             [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
@@ -343,7 +342,7 @@
     }
     [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
     
-    //Display haiku so the screen won't be blank.
+    //Display next haiku so the screen won't be blank.
     
     [self displayHaiku];
     
@@ -432,7 +431,12 @@
         NSString *msgText;
         if (serviceType==SLServiceTypeTwitter)
         {
-            msgText = self.ghhaiku.text;
+            NSString *stringWithoutLineBreaks = self.ghhaiku.text;
+            if([stringWithoutLineBreaks rangeOfString:@"\\n"].location != NSNotFound) {
+                //Check to make sure this actually does add line breaks in Twitter posting.
+            msgText = [stringWithoutLineBreaks stringByReplacingOccurrencesOfString:@"\\n" withString:@"<br/>"];
+            }
+            else msgText=self.ghhaiku.text;
         }
         else if (serviceType==SLServiceTypeFacebook)
         {
@@ -511,3 +515,10 @@
 }
 
 @end
+
+/*
+ 
+ http://stackoverflow.com/questions/4643512/replace-substring-with-another-substring-c
+ http://stackoverflow.com/questions/3659694/how-to-replace-substring-in-c
+ 
+ */
