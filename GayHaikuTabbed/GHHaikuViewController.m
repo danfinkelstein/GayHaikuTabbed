@@ -28,7 +28,27 @@
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
-        
+    UIImageView *background;
+    CGRect frame;
+    
+    if (!ghhaiku.iPhone5Screen) {
+        frame = CGRectMake(0, 0, 320, (480-49));
+//CHANGE THIS ONCE I HAVE GRAPHICS
+    }
+    else {
+        frame = CGRectMake(0, 0, 320, (568-49));
+    }
+    background = [[UIImageView alloc] initWithFrame:frame];
+    if (!ghhaiku.iPhone5Screen) {
+        //CHANGE THIS ONCE I HAVE GRAPHICS
+        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    }
+    else {
+        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    }
+    
+    [self.view addSubview:background];
+    
     //Create and add gesture recognizers
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPreviousHaiku)];
@@ -98,7 +118,8 @@
 //Why did I choose 400?
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, (xySize.height*2));
+    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, xySize.height*2);
     nextInstructions.frame = rect;
     
     //Display it.
@@ -117,7 +138,8 @@
     //Why did I choose 400?
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake(10, 240, xySize.width*1.5, (xySize.height*2));
+    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+    CGRect rect = CGRectMake(10, 240, xySize.width*1.5, xySize.height*2);
     previousInstructions.frame = rect;
     
     //Display it
@@ -376,7 +398,7 @@
         [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", [[UIDevice currentDevice] name]]];
         UIImage *myImage = [self createImage];
         NSData *imageData = UIImagePNGRepresentation(myImage);
-        [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"blah"];
+        [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"Gay Haiku http://gayhaiku.com"];
         NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app.  Please love me?";
         [mailer setMessageBody:emailBody isHTML:NO];
         [self presentViewController:mailer animated:YES completion:NULL];

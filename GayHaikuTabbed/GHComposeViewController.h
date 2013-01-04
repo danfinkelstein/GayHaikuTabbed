@@ -32,7 +32,7 @@
     int screen;
     GHHaiku *ghhaiku;
     GHVerify *ghverify;
-    IBOutlet UIImageView *screenBackground;
+    UIImageView *background;
     IBOutlet UIButton *checkboxButton;
     IBOutlet UITextField *nameField;
 }

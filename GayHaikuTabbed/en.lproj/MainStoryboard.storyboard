@@ -12,17 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bs2-Br-tqB">
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="520" type="user" id="TLw-AO-8fl"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="U69-5G-7cp" appends="YES" id="wTC-jd-PCE"/>
-                                    <outletCollection property="gestureRecognizers" destination="kGT-do-vm8" appends="YES" id="X2M-Wt-RM3"/>
-                                    <outletCollection property="gestureRecognizers" destination="6A6-fR-yXk" appends="YES" id="D2F-NG-Y2N"/>
-                                </connections>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VB8-hZ-3T0">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -36,9 +25,7 @@
                         <constraints>
                             <constraint firstItem="VB8-hZ-3T0" firstAttribute="top" secondItem="16" secondAttribute="top" constant="186" id="13B-nl-742"/>
                             <constraint firstItem="VB8-hZ-3T0" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="Cza-6y-f9d"/>
-                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="top" secondItem="16" secondAttribute="top" type="default" id="T6I-aX-CoK"/>
                             <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="bZH-2N-r7X"/>
-                            <constraint firstItem="Bs2-Br-tqB" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="ly5-Y7-AbX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="53-house.png" id="7"/>
@@ -110,11 +97,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZN2-hu-UWh">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="520" id="qSP-4z-NOk"/>
-                                </constraints>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-tp-ldf">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Tfz-RM-aTH"/>
@@ -145,12 +127,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="30A-Ja-HaY" secondAttribute="bottom" constant="146" id="1tA-xP-SBI"/>
-                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="9zi-NX-Aa1"/>
-                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" type="default" id="Fwq-Lf-hqA"/>
                             <constraint firstItem="30A-Ja-HaY" firstAttribute="trailing" secondItem="mTP-tp-ldf" secondAttribute="trailing" type="default" id="GRG-gO-Vbm"/>
-                            <constraint firstItem="ZN2-hu-UWh" firstAttribute="leading" secondItem="17" secondAttribute="leading" type="default" id="UlN-Lt-kbz"/>
-                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="ZN2-hu-UWh" secondAttribute="centerX" type="default" id="iqq-zr-coH"/>
                             <constraint firstAttribute="bottom" secondItem="mTP-tp-ldf" secondAttribute="bottom" constant="192" id="pqt-4p-PV4"/>
+                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="17" secondAttribute="centerX" type="default" id="xNp-T1-rDA"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
@@ -158,7 +137,6 @@
                     <connections>
                         <outlet property="checkboxButton" destination="30A-Ja-HaY" id="BIn-ms-G6I"/>
                         <outlet property="nameField" destination="mTP-tp-ldf" id="RcY-IO-bnU"/>
-                        <outlet property="screenBackground" destination="ZN2-hu-UWh" id="YWE-1z-WgN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
@@ -173,11 +151,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="temp background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ODL-Br-7iJ">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="520" id="hKo-gt-cId"/>
-                                </constraints>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-us-G3U">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -192,14 +165,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lPe-us-G3U" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" constant="167" id="2ra-lE-BO0"/>
-                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="top" secondItem="7Iv-h5-BYU" secondAttribute="top" type="default" id="S0W-ZW-gul"/>
-                            <constraint firstItem="ODL-Br-7iJ" firstAttribute="leading" secondItem="7Iv-h5-BYU" secondAttribute="leading" type="default" id="SpT-5O-Vha"/>
-                            <constraint firstItem="lPe-us-G3U" firstAttribute="centerX" secondItem="ODL-Br-7iJ" secondAttribute="centerX" type="default" id="ZQL-WB-lVd"/>
+                            <constraint firstItem="lPe-us-G3U" firstAttribute="centerX" secondItem="7Iv-h5-BYU" secondAttribute="centerX" type="default" id="GsC-8S-gRE"/>
+                            <constraint firstItem="lPe-us-G3U" firstAttribute="centerY" secondItem="7Iv-h5-BYU" secondAttribute="centerY" type="default" id="yrR-pg-gTf"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Feedback" image="18-envelope.png" id="Kld-oc-0Ck"/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="feedback" destination="lPe-us-G3U" id="Zyd-WC-5IA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl8-Xo-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -233,10 +207,42 @@
         <image name="216-compose.png" width="23" height="18"/>
         <image name="53-house.png" width="22" height="22"/>
         <image name="80-shopping-cart.png" width="26" height="19"/>
-        <image name="temp background.jpg" width="320" height="400"/>
         <image name="trycheckbox.png" width="16" height="16"/>
         <image name="trycheckbox_no.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="GHComposeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHComposeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="checkCheckbox"/>
+                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="GHFeedback" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHFeedback.h"/>
+            <relationships>
+                <relationship kind="outlet" name="feedback" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="GHHaikuViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHHaikuViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goToNextHaiku"/>
+                <relationship kind="action" name="goToPreviousHaiku"/>
+                <relationship kind="outlet" name="displayHaikuTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="GHWebViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHWebViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webV" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

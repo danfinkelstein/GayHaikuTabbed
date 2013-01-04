@@ -103,6 +103,25 @@
     {
         ghhaiku = [GHHaiku sharedInstance];
     }
+    
+    CGRect frame;
+    
+    if (!ghhaiku.iPhone5Screen) {
+        frame = CGRectMake(0, 0, 320, (480-49));
+        //CHANGE THIS ONCE I HAVE GRAPHICS
+    }
+    else {
+        frame = CGRectMake(0, 0, 320, (568-49));
+    }
+    background = [[UIImageView alloc] initWithFrame:frame];
+    if (!ghhaiku.iPhone5Screen) {
+        //CHANGE THIS ONCE I HAVE GRAPHICS
+        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    }
+    else {
+        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    }
+    [self.view addSubview:background];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -115,8 +134,8 @@
     
     //set background image
     
-    UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-    screenBackground.image = fullBackground;
+    //UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
+    //screenBackground.image = fullBackground;
     
     //send user to appropriate screen
     
@@ -301,11 +320,9 @@
     [self.view addSubview:textView];
     [textView becomeFirstResponder];
     
-    //Set the compose screen's background
+//Set the compose screen's background
     
-//REPLACE THIS LATER WITH CORRECT IMAGE.
-    UIImage *composeBackground = [UIImage imageNamed:@"temp background.jpg"];
-    screenBackground.image = composeBackground;
+    //Keyboard height is 216, so UIImageView is 264 high for iPhone4, 352 high for iPhone5
     screen=0;
     [self animateView:self.view withDirection:@"right"];
 }
@@ -343,10 +360,11 @@
 {
     //In case user is coming from the compose screen, which has a different background image.
     
-    if (screenBackground.image!=[UIImage imageNamed:@"temp background.jpg"])
+    if (background.image!=[UIImage imageNamed:@"temp background.jpg"])
     {
-        UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-        screenBackground.image = fullBackground;
+        [background removeFromSuperview];
+        background.image = [UIImage imageNamed:@"temp background.jpg"];
+        [self.view addSubview:background];
     }
     
     //Hide the appropriate views.

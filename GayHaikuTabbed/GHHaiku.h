@@ -29,5 +29,6 @@
 
 -(void) loadHaiku;
 -(void) saveToDocsFolder:(NSString *)string;
+-(BOOL) iPhone5Screen;
 
 @end

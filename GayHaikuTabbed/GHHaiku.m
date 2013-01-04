@@ -23,6 +23,30 @@
     return sharedInstance;
 }
 
+//This next method doesn't really belong here.
+
+- (BOOL)iPhone5Screen
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return NO;
+    } else {
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+            CGSize result = [[UIScreen mainScreen] bounds].size;
+            CGFloat scale = [UIScreen mainScreen].scale;
+            result = CGSizeMake(result.width * scale, result.height * scale);
+            //
+            if(result.height >= 1136){
+                return YES;
+            } else {
+                return NO;
+            }
+        } else {
+            return NO;
+        }
+    }
+    
+}
+
 -(int)chooseNumber: (int)howManyHaiku
     //Choose a random number between 0 and a given number of haiku.
 {

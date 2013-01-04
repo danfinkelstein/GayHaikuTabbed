@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GHHaiku.h"
 
-@interface GHFeedback : UIViewController
+@interface GHFeedback : UIViewController {
+    GHHaiku *ghhaiku;
+    IBOutlet UITextView *feedback;
+}
 
 @end
