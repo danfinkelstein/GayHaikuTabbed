@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D4C28A8168CE18C0031834C /* trycheckbox_no@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D4C28A6168CE18C0031834C /* trycheckbox_no@2x.png */; };
-		5D4C28A9168CE18C0031834C /* trycheckbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D4C28A7168CE18C0031834C /* trycheckbox@2x.png */; };
+		5D3C89CD169795D600366015 /* temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CC169795D600366015 /* temp background.jpg */; };
+		5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */; };
+		5D4C28A8168CE18C0031834C /* checkbox unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D4C28A6168CE18C0031834C /* checkbox unchecked@2x.png */; };
+		5D4C28A9168CE18C0031834C /* checkbox checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D4C28A7168CE18C0031834C /* checkbox checked@2x.png */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
 		5D64890716791F4100A87596 /* 80-shopping-cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */; };
 		5D64891116791FC700A87596 /* 216-compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890C16791FC700A87596 /* 216-compose.png */; };
@@ -32,12 +34,10 @@
 		5D8825E11674449F007DF2E2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825C116744326007DF2E2 /* MessageUI.framework */; };
 		5D8825E21674449F007DF2E2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825C216744326007DF2E2 /* MobileCoreServices.framework */; };
 		5D8825E3167444B0007DF2E2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825CE1674437A007DF2E2 /* Twitter.framework */; };
-		5D8825E9167445BA007DF2E2 /* trycheckbox_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E7167445BA007DF2E2 /* trycheckbox_no.png */; };
-		5D8825EA167445BA007DF2E2 /* trycheckbox_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E7167445BA007DF2E2 /* trycheckbox_no.png */; };
-		5D8825EB167445BA007DF2E2 /* trycheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E8167445BA007DF2E2 /* trycheckbox.png */; };
-		5D8825EC167445BA007DF2E2 /* trycheckbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E8167445BA007DF2E2 /* trycheckbox.png */; };
-		5D8825EE167445CB007DF2E2 /* temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825ED167445CB007DF2E2 /* temp background.jpg */; };
-		5D8825EF167445CB007DF2E2 /* temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825ED167445CB007DF2E2 /* temp background.jpg */; };
+		5D8825E9167445BA007DF2E2 /* checkbox unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E7167445BA007DF2E2 /* checkbox unchecked.png */; };
+		5D8825EA167445BA007DF2E2 /* checkbox unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E7167445BA007DF2E2 /* checkbox unchecked.png */; };
+		5D8825EB167445BA007DF2E2 /* checkbox checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E8167445BA007DF2E2 /* checkbox checked.png */; };
+		5D8825EC167445BA007DF2E2 /* checkbox checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D8825E8167445BA007DF2E2 /* checkbox checked.png */; };
 		5D8825FE167446C8007DF2E2 /* GHHaikuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825F1167446C8007DF2E2 /* GHHaikuViewController.m */; };
 		5D8825FF167446C8007DF2E2 /* GHHaikuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825F1167446C8007DF2E2 /* GHHaikuViewController.m */; };
 		5D882600167446C8007DF2E2 /* GHComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825F3167446C8007DF2E2 /* GHComposeViewController.m */; };
@@ -96,8 +96,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5D4C28A6168CE18C0031834C /* trycheckbox_no@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trycheckbox_no@2x.png"; sourceTree = "<group>"; };
-		5D4C28A7168CE18C0031834C /* trycheckbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trycheckbox@2x.png"; sourceTree = "<group>"; };
+		5D3C89CC169795D600366015 /* temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "temp background.jpg"; sourceTree = "<group>"; };
+		5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iPhone5 temp background.jpg"; sourceTree = "<group>"; };
+		5D4C28A6168CE18C0031834C /* checkbox unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox unchecked@2x.png"; sourceTree = "<group>"; };
+		5D4C28A7168CE18C0031834C /* checkbox checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox checked@2x.png"; sourceTree = "<group>"; };
 		5D64890416791F4100A87596 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart.png"; sourceTree = "<group>"; };
 		5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart@2x.png"; sourceTree = "<group>"; };
 		5D64890C16791FC700A87596 /* 216-compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "216-compose.png"; sourceTree = "<group>"; };
@@ -120,9 +122,8 @@
 		5D8825CC1674437A007DF2E2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5D8825CD1674437A007DF2E2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5D8825CE1674437A007DF2E2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		5D8825E7167445BA007DF2E2 /* trycheckbox_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox_no.png; sourceTree = "<group>"; };
-		5D8825E8167445BA007DF2E2 /* trycheckbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trycheckbox.png; sourceTree = "<group>"; };
-		5D8825ED167445CB007DF2E2 /* temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "temp background.jpg"; sourceTree = "<group>"; };
+		5D8825E7167445BA007DF2E2 /* checkbox unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox unchecked.png"; sourceTree = "<group>"; };
+		5D8825E8167445BA007DF2E2 /* checkbox checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox checked.png"; sourceTree = "<group>"; };
 		5D8825F0167446C8007DF2E2 /* GHHaikuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaikuViewController.h; sourceTree = "<group>"; };
 		5D8825F1167446C8007DF2E2 /* GHHaikuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaikuViewController.m; sourceTree = "<group>"; };
 		5D8825F2167446C8007DF2E2 /* GHComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHComposeViewController.h; sourceTree = "<group>"; };
@@ -300,6 +301,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */,
+				5D3C89CC169795D600366015 /* temp background.jpg */,
 				5DBE12191680BE3A007324B6 /* webForward.png */,
 				5DBE121C1680BE3A007324B6 /* webForward@2x.png */,
 				5DBE121A1680BE3A007324B6 /* webBack.png */,
@@ -316,11 +319,10 @@
 				5DBCD61C1676A7910029F453 /* icon114.png */,
 				5D88262116745EAB007DF2E2 /* gayHaiku.plist */,
 				5DBAAC50167462AE008EB101 /* userHaiku.plist */,
-				5D8825ED167445CB007DF2E2 /* temp background.jpg */,
-				5D8825E7167445BA007DF2E2 /* trycheckbox_no.png */,
-				5D8825E8167445BA007DF2E2 /* trycheckbox.png */,
-				5D4C28A6168CE18C0031834C /* trycheckbox_no@2x.png */,
-				5D4C28A7168CE18C0031834C /* trycheckbox@2x.png */,
+				5D8825E7167445BA007DF2E2 /* checkbox unchecked.png */,
+				5D8825E8167445BA007DF2E2 /* checkbox checked.png */,
+				5D4C28A6168CE18C0031834C /* checkbox unchecked@2x.png */,
+				5D4C28A7168CE18C0031834C /* checkbox checked@2x.png */,
 				5DBC945E16743DFF000406DF /* GayHaikuTabbed-Info.plist */,
 				5DBC945F16743DFF000406DF /* InfoPlist.strings */,
 				5DBC946216743DFF000406DF /* main.m */,
@@ -428,9 +430,8 @@
 				5DBC946B16743DFF000406DF /* Default@2x.png in Resources */,
 				5DBC946D16743DFF000406DF /* Default-568h@2x.png in Resources */,
 				5DBC947016743DFF000406DF /* MainStoryboard.storyboard in Resources */,
-				5D8825E9167445BA007DF2E2 /* trycheckbox_no.png in Resources */,
-				5D8825EB167445BA007DF2E2 /* trycheckbox.png in Resources */,
-				5D8825EE167445CB007DF2E2 /* temp background.jpg in Resources */,
+				5D8825E9167445BA007DF2E2 /* checkbox unchecked.png in Resources */,
+				5D8825EB167445BA007DF2E2 /* checkbox checked.png in Resources */,
 				5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */,
 				5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */,
 				5DBCD61D1676A7910029F453 /* icon114.png in Resources */,
@@ -447,8 +448,10 @@
 				5DBE121E1680BE3A007324B6 /* webBack.png in Resources */,
 				5DBE121F1680BE3A007324B6 /* webBack@2x.png in Resources */,
 				5DBE12201680BE3A007324B6 /* webForward@2x.png in Resources */,
-				5D4C28A8168CE18C0031834C /* trycheckbox_no@2x.png in Resources */,
-				5D4C28A9168CE18C0031834C /* trycheckbox@2x.png in Resources */,
+				5D4C28A8168CE18C0031834C /* checkbox unchecked@2x.png in Resources */,
+				5D4C28A9168CE18C0031834C /* checkbox checked@2x.png in Resources */,
+				5D3C89CD169795D600366015 /* temp background.jpg in Resources */,
+				5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,9 +460,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DBC949016743E00000406DF /* InfoPlist.strings in Resources */,
-				5D8825EA167445BA007DF2E2 /* trycheckbox_no.png in Resources */,
-				5D8825EC167445BA007DF2E2 /* trycheckbox.png in Resources */,
-				5D8825EF167445CB007DF2E2 /* temp background.jpg in Resources */,
+				5D8825EA167445BA007DF2E2 /* checkbox unchecked.png in Resources */,
+				5D8825EC167445BA007DF2E2 /* checkbox checked.png in Resources */,
 				5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

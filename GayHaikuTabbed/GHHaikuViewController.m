@@ -28,28 +28,28 @@
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
+    
+    //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
+    
     UIImageView *background;
     CGRect frame;
-    
-    if (!ghhaiku.iPhone5Screen) {
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if (screenHeight<500) {
         frame = CGRectMake(0, 0, 320, (480-49));
-//CHANGE THIS ONCE I HAVE GRAPHICS
     }
     else {
         frame = CGRectMake(0, 0, 320, (568-49));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
-    if (!ghhaiku.iPhone5Screen) {
-        //CHANGE THIS ONCE I HAVE GRAPHICS
+    if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
     }
     else {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
     }
-    
     [self.view addSubview:background];
     
-    //Create and add gesture recognizers
+    //Create and add gesture recognizers.  Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku.  Tapping calls showNavBarOnTap.
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPreviousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
@@ -80,10 +80,9 @@
     //set up tab bar
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    
     self.tabBarController.delegate=self;
     
-    //indicate that "swipe" for previous/next have not been seen yet this session
+    //indicate that "swipe" text for previous/next have not been seen yet this session
     
     swipeNextInstructionsSeen=NO;
     swipePreviousInstructionsSeen=NO;
@@ -92,6 +91,7 @@
     
     [self displayHaiku];
     [self showNavBarOnTap];
+
 }
 
 -(UITextView *)createSwipeToAdd {
@@ -497,7 +497,7 @@
         [previousInstructions removeFromSuperview];
     }
     CGRect newRect = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44);
-    UIGraphicsBeginImageContext(newRect.size); //([self.view frame].size])
+    UIGraphicsBeginImageContext(newRect.size);
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -532,15 +532,7 @@
     {
         [navBar removeFromSuperview];
     }
-    //actSheet.tag=2;
     [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 @end
-
-/*
- 
- http://stackoverflow.com/questions/4643512/replace-substring-with-another-substring-c
- http://stackoverflow.com/questions/3659694/how-to-replace-substring-in-c
- 
- */

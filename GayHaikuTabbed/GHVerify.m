@@ -33,8 +33,12 @@
 {
     if (!self.ghhaiku)
     {
-        self.ghhaiku = [[GHHaiku alloc] init];
+        //self.ghhaiku = [[GHHaiku alloc] init];
+        self.ghhaiku = [GHHaiku sharedInstance];
     }
+    
+    //Determine whether the haiku has too many lines, too few lines, or the correct number of lines.
+    
     if (self.listOfLines.count>3)
     {
         self.numberOfLinesAsProperty=tooManyLines;
@@ -48,14 +52,10 @@
         self.numberOfLinesAsProperty = rightNumberOfLines;
     }
     
-    //Create an array to hold evaluations of lines in the haiku.
+    //If the haiku has too few lines, limit the number of lines evaluated to the number of lines the haiku has.  Otherwise, evaluate three lines.
     
-    self.linesAfterCheck = [[NSMutableArray alloc] init];
-    
-    //Create an array to hold the correct number of syllables in the lines to evaluate against.
-    
-    NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
     int k;
+    
     if (self.listOfLines.count<3)
     {
         k=self.listOfLines.count;
@@ -64,10 +64,30 @@
     {
         k=3;
     }
+    
+    //Create an array to hold evaluations of lines in the haiku.
+    
+    self.linesAfterCheck = [[NSMutableArray alloc] init];
+    
+    //Create an array to hold the correct number of syllables in the lines to evaluate against.
+    
+    NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
+    
+    //Evaluate the lines to make sure they have the correct number of syllables.
+    
     for (int i=0; i<k; i++)
     {
+        
+        //Create a variable representing the number of syllables in a given line.
+        
         int extant = [self syllablesInLine:[self.listOfLines objectAtIndex:i]];
+        
+        //Create a variable representing the number of syllables that SHOULD be in that line.
+        
         int ideal = [[syllablesInLine objectAtIndex:i] integerValue];
+        
+        //Compare those two variables and add a record of the comparison to the array self.linesAfterCheck.
+        
         if (extant<ideal)
         {
             [self.linesAfterCheck addObject:@"too few"];

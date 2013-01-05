@@ -92,34 +92,34 @@
     {
         nameField.text = [defaults objectForKey:@"author"];
     }
-    else checkboxChecked = YES;
+    //else checkboxChecked = YES;
     
     //UNCOMMENT THESE LINES TO TEST OPTOUT/INSTRUCTIONS SEEN
     
-    //self.optOutSeen=NO;
-    //self.instructionsSeen=NO;
+    //optOutSeen=NO;
+    //instructionsSeen=NO;
     
     if (!ghhaiku)
     {
         ghhaiku = [GHHaiku sharedInstance];
     }
     
-    CGRect frame;
+    //Load background image.
     
-    if (!ghhaiku.iPhone5Screen) {
+    CGRect frame;
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if (screenHeight<500) {
         frame = CGRectMake(0, 0, 320, (480-49));
-        //CHANGE THIS ONCE I HAVE GRAPHICS
     }
     else {
         frame = CGRectMake(0, 0, 320, (568-49));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
-    if (!ghhaiku.iPhone5Screen) {
-        //CHANGE THIS ONCE I HAVE GRAPHICS
+    if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
     }
     else {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
     }
     [self.view addSubview:background];
 }
@@ -131,11 +131,6 @@
     //Make sure that the function to bypass syllable check is turned off.
     
     bypassSyllableCheck=NO;
-    
-    //set background image
-    
-    //UIImage *fullBackground = [UIImage imageNamed:@"temp background.jpg"];
-    //screenBackground.image = fullBackground;
     
     //send user to appropriate screen
     
@@ -178,7 +173,7 @@
     return showSwipeInstructions;
 }
 
--(void)addSwipeForRight
+-(void)addSwipeForRight:(NSString *)direction
 //Adds the text telling the user to swipe right to continue.
 {
     
@@ -190,18 +185,18 @@
     
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 340, xySize.width*1.5, (xySize.height*2));
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 300, xySize.width*1.5, (xySize.height*2));
     nextInstructions.frame = rect;
         
     //Display it.
-        
+    
+    [self animateView:nextInstructions withDirection:direction];
     [self.view addSubview:nextInstructions];
 }
 
--(void)addSwipeForLeft
+-(void)addSwipeForLeft:(NSString *)direction
 //Adds the text telling the user to swipe left to opt out.
 {
-    
     //Create the text to tell the user to swipe to the previous screen.
     
     previousInstructions = [self createSwipeToAdd];
@@ -209,12 +204,13 @@
     //Locate and frame the text on the left side of the view.
     
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake(10, 340, xySize.width*1.5, (xySize.height*2));
+    CGSize xySize = [previousInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake(10, 300, xySize.width*1.5, (xySize.height*2));
     previousInstructions.frame = rect;
     
     //Display it.
     
+    [self animateView:previousInstructions withDirection:direction];
     [self.view addSubview:previousInstructions];
 }
 
@@ -261,7 +257,7 @@
 }
 
 -(void)saveData
-    //Persistent record of whether user has seen instructions and opt out screen.
+    //Persistent record of whether user has ever seen instructions and opt out screen.
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:optOutSeen forKey:@"optOutSeen?"];
@@ -272,7 +268,7 @@
 -(void)displayComposeScreen
 {
     
-    //Clear screen of swipe notifications
+    //Clear screen of swipe instructions.
     
     [nextInstructions removeFromSuperview];
     [previousInstructions removeFromSuperview];
@@ -289,7 +285,6 @@
     if (!textView)
     {
         textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 180)];
-        //textView.backgroundColor = [UIColor whiteColor];
         textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         textView.delegate = self;
     }
@@ -386,25 +381,23 @@
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         instructions.editable=NO;
     }
-    
-    if (screen==0) { //If we're on the opt-out screen,
-        [self animateView:instructions withDirection:@"left"]; //tell the user to swipe right
+    if (screen==0) { //If we're coming from the opt-out screen, animate instructions from left.
+        [self animateView:instructions withDirection:@"left"];
+        [self addSwipeForLeft:@"left"]; //Add them.
+        [self addSwipeForRight:@"left"];
     }
-    else if (screen==2) //If we're on the instructions screen,
+    else if (screen==2) //If we're coming from the instructions screen, animate instructions from right.
     {
-        [self animateView:instructions withDirection:@"right"]; //tell the user to swipe right
+        [self animateView:instructions withDirection:@"right"];
+        [self addSwipeForLeft:@"right"]; //Add them.
+        [self addSwipeForRight:@"right"];
     }
     if (instructionsSeen==NO) //If the instructions have never been seen,
     {
         instructionsSeen=YES; //Mark them seen and save that setting.
         [self saveData];
     }
-    if (instructionsHaveBeenSeenThisSession==NO) //If the instructions haven't been seen this time,
-    {
-        [self addSwipeForLeft]; //Add them.
-        [self addSwipeForRight];
-    }
-    instructionsHaveBeenSeenThisSession=YES; 
+
     instructions.hidden=NO;
     screen=1;
     [self.view addSubview:instructions];
@@ -436,14 +429,16 @@
     {
         optOut = [[UITextView alloc] initWithFrame:CGRectMake(20, 95, [[UIScreen mainScreen] bounds].size.width - 20, [[UIScreen mainScreen] bounds].size.height)];
         optOut.backgroundColor=[UIColor clearColor];
-        optOut.text = @"\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
+        optOut.text = @"\n\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
         optOut.editable=NO;
     }
     if (screen==1) { //If we've come from the instructions screen
         [self animateView:optOut withDirection:@"left"]; //animate the text appearance from the right
+        [self addSwipeForRight:@"left"];
     }
     else {
         [self animateView:optOut withDirection:@"right"]; //otherwise, animate it from the left
+        [self addSwipeForRight:@"right"];
     }
     [self.view addSubview:optOut];
     optOut.hidden=NO;
@@ -451,7 +446,7 @@
     [textView resignFirstResponder];
     if (!nameField)
     {
-        nameField=[[UITextField alloc] init];
+        nameField=[[UITextField alloc] initWithFrame:CGRectMake(40, 312, 240, 30)];
     }
     for(UIView *view in [self view].subviews){
         [view setUserInteractionEnabled:YES];
@@ -467,17 +462,15 @@
     
     if (optOutSeen==NO)
     {
-        instructionsSeen=YES;
+        optOutSeen=YES;
         [self saveData];
     }
-    if (optOutHasBeenSeenThisSession==NO)
-    {
-        [self addSwipeForRight];
-    }
-    optOutHasBeenSeenThisSession=YES;
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView {
+    
+    //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
+    
     if (nameField.text.length>0) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:nameField.text forKey:@"author"];
@@ -485,15 +478,15 @@
     }
 }
 
--(void)displayButton
-{
-    if (checkboxChecked)
-    {
-        [checkboxButton setImage:[UIImage imageNamed:@"trycheckbox_no.png"] forState:UIControlStateNormal];
+-(void)displayButton {
+    
+    //If the user has indicated that s/he wants me not to use his/her haiku, show the box with the check mark.  Otherwise, show the box without the check mark.
+    
+    if (checkboxChecked) {
+        [checkboxButton setImage:[UIImage imageNamed:@"checkbox checked.png"] forState:UIControlStateNormal];
     }
-    else if (!checkboxChecked)
-    {
-        [checkboxButton setImage:[UIImage imageNamed:@"trycheckbox.png"] forState:UIControlStateNormal];
+    else if (!checkboxChecked) {
+        [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked"] forState:UIControlStateNormal];
     }
 }
 
@@ -501,45 +494,43 @@
 {
     [textView resignFirstResponder];
     UIActionSheet *actSheet;
-    if (ghhaiku.userIsEditing)
-    {
+    
+    //If user is editing a haiku that already exists
+    
+    if (ghhaiku.userIsEditing) {
         
-        //If user is editing a haiku that already exists
+        //If user hasn't made any changes, simply return to home screen and current haiku.
         
-        if ([textView.text isEqualToString: ghhaiku.text])
-            
-            //If user hasn't made any changes
-        {
+        if ([textView.text isEqualToString: ghhaiku.text]) {
             textView.text=@"";
             [self.tabBarController setSelectedIndex:0];
         }
         
-        else
-            
-            //If user has made changes
-        {
-            actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
-        }
-    }
-    else
-    {
-        
-        //If this is a new haiku
-        if (textView.text.length==0)
-            
-            //If user has composed nothing
-            
-        {
-            textView.text=@"";
-            [self.tabBarController setSelectedIndex:0];
-        }
+        //If user has made changes, show action sheet with options to save/edit/discard.
         
         else {
-        
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
+            actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
+            [actSheet showFromTabBar:self.tabBarController.tabBar];
         }
     }
-    [actSheet showFromTabBar:self.tabBarController.tabBar];
+    
+    //If this is a new haiku
+    
+    else {
+        
+        //If user has composed nothing, simply return to home screen and current haiku.
+        
+        if (textView.text.length==0) {
+            textView.text=@"";
+            [self.tabBarController setSelectedIndex:0];
+        }
+        
+        //If user has composed something, show the action sheet.
+        
+        else {
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
+        [actSheet showFromTabBar:self.tabBarController.tabBar];         }
+    }
 }
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -26,24 +26,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    // Create a UIImageView in which and a CGRect with which to display the background image.
+    
     UIImageView *background;
     CGRect frame;
     
-    if (!ghhaiku.iPhone5Screen) {
+    //Determine whether you're using a 3.5-inch screen or a 4-inch screen.
+    
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    //If you're using a 3.5-inch screen, use the shorter background image.
+    
+    if (screenHeight<500) {
         frame = CGRectMake(0, 0, 320, (480-49));
-        //CHANGE THIS ONCE I HAVE GRAPHICS
     }
+    
+    //If you're using a 4-inch screen, use the taller background image.
+    
     else {
         frame = CGRectMake(0, 0, 320, (568-49));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
-    if (!ghhaiku.iPhone5Screen) {
-        //CHANGE THIS ONCE I HAVE GRAPHICS
+    
+    //Load the image.
+    
+    if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
     }
     else {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
     }
     [self.view addSubview:background];
     [self.view bringSubviewToFront:feedback];
