@@ -28,15 +28,13 @@
     UITextView *optOut;
     UITextView *nextInstructions;
     UITextView *previousInstructions;
+    UITextField *nameField;
     UIAlertView *alert;
     int screen;
     GHHaiku *ghhaiku;
     GHVerify *ghverify;
     UIImageView *background;
-    IBOutlet UIButton *checkboxButton;
-    IBOutlet UITextField *nameField;
+    UIButton *checkboxButton;
 }
-
--(IBAction)checkCheckbox;
 
 @end

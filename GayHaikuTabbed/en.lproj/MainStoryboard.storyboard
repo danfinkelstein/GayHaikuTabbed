@@ -96,48 +96,10 @@
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mTP-tp-ldf">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="Tfz-RM-aTH"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30A-Ja-HaY">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Ggi-vi-4El"/>
-                                    <constraint firstAttribute="width" constant="44" id="pfB-HW-Kf4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="checkbox unchecked.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="trycheckbox.png"/>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="checkCheckbox" destination="3" eventType="touchUpInside" id="79S-1J-5vw"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="mTP-tp-ldf" secondAttribute="bottom" constant="177" id="C3u-c8-NDs"/>
-                            <constraint firstItem="30A-Ja-HaY" firstAttribute="trailing" secondItem="mTP-tp-ldf" secondAttribute="trailing" type="default" id="GRG-gO-Vbm"/>
-                            <constraint firstItem="mTP-tp-ldf" firstAttribute="centerX" secondItem="17" secondAttribute="centerX" type="default" id="xNp-T1-rDA"/>
-                            <constraint firstAttribute="bottom" secondItem="30A-Ja-HaY" secondAttribute="bottom" constant="131" id="zkO-L6-r7o"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="checkboxButton" destination="30A-Ja-HaY" id="BIn-ms-G6I"/>
-                        <outlet property="nameField" destination="mTP-tp-ldf" id="RcY-IO-bnU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
             </objects>
@@ -154,8 +116,8 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-us-G3U">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="Lb5-7r-YGF"/>
                                     <constraint firstAttribute="height" constant="131" id="xhE-ro-AhQ"/>
+                                    <constraint firstAttribute="width" constant="231" id="y4q-7G-H7g"/>
                                 </constraints>
                                 <string key="text">Thank you for buying Gay Haiku.  If you have any problems with the app, or if you want to share any thoughts or suggestions, please email me at joel@joelderfner.com.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -207,42 +169,7 @@
         <image name="216-compose.png" width="23" height="18"/>
         <image name="53-house.png" width="22" height="22"/>
         <image name="80-shopping-cart.png" width="26" height="19"/>
-        <image name="checkbox unchecked.png" width="16" height="16"/>
-        <image name="trycheckbox.png" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="GHComposeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHComposeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="checkCheckbox"/>
-                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="GHFeedback" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHFeedback.h"/>
-            <relationships>
-                <relationship kind="outlet" name="feedback" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GHHaikuViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHHaikuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goToNextHaiku"/>
-                <relationship kind="action" name="goToPreviousHaiku"/>
-                <relationship kind="outlet" name="displayHaikuTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GHWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webV" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

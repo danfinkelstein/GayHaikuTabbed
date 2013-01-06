@@ -355,12 +355,22 @@
 {
     //In case user is coming from the compose screen, which has a different background image.
     
-    if (background.image!=[UIImage imageNamed:@"temp background.jpg"])
-    {
-        [background removeFromSuperview];
-        background.image = [UIImage imageNamed:@"temp background.jpg"];
-        [self.view addSubview:background];
+    CGRect frame;
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if (screenHeight<500) {
+        frame = CGRectMake(0, 0, 320, (480-49));
     }
+    else {
+        frame = CGRectMake(0, 0, 320, (568-49));
+    }
+    background = [[UIImageView alloc] initWithFrame:frame];
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    }
+    else {
+        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+    }
+    [self.view addSubview:background];
     
     //Hide the appropriate views.
     
@@ -386,14 +396,12 @@
         [self addSwipeForLeft:@"left"]; //Add them.
         [self addSwipeForRight:@"left"];
     }
-    else if (screen==2) //If we're coming from the instructions screen, animate instructions from right.
-    {
+    else if (screen==2) { //If we're coming from the instructions screen, animate instructions from right.
         [self animateView:instructions withDirection:@"right"];
         [self addSwipeForLeft:@"right"]; //Add them.
         [self addSwipeForRight:@"right"];
     }
-    if (instructionsSeen==NO) //If the instructions have never been seen,
-    {
+    if (instructionsSeen==NO) { //If the instructions have never been seen,
         instructionsSeen=YES; //Mark them seen and save that setting.
         [self saveData];
     }
@@ -403,19 +411,16 @@
     [self.view addSubview:instructions];
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
     [textField becomeFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
--(void)displayOptOutScreen
-{
+-(void)displayOptOutScreen {
     //Hide the textView and instructions.
     
     textView.hidden=YES;
@@ -425,8 +430,7 @@
     
     //Create the optOut text if it doesn't exist and set its attributes.
     
-    if (!optOut)
-    {
+    if (!optOut) {
         optOut = [[UITextView alloc] initWithFrame:CGRectMake(20, 95, [[UIScreen mainScreen] bounds].size.width - 20, [[UIScreen mainScreen] bounds].size.height)];
         optOut.backgroundColor=[UIColor clearColor];
         optOut.text = @"\n\n\nI hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.\n\n\n\nIf you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
@@ -443,25 +447,35 @@
     [self.view addSubview:optOut];
     optOut.hidden=NO;
     checkboxButton.hidden=NO;
+    if (!checkboxButton) {
+        checkboxButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        checkboxButton.frame = CGRectMake(236, 260, 44, 44);
+        [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
+        [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:checkboxButton];
+    }
     [textView resignFirstResponder];
     if (!nameField)
     {
-        nameField=[[UITextField alloc] initWithFrame:CGRectMake(40, 312, 240, 30)];
+        nameField=[[UITextField alloc] initWithFrame:CGRectMake(40, 223, 240, 30)];
+        nameField.borderStyle=UITextBorderStyleRoundedRect;
+        nameField.backgroundColor=[UIColor whiteColor];
+        nameField.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
+        nameField.placeholder=@"Name (optional)";
+        nameField.clearsOnBeginEditing=YES;
+        nameField.returnKeyType=UIReturnKeyDone;
+        nameField.delegate=self;
+        [self.view addSubview:nameField];
     }
     for(UIView *view in [self view].subviews){
         [view setUserInteractionEnabled:YES];
     }
     [instructions removeFromSuperview];
     nameField.hidden=NO;
-    nameField.delegate = self;
-    nameField.returnKeyType = UIReturnKeyDone;
     [self textFieldShouldReturn:nameField];
-    [self.view bringSubviewToFront:checkboxButton];
-    [self.view bringSubviewToFront:nameField];
     screen=2;
     
-    if (optOutSeen==NO)
-    {
+    if (optOutSeen==NO) {
         optOutSeen=YES;
         [self saveData];
     }
@@ -533,19 +547,15 @@
     }
 }
 
--(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==0)
-    {
+-(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex==0) {
         textView.text=@"";
         [self.tabBarController setSelectedIndex:0];
     }
-    else if (buttonIndex==1)
-    {
+    else if (buttonIndex==1) {
         [self saveUserHaiku];
     }
-    else
-    {
+    else {
         [actSheet dismissWithClickedButtonIndex:2 animated:YES];
         [textView becomeFirstResponder];
     }
@@ -555,8 +565,7 @@
     
     //Create an instance of GHVerify if one doesn't exist.
     
-    if (!ghverify)
-    {
+    if (!ghverify) {
         ghverify = [[GHVerify alloc] init];
     }
     
@@ -570,26 +579,21 @@
     
     NSString *alertMessage=@"I'm sorry, but ";
 
-    if (ghverify.numberOfLinesAsProperty==0)
-    {
+    if (ghverify.numberOfLinesAsProperty==0) {
         alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too few lines."];
     }
-    else if (ghverify.numberOfLinesAsProperty==2)
-    {
+    else if (ghverify.numberOfLinesAsProperty==2) {
         alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too many lines."];
     }
     int k;
-    if (ghverify.listOfLines.count<3)
-    {
+    if (ghverify.listOfLines.count<3) {
         k=ghverify.listOfLines.count;
     }
-    else
-    {
+    else {
         k=3;
     }
     NSMutableArray *arrayOfLinesToAlert = [[NSMutableArray alloc] init];
-    for (int i=0; i<k; i++)
-    {
+    for (int i=0; i<k; i++) {
         if ([ghverify.linesAfterCheck objectAtIndex:i])
         {
             if (![[ghverify.linesAfterCheck objectAtIndex:i] isEqualToString:@"just right"]) {
@@ -610,16 +614,14 @@
             number = [NSString stringWithFormat:@"lines %@, %@, and %@",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
         }
         phrase = [NSString stringWithFormat:@"%@ might have the wrong number of syllables. You need 5-7-5. ",number];
-        if ([alertMessage characterAtIndex:alertMessage.length-1]=='.')
-            {
+        if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
                 alertMessage = [alertMessage stringByAppendingFormat:@" Also, %@",phrase];
             }
         else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
         }
     
     arrayOfLinesToAlert=Nil;
-    if (alertMessage.length>15)
-    {
+    if (alertMessage.length>15) {
         NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
@@ -633,11 +635,9 @@
     //This makes sure the new haiku isn't a repeat of a haiku that's already in the database.  If it is, this dismisses the compose screen and puts the haiku already in the database on the main screen.
     
     int i;
-    for (i=0; i<ghhaiku.gayHaiku.count; i++)
-    {
+    for (i=0; i<ghhaiku.gayHaiku.count; i++) {
         NSString *haikuToCheck = [[ghhaiku.gayHaiku objectAtIndex:i] valueForKey:@"haiku"];
-        if ([textView.text isEqualToString:haikuToCheck])
-        {
+        if ([textView.text isEqualToString:haikuToCheck]) {
             //Even though a new haiku has not been composed, this will display the version of the haiku already in the database.
             ghhaiku.justComposed=YES;
             ghhaiku.newIndex = i;
@@ -648,8 +648,7 @@
     
     //This checks to make sure the syllable counts are correct.
     
-    if (bypassSyllableCheck==NO)
-    {
+    if (bypassSyllableCheck==NO) {
         [self verifySyllables];
 //Check this next line--shouldn't function continue after syllables are verified if they're verified yes?
         return YES;
@@ -668,11 +667,10 @@
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"haiku",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:collectionOfHaiku forKeys:keys];
 
-    if (textView.text.length>0 && ghhaiku.userIsEditing==NO)
+    if (textView.text.length>0 && ghhaiku.userIsEditing==NO) {
         
     //If it's a new haiku:
         
-    {
         ghhaiku.newIndex++;
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
     }
@@ -688,8 +686,7 @@
         ghhaiku.userIsEditing=NO;
     }
     
-    else if (!textView.text.length>0)
-    {
+    else if (!textView.text.length>0) {
         [self.tabBarController setSelectedIndex:0];
         return YES;
     }
@@ -698,17 +695,11 @@
     
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
-    /*if (nameField.text)
-    {
-        [haikuObject setObject:nameField.text forKey:@"author"];
-    }*/
     NSString *perm;
-    if (checkboxChecked)
-    {
+    if (checkboxChecked) {
         perm=@"Yes";
     }
-    else
-    {
+    else {
         perm=@"No";
     }
     [haikuObject setObject:perm forKey:@"permission"];
@@ -719,23 +710,18 @@
     return YES;
 }
 
-- (void)alertView:(UIAlertView *)alertView
-didDismissWithButtonIndex:(NSInteger) buttonIndex
-{
-    if (buttonIndex == 0)
-    {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger) buttonIndex {
+    if (buttonIndex == 0) {
         [textView becomeFirstResponder];
     }
-    else if (buttonIndex == 1)
-    {
+    else if (buttonIndex == 1) {
         bypassSyllableCheck=YES;
         [self saveUserHaiku];
         bypassSyllableCheck=NO;
     }
 }
 
-- (IBAction)checkCheckbox
-{
+- (void)checkCheckbox {
     checkboxChecked=!checkboxChecked;
     [self displayButton];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
