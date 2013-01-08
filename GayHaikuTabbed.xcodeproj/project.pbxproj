@@ -81,6 +81,10 @@
 		5DBE121E1680BE3A007324B6 /* webBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE121A1680BE3A007324B6 /* webBack.png */; };
 		5DBE121F1680BE3A007324B6 /* webBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE121B1680BE3A007324B6 /* webBack@2x.png */; };
 		5DBE12201680BE3A007324B6 /* webForward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE121C1680BE3A007324B6 /* webForward@2x.png */; };
+		5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE27169A077A004E63CF /* 20-gear-2.png */; };
+		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
+		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
+		5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE31169A635D004E63CF /* GHUserSettings.m */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
 /* End PBXBuildFile section */
@@ -170,6 +174,12 @@
 		5DBE121A1680BE3A007324B6 /* webBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webBack.png; sourceTree = "<group>"; };
 		5DBE121B1680BE3A007324B6 /* webBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webBack@2x.png"; sourceTree = "<group>"; };
 		5DBE121C1680BE3A007324B6 /* webForward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "webForward@2x.png"; sourceTree = "<group>"; };
+		5DFCCE27169A077A004E63CF /* 20-gear-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2.png"; sourceTree = "<group>"; };
+		5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2@2x.png"; sourceTree = "<group>"; };
+		5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSettingsViewController.h; sourceTree = "<group>"; };
+		5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSettingsViewController.m; sourceTree = "<group>"; };
+		5DFCCE30169A635D004E63CF /* GHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserSettings.h; sourceTree = "<group>"; };
+		5DFCCE31169A635D004E63CF /* GHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserSettings.m; sourceTree = "<group>"; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,12 +294,11 @@
 				5D8825F3167446C8007DF2E2 /* GHComposeViewController.m */,
 				5D8825F4167446C8007DF2E2 /* GHWebViewController.h */,
 				5D8825F5167446C8007DF2E2 /* GHWebViewController.m */,
+				5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */,
+				5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */,
 				5D8825F6167446C8007DF2E2 /* GHFeedback.h */,
 				5D8825F7167446C8007DF2E2 /* GHFeedback.m */,
-				5D8825F8167446C8007DF2E2 /* GHHaiku.h */,
-				5D8825F9167446C8007DF2E2 /* GHHaiku.m */,
-				5D8825FA167446C8007DF2E2 /* GHVerify.h */,
-				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
+				5DFCCE2F169A4F7C004E63CF /* Model */,
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
 				5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */,
@@ -301,6 +310,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DFCCE27169A077A004E63CF /* 20-gear-2.png */,
+				5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */,
 				5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */,
 				5D3C89CC169795D600366015 /* temp background.jpg */,
 				5DBE12191680BE3A007324B6 /* webForward.png */,
@@ -351,6 +362,19 @@
 				5DBC948E16743E00000406DF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5DFCCE2F169A4F7C004E63CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5D8825F8167446C8007DF2E2 /* GHHaiku.h */,
+				5D8825F9167446C8007DF2E2 /* GHHaiku.m */,
+				5D8825FA167446C8007DF2E2 /* GHVerify.h */,
+				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
+				5DFCCE30169A635D004E63CF /* GHUserSettings.h */,
+				5DFCCE31169A635D004E63CF /* GHUserSettings.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,6 +476,8 @@
 				5D4C28A9168CE18C0031834C /* checkbox checked@2x.png in Resources */,
 				5D3C89CD169795D600366015 /* temp background.jpg in Resources */,
 				5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */,
+				5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */,
+				5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +526,8 @@
 				5D88261616745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D88261816745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */,
 				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
+				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
+				5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

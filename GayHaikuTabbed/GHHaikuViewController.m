@@ -119,7 +119,7 @@
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), 240, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
     nextInstructions.frame = rect;
     
     //Display it.
@@ -139,7 +139,7 @@
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
     //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
-    CGRect rect = CGRectMake(10, 240, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
     previousInstructions.frame = rect;
     
     //Display it

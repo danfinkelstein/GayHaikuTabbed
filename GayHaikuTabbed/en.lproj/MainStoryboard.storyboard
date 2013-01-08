@@ -4,6 +4,26 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
+        <!--Settings View Controller - Settings-->
+        <scene sceneID="7MP-sH-rbv">
+            <objects>
+                <viewController storyboardIdentifier="settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bTg-iq-lrC" customClass="GHSettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uLA-3p-Tle">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="YUK-C4-k5w" appends="YES" id="GGI-HM-LAL"/>
+                        </connections>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="20-gear-2.png" id="sc3-fH-Ofq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbh-iZ-oCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="YUK-C4-k5w"/>
+            </objects>
+            <point key="canvasLocation" x="127" y="-523"/>
+        </scene>
         <!--Haiku View Controller - First-->
         <scene sceneID="11">
             <objects>
@@ -52,7 +72,7 @@
         <!--Web View Controller - Buy-->
         <scene sceneID="KRY-lj-8c0">
             <objects>
-                <viewController id="raS-l8-cPH" customClass="GHWebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="web" useStoryboardIdentifierAsRestorationIdentifier="YES" id="raS-l8-cPH" customClass="GHWebViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Uyy-qe-rpZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -92,23 +112,28 @@
         <!--Compose View Controller - Second-->
         <scene sceneID="13">
             <objects>
-                <viewController title="Second" id="3" customClass="GHComposeViewController" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="compose" title="Second" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3" customClass="GHComposeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="zf0-QX-Cgw" appends="YES" id="hEa-g3-8EA"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="zf0-QX-Cgw"/>
             </objects>
             <point key="canvasLocation" x="653" y="531"/>
         </scene>
         <!--Feedback - Feedback-->
         <scene sceneID="42u-pL-5PE">
             <objects>
-                <viewController id="OiU-5v-Tw7" customClass="GHFeedback" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="feedback" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OiU-5v-Tw7" customClass="GHFeedback" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Iv-h5-BYU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -139,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl8-Xo-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653" y="1200"/>
+            <point key="canvasLocation" x="633" y="1297"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="15">
@@ -157,6 +182,7 @@
                         <segue destination="3" kind="relationship" relationship="viewControllers" id="27"/>
                         <segue destination="raS-l8-cPH" kind="relationship" relationship="viewControllers" id="w7d-xX-dzh"/>
                         <segue destination="OiU-5v-Tw7" kind="relationship" relationship="viewControllers" id="f0V-VL-g7t"/>
+                        <segue destination="bTg-iq-lrC" kind="relationship" relationship="viewControllers" id="Jwq-qa-2bj"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
@@ -166,6 +192,7 @@
     </scenes>
     <resources>
         <image name="18-envelope.png" width="24" height="16"/>
+        <image name="20-gear-2.png" width="26" height="28"/>
         <image name="216-compose.png" width="23" height="18"/>
         <image name="53-house.png" width="22" height="22"/>
         <image name="80-shopping-cart.png" width="26" height="19"/>

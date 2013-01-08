@@ -15,26 +15,20 @@
 #import "GHHaiku.h"
 #import "GHHaikuViewController.h"
 #import "NSString+RNTextStatistics.h"
+#import "GHUserSettings.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
     BOOL bypassSyllableCheck;
-    BOOL optOutSeen;
     BOOL instructionsSeen;
-    BOOL checkboxChecked;
-    BOOL optOutHasBeenSeenThisSession;
-    BOOL instructionsHaveBeenSeenThisSession;
+    BOOL animateComposeScreen;
     UITextView *instructions;
     UITextView *textView;
-    UITextView *optOut;
     UITextView *nextInstructions;
-    UITextView *previousInstructions;
-    UITextField *nameField;
     UIAlertView *alert;
-    int screen;
     GHHaiku *ghhaiku;
     GHVerify *ghverify;
+    GHUserSettings *userSettings;
     UIImageView *background;
-    UIButton *checkboxButton;
 }
 
 @end
