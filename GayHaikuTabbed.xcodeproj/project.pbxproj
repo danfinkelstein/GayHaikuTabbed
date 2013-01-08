@@ -87,6 +87,11 @@
 		5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE31169A635D004E63CF /* GHUserSettings.m */; };
 		5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE36169C5054004E63CF /* libTestFlight.a */; };
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
+		5DFCCE40169CC736004E63CF /* compose screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE3E169CC736004E63CF /* compose screen temp.png */; };
+		5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE3F169CC736004E63CF /* splash screen temp.png */; };
+		5DFCCE43169CC755004E63CF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE42169CC755004E63CF /* Default.png */; };
+		5DFCCE45169CC762004E63CF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE44169CC762004E63CF /* Default@2x.png */; };
+		5DFCCE47169CC773004E63CF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE46169CC773004E63CF /* Default-568h@2x.png */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
 /* End PBXBuildFile section */
@@ -185,6 +190,11 @@
 		5DFCCE33169C4FDE004E63CF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5DFCCE36169C5054004E63CF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		5DFCCE3E169CC736004E63CF /* compose screen temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose screen temp.png"; sourceTree = "<group>"; };
+		5DFCCE3F169CC736004E63CF /* splash screen temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash screen temp.png"; sourceTree = "<group>"; };
+		5DFCCE42169CC755004E63CF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		5DFCCE44169CC762004E63CF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		5DFCCE46169CC773004E63CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -320,6 +330,11 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DFCCE46169CC773004E63CF /* Default-568h@2x.png */,
+				5DFCCE44169CC762004E63CF /* Default@2x.png */,
+				5DFCCE42169CC755004E63CF /* Default.png */,
+				5DFCCE3E169CC736004E63CF /* compose screen temp.png */,
+				5DFCCE3F169CC736004E63CF /* splash screen temp.png */,
 				5DFCCE27169A077A004E63CF /* 20-gear-2.png */,
 				5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */,
 				5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */,
@@ -488,6 +503,11 @@
 				5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */,
 				5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */,
 				5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */,
+				5DFCCE40169CC736004E63CF /* compose screen temp.png in Resources */,
+				5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */,
+				5DFCCE43169CC755004E63CF /* Default.png in Resources */,
+				5DFCCE45169CC762004E63CF /* Default@2x.png in Resources */,
+				5DFCCE47169CC773004E63CF /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

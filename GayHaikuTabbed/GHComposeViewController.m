@@ -74,11 +74,14 @@
         [self.tabBarController setSelectedIndex:4];
     }
     
-                //Otherwise, if the user hasn't ever seen instructions screen, show it.  Indicate we're on instructions screen so that if we go to the compose screen it'll animate.
+                //Otherwise, if the user hasn't ever seen instructions screen, show it.
     
     else if (userSettings.instructionsSeen==NO) { 
-        animateComposeScreen=YES;
         [self displayInstructionsScreen];
+        
+                //Indicate that, since we're on instructions screen, if we go to the compose screen it should animate.
+        
+        animateComposeScreen=YES;
     }
     
                 //Otherwise, show the compose screen.  Indicate we're NOT on instructions screen so that the compose screen won't be animated.
@@ -155,32 +158,37 @@
     [tv.layer addAnimation:transition forKey:nil];
 }
 
-/*-(void)keyboardWillShow:(NSNotification *)aNotification
-{
-    CGRect keyboardRect = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    CGRect frame = self.view.frame;
-    frame.size.height -= keyboardRect.size.height;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView commitAnimations];
-}
-
--(void)keyboardWillHide:(NSNotification *)aNotification
-{
-    NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView commitAnimations];
-}*/
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(void)displayComposeScreen
-{  
+-(void)displayComposeScreen {
+    
+                //Change the screen to the compose screen.
+    
+    [background removeFromSuperview];
+    CGRect frame;
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if (screenHeight<500) {
+        frame = CGRectMake(0, 0, 320, (480-216-44));
+    }
+    else {
+        frame = CGRectMake(0, 0, 320, (568-216-44));
+    }
+    background = [[UIImageView alloc] initWithFrame:frame];
+    
+    //Set the compose screen's background (to come with graphic)
+    
+    //Keyboard height is 216, so UIImageView is 264 high for iPhone4, 352 high for iPhone5
+    
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"compose screen temp.png"];
+    }
+    else {
+        background.image=[UIImage imageNamed:@"compose screen temp.png"];
+    }
+    [self.view addSubview:background];
+    
                 //Hide the instructions and the swipe-for-next text.
     
     instructions.hidden=YES;
@@ -189,7 +197,13 @@
                 //Create the textView if it doesn't exist.
     
     if (!textView) {
-        textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 20, 280, 180)];
+        if (screenHeight<500) {
+            textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 135)];
+        }
+        else {
+            textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
+        }
+        
         textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         textView.delegate = self;
     }
@@ -201,7 +215,7 @@
                 //Set the textView's attributes.
     
     textView.editable=YES;
-    textView.backgroundColor = [UIColor colorWithRed:216/255.0 green:121/255.0 blue:158/255.0 alpha:1];
+    textView.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:216/255.0 green:121/255.0 blue:158/255.0 alpha:1];
     textView.hidden=NO;
     
                 //If the user is NOT editing a user haiku, or if it's not a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
@@ -217,11 +231,6 @@
     
     [self.view addSubview:textView];
     [textView becomeFirstResponder];
-
-    
-//Set the compose screen's background (to come with graphic)
-    
-    //Keyboard height is 216, so UIImageView is 264 high for iPhone4, 352 high for iPhone5
     
                 //Set up animation if we're coming from the instructions screen and set boolean so we're not coming from the instructions screen anymore.
     
@@ -262,6 +271,7 @@
     
                 //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
+    [background removeFromSuperview];
     CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
     if (screenHeight<500) {
@@ -490,7 +500,7 @@
     
     arrayOfLinesToAlert=Nil;
     
-                //If the alert message needs displaying (i.e., if it goes beyond the introductory "I'm sorry" phrase, which is 15 characters long), add an ending to it and display it.
+                //If the alert message needs displaying (i.e., if it goes beyond the introductory "I'm sorry" phrase, which is 15 characters long), add an ending to it and display it with an alertView.
     
     if (alertMessage.length>15) {
         NSString *add = @"Are you certain you'd like to continue saving?";
@@ -498,6 +508,9 @@
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
         [alert show];
     }
+    
+                //Otherwise, save the haiku.
+    
     else {
         [self saveUserHaiku];
     }

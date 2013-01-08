@@ -140,7 +140,7 @@
     {
         nameField=[[UITextField alloc] initWithFrame:CGRectMake(screenWidth/2-(screenWidth-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, screenWidth-80, nameFieldHeight)];
         nameField.borderStyle=UITextBorderStyleRoundedRect;
-        nameField.backgroundColor=[UIColor whiteColor];
+        nameField.backgroundColor = [UIColor colorWithRed:255/255.0 green:212/255.0 blue:227/255.0 alpha:1];
         nameField.placeholder=@"Name (optional)";
         nameField.clearsOnBeginEditing=YES;
         nameField.returnKeyType=UIReturnKeyDone;
