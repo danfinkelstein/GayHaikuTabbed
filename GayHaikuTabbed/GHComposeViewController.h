@@ -18,17 +18,16 @@
 #import "GHUserSettings.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
-    BOOL bypassSyllableCheck;
-    BOOL instructionsSeen;
-    BOOL animateComposeScreen;
-    UITextView *instructions;
-    UITextView *textView;
-    UITextView *nextInstructions;
-    UIAlertView *alert;
-    GHHaiku *ghhaiku;
-    GHVerify *ghverify;
-    GHUserSettings *userSettings;
-    UIImageView *background;
+    UIImageView *background;            //Image to use as background.
+    BOOL bypassSyllableCheck;           //Whether to bypass the syllable-check verification function.
+    BOOL animateComposeScreen;          //If we're coming from the instructions screen, animate the compose screen appearance.
+    UITextView *instructions;           //Text of the instructions.
+    UITextView *textView;               //Editable text view for haiku entry.
+    UITextView *nextInstructions;       //Contains the instructions for moving from instructions to compose (should be a label?)
+    UIAlertView *alert;                 //Alert in case of syllable errors.
+    GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
+    GHVerify *ghverify;                 //Instantiation of GHVerify.
+    GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
 }
 
 @end

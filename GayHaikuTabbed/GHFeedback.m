@@ -27,29 +27,29 @@
 {
     [super viewDidLoad];
     
-    // Create a UIImageView in which and a CGRect with which to display the background image.
+            //Creates a UIImageView in which and a CGRect with which to display the background image.  
     
     UIImageView *background;
     CGRect frame;
     
-    //Determine whether you're using a 3.5-inch screen or a 4-inch screen.
+            //Determine whether you're using a 3.5-inch screen or a 4-inch screen.
     
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
     
-    //If you're using a 3.5-inch screen, use the shorter background image.
+            //If you're using a 3.5-inch screen, use the shorter background image.
     
     if (screenHeight<500) {
         frame = CGRectMake(0, 0, 320, (480-49));
     }
     
-    //If you're using a 4-inch screen, use the taller background image.
+            //If you're using a 4-inch screen, use the taller background image.
     
     else {
         frame = CGRectMake(0, 0, 320, (568-49));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
     
-    //Load the image.
+            //Load the image.
     
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];

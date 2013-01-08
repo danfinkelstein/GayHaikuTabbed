@@ -12,8 +12,9 @@
 
 @synthesize checkboxChecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
 
+            //Make GHUserSettings a singleton class.
+
 + (GHUserSettings *)sharedInstance
-//Make GHHaiku a singleton class.
 {
     static GHUserSettings *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -22,6 +23,8 @@
     });
     return sharedInstance;
 }
+
+            //Set session settings to user defaults, if such exist.
 
 -(void)setUserDefaults {
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
@@ -52,10 +55,14 @@
     else {
         self.instructionsSwipedToFromOptOut = NO;
     }
-    //UNCOMMENT IF NECESSARY TO TEST
+    
+            //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+    
+    /*
     self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
+     */
 }
 
 @end

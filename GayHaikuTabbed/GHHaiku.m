@@ -10,7 +10,7 @@
 
 @implementation GHHaiku
 
-@synthesize arrayAfterFiltering, index, selectedCategory, gayHaiku, justComposed, isUserHaiku, userIsEditing, text, newIndex;
+@synthesize gayHaiku, justComposed, isUserHaiku, userIsEditing, text, newIndex;
 
 + (GHHaiku *)sharedInstance
     //Make GHHaiku a singleton class.

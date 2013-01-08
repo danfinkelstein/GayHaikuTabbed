@@ -11,21 +11,20 @@
 #import "GHHaiku.h"
 
 typedef enum {
-    tooManyLines=2,
     tooFewLines=0,
     rightNumberOfLines=1,
-    blah
+    tooManyLines=2
 } numberOfLines;
 
 @interface GHVerify : NSObject
 
-@property (nonatomic, strong) NSArray *listOfLines;
-@property (nonatomic, strong) NSMutableArray *linesAfterCheck;
-@property (nonatomic, strong) GHHaiku *ghhaiku;
-@property (nonatomic) numberOfLines numberOfLinesAsProperty;
+@property (nonatomic, strong) NSArray *listOfLines;             //An array of lines in the haiku.
+@property (nonatomic, strong) NSMutableArray *linesAfterCheck;  //An array to hold the syllable verification of each line.
+@property (nonatomic, strong) GHHaiku *ghhaiku;                 //An instantiation of GHHaiku.
+@property (nonatomic) numberOfLines numberOfLinesAsProperty;    //The number of lines in the haiku.
 
--(int)syllablesInLine: (NSString *)line;
--(NSArray *)splitHaikuIntoLines: (NSString *)haiku;
--(BOOL)checkHaikuSyllables;
+-(NSArray *)splitHaikuIntoLines: (NSString *)haiku;             //Splits the haiku into lines.
+-(int)syllablesInLine: (NSString *)line;                        //Counts the syllables in the given line.
+-(BOOL)checkHaikuSyllables;                                     //Checks whether lines have correct number of syllables.
 
 @end

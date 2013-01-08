@@ -16,18 +16,15 @@
 -(int)chooseNumber:(int)blah;
 -(void)haikuToShow;
 
-@property (nonatomic) int index;
-@property (nonatomic) int newIndex;
-@property (nonatomic) BOOL justComposed;
-@property (nonatomic) BOOL isUserHaiku;
-@property (nonatomic) BOOL userIsEditing;
-@property (nonatomic, strong) NSMutableArray *gayHaiku;
-@property (nonatomic, strong) NSArray *arrayAfterFiltering;
-@property (nonatomic, strong) NSString *selectedCategory;
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSMutableArray *haikuLoaded;
+@property (nonatomic) int newIndex;                             //Index of the current haiku.
+@property (nonatomic) BOOL justComposed;                        //Alerts home screen to display properly upon return from compose screen.
+@property (nonatomic) BOOL isUserHaiku;                         //Indicates that haiku was written by the user.
+@property (nonatomic) BOOL userIsEditing;                       //Alerts compose screen that user is editing (rather than composing afresh).
+@property (nonatomic, strong) NSMutableArray *gayHaiku;         //Array of all haiku.
+@property (nonatomic, strong) NSString *text;                   //Text of haiku.
+@property (nonatomic, strong) NSMutableArray *haikuLoaded;      //Array of haiku loaded from plist.
 
--(void) loadHaiku;
--(void) saveToDocsFolder:(NSString *)string;
+-(void) loadHaiku;                                              //Loads haiku from plist.
+-(void) saveToDocsFolder:(NSString *)string;                    //Saves haiku array to plist.
 
 @end

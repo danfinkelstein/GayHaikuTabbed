@@ -132,7 +132,7 @@
     [tv.layer addAnimation:transition forKey:nil];
 }
 
--(void)keyboardWillShow:(NSNotification *)aNotification
+/*-(void)keyboardWillShow:(NSNotification *)aNotification
 {
     CGRect keyboardRect = [[[aNotification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     NSTimeInterval animationDuration = [[[aNotification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -149,7 +149,7 @@
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];
     [UIView commitAnimations];
-}
+}*/
 
 - (void)didReceiveMemoryWarning
 {

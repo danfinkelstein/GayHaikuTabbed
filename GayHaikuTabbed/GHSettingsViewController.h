@@ -10,14 +10,12 @@
 #import "GHUserSettings.h"
 
 @interface GHSettingsViewController : UIViewController <UITextFieldDelegate> {
-    UITextField *nameField;
-    UIButton *checkboxButton;
-    UITextView *settingsPartOne;
-    UITextView *settingsPartTwo;
-    UITextView *swipeInstructions;
-    UIImageView *background;
-    GHUserSettings *userSettings;
-    BOOL checkboxChecked;
+    UITextField *nameField;             //Field for user to enter name.
+    UIButton *checkboxButton;           //Button for user to opt out of my including haiku in future versions of app.
+    UITextView *settingsPartOne;        //Text asking for name.
+    UITextView *settingsPartTwo;        //Test asking for opt-out.
+    UITextView *swipeInstructions;      //Instructions to swipe to get to GHComposeViewController.
+    GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
 }
 
 @end
