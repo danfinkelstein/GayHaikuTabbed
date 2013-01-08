@@ -36,7 +36,6 @@
     userSettings = [GHUserSettings sharedInstance];
     [userSettings setUserDefaults];
     animateComposeScreen=NO;
-    bypassSyllableCheck=NO;
     
                 //Access the shared instance of GHHaiku.
     
@@ -405,7 +404,7 @@
                 //If the action sheet button is "save," save the haiku.
     
     else if (buttonIndex==1) {
-        [self saveUserHaiku];
+        [self verifySyllables];
     }
     
                 //If the action sheet button is "continue editing," dismiss action sheet and make textView the first responder again.
@@ -499,6 +498,9 @@
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
         [alert show];
     }
+    else {
+        [self saveUserHaiku];
+    }
 }
 
 -(void)checkForRepeats {
@@ -526,14 +528,6 @@
     
     [self checkForRepeats];
     
-    //This checks to make sure the syllable counts are correct.
-    
-    if (bypassSyllableCheck==NO) {
-        [self verifySyllables];
-//Check this next line--shouldn't function continue after syllables are verified if they're verified yes?
-        return YES;
-    }
-    
                 //Add the user's name to the haiku if s/he has entered one.
     
     NSString *textWithAttribution;
@@ -556,6 +550,7 @@
     if (textView.text.length>0 && ghhaiku.userIsEditing==NO) {
         ghhaiku.newIndex++;
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
+        NSLog(@"Just saved new haiku.");
     }
     
                 //If the saved haiku is an edited old haiku, replace the old version with the edited version and indicate that user is no longer editing.
@@ -565,6 +560,7 @@
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
         [ghhaiku.gayHaiku removeObjectAtIndex:ghhaiku.newIndex+1];
         ghhaiku.userIsEditing=NO;
+        NSLog(@"Just saved edited haiku.");
     }
     
                 //If there's no actual haiku, return to the home screen.
@@ -582,6 +578,12 @@
     
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
+    
+                //Include the author's name with the object
+    
+    if (userSettings.author) {
+        [haikuObject setObject:userSettings.author forKey:@"author"];
+    }
     
                 //Indicate whether I have permission to use it.
     
@@ -622,13 +624,11 @@
     if (buttonIndex == 0) {
         [textView becomeFirstResponder];
     }
-    else if (buttonIndex == 1) {
-        
+    
                 //Otherwise, save haiku despite solecisms.
-        
-        bypassSyllableCheck=YES;
+    
+    else if (buttonIndex == 1) {
         [self saveUserHaiku];
-        bypassSyllableCheck=NO;
     }
 }
 

@@ -85,6 +85,8 @@
 		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
 		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
 		5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE31169A635D004E63CF /* GHUserSettings.m */; };
+		5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE36169C5054004E63CF /* libTestFlight.a */; };
+		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
 /* End PBXBuildFile section */
@@ -180,6 +182,9 @@
 		5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSettingsViewController.m; sourceTree = "<group>"; };
 		5DFCCE30169A635D004E63CF /* GHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserSettings.h; sourceTree = "<group>"; };
 		5DFCCE31169A635D004E63CF /* GHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserSettings.m; sourceTree = "<group>"; };
+		5DFCCE33169C4FDE004E63CF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		5DFCCE36169C5054004E63CF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,25 +194,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8825D51674442B007DF2E2 /* Accounts.framework in Frameworks */,
+				5D8825D61674442B007DF2E2 /* AdSupport.framework in Frameworks */,
+				5D8825D71674442B007DF2E2 /* AudioToolbox.framework in Frameworks */,
+				5D8825D81674442B007DF2E2 /* CFNetwork.framework in Frameworks */,
+				5DBC945B16743DFF000406DF /* CoreGraphics.framework in Frameworks */,
+				5D8825DE1674447B007DF2E2 /* CoreLocation.framework in Frameworks */,
+				5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */,
 				5D8825E3167444B0007DF2E2 /* Twitter.framework in Frameworks */,
+				5D8825DF1674447B007DF2E2 /* libsqlite3.dylib in Frameworks */,
+				5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */,
+				5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */,
+				5D8825E01674447B007DF2E2 /* libz.1.1.3.dylib in Frameworks */,
 				5D8825E11674449F007DF2E2 /* MessageUI.framework in Frameworks */,
 				5D8825E21674449F007DF2E2 /* MobileCoreServices.framework in Frameworks */,
-				5D8825DE1674447B007DF2E2 /* CoreLocation.framework in Frameworks */,
-				5D8825DF1674447B007DF2E2 /* libsqlite3.dylib in Frameworks */,
-				5D8825E01674447B007DF2E2 /* libz.1.1.3.dylib in Frameworks */,
+				5D8825B416744295007DF2E2 /* Parse.framework in Frameworks */,
 				5D8825D916744448007DF2E2 /* QuartzCore.framework in Frameworks */,
 				5D8825DA16744448007DF2E2 /* Security.framework in Frameworks */,
 				5D8825DB16744448007DF2E2 /* Social.framework in Frameworks */,
 				5D8825DC16744448007DF2E2 /* StoreKit.framework in Frameworks */,
 				5D8825DD16744448007DF2E2 /* SystemConfiguration.framework in Frameworks */,
-				5D8825D51674442B007DF2E2 /* Accounts.framework in Frameworks */,
-				5D8825D61674442B007DF2E2 /* AdSupport.framework in Frameworks */,
-				5D8825D71674442B007DF2E2 /* AudioToolbox.framework in Frameworks */,
-				5D8825D81674442B007DF2E2 /* CFNetwork.framework in Frameworks */,
 				5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */,
-				5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */,
-				5DBC945B16743DFF000406DF /* CoreGraphics.framework in Frameworks */,
-				5D8825B416744295007DF2E2 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +267,8 @@
 		5DBC945516743DFE000406DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DFCCE38169C506C004E63CF /* libz.dylib */,
+				5DFCCE36169C5054004E63CF /* libTestFlight.a */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
 				5D8825CB1674437A007DF2E2 /* Social.framework */,
 				5D8825CC1674437A007DF2E2 /* StoreKit.framework */,
@@ -301,6 +310,7 @@
 				5DFCCE2F169A4F7C004E63CF /* Model */,
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
+				5DFCCE33169C4FDE004E63CF /* TestFlight.h */,
 				5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */,
 				5DBC945D16743DFF000406DF /* Supporting Files */,
 			);
@@ -612,6 +622,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -625,7 +636,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -633,6 +644,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -647,6 +659,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";
 				INFOPLIST_FILE = "GayHaikuTabbed/GayHaikuTabbed-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GayHaikuTabbed\"",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -662,6 +679,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";
 				INFOPLIST_FILE = "GayHaikuTabbed/GayHaikuTabbed-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/GayHaikuTabbed\"",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

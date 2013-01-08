@@ -15,9 +15,27 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+                //This sets the app to send user-generated haiku to the Parse database.  It's duplicated in GHHaikuViewController viewDidLoad, because at some point I installed it here and it wasn't working so I installed it there and it started working.  Almost certainly it's only necessary in one of those two places.  To do:  figure out which one.
+    
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
+    
+                //This hides the status bar throughout the app.
+    
     [UIApplication sharedApplication].statusBarHidden=YES;
+    
+//COMMENT THIS OUT FOR RELEASE:
+    
+    #define TESTING 1
+    #ifdef TESTING
+        [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    #endif
+    
+                //This connects beta testers to the app on testflightapp.com.
+    
+//TO CHANGE FOR RELEASE:  in Build Settings (top item in Project Navigator, choose Project rather than Targets), Deployment:  Strip Linked Product set to YES.  Strip Debug Symbols During Copy for Release set to YES.
+    
+    [TestFlight takeOff:@"91f34663f587b0ef83a11eb009268b4f_MTQ1OTk5MjAxMi0xMC0yMiAwODozNzowNC42MzY4NzM"];
     return YES;
 }
 							

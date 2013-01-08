@@ -163,11 +163,6 @@
         [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }
-
-    /*[self animateView:settingsPartOne]; //otherwise, animate it from the other side
-    [self animateView:nameField];
-    [self animateView:settingsPartTwo];
-    [self animateView:checkboxButton];*/
     [self.view addSubview:settingsPartOne];
     [self.view addSubview:nameField];
     [self.view addSubview:settingsPartTwo];
@@ -190,6 +185,7 @@
             //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
     
     if (nameField.text.length>0) {
+        userSettings.author=nameField.text;
         userSettings.defaults = [NSUserDefaults standardUserDefaults];
         [userSettings.defaults setObject:nameField.text forKey:@"author"];
         [userSettings.defaults synchronize];
