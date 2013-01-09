@@ -33,12 +33,14 @@
     
     UIImageView *background;
     CGRect frame;
+    float screenWidth = 320;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    float tabBarHeight=49;
     if (screenHeight<500) {
-        frame = CGRectMake(0, 0, 320, (480-49));
+        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     }
     else {
-        frame = CGRectMake(0, 0, 320, (568-49));
+        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
@@ -65,6 +67,8 @@
     [self.view addGestureRecognizer:tapBar];
     
                 //Load array of haiku
+
+//Do I need the protasis for pointing out that self.ghhaiku is the shared instance?
     
     if (!self.ghhaiku)
     {

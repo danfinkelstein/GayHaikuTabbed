@@ -8,6 +8,10 @@
 
 #import "GHComposeViewController.h" 
 
+float screenWidth=320;
+float tabBarHeight=49;
+float keyboardHeight=216;
+float toolbarHeight=44;
 
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
@@ -49,10 +53,10 @@
     CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
     if (screenHeight<500) {
-        frame = CGRectMake(0, 0, 320, (480-49));
+        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     }
     else {
-        frame = CGRectMake(0, 0, 320, (568-49));
+        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     }
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
@@ -169,17 +173,9 @@
     [background removeFromSuperview];
     CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (screenHeight<500) {
-        frame = CGRectMake(0, 0, 320, (480-216-44));
-    }
-    else {
-        frame = CGRectMake(0, 0, 320, (568-216-44));
-    }
+//This will need to change once we have the full screen of the compose screen.
+    frame = CGRectMake(0, 0, 320, screenHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
-    
-    //Set the compose screen's background (to come with graphic)
-    
-    //Keyboard height is 216, so UIImageView is 264 high for iPhone4, 352 high for iPhone5
     
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"compose screen temp.png"];
@@ -215,7 +211,7 @@
                 //Set the textView's attributes.
     
     textView.editable=YES;
-    textView.backgroundColor = [UIColor clearColor];//[UIColor colorWithRed:216/255.0 green:121/255.0 blue:158/255.0 alpha:1];
+    textView.backgroundColor = [UIColor clearColor];
     textView.hidden=NO;
     
                 //If the user is NOT editing a user haiku, or if it's not a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
