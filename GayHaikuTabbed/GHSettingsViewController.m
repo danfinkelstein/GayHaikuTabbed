@@ -102,7 +102,10 @@
                 //Create the optOut text if it doesn't exist and set its attributes.
     
     if (!settingsPartOne) {
-        settingsPartOne = [ghnumbers createParagraph:settingsPartOne];
+        settingsPartOne = [[UITextView alloc] init];
+        settingsPartOne.backgroundColor=[UIColor clearColor];
+        settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+        settingsPartOne.editable=NO;
         settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
         settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, ([[UIScreen mainScreen] bounds].size.height/2-125), screenWidth - 40, settingsHeight);
     }
@@ -121,7 +124,10 @@
         nameField.text=userSettings.author;
     }
     if (!settingsPartTwo) {
-        settingsPartTwo = [ghnumbers createParagraph:settingsPartTwo];
+        settingsPartTwo = [[UITextView alloc] init];
+        settingsPartTwo.backgroundColor=[UIColor clearColor];
+        settingsPartTwo.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+        settingsPartTwo.editable=NO;
         settingsPartTwo.text = @"If you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
         settingsPartTwo.frame = CGRectOffset(settingsPartOne.frame, 0, settingsHeight + gap + nameFieldHeight);
     }

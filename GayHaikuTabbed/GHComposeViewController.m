@@ -253,7 +253,10 @@
     
     if (!instructions)
     {
-        instructions = [ghnumbers createParagraph:instructions];
+        instructions = [[UITextView alloc] init];
+        instructions.backgroundColor=[UIColor clearColor];
+        instructions.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+        instructions.editable=NO;
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
 

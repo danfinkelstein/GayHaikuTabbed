@@ -29,12 +29,4 @@ float const buttonSideLength = 44;
     return instructions;
 }
 
--(UITextView *)createParagraph:(UITextView *)tv {
-    tv = [[UITextView alloc] init];
-    tv.backgroundColor=[UIColor clearColor];
-    tv.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
-    tv.editable=NO;
-    return tv;
-}
-
 @end
