@@ -7,6 +7,7 @@
 //
 
 #import "GHComposeViewController.h" 
+#import "GHConstants.h"
 
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
@@ -85,6 +86,18 @@
     }
 }
 
+-(UITextView *)createSwipeToAdd: (NSString *)word {
+    
+    //Create "Swipe" text and its characteristics
+    
+    UITextView *instructions = [[UITextView alloc] init];
+    instructions.editable=NO;
+    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.backgroundColor = [UIColor clearColor];
+    instructions.text = word;
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    return instructions;
+}
 
 -(void)addSwipeForRight:(NSString *)direction {
 
@@ -97,7 +110,7 @@
     else {
         word = @"Swipe to compose";
     }
-    nextInstructions = [ghnumbers createSwipeToAdd:word];
+    nextInstructions = [self createSwipeToAdd:word];
 
                 //Locate and frame the text on the right side of the view.
     

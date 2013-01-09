@@ -61,6 +61,7 @@
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAAC50167462AE008EB101 /* userHaiku.plist */; };
+		5DBC0AC3169E03E4005D4AB0 /* big compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC0AC2169E03E4005D4AB0 /* big compose.png */; };
 		5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
 		5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945816743DFF000406DF /* Foundation.framework */; };
 		5DBC945B16743DFF000406DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945A16743DFF000406DF /* CoreGraphics.framework */; };
@@ -155,6 +156,7 @@
 		5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
 		5DBAAC50167462AE008EB101 /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
+		5DBC0AC2169E03E4005D4AB0 /* big compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "big compose.png"; sourceTree = "<group>"; };
 		5DBC945216743DFE000406DF /* GayHaikuTabbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaikuTabbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBC945616743DFE000406DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5DBC945816743DFF000406DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -330,6 +332,7 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DBC0AC2169E03E4005D4AB0 /* big compose.png */,
 				5DFCCE48169CEE34004E63CF /* compose screen temp.png */,
 				5DFCCE46169CC773004E63CF /* Default-568h@2x.png */,
 				5DFCCE44169CC762004E63CF /* Default@2x.png */,
@@ -507,6 +510,7 @@
 				5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */,
 				5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */,
 				5DFCCE49169CEE34004E63CF /* compose screen temp.png in Resources */,
+				5DBC0AC3169E03E4005D4AB0 /* big compose.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

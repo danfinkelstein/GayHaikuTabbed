@@ -7,6 +7,7 @@
 //
 
 #import "GHSettingsViewController.h"
+#import "GHConstants.h"
 
 @interface GHSettingsViewController () <UITextFieldDelegate>
 
@@ -73,11 +74,24 @@
     [userSettings.defaults synchronize];
 }
 
+-(UITextView *)createSwipeToAdd: (NSString *)word {
+    
+    //Create "Swipe" text and its characteristics
+    
+    UITextView *instructions = [[UITextView alloc] init];
+    instructions.editable=NO;
+    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.backgroundColor = [UIColor clearColor];
+    instructions.text = word;
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    return instructions;
+}
+
 -(void)addSwipeForRight {
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    swipeInstructions = [ghnumbers createSwipeToAdd:@"Next"];
+    swipeInstructions = [self createSwipeToAdd:@"Next"];
     
                 //Locate and frame the text on the right side of the view.
     

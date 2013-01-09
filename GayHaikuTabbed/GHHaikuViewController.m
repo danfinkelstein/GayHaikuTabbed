@@ -16,6 +16,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <Social/Social.h>
+#import "GHConstants.h"
 
 
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
@@ -66,13 +67,8 @@
     [self.view addGestureRecognizer:tapBar];
     
                 //Load array of haiku
-
-//Do I need the protasis for pointing out that self.ghhaiku is the shared instance?
-    
-    //if (!self.ghhaiku)
-    //{
-        self.ghhaiku = [GHHaiku sharedInstance];
-    //}
+   
+    self.ghhaiku = [GHHaiku sharedInstance];
     [self.ghhaiku loadHaiku];
 
                 //Add Parse
@@ -97,11 +93,24 @@
 
 }
 
+-(UITextView *)createSwipeToAdd: (NSString *)word {
+    
+    //Create "Swipe" text and its characteristics
+    
+    UITextView *instructions = [[UITextView alloc] init];
+    instructions.editable=NO;
+    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.backgroundColor = [UIColor clearColor];
+    instructions.text = word;
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    return instructions;
+}
+
 -(void)addSwipeForNextView {
     
                 //Create "swipe" message to be shown with first haiku and set its location.
     
-    nextInstructions = [ghnumbers createSwipeToAdd:@"Swipe"];
+    nextInstructions = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
@@ -122,7 +131,7 @@
     
                 //Create "swipe" message to be shown with second haiku and set its location.
     
-    previousInstructions = [ghnumbers createSwipeToAdd:@"Swipe"];
+    previousInstructions = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
@@ -262,13 +271,7 @@
                 //Set boolean for direction of animation
         
         comingFromPrevious=YES;
-        
-                //Set boolean indicating that swipe-for-previous instructions have been seen this session.
-        
-//Is this necessary?
-        
-        //swipePreviousInstructionsSeen=YES;
-        
+
                 //Display the haiku.
         
         [self displayHaiku];
@@ -285,9 +288,10 @@
     
                 //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
         
-    
+    if (!navBar) {
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
-    [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+        [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    }
     
                 //Create UINavigationItem
 
