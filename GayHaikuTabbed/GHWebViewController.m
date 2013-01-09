@@ -7,6 +7,7 @@
 //
 
 #import "GHWebViewController.h"
+#import "GHConstants.h"
 
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
@@ -16,27 +17,25 @@
 
 @implementation GHWebViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
     }
     return self;
 }
 
--(void)viewDidLoad
-{
+-(void)viewDidLoad {
     [super viewDidLoad];
     
-    //create nav bar
+                //create nav bar
     
     [self loadNavBar:@"Buy"];
     
-    //should this next line be put into a viewWillAppear method?
+                //should this next line be put into a viewWillAppear method?
     
     [self seeNavBar];
     
-    //Create UIWebView.
+                //Create UIWebView.
     
     if (!webV)
     {
@@ -44,7 +43,7 @@
     }
     webV.delegate = self;
     
-    //Load Amazon page.
+                //Load Amazon page.
     
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
@@ -55,7 +54,7 @@
     if (!indicator)
     {
     indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-        [indicator setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2)];
+        [indicator setCenter:CGPointMake(screenWidth/2, [[UIScreen mainScreen] bounds].size.height/2)];
 	[indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
     indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
@@ -64,9 +63,10 @@
     [indicator startAnimating];
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    //Set up and display the navigation bar for the webview.
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+                //Set up and display the navigation bar for the webview.
+    
     NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
     NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
@@ -77,23 +77,20 @@
     [self loadNavBar:@"Buy"];
     navBarTitle.rightBarButtonItems=rightButtons;
     navBarTitle.hidesBackButton=YES;
-    if (webV.canGoBack)
-    {
+    if (webV.canGoBack) {
         UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
         [leftButtons addObject:backButt];
     }
-    if (webV.canGoForward)
-    {
-        UIBarButtonItem *forwardButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
-        [leftButtons addObject:forwardButt];
+    if (webV.canGoForward) {
+        UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
+        [leftButtons addObject:forButt];
     }
     navBarTitle.leftBarButtonItems=leftButtons;
     [indicator stopAnimating];
     [self seeNavBar];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -101,52 +98,43 @@
 //Create navigation functionality for the UIWebView.
 
 //Allow the user to go to the previous web page.
--(void)webBack
-{
+-(void)webBack {
     [webV goBack];
 }
 
 //Allow the user to follow a link.
--(void)webForward
-{
+-(void)webForward {
     [webV goForward];
 }
 
 //Refreshes the current web page.
--(void)webRefresh
-{
+-(void)webRefresh {
     [webV reload];
 }
 
 //Interrupts loading the current web page.
--(void)webStop
-{
+-(void)webStop {
     [webV stopLoading];
 }
 
--(void)loadNavBar:(NSString *)t
-{
+-(void)loadNavBar:(NSString *)t {
     [bar removeFromSuperview];
-    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
     navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
 }
 
--(void)seeNavBar
-{
+-(void)seeNavBar {
     [bar pushNavigationItem:navBarTitle animated:YES];
     [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     [self.view addSubview:bar];
 }
 
 //Sets up and displays error message in case of failure to connect.
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType==UIWebViewNavigationTypeLinkClicked)
-    {
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType==UIWebViewNavigationTypeLinkClicked) {
         NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com"];
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-        if (data == nil)
-        {
+        if (data == nil) {
             [indicator stopAnimating];
             alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -155,28 +143,31 @@
     return YES;
 }
 
--(void)alertViewCancel:(UIAlertView *)alertView
-{
+-(void)alertViewCancel:(UIAlertView *)alertView {
     [self.tabBarController setSelectedIndex:0];
 }
 
-//Connect to the Internet.
--(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus
-{
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
-    NSURLConnection *connectio = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (connectio)
-    {
-        [webV loadRequest:request];
+-(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus {
+    
+                //Connect to the Internet.
+    
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    if (conn) {
+        [webV loadRequest:req];
     }
     webV.scalesPageToFit=YES;
-    [webV setFrame:(CGRectMake(0,44,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-64))];
+    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,[[UIScreen mainScreen] bounds].size.height-tabBarHeight))]; //  64))];
+    
+//What is 64 in the above line?  Why not 49?
+    
     [self.view addSubview:webV];
 }
 
-//What to do in case of failure to connect.
--(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
+-(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    
+                //What to do in case of failure to connect.
+    
     alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     return YES;

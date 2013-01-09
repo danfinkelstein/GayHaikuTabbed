@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHUserSettings.h"
+#import "GHConstants.h"
 
 @interface GHSettingsViewController : UIViewController <UITextFieldDelegate> {
     UITextField *nameField;             //Field for user to enter name.
@@ -16,6 +17,7 @@
     UITextView *settingsPartTwo;        //Test asking for opt-out.
     UITextView *swipeInstructions;      //Instructions to swipe to get to GHComposeViewController.
     GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
+    GHConstants *ghnumbers;
 }
 
 @end

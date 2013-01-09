@@ -11,9 +11,9 @@
 #import "GHHaiku.h"
 
 typedef enum {
-    tooFewLines=0,
-    rightNumberOfLines=1,
-    tooManyLines=2
+    tooFewLines,
+    rightNumberOfLines,
+    tooManyLines
 } numberOfLines;
 
 @interface GHVerify : NSObject

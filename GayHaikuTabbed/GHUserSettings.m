@@ -12,10 +12,12 @@
 
 @synthesize checkboxChecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
 
-            //Make GHUserSettings a singleton class.
+            
 
-+ (GHUserSettings *)sharedInstance
-{
++ (GHUserSettings *)sharedInstance {
+    
+                //Make GHUserSettings a singleton class.
+    
     static GHUserSettings *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -24,9 +26,10 @@
     return sharedInstance;
 }
 
-            //Set session settings to user defaults, if such exist.
-
 -(void)setUserDefaults {
+    
+                //Set session settings to user defaults, if such exist.
+    
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"checked?"]) {
         self.checkboxChecked = [defaults boolForKey:@"checked?"];
@@ -56,7 +59,7 @@
         self.instructionsSwipedToFromOptOut = NO;
     }
     
-            //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+                //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
     /*
     self.optOutSeen=NO;

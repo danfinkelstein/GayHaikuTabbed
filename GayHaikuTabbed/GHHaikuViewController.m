@@ -17,6 +17,7 @@
 #import <Parse/Parse.h>
 #import <Social/Social.h>
 
+
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
 
 @end
@@ -33,9 +34,7 @@
     
     UIImageView *background;
     CGRect frame;
-    float screenWidth = 320;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    float tabBarHeight=49;
     if (screenHeight<500) {
         frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     }
@@ -70,10 +69,10 @@
 
 //Do I need the protasis for pointing out that self.ghhaiku is the shared instance?
     
-    if (!self.ghhaiku)
-    {
+    //if (!self.ghhaiku)
+    //{
         self.ghhaiku = [GHHaiku sharedInstance];
-    }
+    //}
     [self.ghhaiku loadHaiku];
 
                 //Add Parse
@@ -98,29 +97,16 @@
 
 }
 
--(UITextView *)createSwipeToAdd {
-    
-                //Create "Swipe" text and its characteristics
-    
-    UITextView *instructions = [[UITextView alloc] init];
-    instructions.editable=NO;
-    instructions.textColor = [UIColor purpleColor];
-    instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = @"Swipe";
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:14];
-    return instructions;
-}
-
 -(void)addSwipeForNextView {
     
                 //Create "swipe" message to be shown with first haiku and set its location.
     
-    nextInstructions = [self createSwipeToAdd];
+    nextInstructions = [ghnumbers createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
     
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
 
 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
@@ -136,12 +122,12 @@
     
                 //Create "swipe" message to be shown with second haiku and set its location.
     
-    previousInstructions = [self createSwipeToAdd];
+    previousInstructions = [ghnumbers createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
     
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
     
 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
 
@@ -281,7 +267,7 @@
         
 //Is this necessary?
         
-        swipePreviousInstructionsSeen=YES;
+        //swipePreviousInstructionsSeen=YES;
         
                 //Display the haiku.
         

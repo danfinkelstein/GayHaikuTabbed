@@ -88,10 +88,8 @@
 		5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE36169C5054004E63CF /* libTestFlight.a */; };
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE3F169CC736004E63CF /* splash screen temp.png */; };
-		5DFCCE43169CC755004E63CF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE42169CC755004E63CF /* Default.png */; };
-		5DFCCE45169CC762004E63CF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE44169CC762004E63CF /* Default@2x.png */; };
-		5DFCCE47169CC773004E63CF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE46169CC773004E63CF /* Default-568h@2x.png */; };
 		5DFCCE49169CEE34004E63CF /* compose screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE48169CEE34004E63CF /* compose screen temp.png */; };
+		5DFCCE4C169D0682004E63CF /* GHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE4B169D0681004E63CF /* GHConstants.m */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
 /* End PBXBuildFile section */
@@ -195,6 +193,8 @@
 		5DFCCE44169CC762004E63CF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		5DFCCE46169CC773004E63CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DFCCE48169CEE34004E63CF /* compose screen temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose screen temp.png"; sourceTree = "<group>"; };
+		5DFCCE4A169D0681004E63CF /* GHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConstants.h; sourceTree = "<group>"; };
+		5DFCCE4B169D0681004E63CF /* GHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConstants.m; sourceTree = "<group>"; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -398,6 +398,8 @@
 				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
 				5DFCCE30169A635D004E63CF /* GHUserSettings.h */,
 				5DFCCE31169A635D004E63CF /* GHUserSettings.m */,
+				5DFCCE4A169D0681004E63CF /* GHConstants.h */,
+				5DFCCE4B169D0681004E63CF /* GHConstants.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -504,9 +506,6 @@
 				5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */,
 				5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */,
 				5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */,
-				5DFCCE43169CC755004E63CF /* Default.png in Resources */,
-				5DFCCE45169CC762004E63CF /* Default@2x.png in Resources */,
-				5DFCCE47169CC773004E63CF /* Default-568h@2x.png in Resources */,
 				5DFCCE49169CEE34004E63CF /* compose screen temp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +557,7 @@
 				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
 				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
 				5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */,
+				5DFCCE4C169D0682004E63CF /* GHConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

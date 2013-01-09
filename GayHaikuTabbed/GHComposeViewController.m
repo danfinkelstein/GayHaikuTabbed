@@ -8,11 +8,6 @@
 
 #import "GHComposeViewController.h" 
 
-float screenWidth=320;
-float tabBarHeight=49;
-float keyboardHeight=216;
-float toolbarHeight=44;
-
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @end
@@ -43,21 +38,15 @@ float toolbarHeight=44;
     
                 //Access the shared instance of GHHaiku.
     
-    if (!ghhaiku)
-    {
+    //if (!ghhaiku)
+    //{
         ghhaiku = [GHHaiku sharedInstance];
-    }
+    //}
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
-    CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (screenHeight<500) {
-        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    }
-    else {
-        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    }
+    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
@@ -97,37 +86,19 @@ float toolbarHeight=44;
 }
 
 
-
--(UITextView *)createSwipeToAdd {
-    
-                //Create the text "swipe" to let the user know there's a previous/next screen.
-    
-    UITextView *showSwipeInstructions = [[UITextView alloc] init];
-    showSwipeInstructions.editable=NO;
-    showSwipeInstructions.textColor = [UIColor purpleColor];
-    showSwipeInstructions.backgroundColor = [UIColor clearColor];
-    showSwipeInstructions.font = [UIFont fontWithName:@"Zapfino" size:14];
-    
-                //If the instructions haven't been seen yet, the text should read "Next."  If they have, it should read "Swipe to compose."
-    
-    if (userSettings.instructionsSeen==NO) {
-        showSwipeInstructions.text = @"Next";
-    }
-    else {
-        showSwipeInstructions.text = @"Swipe to compose";
-    }
-
-                //Return the text view.
-    
-    return showSwipeInstructions;
-}
-
 -(void)addSwipeForRight:(NSString *)direction {
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    nextInstructions = [self createSwipeToAdd];
-    
+    NSString *word;
+    if (userSettings.instructionsSeen==NO) {
+        word = @"Next";
+    }
+    else {
+        word = @"Swipe to compose";
+    }
+    nextInstructions = [ghnumbers createSwipeToAdd:word];
+
                 //Locate and frame the text on the right side of the view.
     
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -141,8 +112,7 @@ float toolbarHeight=44;
     [self.view addSubview:nextInstructions];
 }
 
--(void)animateView:(UIView *)tv withDirection: (NSString *)direction
-{
+-(void)animateView:(UIView *)tv withDirection: (NSString *)direction {
     
                 //Set animation.
     
@@ -171,12 +141,9 @@ float toolbarHeight=44;
                 //Change the screen to the compose screen.
     
     [background removeFromSuperview];
-    CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-//This will need to change once we have the full screen of the compose screen.
-    frame = CGRectMake(0, 0, 320, screenHeight);
+    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
-    
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"compose screen temp.png"];
     }
@@ -199,7 +166,6 @@ float toolbarHeight=44;
         else {
             textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        
         textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         textView.delegate = self;
     }
@@ -254,8 +220,7 @@ float toolbarHeight=44;
     [textView setInputAccessoryView:toolbar];
 }
     
--(void)resignKeyboard
-{
+-(void)resignKeyboard {
     
                 //Resign first responder and call action sheet.
     
@@ -268,14 +233,8 @@ float toolbarHeight=44;
                 //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
     [background removeFromSuperview];
-    CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (screenHeight<500) {
-        frame = CGRectMake(0, 0, 320, (480-49));
-    }
-    else {
-        frame = CGRectMake(0, 0, 320, (568-49));
-    }
+    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
@@ -294,8 +253,7 @@ float toolbarHeight=44;
     
     if (!instructions)
     {
-        instructions = [[UITextView alloc] init]; 
-        instructions.backgroundColor=[UIColor clearColor];
+        instructions = [ghnumbers createParagraph:instructions];
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
 
@@ -303,7 +261,6 @@ float toolbarHeight=44;
         
         CGSize xySize = [instructions.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12] constrainedToSize:dimensions lineBreakMode:0];
         instructions.frame = CGRectMake(10, ([[UIScreen mainScreen] bounds].size.height/2) - xySize.height/2 - 20, [[UIScreen mainScreen] bounds].size.width - 10, [[UIScreen mainScreen] bounds].size.height);
-        instructions.editable=NO;
     }
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right, animate the instructions to the left.
@@ -364,14 +321,14 @@ float toolbarHeight=44;
     
     if (ghhaiku.userIsEditing) {
         
-                    //...if user hasn't made any changes, simply return to home screen and current haiku.
+                            //...then if user hasn't made any changes, simply return to home screen and current haiku.
         
         if ([textView.text isEqualToString: ghhaiku.text]) {
             textView.text=@"";
             [self.tabBarController setSelectedIndex:0];
         }
         
-                    //...if user HAS made changes, show action sheet with options to save/edit/discard.
+                            //...but if user HAS made changes, show action sheet with options to save/edit/discard.
         
         else {
             actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
@@ -383,14 +340,14 @@ float toolbarHeight=44;
     
     else {
         
-                    //...if user has composed nothing, simply return to home screen and current haiku.
+                            //...then if user has composed nothing, simply return to home screen and current haiku.
         
         if (textView.text.length==0) {
             textView.text=@"";
             [self.tabBarController setSelectedIndex:0];
         }
         
-                    //...if user HAS composed something, show the action sheet.
+                            //...but if user HAS composed something, show the action sheet.
         
         else {
         actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
@@ -441,10 +398,10 @@ float toolbarHeight=44;
     
     NSString *alertMessage=@"I'm sorry, but ";
 
-    if (ghverify.numberOfLinesAsProperty==0) {
+    if (ghverify.numberOfLinesAsProperty==tooFewLines) {
         alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too few lines."];
     }
-    else if (ghverify.numberOfLinesAsProperty==2) {
+    else if (ghverify.numberOfLinesAsProperty==tooManyLines) {
         alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too many lines."];
     }
     

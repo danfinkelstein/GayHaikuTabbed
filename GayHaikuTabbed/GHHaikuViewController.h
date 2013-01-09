@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
+#import "GHConstants.h"
 
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate> {
     BOOL swipePreviousInstructionsSeen;         //Whether the user's seen "swipe" to get to previous screen
@@ -20,6 +21,7 @@
     UINavigationBar *navBar;                    //Temporary-view nav bar for sending/editing/deleting
     BOOL comingFromPrevious;                    //So we know which direction to animate haiku view from
     IBOutlet UITextView *displayHaikuTextView;  //Textview that displays the current haiku
+    GHConstants *ghnumbers;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
