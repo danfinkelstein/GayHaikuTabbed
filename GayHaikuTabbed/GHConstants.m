@@ -16,17 +16,4 @@ float const buttonSideLength = 44;
 
 @implementation GHConstants
 
--(UITextView *)createSwipeToAdd: (NSString *)word {
-    
-                //Create "Swipe" text and its characteristics
-    
-    UITextView *instructions = [[UITextView alloc] init];
-    instructions.editable=NO;
-    instructions.textColor = [UIColor purpleColor];
-    instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = word;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
-    return instructions;
-}
-
 @end

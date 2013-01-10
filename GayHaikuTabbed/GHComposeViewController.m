@@ -38,11 +38,8 @@
     animateComposeScreen=NO;
     
                 //Access the shared instance of GHHaiku.
-    
-    //if (!ghhaiku)
-    //{
-        ghhaiku = [GHHaiku sharedInstance];
-    //}
+
+    ghhaiku = [GHHaiku sharedInstance];
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
@@ -88,9 +85,9 @@
 
 -(UITextView *)createSwipeToAdd: (NSString *)word {
     
-    //Create "Swipe" text and its characteristics
+                //Create "Swipe" text and its characteristics
     
-    UITextView *instructions = [[UITextView alloc] init];
+    instructions = [[UITextView alloc] init];
     instructions.editable=NO;
     instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.backgroundColor = [UIColor clearColor];

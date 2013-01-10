@@ -95,7 +95,7 @@
 
 -(UITextView *)createSwipeToAdd: (NSString *)word {
     
-    //Create "Swipe" text and its characteristics
+                //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;

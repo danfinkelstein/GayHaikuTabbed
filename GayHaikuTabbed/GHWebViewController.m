@@ -25,12 +25,9 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-                //create nav bar
+                //Load nav bar
     
-    [self loadNavBar:@"Buy"];
-    
-                //should this next line be put into a viewWillAppear method?
-    
+    [self loadNavBar:@"Buy"];   
     [self seeNavBar];
     
                 //Create UIWebView.
@@ -51,10 +48,10 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     if (!indicator)
     {
-    indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+        indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
         [indicator setCenter:CGPointMake(screenWidth/2, [[UIScreen mainScreen] bounds].size.height/2)];
-	[indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+        [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
 	[self.view addSubview:indicator];
 	
@@ -155,10 +152,7 @@
         [webV loadRequest:req];
     }
     webV.scalesPageToFit=YES;
-    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,[[UIScreen mainScreen] bounds].size.height-tabBarHeight))]; //  64))];
-    
-//What is 64 in the above line?  Why not 49?
-    
+    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,[[UIScreen mainScreen] bounds].size.height-tabBarHeight))]; 
     [self.view addSubview:webV];
 }
 

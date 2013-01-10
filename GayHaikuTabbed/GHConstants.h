@@ -16,6 +16,4 @@ extern float const buttonSideLength;
 
 @interface GHConstants : NSObject
 
--(UITextView *)createSwipeToAdd:(NSString *)word;
-
 @end
