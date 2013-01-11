@@ -9,6 +9,8 @@
 #import "GHComposeViewController.h" 
 #import "GHConstants.h"
 
+//files needed:  short background, tall background, short compose screen no flowers, tall compose screen no flowers, short compose screen with flowers, tall compose screen with flowers.
+
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @end
@@ -43,14 +45,14 @@
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+        background.image=[UIImage imageNamed:@"short background.jpg"];
     }
     else {
-        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        background.image=[UIImage imageNamed:@"tall background.jpg"];
     }
     [self.view addSubview:background];
 }
@@ -151,14 +153,14 @@
                 //Change the screen to the compose screen.
     
     [background removeFromSuperview];
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    frame = CGRectMake(0, 0, screenWidth, screenHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"compose screen temp.png"];
+        background.image=[UIImage imageNamed:@"short compose screen no flowers.png"];
     }
     else {
-        background.image=[UIImage imageNamed:@"compose screen temp.png"];
+        background.image=[UIImage imageNamed:@"tall compose screen no flowers.png"];
     }
     [self.view addSubview:background];
     
@@ -243,8 +245,8 @@
                 //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
     [background removeFromSuperview];
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"temp background.jpg"];
@@ -364,6 +366,12 @@
         
         else {
         actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"short compose screen with flowers.png"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"tall compose screen with flowers.png"];
+        }
         [actSheet showFromTabBar:self.tabBarController.tabBar];         }
     }
 }
@@ -472,6 +480,12 @@
         NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"short compose screen with flowers.png"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"tall compose screen with flowers.png"];
+        }
         [alert show];
     }
     

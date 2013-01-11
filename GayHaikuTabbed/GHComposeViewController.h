@@ -25,6 +25,8 @@
     UITextView *textView;               //Editable text view for haiku entry.
     UITextView *nextInstructions;       //Contains the instructions for moving from instructions to compose (should be a label?)
     UIAlertView *alert;                 //Alert in case of syllable errors.
+    float screenHeight;
+    CGRect frame;
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
     GHVerify *ghverify;                 //Instantiation of GHVerify.
     GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
