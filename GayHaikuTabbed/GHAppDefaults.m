@@ -20,7 +20,7 @@ float const buttonSideLength = 44;
 
 + (GHAppDefaults *)sharedInstance {
     
-    //Make GHAppDefaults a singleton class.
+                //Make GHAppDefaults a singleton class.
     
     static GHAppDefaults *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -32,7 +32,7 @@ float const buttonSideLength = 44;
 
 -(void)setUserDefaults {
     
-    //Set session settings to user defaults, if such exist.
+                //Set session settings to user defaults, if such exist.
     
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"checked?"]) {
@@ -63,13 +63,12 @@ float const buttonSideLength = 44;
         self.instructionsSwipedToFromOptOut = NO;
     }
     
-    //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+                //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-    
-    self.optOutSeen=NO;
+    /*self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
-    self.author=nil;
+    self.author=nil;*/
 }
 
 

@@ -16,12 +16,12 @@ extern float const buttonSideLength;
 
 @interface GHAppDefaults : NSObject
 
-@property (nonatomic) BOOL checkboxChecked;                 //Whether the user has checked "don't use my haiku" or not.
-@property (nonatomic) BOOL optOutSeen;                      //Whether the user has ever been shown the opt-out screen or not.
-@property (nonatomic) BOOL instructionsSeen;                //Whether the user has ever been shown the instructions.
-@property (nonatomic) BOOL instructionsSwipedToFromOptOut;  //Whether the user has ever swiped from the settings screen to the instructions screen.
+@property (nonatomic) BOOL checkboxChecked;                 //Has user checked "don't use my haiku"?
+@property (nonatomic) BOOL optOutSeen;                      //Has user ever been shown opt-out screen?
+@property (nonatomic) BOOL instructionsSeen;                //Has user ever been shown the instructions?
+@property (nonatomic) BOOL instructionsSwipedToFromOptOut;  //Has user ever swiped from settings screen to instructions screen?
 @property (nonatomic, strong) NSString *author;             //Author name the user has entered.
-@property (nonatomic, strong) NSUserDefaults *defaults;
+@property (nonatomic, strong) NSUserDefaults *defaults;     //Instantiation of user defaults.
 
 + (GHAppDefaults *)sharedInstance;
 -(void)setUserDefaults;

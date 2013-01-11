@@ -15,7 +15,6 @@
 #import "GHHaiku.h"
 #import "GHHaikuViewController.h"
 #import "NSString+RNTextStatistics.h"
-#import "GHUserSettings.h"
 #import "GHAppDefaults.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {

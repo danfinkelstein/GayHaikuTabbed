@@ -96,7 +96,7 @@
 
 -(void) loadHaiku
 {
-    //This loads the haiku from gayHaiku.plist to the file "path".
+                //This loads the haiku from gayHaiku.plist to the file "path".
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -108,7 +108,7 @@
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     
-    //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
+                //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
     /*
      else if ([fileManager fileExistsAtPath: path]) {
         [fileManager removeItemAtPath:path error:&error];
@@ -130,7 +130,7 @@
         [userFileManager copyItemAtPath:userBundle toPath: userPath error:&error];
     }
     
-    //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
+                //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
     
     /*
      else if ([userFileManager fileExistsAtPath: userPath]) {
@@ -138,13 +138,16 @@
      }
      */
     
-    //Loads an array with the contents of "userPath".
+                //Loads an array with the contents of "userPath".
 
     NSMutableArray *mutArrUser = [[NSMutableArray alloc] initWithContentsOfFile:userPath];
     [self.haikuLoaded addObjectsFromArray:mutArrUser];
 }
 
 -(void)saveToDocsFolder:(NSString *)string {
+    
+                //Saves array of user haiku to plist in docs folder.
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:string];

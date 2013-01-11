@@ -7,7 +7,7 @@
 //
 
 #import "GHWebViewController.h"
-#import "GHConstants.h"
+#import "GHAppDefaults.h"
 
 @interface GHWebViewController () <UIWebViewDelegate>
 
@@ -46,6 +46,9 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
+    
+                //Adds activity indicator to screen and starts animating it
+    
     if (!indicator)
     {
         indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
@@ -60,18 +63,33 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
     
-                //Set up and display the navigation bar for the webview.
+                //Create the arrays to hold navigation buttons.
     
     NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
     NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
+    
+                //Create navigation buttons for the right (stop and refresh).
+    
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
     UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
+    
+                //Add them to the right array.
+    
     [rightButtons addObject:stop];
     [rightButtons addObject:refresh];
+    
+                //Load the nav bar.
+    
     [bar removeFromSuperview];
     [self loadNavBar:@"Buy"];
+    
+                //Add the right buttons to the nav bar.
+    
     navBarTitle.rightBarButtonItems=rightButtons;
     navBarTitle.hidesBackButton=YES;
+    
+                //Create whatever left buttons are appropriate and add to the arrays.
+    
     if (webV.canGoBack) {
         UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
         [leftButtons addObject:backButt];
@@ -80,8 +98,17 @@
         UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
         [leftButtons addObject:forButt];
     }
+    
+                //Add the left buttons to the nav bar.
+    
     navBarTitle.leftBarButtonItems=leftButtons;
+    
+                //Lose the activity indicator.
+    
     [indicator stopAnimating];
+    
+                //Display the nav bar.
+    
     [self seeNavBar];
 }
 
@@ -90,42 +117,56 @@
     // Dispose of any resources that can be recreated.
 }
 
-//Create navigation functionality for the UIWebView.
-
-//Allow the user to go to the previous web page.
 -(void)webBack {
+    
+                //Allow the user to go to the previous web page.
+    
     [webV goBack];
 }
 
-//Allow the user to follow a link.
 -(void)webForward {
+    
+                //Allow the user to follow a link.
+    
     [webV goForward];
 }
 
-//Refreshes the current web page.
 -(void)webRefresh {
+    
+                //Refreshes the current web page.
+    
     [webV reload];
 }
 
-//Interrupts loading the current web page.
 -(void)webStop {
+    
+                //Interrupts loading the current web page.
+    
     [webV stopLoading];
 }
 
 -(void)loadNavBar:(NSString *)t {
+    
+                //Creates a nav bar.
+    
     [bar removeFromSuperview];
     bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
     navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
 }
 
 -(void)seeNavBar {
+    
+                //Adds the nav bar to the screen.
+    
     [bar pushNavigationItem:navBarTitle animated:YES];
     [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     [self.view addSubview:bar];
 }
 
-//Sets up and displays error message in case of failure to connect.
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType {
+    
+                //Sets up and displays error message in case of failure to connect.
+    
     if (navigationType==UIWebViewNavigationTypeLinkClicked) {
         NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com"];
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
@@ -139,6 +180,9 @@
 }
 
 -(void)alertViewCancel:(UIAlertView *)alertView {
+    
+                //Returns user to home screen upon user okay of same in case of failure to connect.
+    
     [self.tabBarController setSelectedIndex:0];
 }
 

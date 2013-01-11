@@ -27,6 +27,8 @@
 
 @synthesize ghhaiku;
 
+#pragma mark CREATION/SETUP METHODS
+
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
@@ -87,7 +89,6 @@
     swipePreviousInstructionsSeen=NO;
     
                 //Display first haiku and show (and fade) the nav bar
-    
     [self displayHaiku];
     [self showNavBarOnTap];
 
@@ -106,48 +107,6 @@
     return instructions;
 }
 
--(void)addSwipeForNextView {
-    
-                //Create "swipe" message to be shown with first haiku and set its location.
-    
-    nextInstructions = [self createSwipeToAdd:@"Swipe"];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
-    
-//Why did I choose 400?
-    
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
-
-//We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
-    
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
-    nextInstructions.frame = rect;
-    
-                //Display it.
-    
-    [self.view addSubview:nextInstructions];
-}
-
--(void)addSwipeForPreviousView {
-    
-                //Create "swipe" message to be shown with second haiku and set its location.
-    
-    previousInstructions = [self createSwipeToAdd:@"Swipe"];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
-    
-//Why did I choose 400?
-    
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
-    
-//We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
-
-    CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
-    previousInstructions.frame = rect;
-    
-                //Display it
-    
-    [self.view addSubview:previousInstructions];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 
                 //When the user returns from the compose screen having just composed a new haiku, replace whatever haiku was showing before with the new user haiku.
@@ -164,6 +123,70 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+-(void)showNavBarOnTap {
+    
+    //Remove the nav bar if it exists.
+    
+    if (navBar) {
+        [navBar removeFromSuperview];
+    }
+    
+    //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
+    
+    if (!navBar) {
+        navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+        [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    }
+    
+    //Create UINavigationItem
+    
+    titleBar = [[UINavigationItem alloc] init];
+    
+    //Add share button and, if appropriate, delete and edit buttons
+    
+    [self addShareButton];
+    if (self.ghhaiku.isUserHaiku==YES) {
+        [self addLeftButtons];
+    }
+    
+    //Add navigation bar to screen.
+    
+    [navBar pushNavigationItem:titleBar animated:YES];
+    [self.view addSubview:navBar];
+    
+    //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
+    
+    double delayInSeconds = 3.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [UIView animateWithDuration:.5
+                         animations:^{
+                             navBar.alpha = 0;
+                         }];
+    });
+}
+
+-(void)addShareButton {
+    
+    //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
+    
+    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showMessage)];
+    send.style=UIBarButtonItemStyleBordered;
+    titleBar.rightBarButtonItem = send;
+}
+
+-(void)addLeftButtons {
+    
+    //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
+    
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
+    NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
+    titleBar.leftBarButtonItems = leftItems;
+}
+
+#pragma mark DISPLAY METHODS
 
 -(void)displayHaiku {
     
@@ -235,6 +258,50 @@
     }
 }
 
+-(void)addSwipeForNextView {
+    
+    //Create "swipe" message to be shown with first haiku and set its location.
+    
+    nextInstructions = [self createSwipeToAdd:@"Swipe"];
+    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+    
+    //Why did I choose 400?
+    
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    
+    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+    
+    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
+    nextInstructions.frame = rect;
+    
+    //Display it.
+    
+    [self.view addSubview:nextInstructions];
+}
+
+-(void)addSwipeForPreviousView {
+    
+    //Create "swipe" message to be shown with second haiku and set its location.
+    
+    previousInstructions = [self createSwipeToAdd:@"Swipe"];
+    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+    
+    //Why did I choose 400?
+    
+    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    
+    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+    
+    CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
+    previousInstructions.frame = rect;
+    
+    //Display it
+    
+    [self.view addSubview:previousInstructions];
+}
+
+#pragma mark NAVIGATION METHODS
+
 -(void)goToNextHaiku {
        
                 //Increase the index by one.
@@ -278,67 +345,7 @@
     }
 }
 
--(void)showNavBarOnTap {
-    
-                //Remove the nav bar if it exists.
-    
-    if (navBar) {
-        [navBar removeFromSuperview];
-    }
-    
-                //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
-        
-    if (!navBar) {
-    navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
-        [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
-    }
-    
-                //Create UINavigationItem
-
-    titleBar = [[UINavigationItem alloc] init];
-    
-                //Add share button and, if appropriate, delete and edit buttons
-        
-    [self addShareButton];
-    if (self.ghhaiku.isUserHaiku==YES) {
-        [self addLeftButtons];
-    }
-
-                //Add navigation bar to screen.
-        
-    [navBar pushNavigationItem:titleBar animated:YES];
-    [self.view addSubview:navBar];
-        
-                //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
-        
-    double delayInSeconds = 3.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [UIView animateWithDuration:.5
-                             animations:^{
-                                 navBar.alpha = 0;
-                             }];
-    });
-}
-
--(void)addShareButton {
-    
-                //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
-    
-    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showMessage)];
-    send.style=UIBarButtonItemStyleBordered;
-    titleBar.rightBarButtonItem = send;
-}
-
--(void)addLeftButtons {
-    
-                //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
-    
-    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
-    NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
-    titleBar.leftBarButtonItems = leftItems;
-}
+#pragma mark ADDITION/DELETION METHODS
 
 -(void)editHaiku {
     
