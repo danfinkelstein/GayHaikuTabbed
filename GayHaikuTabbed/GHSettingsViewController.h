@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GHUserSettings.h"
+#import "GHAppDefaults.h"
 
 
 @interface GHSettingsViewController : UIViewController <UITextFieldDelegate> {
@@ -16,7 +16,7 @@
     UITextView *settingsPartOne;        //Text asking for name.
     UITextView *settingsPartTwo;        //Test asking for opt-out.
     UITextView *swipeInstructions;      //Instructions to swipe to get to GHComposeViewController.
-    GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
+    GHAppDefaults *userSettings;       //Instantiation of GHUserSettings.
 }
 
 @end

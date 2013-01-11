@@ -7,7 +7,7 @@
 //
 
 #import "GHFeedback.h"
-#import "GHConstants.h"
+#import "GHAppDefaults.h"
 
 @interface GHFeedback ()
 

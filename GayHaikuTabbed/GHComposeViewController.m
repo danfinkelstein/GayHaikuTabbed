@@ -7,7 +7,6 @@
 //
 
 #import "GHComposeViewController.h" 
-#import "GHConstants.h"
 
 //files needed:  short background, tall background, short compose screen no flowers, tall compose screen no flowers, short compose screen with flowers, tall compose screen with flowers.
 
@@ -35,7 +34,7 @@
     
                 //Set defaults, including user defaults, non-animated compose screen, and syllable check activated.
     
-    userSettings = [GHUserSettings sharedInstance];
+    userSettings = [GHAppDefaults sharedInstance];
     [userSettings setUserDefaults];
     animateComposeScreen=NO;
     

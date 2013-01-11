@@ -7,7 +7,6 @@
 //
 
 #import "GHSettingsViewController.h"
-#import "GHConstants.h"
 
 @interface GHSettingsViewController () <UITextFieldDelegate>
 
@@ -26,7 +25,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    userSettings = [GHUserSettings sharedInstance];
+    userSettings = [GHAppDefaults sharedInstance];
     [userSettings setUserDefaults];
     
             //Uncomment next line for testing.

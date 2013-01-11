@@ -1,34 +1,38 @@
 //
-//  GHUserSettings.m
+//  GHAppDefaults.m
 //  GayHaikuTabbed
 //
-//  Created by Joel Derfner on 1/6/13.
+//  Created by Joel Derfner on 1/10/13.
 //  Copyright (c) 2013 Joel Derfner. All rights reserved.
 //
 
-#import "GHUserSettings.h"
+#import "GHAppDefaults.h"
 
-@implementation GHUserSettings
+float const screenWidth = 320;
+float const tabBarHeight = 49;
+float const toolbarHeight = 44;
+float const keyboardHeight = 216;
+float const buttonSideLength = 44;
+
+@implementation GHAppDefaults
 
 @synthesize checkboxChecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
 
-            
-
-+ (GHUserSettings *)sharedInstance {
++ (GHAppDefaults *)sharedInstance {
     
-                //Make GHUserSettings a singleton class.
+    //Make GHAppDefaults a singleton class.
     
-    static GHUserSettings *sharedInstance = nil;
+    static GHAppDefaults *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[GHUserSettings alloc] init];
+        sharedInstance = [[GHAppDefaults alloc] init];
     });
     return sharedInstance;
 }
 
 -(void)setUserDefaults {
     
-                //Set session settings to user defaults, if such exist.
+    //Set session settings to user defaults, if such exist.
     
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"checked?"]) {
@@ -59,7 +63,7 @@
         self.instructionsSwipedToFromOptOut = NO;
     }
     
-                //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+    //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
     
     self.optOutSeen=NO;
@@ -67,5 +71,6 @@
     self.instructionsSwipedToFromOptOut=NO;
     self.author=nil;
 }
+
 
 @end

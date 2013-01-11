@@ -16,6 +16,7 @@
 #import "GHHaikuViewController.h"
 #import "NSString+RNTextStatistics.h"
 #import "GHUserSettings.h"
+#import "GHAppDefaults.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
     UIImageView *background;            //Image to use as background.
@@ -29,7 +30,7 @@
     CGRect frame;
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
     GHVerify *ghverify;                 //Instantiation of GHVerify.
-    GHUserSettings *userSettings;       //Instantiation of GHUserSettings.
+    GHAppDefaults *userSettings;       //Instantiation of GHUserSettings.
 }
 
 @end

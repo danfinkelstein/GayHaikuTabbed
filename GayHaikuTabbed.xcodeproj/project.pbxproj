@@ -60,6 +60,7 @@
 		5D88261B16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */; };
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
+		5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA4251169FBA8300187D2B /* GHAppDefaults.m */; };
 		5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAAC50167462AE008EB101 /* userHaiku.plist */; };
 		5DBC0AC3169E03E4005D4AB0 /* big compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC0AC2169E03E4005D4AB0 /* big compose.png */; };
 		5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
@@ -85,12 +86,10 @@
 		5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE27169A077A004E63CF /* 20-gear-2.png */; };
 		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
 		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
-		5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE31169A635D004E63CF /* GHUserSettings.m */; };
 		5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE36169C5054004E63CF /* libTestFlight.a */; };
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFCCE41169CC736004E63CF /* splash screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE3F169CC736004E63CF /* splash screen temp.png */; };
 		5DFCCE49169CEE34004E63CF /* compose screen temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE48169CEE34004E63CF /* compose screen temp.png */; };
-		5DFCCE4C169D0682004E63CF /* GHConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE4B169D0681004E63CF /* GHConstants.m */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
 /* End PBXBuildFile section */
@@ -155,6 +154,8 @@
 		5D88261416745CD3007DF2E2 /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
 		5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
+		5DAA4250169FBA8300187D2B /* GHAppDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDefaults.h; sourceTree = "<group>"; };
+		5DAA4251169FBA8300187D2B /* GHAppDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDefaults.m; sourceTree = "<group>"; };
 		5DBAAC50167462AE008EB101 /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DBC0AC2169E03E4005D4AB0 /* big compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "big compose.png"; sourceTree = "<group>"; };
 		5DBC945216743DFE000406DF /* GayHaikuTabbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaikuTabbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,8 +186,6 @@
 		5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2@2x.png"; sourceTree = "<group>"; };
 		5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSettingsViewController.h; sourceTree = "<group>"; };
 		5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSettingsViewController.m; sourceTree = "<group>"; };
-		5DFCCE30169A635D004E63CF /* GHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserSettings.h; sourceTree = "<group>"; };
-		5DFCCE31169A635D004E63CF /* GHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserSettings.m; sourceTree = "<group>"; };
 		5DFCCE33169C4FDE004E63CF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5DFCCE36169C5054004E63CF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -195,8 +194,6 @@
 		5DFCCE44169CC762004E63CF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		5DFCCE46169CC773004E63CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DFCCE48169CEE34004E63CF /* compose screen temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose screen temp.png"; sourceTree = "<group>"; };
-		5DFCCE4A169D0681004E63CF /* GHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConstants.h; sourceTree = "<group>"; };
-		5DFCCE4B169D0681004E63CF /* GHConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConstants.m; sourceTree = "<group>"; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -399,10 +396,8 @@
 				5D8825F9167446C8007DF2E2 /* GHHaiku.m */,
 				5D8825FA167446C8007DF2E2 /* GHVerify.h */,
 				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
-				5DFCCE30169A635D004E63CF /* GHUserSettings.h */,
-				5DFCCE31169A635D004E63CF /* GHUserSettings.m */,
-				5DFCCE4A169D0681004E63CF /* GHConstants.h */,
-				5DFCCE4B169D0681004E63CF /* GHConstants.m */,
+				5DAA4250169FBA8300187D2B /* GHAppDefaults.h */,
+				5DAA4251169FBA8300187D2B /* GHAppDefaults.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -560,8 +555,7 @@
 				5D88261816745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */,
 				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
 				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
-				5DFCCE32169A635D004E63CF /* GHUserSettings.m in Sources */,
-				5DFCCE4C169D0682004E63CF /* GHConstants.m in Sources */,
+				5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
