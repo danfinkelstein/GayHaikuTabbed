@@ -465,9 +465,9 @@
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result){
             
-            if (result == SLComposeViewControllerResultCancelled)
-            {
-                NSLog(@"Cancelled");
+                //Do nothing if the user cancels.
+            
+            if (result == SLComposeViewControllerResultCancelled) {
             }
             
                 //Create an alert message and show it in case of success.

@@ -312,7 +312,7 @@
     instructions.hidden=NO;
     [self.view addSubview:instructions];
     
-                //Indicate that, if we go from here to the compose screen, the compose screen should be animated.
+                //Animate the compose screen if that's where we go next.
     
     animateComposeScreen=YES;
 }
@@ -331,47 +331,34 @@
     [textView resignFirstResponder];
     UIActionSheet *actSheet;
     
-                //If user is editing a haiku that already exists...
+                //If user hasn't made any changes, simply return to home screen and current haiku.
     
-    if (ghhaiku.userIsEditing) {
-        
-                            //...then if user hasn't made any changes, simply return to home screen and current haiku.
-        
-        if ([textView.text isEqualToString: ghhaiku.text]) {
-            textView.text=@"";
-            [self.tabBarController setSelectedIndex:0];
-        }
-        
-                            //...but if user HAS made changes, show action sheet with options to save/edit/discard.
-        
-        else {
-            actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard Changes" otherButtonTitles:@"Save", nil];
-            [actSheet showFromTabBar:self.tabBarController.tabBar];
-        }
+    if (textView.text.length==0) {
+        textView.text=@"";
+        [self.tabBarController setSelectedIndex:0];
     }
     
-                //If, however, this is a new haiku...
-    
+                //If user HAS made changes, show alert view with appropriate destructive button title depending on whether it's a new haiku or an edited one.
     else {
-        
-                            //...then if user has composed nothing, simply return to home screen and current haiku.
-        
-        if (textView.text.length==0) {
-            textView.text=@"";
-            [self.tabBarController setSelectedIndex:0];
+        NSString *destroyButtonTitle;
+        if (ghhaiku.userIsEditing) {
+            destroyButtonTitle=@"Discard Changes";
         }
-        
-                            //...but if user HAS composed something, show the action sheet.
-        
         else {
-        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:@"Discard" otherButtonTitles:@"Save", nil];
+            destroyButtonTitle=@"Discard";
+        }
+        actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:destroyButtonTitle otherButtonTitles:@"Save", nil];
+        [actSheet showFromTabBar:self.tabBarController.tabBar];
+    
+                //Show appropriate screen.
+    
         if (screenHeight<500) {
             background.image=[UIImage imageNamed:@"short compose screen with flowers.png"];
         }
         else {
             background.image=[UIImage imageNamed:@"tall compose screen with flowers.png"];
         }
-        [actSheet showFromTabBar:self.tabBarController.tabBar];         }
+        [actSheet showFromTabBar:self.tabBarController.tabBar];
     }
 }
 
