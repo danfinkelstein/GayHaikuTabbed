@@ -57,7 +57,6 @@
         indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
 	[self.view addSubview:indicator];
-	
     [indicator startAnimating];
 }
 

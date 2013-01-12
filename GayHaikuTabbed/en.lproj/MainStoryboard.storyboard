@@ -112,7 +112,6 @@
         <!--Compose View Controller - Second-->
         <scene sceneID="13">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="compose" title="Second" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3" customClass="GHComposeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
@@ -126,6 +125,7 @@
                     <tabBarItem key="tabBarItem" title="Compose" image="216-compose.png" id="6"/>
                     <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="zf0-QX-Cgw"/>
             </objects>
             <point key="canvasLocation" x="653" y="531"/>

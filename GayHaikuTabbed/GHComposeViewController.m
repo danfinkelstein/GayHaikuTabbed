@@ -76,7 +76,7 @@
         animateComposeScreen=YES;
     }
     
-                //Otherwise, show the compose screen.  Indicate we're NOT on instructions screen so that the compose screen won't be animated.
+                //Otherwise, show the compose screen.  Indicate we're NOT coming from instructions screen so that compose screen won't be animated.
     
     else { 
         animateComposeScreen=NO;
@@ -191,7 +191,7 @@
     textView.backgroundColor = [UIColor clearColor];
     textView.hidden=NO;
     
-                //If the user is NOT editing a user haiku, or if it's not a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
+                //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
     
     if (ghhaiku.userIsEditing==NO || ghhaiku.isUserHaiku==NO) {
         textView.text = @"";
@@ -575,9 +575,7 @@
     }
     [haikuObject setObject:perm forKey:@"permission"];
     
-//Where is the author name in this PFObject?  I'm confused....
-    
-                //Send the PFObject.
+               //Send the PFObject.
 
     [haikuObject saveEventually];
     

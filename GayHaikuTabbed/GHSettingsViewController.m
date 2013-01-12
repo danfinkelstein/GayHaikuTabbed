@@ -25,12 +25,17 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    
+                //Load user defaults.
+    
     userSettings = [GHAppDefaults sharedInstance];
     [userSettings setUserDefaults];
     
-            //Uncomment next line for testing.
+                //Uncomment next line for testing.
     
     //userSettings.optOutSeen=NO;
+    
+                //Add swipe gesure recognizer if user has never swiped from settings to instructions.
     
     if (userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];

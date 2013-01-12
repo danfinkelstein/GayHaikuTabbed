@@ -10,8 +10,8 @@
 #import "GHHaiku.h"
 
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate> {
-    BOOL swipePreviousInstructionsSeen;         //Whether the user's seen "swipe" to get to previous screen
-    BOOL swipeNextInstructionsSeen;             //Whether the user's seen "swipe" to get to next screen
+    BOOL swipePreviousInstructionsSeen;         //Whether the user has seen "swipe" to get to previous screen
+    BOOL swipeNextInstructionsSeen;             //Whether the user has seen "swipe" to get to next screen
     UITextView *previousInstructions;           //The actual textview with the swipe-for-previous instructions
     UITextView *nextInstructions;               //The actual textview with the swipe-for-next instructions
     UIAlertView *alert;                         //Alert for email/twitter/facebook errors
