@@ -372,8 +372,15 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
     for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
     {
-        if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"haiku"] isEqualToString:displayHaikuTextView.text])
+        id haikuToDelete = [[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i];
+        NSString *haikuString = [haikuToDelete valueForKey:@"haiku"];
+        if ([haikuString isEqualToString:displayHaikuTextView.text])
+            
+//Check method with this replacement.
+            
+        //if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"haiku"] isEqualToString:displayHaikuTextView.text])
         {
+            NSLog(@"Deleting haiku");
             [self.ghhaiku.gayHaiku removeObjectIdenticalTo:[self.ghhaiku.gayHaiku objectAtIndex:i]];
             [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
             break;
@@ -385,6 +392,8 @@
     
     [self displayHaiku];
 }
+
+#pragma mark SHARING METHODS
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
