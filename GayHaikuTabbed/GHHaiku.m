@@ -39,7 +39,7 @@
     
     self.newIndex=0;
     
-                //Populate a temporary array with the haiku in self.gayHaiku.
+                //Populate a temporary array with the haiku that self.gayHaiku contains.
     
     NSMutableArray *arrayForShuffling = [[NSMutableArray alloc] initWithArray:self.gayHaiku];
     int arrayCount = arrayForShuffling.count;
@@ -48,7 +48,7 @@
     
     self.gayHaiku = [[NSMutableArray alloc] init];
     
-                //Repopulate self.gayHaiku randomly with the items it used to hold (items now in the temporary array).
+                //Repopulate self.gayHaiku randomly with the items it used to hold (items now in the temporary array arrayForShuffling).
     
     for (int i=0; i<arrayCount; i++) {
         int sortingHat = [self chooseNumber:arrayForShuffling.count];
@@ -85,8 +85,9 @@
     self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"haiku"];
         
                 //Indicate whether it's a user-generated haiku or not.
-        
-    if ([[[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"category"] isEqualToString:@"user"]) {
+    
+    NSString *cat = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"category"];
+    if ([cat isEqualToString:@"user"]) {
         self.isUserHaiku=YES;
     }
     else {

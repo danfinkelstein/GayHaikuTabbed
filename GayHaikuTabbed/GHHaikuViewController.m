@@ -260,42 +260,42 @@
 
 -(void)addSwipeForNextView {
     
-    //Create "swipe" message to be shown with first haiku and set its location.
+                //Create "swipe" message to be shown with first haiku and set its location.
     
     nextInstructions = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
-    //Why did I choose 400?
+//Why did I choose 400?
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
     
-    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
     CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
     nextInstructions.frame = rect;
     
-    //Display it.
+                //Display it.
     
     [self.view addSubview:nextInstructions];
 }
 
 -(void)addSwipeForPreviousView {
     
-    //Create "swipe" message to be shown with second haiku and set its location.
+                //Create "swipe" message to be shown with second haiku and set its location.
     
     previousInstructions = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
-    //Why did I choose 400?
+//Why did I choose 400?
     
     CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
     
-    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
+                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
     CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
     previousInstructions.frame = rect;
     
-    //Display it
+                //Display it
     
     [self.view addSubview:previousInstructions];
 }
@@ -374,13 +374,8 @@
     {
         id haikuToDelete = [[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i];
         NSString *haikuString = [haikuToDelete valueForKey:@"haiku"];
-        if ([haikuString isEqualToString:displayHaikuTextView.text])
-            
-//Check method with this replacement.
-            
-        //if ([[[[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate] objectAtIndex:i] valueForKey:@"haiku"] isEqualToString:displayHaikuTextView.text])
+        if ([haikuString isEqualToString:displayHaikuTextView.text])           
         {
-            NSLog(@"Deleting haiku");
             [self.ghhaiku.gayHaiku removeObjectIdenticalTo:[self.ghhaiku.gayHaiku objectAtIndex:i]];
             [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
             break;
@@ -465,14 +460,9 @@
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result){
             
-                //Do nothing if the user cancels.
-            
-            if (result == SLComposeViewControllerResultCancelled) {
-            }
-            
                 //Create an alert message and show it in case of success.
             
-            else
+            if (result != SLComposeViewControllerResultCancelled)
             {
                 NSString *yesItSent;
                 if (serviceType==SLServiceTypeTwitter)

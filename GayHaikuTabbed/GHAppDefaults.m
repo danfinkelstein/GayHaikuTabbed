@@ -65,10 +65,12 @@ float const buttonSideLength = 44;
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-    /*self.optOutSeen=NO;
+    /*
+    self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
-    self.author=nil;*/
+    self.author=nil;
+    */
 }
 
 
