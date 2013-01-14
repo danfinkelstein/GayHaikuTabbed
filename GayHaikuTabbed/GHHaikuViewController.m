@@ -126,36 +126,36 @@
 
 -(void)showNavBarOnTap {
     
-    //Remove the nav bar if it exists.
+                //Remove the nav bar if it exists.
     
     if (navBar) {
         [navBar removeFromSuperview];
     }
     
-    //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
+                //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     if (!navBar) {
         navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
         [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     }
     
-    //Create UINavigationItem
+                //Create UINavigationItem
     
     titleBar = [[UINavigationItem alloc] init];
     
-    //Add share button and, if appropriate, delete and edit buttons
+                //Add share button and, if appropriate, delete and edit buttons
     
     [self addShareButton];
     if (self.ghhaiku.isUserHaiku==YES) {
         [self addLeftButtons];
     }
     
-    //Add navigation bar to screen.
+                //Add navigation bar to screen.
     
     [navBar pushNavigationItem:titleBar animated:YES];
     [self.view addSubview:navBar];
     
-    //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
+                //Fade navigation bar:  first delay, so that buttons are pressable, then fade.
     
     double delayInSeconds = 3.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -201,9 +201,10 @@
     
                 //Set CGSize so that haiku can be laid out in the center.
     
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     
-//Why did I choose 400?
+    //Was
+    //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
 
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
     

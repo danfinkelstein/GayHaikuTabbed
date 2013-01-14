@@ -13,7 +13,7 @@
     UINavigationBar *bar;
     UINavigationItem *navBarTitle;
     UIAlertView *alert;
-    IBOutlet UIWebView *webV;
+    UIWebView *webV;
 }
 
 @end

@@ -19,12 +19,12 @@
     UINavigationItem *titleBar;                 //Navigation item for temporary-view nav bar.
     UINavigationBar *navBar;                    //Temporary-view nav bar for sending/editing/deleting
     BOOL comingFromPrevious;                    //So we know which direction to animate haiku view from
-    IBOutlet UITextView *displayHaikuTextView;  //Textview that displays the current haiku
+    UITextView *displayHaikuTextView;  //Textview that displays the current haiku
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
 
--(IBAction)goToNextHaiku;                       //Method for moving to next haiku
--(IBAction)goToPreviousHaiku;                   //Method for moving to previous haiku
+-(void)goToNextHaiku;                       //Method for moving to next haiku
+-(void)goToPreviousHaiku;                   //Method for moving to previous haiku
 
 @end

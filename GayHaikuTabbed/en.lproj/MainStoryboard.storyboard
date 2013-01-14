@@ -31,28 +31,10 @@
                     <view key="view" contentMode="scaleToFill" id="16">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VB8-hZ-3T0">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="124" id="Lq3-Bm-Mbi"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="top" secondItem="16" secondAttribute="top" constant="198" type="user" id="jjL-0Y-DEO"/>
-                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="uFv-mQ-lGd"/>
-                            <constraint firstItem="VB8-hZ-3T0" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="uW7-wY-RXp"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="53-house.png" id="7"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="displayHaikuTextView" destination="VB8-hZ-3T0" id="imv-Ox-xmj"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="U69-5G-7cp"/>
@@ -197,37 +179,6 @@
         <image name="53-house.png" width="22" height="22"/>
         <image name="80-shopping-cart.png" width="26" height="19"/>
     </resources>
-    <classes>
-        <class className="GHComposeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHComposeViewController.h"/>
-        </class>
-        <class className="GHFeedback" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHFeedback.h"/>
-            <relationships>
-                <relationship kind="outlet" name="feedback" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GHHaikuViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHHaikuViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goToNextHaiku"/>
-                <relationship kind="action" name="goToPreviousHaiku"/>
-                <relationship kind="outlet" name="displayHaikuTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="GHSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHSettingsViewController.h"/>
-        </class>
-        <class className="GHWebViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHWebViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webV" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
