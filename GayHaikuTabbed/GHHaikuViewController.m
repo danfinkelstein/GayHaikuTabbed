@@ -85,8 +85,8 @@
     
                 //Indicate that "swipe" text for previous/next have not been seen yet this session
     
-    swipeNextInstructionsSeen=NO;
-    swipePreviousInstructionsSeen=NO;
+    rightSwipeSeen=NO;
+    leftSwipeSeen=NO;
     
                 //Display first haiku and show (and fade) the nav bar
     [self displayHaiku];
@@ -246,15 +246,15 @@
     
                 //Show swipe for next/swipe for previous instructions if appropriate (and adjust booleans accordingly; remove them if appropriate.
     
-    if (swipeNextInstructionsSeen==NO) {
+    if (rightSwipeSeen==NO) {
         [self addSwipeForNextView];
-        swipeNextInstructionsSeen=YES;
+        rightSwipeSeen=YES;
     }
     else {
-        [nextInstructions removeFromSuperview];
+        [rightSwipe removeFromSuperview];
     }
-    if (swipePreviousInstructionsSeen==YES) {
-        [previousInstructions removeFromSuperview];
+    if (leftSwipeSeen==YES) {
+        [leftSwipe removeFromSuperview];
     }
 }
 
@@ -262,42 +262,42 @@
     
                 //Create "swipe" message to be shown with first haiku and set its location.
     
-    nextInstructions = [self createSwipeToAdd:@"Swipe"];
+    rightSwipe = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
     
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
     CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
-    nextInstructions.frame = rect;
+    rightSwipe.frame = rect;
     
                 //Display it.
     
-    [self.view addSubview:nextInstructions];
+    [self.view addSubview:rightSwipe];
 }
 
 -(void)addSwipeForPreviousView {
     
                 //Create "swipe" message to be shown with second haiku and set its location.
     
-    previousInstructions = [self createSwipeToAdd:@"Swipe"];
+    leftSwipe = [self createSwipeToAdd:@"Swipe"];
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
     
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
     CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
-    previousInstructions.frame = rect;
+    leftSwipe.frame = rect;
     
                 //Display it
     
-    [self.view addSubview:previousInstructions];
+    [self.view addSubview:leftSwipe];
 }
 
 #pragma mark NAVIGATION METHODS
@@ -318,12 +318,12 @@
     
                 //Show swipe instructions if appropriate and adjust booleans accordingly
     
-    if (swipePreviousInstructionsSeen==NO) {
+    if (leftSwipeSeen==NO) {
         [self addSwipeForPreviousView];
-        swipePreviousInstructionsSeen=YES;
+        leftSwipeSeen=YES;
     }
     else {
-        [previousInstructions removeFromSuperview];
+        [leftSwipe removeFromSuperview];
     }
 }
 
@@ -537,13 +537,13 @@
     
                 //Get ride of the "swipe" texts.
     
-    if (nextInstructions)
+    if (rightSwipe)
     {
-        [nextInstructions removeFromSuperview];
+        [rightSwipe removeFromSuperview];
     }
-    if (previousInstructions)
+    if (leftSwipe)
     {
-        [previousInstructions removeFromSuperview];
+        [leftSwipe removeFromSuperview];
     }
     
                 //Take a picture of the screen.
