@@ -44,7 +44,7 @@
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
-    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    screenHeight = self.view.bounds.size.height;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         NSLog(@"is Phone");
         frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
@@ -145,7 +145,7 @@
     CGRect rect;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
-        rect = CGRectMake((screenWidthPhone - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
+        rect = CGRectMake((screenWidthPhone - xySize.width), self.view.bounds.size.height*0.625, xySize.width, xySize.height);
     }
     else {
         if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
@@ -193,7 +193,7 @@
     
     [background removeFromSuperview];
     NSLog(@"Background removed");
-    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    screenHeight = self.view.bounds.size.height;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         frame = CGRectMake(0, 0, screenWidthPhone, screenHeight);
         background = [[UIImageView alloc] initWithFrame:frame];
@@ -296,7 +296,7 @@
                 //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
     [background removeFromSuperview];
-    screenHeight = [UIScreen mainScreen].bounds.size.height;
+    screenHeight = self.view.bounds.size.height;
     frame = CGRectMake(0, 0, screenWidthPhone, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {

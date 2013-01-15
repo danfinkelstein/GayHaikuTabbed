@@ -47,7 +47,7 @@
                 //Add the background image.
     
     CGRect frame;
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    float screenHeight = self.view.bounds.size.height;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         NSLog(@"is Phone");
         frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
@@ -130,9 +130,9 @@
     NSString *text = [swipeInstructions.text stringByAppendingString:@"compo"];
     //Locate and frame the text on the right side of the view.
     
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
+    CGSize dimensions = CGSizeMake(self.view.bounds.size.width, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
+    CGRect rect = CGRectMake((dimensions.width - xySize.width), self.view.bounds.size.height*0.625, xySize.width, xySize.height);
 
     
     //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
@@ -161,12 +161,12 @@
         settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
         settingsPartOne.editable=NO;
         settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
-        settingsPartOne.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-([[UIScreen mainScreen] bounds].size.width-40)/2, ([[UIScreen mainScreen] bounds].size.height/2-125), [[UIScreen mainScreen] bounds].size.width - 40, settingsHeight);
+        settingsPartOne.frame = CGRectMake(self.view.bounds.size.width/2-(self.view.bounds.size.width-40)/2, (self.view.bounds.size.height/2-125), self.view.bounds.size.width - 40, settingsHeight);
     }
     
     if (!nameField)
     {
-        nameField=[[UITextField alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2-([[UIScreen mainScreen] bounds].size.width-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, [[UIScreen mainScreen] bounds].size.width-80, nameFieldHeight)];
+        nameField=[[UITextField alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-(self.view.bounds.size.width-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, self.view.bounds.size.width-80, nameFieldHeight)];
         nameField.borderStyle=UITextBorderStyleRoundedRect;
         nameField.backgroundColor = [UIColor colorWithRed:255/255.0 green:212/255.0 blue:227/255.0 alpha:1];
         nameField.placeholder=@"Name (optional)";
@@ -187,7 +187,7 @@
     }
     if (!checkboxButton) {
         checkboxButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        checkboxButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+(([[UIScreen mainScreen] bounds].size.width-80)/2) - 44, nameField.center.y + nameFieldHeight/2 + gap, buttonSideLength, buttonSideLength);
+        checkboxButton.frame = CGRectMake(self.view.bounds.size.width/2+((self.view.bounds.size.width-80)/2) - 44, nameField.center.y + nameFieldHeight/2 + gap, buttonSideLength, buttonSideLength);
         [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -31,7 +31,7 @@
             //Creates a UIImageView in which and a CGRect with which to display the background image.  
     
     CGRect frame;
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    float screenHeight = self.view.bounds.size.height;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         NSLog(@"is Phone");
         frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
@@ -81,7 +81,7 @@
         NSString *t = @"If you have any problems with the    ";
         float textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize]].width;
         float textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize]].height;
-        feedback.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-textWidth/2, ([[UIScreen mainScreen] bounds].size.height/2-tabBarHeight) - (textHeight*6)/2, textWidth, textHeight*6);
+        feedback.frame = CGRectMake(self.view.bounds.size.width/2-textWidth/2, (self.view.bounds.size.height/2-tabBarHeight) - (textHeight*6)/2, textWidth, textHeight*6);
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;
         [self.view addSubview:feedback];
     }

@@ -157,7 +157,7 @@
                 //Create UINavigationBar.  The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     if (!navBar) {
-        navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+        navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
         [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     }
     
@@ -223,7 +223,7 @@
     
                 //Set CGSize so that haiku can be laid out in the center.
     
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    CGSize dimensions = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
     
     //Was
     //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
@@ -240,7 +240,7 @@
     displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:12];
     displayHaikuTextView.text=self.ghhaiku.text;
     CGSize size = [displayHaikuTextView.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12]];
-    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),(screenHeight-tabBarHeight-size.height*5)/2,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
+    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),(screenHeight-tabBarHeight-size.height*5)/2,self.view.bounds.size.width,self.view.bounds.size.height/3)];
     
                 //Set animation
     
@@ -287,10 +287,6 @@
                 //Create "swipe" message to be shown with first haiku and set its location.
     
     rightSwipe = [self createSwipeToAdd:@"Swipe"];
-   //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
-    
-//Why did I choose 400?
-    
     CGSize xySize;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:36]];
@@ -301,7 +297,7 @@
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
-    CGRect rect = CGRectMake((screenWidth - xySize.width-30), [[UIScreen mainScreen] bounds].size.height*.6, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake((screenWidth - xySize.width-30), self.view.bounds.size.height*.6, xySize.width*1.5, xySize.height*2);
     rightSwipe.frame = rect;
     
                 //Display it.
@@ -324,7 +320,7 @@
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
-    CGRect rect = CGRectMake(30, [[UIScreen mainScreen] bounds].size.height*.55, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake(30, self.view.bounds.size.height*.55, xySize.width*1.5, xySize.height*2);
     leftSwipe.frame = rect;
     
                 //Display it
@@ -580,13 +576,13 @@
     
                 //Take a picture of the screen.
     
-    CGRect newRect = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44);
+    CGRect newRect = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-toolbarHeight);
     UIGraphicsBeginImageContext(newRect.size);
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     UIGraphicsBeginImageContext([self.view bounds].size);
-    [myImage drawInRect:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-44)];
+    [myImage drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-toolbarHeight)];
     myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -601,8 +597,8 @@
     
 //Check to make sure this is right.  Then clean it up.
     
-    int widthToUse = [[UIScreen mainScreen] bounds].size.width;
-    int heightToUse = [[UIScreen mainScreen] bounds].size.height;
+    int widthToUse = self.view.bounds.size.width;
+    int heightToUse = self.view.bounds.size.height;
     CGSize scaledSize;
     scaledSize.height = 350;
     scaledSize.width = ((350*widthToUse)/heightToUse);
