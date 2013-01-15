@@ -206,7 +206,7 @@
     //Was
     //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
 
-    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:14] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
     
                 //Set UITextView and its characteristics
     
@@ -215,7 +215,7 @@
     displayHaikuTextView = [[UITextView alloc] init];
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
     [displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
     

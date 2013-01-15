@@ -71,7 +71,6 @@
 		5DBC946916743DFF000406DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC946816743DFF000406DF /* Default.png */; };
 		5DBC946B16743DFF000406DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC946A16743DFF000406DF /* Default@2x.png */; };
 		5DBC946D16743DFF000406DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC946C16743DFF000406DF /* Default-568h@2x.png */; };
-		5DBC947016743DFF000406DF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */; };
 		5DBC948616743E00000406DF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC948516743E00000406DF /* SenTestingKit.framework */; };
 		5DBC948716743E00000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
 		5DBC948816743E00000406DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945816743DFF000406DF /* Foundation.framework */; };
@@ -169,7 +168,6 @@
 		5DBC946816743DFF000406DF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5DBC946A16743DFF000406DF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		5DBC946C16743DFF000406DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		5DBC946F16743DFF000406DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		5DBC948416743E00000406DF /* GayHaikuTabbedTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GayHaikuTabbedTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBC948516743E00000406DF /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		5DBC948D16743E00000406DF /* GayHaikuTabbedTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GayHaikuTabbedTests-Info.plist"; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
 				5DFCCE33169C4FDE004E63CF /* TestFlight.h */,
-				5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */,
 				5DBC945D16743DFF000406DF /* Supporting Files */,
 			);
 			path = GayHaikuTabbed;
@@ -478,7 +475,6 @@
 				5DBC946916743DFF000406DF /* Default.png in Resources */,
 				5DBC946B16743DFF000406DF /* Default@2x.png in Resources */,
 				5DBC946D16743DFF000406DF /* Default-568h@2x.png in Resources */,
-				5DBC947016743DFF000406DF /* MainStoryboard.storyboard in Resources */,
 				5D8825E9167445BA007DF2E2 /* checkbox unchecked.png in Resources */,
 				5D8825EB167445BA007DF2E2 /* checkbox checked.png in Resources */,
 				5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */,
@@ -594,14 +590,6 @@
 				5DBC946016743DFF000406DF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5DBC946E16743DFF000406DF /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5DBC946F16743DFF000406DF /* en */,
-			);
-			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 		5DBC948E16743E00000406DF /* InfoPlist.strings */ = {

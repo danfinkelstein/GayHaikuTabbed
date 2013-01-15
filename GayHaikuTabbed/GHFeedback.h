@@ -10,7 +10,7 @@
 #import "GHHaiku.h"
 
 @interface GHFeedback : UIViewController {
-    IBOutlet UITextView *feedback;      //Text telling user how to get in touch with me.
+    UITextView *feedback;      //Text telling user how to get in touch with me.
 }
 
 @end

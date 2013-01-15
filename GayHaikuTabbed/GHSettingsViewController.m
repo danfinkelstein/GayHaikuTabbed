@@ -37,12 +37,13 @@
     
                 //Add swipe gesure recognizer if user has never swiped from settings to instructions.
     
-    if (userSettings.instructionsSwipedToFromOptOut==NO) {
+   if (userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
         swipeLeft.numberOfTouchesRequired = 1;
         swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
         [self.view addGestureRecognizer:swipeLeft];
     }
+    
     
                 //Add the background image.
     
@@ -67,7 +68,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (userSettings.optOutSeen==YES) {
+    if (userSettings.instructionsSwipedToFromOptOut==YES) {
         [swipeInstructions removeFromSuperview];
     }
     else {
@@ -87,7 +88,7 @@
     instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
     return instructions;
 }
 
@@ -99,9 +100,17 @@
     
                 //Locate and frame the text on the right side of the view.
     
+    NSString *text = [swipeInstructions.text stringByAppendingString:@"compo"];
+    //Locate and frame the text on the right side of the view.
+    
     CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [swipeInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-180, xySize.width*1.5, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
+    CGRect rect = CGRectMake((dimensions.width - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
+
+    
+    //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
+    //CGSize xySize = [swipeInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    //CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height*0.675, xySize.width*1.5, (xySize.height*2));
     swipeInstructions.frame = rect;
     
                 //Display it.
@@ -144,7 +153,7 @@
     if (!settingsPartTwo) {
         settingsPartTwo = [[UITextView alloc] init];
         settingsPartTwo.backgroundColor=[UIColor clearColor];
-        settingsPartTwo.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+        settingsPartTwo.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
         settingsPartTwo.editable=NO;
         settingsPartTwo.text = @"If you DON'T want your haiku included \nin future updates (which would make \nme sad), check this box.";
         settingsPartTwo.frame = CGRectOffset(settingsPartOne.frame, 0, settingsHeight + gap + nameFieldHeight);

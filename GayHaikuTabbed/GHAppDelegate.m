@@ -8,12 +8,18 @@
 
 #import "GHAppDelegate.h"
 #import "GHHaikuViewController.h"
+#import "GHComposeViewController.h"
+#import "GHWebViewController.h"
+#import "GHSettingsViewController.h"
+#import "GHFeedback.h"
 #import <Parse/Parse.h>
 
 @implementation GHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+        [self.window makeKeyAndVisible];
 
                 //This sets the app to send user-generated haiku to the Parse database.  It's duplicated in GHHaikuViewController viewDidLoad, because at some point I installed it here and it wasn't working so I installed it there and it started working.  Almost certainly it's only necessary in one of those two places.  To do:  figure out which one.
     
@@ -37,8 +43,36 @@
     
     [TestFlight takeOff:@"91f34663f587b0ef83a11eb009268b4f_MTQ1OTk5MjAxMi0xMC0yMiAwODozNzowNC42MzY4NzM"];
     
+    NSMutableArray *tabItems = [[NSMutableArray alloc] initWithCapacity:2];
     
+    GHHaikuViewController *hvc = [[GHHaikuViewController alloc] init];
+    hvc.tabBarItem.title = @"Home";
+    hvc.tabBarItem.image = [UIImage imageNamed:@"53-house.png"];
+    [tabItems addObject:hvc];
     
+    GHComposeViewController *cvc = [[GHComposeViewController alloc] init];
+    cvc.tabBarItem.title = @"Compose";
+    cvc.tabBarItem.image = [UIImage imageNamed:@"216-compose.png"];
+    [tabItems addObject:cvc];
+    
+    GHWebViewController *wvc = [[GHWebViewController alloc] init];
+    wvc.tabBarItem.title = @"Buy";
+    wvc.tabBarItem.image = [UIImage imageNamed:@"80-shopping-cart.png"];
+    [tabItems addObject:wvc];
+    
+    GHFeedback *fvc = [[GHFeedback alloc] init];
+    fvc.tabBarItem.title = @"Feedback";
+    fvc.tabBarItem.image = [UIImage imageNamed:@"18-envelope.png"];
+    [tabItems addObject:fvc];
+    
+    GHSettingsViewController *svc = [[GHSettingsViewController alloc] init];
+    svc.tabBarItem.title = @"Settings";
+    svc.tabBarItem.image = [UIImage imageNamed:@"20-gear-2.png"];
+    [tabItems addObject:svc];
+    
+    UITabBarController *tbc = [[UITabBarController alloc] init];
+    tbc.viewControllers = tabItems;
+    self.window.rootViewController = tbc;
     
     return YES;
 }

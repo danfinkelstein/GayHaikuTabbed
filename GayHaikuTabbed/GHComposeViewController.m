@@ -88,13 +88,13 @@
     
                 //Create "Swipe" text and its characteristics
     
-    instructions = [[UITextView alloc] init];
-    instructions.editable=NO;
-    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
-    instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = word;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
-    return instructions;
+    UITextView *baba = [[UITextView alloc] init];
+    baba.editable=NO;
+    baba.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    baba.backgroundColor = [UIColor clearColor];
+    baba.text = word;
+    baba.font = [UIFont fontWithName:@"Zapfino" size:17];
+    return baba;
 }
 
 -(void)addSwipeForRight:(NSString *)direction {
@@ -109,12 +109,12 @@
         word = @"Swipe to compose";
     }
     nextInstructions = [self createSwipeToAdd:word];
-
+    NSString *text = [word stringByAppendingString:@"compo"];
+    
                 //Locate and frame the text on the right side of the view.
     
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400); //Why did I choose 400?
-    CGSize xySize = [nextInstructions.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:14] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-180, xySize.width*1.5, (xySize.height*2));
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
+    CGRect rect = CGRectMake((screenWidth - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
     nextInstructions.frame = rect;
         
                 //Display and animate it.
@@ -177,7 +177,7 @@
         else {
             textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
         textView.delegate = self;
     }
     
@@ -266,15 +266,18 @@
     {
         instructions = [[UITextView alloc] init];
         instructions.backgroundColor=[UIColor clearColor];
-        instructions.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
-        instructions.editable=NO;
-        instructions.text = @"\nFor millennia, the Japanese haiku has allowed great thinkers to express their ideas about the world in three lines of five, seven, and five syllables respectively.  \n\nContrary to popular belief, the three lines need not be three separate sentences.  Rather, either the first two lines are one thought and the third is another or the first line is one thought and the last two are another; the two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
-        CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+        instructions.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
+        //instructions.editable=NO;
+        instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
+        NSString *t = @"thinkers to express their ideas about the world in three lin";
+        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
+        float textWidth = thisSize.width;
+        const int INSTRUCTIONS_HEIGHT=17;
 
-//AGAIN, WHY DID I PICK 400?
+//Obviously this is an ugly hack and needs to be defined somewhere else.
         
-        CGSize xySize = [instructions.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12] constrainedToSize:dimensions lineBreakMode:0];
-        instructions.frame = CGRectMake(10, ([[UIScreen mainScreen] bounds].size.height/2) - xySize.height/2 - 20, [[UIScreen mainScreen] bounds].size.width - 10, [[UIScreen mainScreen] bounds].size.height);
+        float textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
+        instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
     }
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right, animate the instructions to the left.

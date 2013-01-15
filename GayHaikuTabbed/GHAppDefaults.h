@@ -13,6 +13,9 @@ extern float const tabBarHeight;
 extern float const toolbarHeight;
 extern float const keyboardHeight;
 extern float const buttonSideLength;
+extern float const smallFontSize;
+extern float const largeFontSize;
+extern float const gap;
 
 @interface GHAppDefaults : NSObject
 
