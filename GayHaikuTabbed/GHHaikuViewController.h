@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
+#import "GHAppDefaults.h"
 
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate> {
     BOOL leftSwipeSeen;                         //Whether the user has seen "swipe" to get to previous screen
@@ -19,7 +20,11 @@
     UINavigationItem *titleBar;                 //Navigation item for temporary-view nav bar.
     UINavigationBar *navBar;                    //Temporary-view nav bar for sending/editing/deleting
     BOOL comingFromPrevious;                    //So we know which direction to animate haiku view from
-    UITextView *displayHaikuTextView;  //Textview that displays the current haiku
+    UITextView *displayHaikuTextView;           //Textview that displays the current haiku
+    GHAppDefaults *usersettings;
+    UIImageView *background;
+    float screenHeight;
+    float screenWidth;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;

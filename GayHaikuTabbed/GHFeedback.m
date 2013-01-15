@@ -30,21 +30,45 @@
     
             //Creates a UIImageView in which and a CGRect with which to display the background image.  
     
-    UIImageView *background;
+    CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
-    background = [[UIImageView alloc] initWithFrame:frame];
-    
-            //Determine whether you're using a 3.5-inch screen or a 4-inch screen.  If you're using a 3.5-inch screen, use the shorter background image.
-    
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSLog(@"is Phone");
+        frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"temp background.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        }
     }
     else {
-        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        NSLog(@"Is iPad.");
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
+        }
+        else {
+            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
+        }
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
+        }
     }
     [self.view addSubview:background];
     [self displaySettingsText];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
+        background.image = [UIImage imageNamed:@"image-landscape.png"];
+    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
+        background.image = [UIImage imageNamed:@"image-portrait.png"];
+    }
 }
 
 -(void)displaySettingsText {
@@ -57,7 +81,7 @@
         NSString *t = @"If you have any problems with the    ";
         float textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize]].width;
         float textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize]].height;
-        feedback.frame = CGRectMake(screenWidth/2-textWidth/2, ([[UIScreen mainScreen] bounds].size.height/2-tabBarHeight) - (textHeight*6)/2, textWidth, textHeight*6);
+        feedback.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-textWidth/2, ([[UIScreen mainScreen] bounds].size.height/2-tabBarHeight) - (textHeight*6)/2, textWidth, textHeight*6);
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;
         [self.view addSubview:feedback];
     }

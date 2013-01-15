@@ -52,7 +52,7 @@
     if (!indicator)
     {
         indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-        [indicator setCenter:CGPointMake(screenWidth/2, [[UIScreen mainScreen] bounds].size.height/2)];
+        [indicator setCenter:CGPointMake([[UIScreen mainScreen] bounds].size.width/2, [[UIScreen mainScreen] bounds].size.height/2)];
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
@@ -149,7 +149,7 @@
                 //Creates a nav bar.
     
     [bar removeFromSuperview];
-    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
+    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, toolbarHeight)];
     navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
 }
 
@@ -195,7 +195,7 @@
         [webV loadRequest:req];
     }
     webV.scalesPageToFit=YES;
-    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,[[UIScreen mainScreen] bounds].size.height-tabBarHeight))]; 
+    [webV setFrame:(CGRectMake(0,toolbarHeight,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height-tabBarHeight))];
     [self.view addSubview:webV];
 }
 

@@ -35,22 +35,39 @@
     
                 //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
     
-    UIImageView *background;
     CGRect frame;
-    float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (screenHeight<500) {
-        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    screenWidth = [[UIScreen mainScreen] bounds].size.height;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSLog(@"is Phone");
+        if (screenHeight<500) {
+            frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
+        }
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"temp background.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        }
     }
     else {
-        frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+        NSLog(@"Is iPad.");
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
+        }
+        else {
+            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
+        }
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
+        }
     }
-    background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
-    }
-    else {
-        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
-    }
+    
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers.  Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku.  Tapping calls showNavBarOnTap.
@@ -92,6 +109,14 @@
     [self displayHaiku];
     [self showNavBarOnTap];
 
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
+        background.image = [UIImage imageNamed:@"image-landscape.png"];
+    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
+        background.image = [UIImage imageNamed:@"image-portrait.png"];
+    }
 }
 
 -(UITextView *)createSwipeToAdd: (NSString *)word {

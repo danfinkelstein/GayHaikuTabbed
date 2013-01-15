@@ -8,7 +8,9 @@
 
 #import "GHAppDefaults.h"
 
-float const screenWidth = 320;
+float const screenWidthPhone = 320;
+float const screenWidthPad = 1024;
+float const screenHeightPad = 768;
 float const tabBarHeight = 49;
 float const toolbarHeight = 44;
 float const keyboardHeight = 216;
@@ -68,12 +70,12 @@ float const gap = 10;
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-    
+    /*
     self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
     self.author=nil;
-    
+    */
 }
 
 

@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-extern float const screenWidth;
+extern float const screenWidthPhone;
+extern float const screenWidthPad;
+extern float const screenHeightPad;
 extern float const tabBarHeight;
 extern float const toolbarHeight;
 extern float const keyboardHeight;
@@ -28,5 +30,6 @@ extern float const gap;
 
 + (GHAppDefaults *)sharedInstance;
 -(void)setUserDefaults;
+-(BOOL)isPad;
 
 @end

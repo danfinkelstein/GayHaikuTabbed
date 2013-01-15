@@ -44,20 +44,47 @@
         [self.view addGestureRecognizer:swipeLeft];
     }
     
-    
                 //Add the background image.
     
+    CGRect frame;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSLog(@"is Phone");
+        frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"temp background.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        }
     }
     else {
-        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        NSLog(@"Is iPad.");
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
+        }
+        else {
+            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
+        }
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
+        }
     }
     [self.view addSubview:background];
     [self displaySettingsScreen];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
+        background.image = [UIImage imageNamed:@"image-landscape.png"];
+    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
+        background.image = [UIImage imageNamed:@"image-portrait.png"];
+    }
 }
 
 -(void)switchToInstructions {
@@ -134,12 +161,12 @@
         settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
         settingsPartOne.editable=NO;
         settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
-        settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, ([[UIScreen mainScreen] bounds].size.height/2-125), screenWidth - 40, settingsHeight);
+        settingsPartOne.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2-([[UIScreen mainScreen] bounds].size.width-40)/2, ([[UIScreen mainScreen] bounds].size.height/2-125), [[UIScreen mainScreen] bounds].size.width - 40, settingsHeight);
     }
     
     if (!nameField)
     {
-        nameField=[[UITextField alloc] initWithFrame:CGRectMake(screenWidth/2-(screenWidth-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, screenWidth-80, nameFieldHeight)];
+        nameField=[[UITextField alloc] initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width/2-([[UIScreen mainScreen] bounds].size.width-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, [[UIScreen mainScreen] bounds].size.width-80, nameFieldHeight)];
         nameField.borderStyle=UITextBorderStyleRoundedRect;
         nameField.backgroundColor = [UIColor colorWithRed:255/255.0 green:212/255.0 blue:227/255.0 alpha:1];
         nameField.placeholder=@"Name (optional)";
@@ -160,7 +187,7 @@
     }
     if (!checkboxButton) {
         checkboxButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        checkboxButton.frame = CGRectMake(screenWidth/2+((screenWidth-80)/2) - 44, nameField.center.y + nameFieldHeight/2 + gap, buttonSideLength, buttonSideLength);
+        checkboxButton.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2+(([[UIScreen mainScreen] bounds].size.width-80)/2) - 44, nameField.center.y + nameFieldHeight/2 + gap, buttonSideLength, buttonSideLength);
         [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }

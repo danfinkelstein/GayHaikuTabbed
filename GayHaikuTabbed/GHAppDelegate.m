@@ -76,6 +76,10 @@
     
     return YES;
 }
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft;
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

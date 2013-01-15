@@ -17,6 +17,7 @@
     UITextView *settingsPartTwo;        //Test asking for opt-out.
     UITextView *swipeInstructions;      //Instructions to swipe to get to GHComposeViewController.
     GHAppDefaults *userSettings;        //Instantiation of GHUserSettings.
+    UIImageView *background;
 }
 
 @end

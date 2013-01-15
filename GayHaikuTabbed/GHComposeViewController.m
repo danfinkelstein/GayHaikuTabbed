@@ -45,15 +45,44 @@
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
     screenHeight = [UIScreen mainScreen].bounds.size.height;
-    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"short background.jpg"];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        NSLog(@"is Phone");
+        frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"temp background.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        }
     }
     else {
-        background.image=[UIImage imageNamed:@"tall background.jpg"];
+        NSLog(@"Is iPad.");
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
+        }
+        else {
+            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
+        }
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            background.image=[UIImage imageNamed:@"image-landscape.png"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"image-portrait.png"];
+        }
     }
     [self.view addSubview:background];
+}
+
+//NEED TO SET WHETHER USER IS ON COMPOSE OR INSTRUCTIONS SCREEN HERE:
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
+        background.image = [UIImage imageNamed:@"image-landscape.png"];
+    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
+        background.image = [UIImage imageNamed:@"image-portrait.png"];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -112,9 +141,20 @@
     NSString *text = [word stringByAppendingString:@"compo"];
     
                 //Locate and frame the text on the right side of the view.
-    
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
-    CGRect rect = CGRectMake((screenWidth - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
+    CGSize xySize;
+    CGRect rect;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
+        rect = CGRectMake((screenWidthPhone - xySize.width), [[UIScreen mainScreen] bounds].size.height*0.625, xySize.width, xySize.height);
+    }
+    else {
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            
+        }
+        else {
+            
+        }
+    }
     nextInstructions.frame = rect;
         
                 //Display and animate it.
@@ -152,16 +192,28 @@
                 //Change the screen to the compose screen.
     
     [background removeFromSuperview];
+    NSLog(@"Background removed");
     screenHeight = [UIScreen mainScreen].bounds.size.height;
-    frame = CGRectMake(0, 0, screenWidth, screenHeight);
-    background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"short compose screen no flowers.png"];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        frame = CGRectMake(0, 0, screenWidthPhone, screenHeight);
+        background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"compose screen temp.png"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"compose screen temp.png"];
+        }
     }
     else {
-        background.image=[UIImage imageNamed:@"tall compose screen no flowers.png"];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            
+        }
+        else {
+            
+        }
     }
     [self.view addSubview:background];
+    NSLog(@"Background added");
     
                 //Hide the instructions and the swipe-for-next text.
     
@@ -245,13 +297,23 @@
     
     [background removeFromSuperview];
     screenHeight = [UIScreen mainScreen].bounds.size.height;
-    frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+    frame = CGRectMake(0, 0, screenWidthPhone, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"temp background.jpg"];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"temp background.jpg"];
+        }
+        else {
+            background.image=[UIImage imageNamed:@"iPhone5 temp background.png"];
+        }
     }
     else {
-        background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+            
+        }
+        else {
+            
+        }
     }
     [self.view addSubview:background];
     
@@ -267,7 +329,7 @@
         instructions = [[UITextView alloc] init];
         instructions.backgroundColor=[UIColor clearColor];
         instructions.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
-        //instructions.editable=NO;
+        instructions.editable=NO;
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
@@ -277,7 +339,17 @@
 //Obviously this is an ugly hack and needs to be defined somewhere else.
         
         float textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
-        instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            instructions.frame = CGRectMake(screenWidthPhone/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
+        }
+        else {
+            if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
+                
+            }
+            else {
+                
+            }
+        }
     }
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right, animate the instructions to the left.
