@@ -32,18 +32,16 @@
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
+    self.view.contentMode=UIViewContentModeScaleAspectFill;
+    self.view.backgroundColor=[UIColor whiteColor];
     
                 //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
     
-    CGRect frame;
-    screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    screenWidth = [[UIScreen mainScreen] bounds].size.height;
+    screenWidth = self.view.bounds.size.width;
+    screenHeight = self.view.bounds.size.height;
+    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        NSLog(@"is Phone");
-        if (screenHeight<500) {
-            frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
-        }
-        background = [[UIImageView alloc] initWithFrame:frame];
         if (screenHeight<500) {
             background.image=[UIImage imageNamed:@"temp background.jpg"];
         }
@@ -52,22 +50,14 @@
         }
     }
     else {
-        NSLog(@"Is iPad.");
         if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
+            background.image=[UIImage imageNamed:@"temp background.png"];
         }
         else {
-            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
-        }
-        background = [[UIImageView alloc] initWithFrame:frame];
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
+            background.image=[UIImage imageNamed:@"temp background.png"];
         }
     }
-    
+
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers.  Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku.  Tapping calls showNavBarOnTap.
@@ -108,6 +98,7 @@
                 //Display first haiku and show (and fade) the nav bar
     [self displayHaiku];
     [self showNavBarOnTap];
+    NSLog(@"%@",self.ghhaiku.text);
 
 }
 
@@ -128,7 +119,13 @@
     instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        instructions.font = [UIFont fontWithName:@"Zapfino" size:36];
+    }
+    else {
+        instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+    }
+    NSLog(@"Is Pad? %d",[[UIDevice currentDevice] userInterfaceIdiom]);
     return instructions;
 }
 
@@ -240,9 +237,10 @@
     displayHaikuTextView = [[UITextView alloc] init];
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:12];
     displayHaikuTextView.text=self.ghhaiku.text;
-    [displayHaikuTextView setFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/3,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
+    CGSize size = [displayHaikuTextView.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:12]];
+    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),(screenHeight-tabBarHeight-size.height*5)/2,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height/3)];
     
                 //Set animation
     
@@ -289,15 +287,21 @@
                 //Create "swipe" message to be shown with first haiku and set its location.
     
     rightSwipe = [self createSwipeToAdd:@"Swipe"];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
+   //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
     
 //Why did I choose 400?
     
-    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:36]];
+    }
+    else {
+        xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17]];
+    }
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
-    CGRect rect = CGRectMake((dimensions.width - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake((screenWidth - xySize.width-30), [[UIScreen mainScreen] bounds].size.height*.6, xySize.width*1.5, xySize.height*2);
     rightSwipe.frame = rect;
     
                 //Display it.
@@ -310,15 +314,17 @@
                 //Create "swipe" message to be shown with second haiku and set its location.
     
     leftSwipe = [self createSwipeToAdd:@"Swipe"];
-    CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
-    
-//Why did I choose 400?
-    
-    CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:36]];
+    }
+    else {
+        xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17]];
+    }
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text.  Not sure why.
     
-    CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-240, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake(30, [[UIScreen mainScreen] bounds].size.height*.55, xySize.width*1.5, xySize.height*2);
     leftSwipe.frame = rect;
     
                 //Display it

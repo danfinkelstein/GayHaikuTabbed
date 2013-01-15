@@ -78,5 +78,13 @@ float const gap = 10;
     */
 }
 
+-(BOOL)isPad {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
 
 @end
