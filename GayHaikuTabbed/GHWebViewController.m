@@ -35,6 +35,7 @@
     if (!webV)
     {
         webV = [[UIWebView alloc] init];
+        webV.scalesPageToFit=YES;
     }
     webV.delegate = self;
     
@@ -43,6 +44,10 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    //How to get this to resize properly?
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
