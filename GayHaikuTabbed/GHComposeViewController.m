@@ -44,11 +44,12 @@
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
+    
     screenHeight = self.view.bounds.size.height;
+    screenWidth = self.view.bounds.size.width;
+    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        NSLog(@"is Phone");
-        frame = CGRectMake(0, 0, screenWidthPhone, (screenHeight-tabBarHeight));
-        background = [[UIImageView alloc] initWithFrame:frame];
         if (screenHeight<500) {
             background.image=[UIImage imageNamed:@"temp background.jpg"];
         }
@@ -57,14 +58,6 @@
         }
     }
     else {
-        NSLog(@"Is iPad.");
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            frame = CGRectMake(0, 0, screenWidthPad, (screenHeightPad-tabBarHeight));
-        }
-        else {
-            frame = CGRectMake(0, 0, screenHeightPad, (screenWidthPad-tabBarHeight));
-        }
-        background = [[UIImageView alloc] initWithFrame:frame];
         if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
             background.image=[UIImage imageNamed:@"image-landscape.png"];
         }
@@ -143,9 +136,10 @@
                 //Locate and frame the text on the right side of the view.
     CGSize xySize;
     CGRect rect;
+    xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
+    rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.625, xySize.width, xySize.height);
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
-        rect = CGRectMake((screenWidthPhone - xySize.width), self.view.bounds.size.height*0.625, xySize.width, xySize.height);
+
     }
     else {
         if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
@@ -192,11 +186,9 @@
                 //Change the screen to the compose screen.
     
     [background removeFromSuperview];
-    NSLog(@"Background removed");
-    screenHeight = self.view.bounds.size.height;
+    frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        frame = CGRectMake(0, 0, screenWidthPhone, screenHeight);
-        background = [[UIImageView alloc] initWithFrame:frame];
         if (screenHeight<500) {
             background.image=[UIImage imageNamed:@"compose screen temp.png"];
         }
@@ -213,7 +205,6 @@
         }
     }
     [self.view addSubview:background];
-    NSLog(@"Background added");
     
                 //Hide the instructions and the swipe-for-next text.
     
@@ -296,8 +287,7 @@
                 //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
     [background removeFromSuperview];
-    screenHeight = self.view.bounds.size.height;
-    frame = CGRectMake(0, 0, screenWidthPhone, screenHeight-tabBarHeight);
+    frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
@@ -339,8 +329,9 @@
 //Obviously this is an ugly hack and needs to be defined somewhere else.
         
         float textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
+        instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            instructions.frame = CGRectMake(screenWidthPhone/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
+
         }
         else {
             if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
@@ -604,7 +595,6 @@
     if (textView.text.length>0 && ghhaiku.userIsEditing==NO) {
         ghhaiku.newIndex++;
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
-        NSLog(@"Just saved new haiku.");
     }
     
                 //If the saved haiku is an edited old haiku, replace the old version with the edited version and indicate that user is no longer editing.
@@ -614,7 +604,6 @@
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
         [ghhaiku.gayHaiku removeObjectAtIndex:ghhaiku.newIndex+1];
         ghhaiku.userIsEditing=NO;
-        NSLog(@"Just saved edited haiku.");
     }
     
                 //If there's no actual haiku, return to the home screen.

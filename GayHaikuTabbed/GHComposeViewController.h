@@ -26,6 +26,7 @@
     UITextView *nextInstructions;       //Contains the instructions for moving from instructions to compose (should be a label?)
     UIAlertView *alert;                 //Alert in case of syllable errors.
     float screenHeight;
+    float screenWidth;
     CGRect frame;
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
     GHVerify *ghverify;                 //Instantiation of GHVerify.

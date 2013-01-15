@@ -12,6 +12,8 @@
 @interface GHFeedback : UIViewController {
     UITextView *feedback;      //Text telling user how to get in touch with me.
     UIImageView *background;
+    float screenWidth;
+    float screenHeight;
 }
 
 @end
