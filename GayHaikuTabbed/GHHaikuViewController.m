@@ -33,7 +33,10 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setWidthAndHeight];
+    background.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:background];
+    NSLog(@"View loaded.");
+   [self setWidthAndHeight];
     
                 //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
     
@@ -59,7 +62,7 @@
     
     [self.view addSubview:background];
     
-    //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
+                //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPreviousHaiku)];
     swipeRight.numberOfTouchesRequired = 1;
@@ -74,35 +77,45 @@
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showNavBarOnTap)];
     [self.view addGestureRecognizer:tapBar];
     
-    //Load array of haiku
+                //Load array of haiku
     
     self.ghhaiku = [GHHaiku sharedInstance];
     [self.ghhaiku loadHaiku];
     
-    //Add Parse
+                //Add Parse
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     
-    //Set up tab bar
+                //Set up tab bar
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     self.tabBarController.delegate=self;
     
-    //Indicate that "swipe" text for previous/next have not been seen yet this session
+                //Indicate that "swipe" text for previous/next have not been seen yet this session
     
     rightSwipeSeen=NO;
     leftSwipeSeen=NO;
     
-    //Display first haiku and show (and fade) the nav bar
+                //Display first haiku and show (and fade) the nav bar
+    
     [self displayHaiku];
     [self showNavBarOnTap];
     
 }
 
+-(BOOL)shouldAutorotate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
 -(UITextView *)createSwipeToAdd: (NSString *)word {
     
-    //Create "Swipe" text and its characteristics
+                //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
@@ -120,7 +133,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    //When the user returns from the compose screen having just composed a new haiku, replace whatever haiku was showing before with the new user haiku.
+                //When the user returns from the compose screen having just composed a new haiku, replace whatever haiku was showing before with the new user haiku.
     
     if (self.ghhaiku.justComposed==YES)
     {
@@ -145,7 +158,8 @@
     
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
-    navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
+    //navBar = [[UINavigationBar alloc] init];
+    navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
     [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     
                 //Create UINavigationItem
@@ -174,11 +188,25 @@
                              navBar.alpha = 0;
                          }];
     });
+    
+    /*To add maybe with iPad version?
+     
+     navBar.translatesAutoresizingMaskIntoConstraints=NO;
+     
+     NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:2  constant:0];
+     NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:tabBarHeight];
+     NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+     [self.view addConstraint:constraintX];
+     [self.view addConstraint:widthCon];
+     [self.view addConstraint:heightCon];
+     
+     */
+    
 }
 
 -(void)addShareButton {
     
-    //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
+                //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
     
     UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showMessage)];
     send.style=UIBarButtonItemStyleBordered;
@@ -192,7 +220,7 @@
 
 -(void)addLeftButtons {
     
-    //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
+                //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
@@ -216,10 +244,6 @@
                 //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
-    
-    //Was
-    //CGSize dimensions = CGSizeMake([[UIScreen mainScreen] bounds].size.width, 400);
-    
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
     float textWidth = xySize.width+16;
     float textHeight = xySize.height+16;
@@ -231,10 +255,9 @@
     displayHaikuTextView.editable=NO;
     displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
-    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),[[UIScreen mainScreen] bounds].size.height/2-xySize.height,textWidth,textHeight)];
-//WHY DOES FIRST HAIKU DISPLAYED END UP IN DIFFERENT POSITION?
-    
-    //Set animation
+    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight)];
+ 
+                //Set animation
     
     CATransition *transition = [CATransition animation];
     transition.duration = 0.25;
@@ -276,17 +299,32 @@
 
 -(void)addSwipeForNextView {
     
-    //Create "swipe" message to be shown with first haiku and set its location.
+                //Create "swipe" message to be shown with first haiku and set its location.
     
     rightSwipe = [self createSwipeToAdd:@"Swipe"];
-    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17]];
+    int fontSize;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        fontSize = 36;
+    }
+    else {
+        fontSize = 17;
+    }
+    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:fontSize+16]];
     
-    //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text. Not sure why.
-    
-    CGRect rect = CGRectMake((screenWidth - xySize.width-30), [[UIScreen mainScreen] bounds].size.height-200, xySize.width*1.5, xySize.height*2);
+                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text. Not sure why.
+    /*rightSwipe.translatesAutoresizingMaskIntoConstraints=NO;
+    NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeWidth relatedBy:0 toItem:nil attribute:NSLayoutAttributeWidth multiplier:1  constant:xySize.width];
+    NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:xySize.height];
+    NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:.75 constant:0];
+    NSLayoutConstraint *constraintY = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:.75 constant:0];
+    [self.view addConstraint:constraintX];
+    [self.view addConstraint:constraintY];
+    [self.view addConstraint:widthCon];
+    [self.view addConstraint:heightCon];*/
+    CGRect rect = CGRectMake((screenWidth - xySize.width-30), screenHeight-200, xySize.width*1.5, xySize.height*2);
     rightSwipe.frame = rect;
     
-    //Display it.
+                //Display it.
     
     [self.view addSubview:rightSwipe];
 }
@@ -300,7 +338,7 @@
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text. Not sure why.
     
-    CGRect rect = CGRectMake(10, [[UIScreen mainScreen] bounds].size.height-200, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake(10, screenHeight-200, xySize.width*1.5, xySize.height*2);
     leftSwipe.frame = rect;
     
                 //Display it
@@ -312,19 +350,19 @@
 
 -(void)goToNextHaiku {
     
-    //Increase the index by one.
+                //Increase the index by one.
     
     self.ghhaiku.newIndex++;
     
-    //Set boolean for direction of animation.
+                //Set boolean for direction of animation.
     
     comingFromPrevious=NO;
     
-    //Show next haiku in array
+                //Show next haiku in array
     
     [self displayHaiku];
     
-    //Show swipe instructions if appropriate and adjust booleans accordingly
+                //Show swipe instructions if appropriate and adjust booleans accordingly
     
     if (leftSwipeSeen==NO) {
         [self addSwipeForPreviousView];
@@ -337,17 +375,17 @@
 
 -(void)goToPreviousHaiku {
     
-    //Reduce the index by one, if it can be so reduced.
+                //Reduce the index by one, if it can be so reduced.
     
     if (!self.ghhaiku.newIndex<1)
     {
         self.ghhaiku.newIndex--;
         
-        //Set boolean for direction of animation
+                //Set boolean for direction of animation
         
         comingFromPrevious=YES;
         
-        //Display the haiku.
+                //Display the haiku.
         
         [self displayHaiku];
     }
@@ -357,7 +395,7 @@
 
 -(void)editHaiku {
     
-    //Indicate we're in editing mode and go to the compose screen.
+                //Indicate we're in editing mode and go to the compose screen.
     
     self.ghhaiku.userIsEditing=YES;
     [self.tabBarController setSelectedIndex:1];
@@ -365,16 +403,16 @@
 
 -(void)deleteHaiku {
     
-    //Delete the haiku from the array of haiku.
+                //Delete the haiku from the array of haiku.
     
     [self.ghhaiku.gayHaiku removeObjectAtIndex:self.ghhaiku.newIndex];
     
-    //Clear the screen
+                //Clear the screen
     
     [displayHaikuTextView removeFromSuperview];
     [navBar removeFromSuperview];
     
-    //Save the new set of user haiku, now missing the deleted haiku, to the docs folder.
+                //Save the new set of user haiku, now missing the deleted haiku, to the docs folder.
     
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
@@ -391,7 +429,7 @@
     }
     [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
     
-    //Display next haiku so the screen won't be blank.
+                //Display next haiku so the screen won't be blank.
     
     [self displayHaiku];
 }
@@ -400,7 +438,7 @@
 
 -(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    //Take user to email, Facebook, or Twitter, depending on which option s/he's selected in the action sheet.
+                //Take user to email, Facebook, or Twitter, depending on which option s/he's selected in the action sheet.
     
     {
         if (buttonIndex == 0)
@@ -420,7 +458,7 @@
 
 -(void)openMail {
     
-    //Open Mail program and create email with haiku attached as image.
+                //Open Mail program and create email with haiku attached as image.
     
     if ([MFMailComposeViewController canSendMail])
     {
@@ -435,7 +473,7 @@
         [self presentViewController:mailer animated:YES completion:NULL];
     }
     
-    //Unless it's not possible to do so, in which case show an alert message.
+                //Unless it's not possible to do so, in which case show an alert message.
     
     else
     {
@@ -445,7 +483,8 @@
 }
 
 -(void)twit {
-    //Set share mode to tweet and share the haiku.
+    
+                //Set share mode to tweet and share the haiku.
     
     serviceType=SLServiceTypeTwitter;
     [self share];
@@ -453,7 +492,7 @@
 
 -(void)faceBook {
     
-    //Set share mode to Facebook and share the haiku.
+                //Set share mode to Facebook and share the haiku.
     
     serviceType=SLServiceTypeFacebook;
     [self share];
@@ -461,14 +500,14 @@
 
 -(void)share {
     
-    //Send the haiku if it can be sent.
+                //Send the haiku if it can be sent.
     
     if ([SLComposeViewController isAvailableForServiceType:serviceType])
     {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result){
             
-            //Create an alert message and show it in case of success.
+                //Create an alert message and show it in case of success.
             
             if (result != SLComposeViewControllerResultCancelled)
             {
@@ -489,7 +528,7 @@
         controller.completionHandler = myBlock;
         NSString *msgText;
         
-        //Add line breaks to haiku in case of tweet.
+                //Add line breaks to haiku in case of tweet.
         
         if (serviceType==SLServiceTypeTwitter)
         {
@@ -501,7 +540,7 @@
             else msgText=self.ghhaiku.text;
         }
         
-        //Or just a regular Facebook message.
+                //Or just a regular Facebook message.
         
         else if (serviceType==SLServiceTypeFacebook)
         {
@@ -510,12 +549,12 @@
         [controller setInitialText:msgText];
         [controller addURL:[NSURL URLWithString:@"http://www.gayhaiku.com"]];
         
-        //Create the image.
+                //Create the image.
         
         UIImage *img = [self createImage];
         UIImage *pic;
         
-        //Scale the image if it's for Facebook.
+                //Scale the image if it's for Facebook.
         
         if (serviceType==SLServiceTypeFacebook)
         {
@@ -527,12 +566,12 @@
         }
         [controller addImage:pic];
         
-        //Post/tweet. You're done.
+                //Post/tweet. You're done.
         
         [self presentViewController:controller animated:YES completion:Nil];
     }
     
-    //Show an error alert message if there are login problems.
+                //Show an error alert message if there are login problems.
     
     else
     {
@@ -543,7 +582,7 @@
 
 -(UIImage *)createImage {
     
-    //Get ride of the "swipe" texts.
+                //Get ride of the "swipe" texts.
     
     if (rightSwipe)
     {
@@ -554,29 +593,27 @@
         [leftSwipe removeFromSuperview];
     }
     
-    //Take a picture of the screen.
+                //Take a picture of the screen.
     
     CGRect newRect = CGRectMake(0, 0, screenWidth, screenHeight-toolbarHeight);
     UIGraphicsBeginImageContext(newRect.size);
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    UIGraphicsBeginImageContext([self.view bounds].size);
+    /*UIGraphicsBeginImageContext(self.view.bounds.size);
     [myImage drawInRect:CGRectMake(0, 0, screenWidth, screenHeight-toolbarHeight)];
     myImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();*/
     
-    //Return that picture.
+                //Return that picture.
     
     return myImage;
 }
 
 - (UIImage*) scaleImage:(UIImage*)image {
     
-    //Scale the image so it will fit on a Facebook wall (height 350 pixels).
-    
-    //Check to make sure this is right. Then clean it up.
-    
+                //Scale the image so it will fit on a Facebook wall (height 350 pixels).
+
     CGSize scaledSize;
     scaledSize.height = 350;
     scaledSize.width = ((350*screenWidth)/screenHeight);
@@ -590,7 +627,7 @@
 
 -(void)showMessage {
     
-    //Offer user the choice to email, post on Facebook, or tweet.
+                //Offer user the choice to email, post on Facebook, or tweet.
     
     UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email",@"Facebook",@"Twitter", nil];
     if (navBar)

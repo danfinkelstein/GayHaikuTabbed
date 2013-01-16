@@ -14,6 +14,7 @@
     UIImageView *background;
     float screenWidth;
     float screenHeight;
+    IBOutlet UITextView *feedbackForPad;
 }
 
 @end

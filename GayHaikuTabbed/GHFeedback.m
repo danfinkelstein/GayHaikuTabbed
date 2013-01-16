@@ -27,14 +27,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //self.view.translatesAutoresizingMaskIntoConstraints = NO;
     self.view.backgroundColor=[UIColor whiteColor];
     
             //Creates a UIImageView in which and a CGRect with which to display the background image.  
-    
+
     CGRect frame;
     [self setWidthAndHeight];
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
+    background.backgroundColor = [UIColor whiteColor];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
             background.image=[UIImage imageNamed:@"temp background.jpg"];
@@ -45,14 +47,14 @@
     }
     else {
         if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
+            //background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
         }
         else {
-            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
+            //background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
         }
     }
     [self.view addSubview:background];
-    [self displaySettingsText];
+    [self displayFeedbackText];
 }
 
 -(void)setWidthAndHeight {
@@ -60,16 +62,16 @@
     screenWidth = self.view.bounds.size.width;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self setWidthAndHeight];
-    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
-        background.image = [UIImage imageNamed:@"image-landscape.png"];
-    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
-        background.image = [UIImage imageNamed:@"image-portrait.png"];
+-(BOOL)shouldAutorotate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
     }
 }
 
--(void)displaySettingsText {
+-(void)displayFeedbackText {
     if (!feedback) {
         feedback = [[UITextView alloc] init];
         feedback.backgroundColor = [UIColor clearColor];
@@ -86,8 +88,16 @@
         float textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].height;
         feedback.text=@"Thank you for buying Gay Haiku! \nIf you have any problems with the \napp, or if you want to share any \nthoughts or suggestions, please \nemail me at joel@joelderfner.com.";
         feedback.editable=NO;
-        feedback.frame = CGRectMake(self.view.bounds.size.width/2-textWidth/2, (self.view.bounds.size.height/2-tabBarHeight) - (textHeight*6)/2, textWidth, textHeight*6);
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;
+        feedback.translatesAutoresizingMaskIntoConstraints=NO;
+        NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeWidth relatedBy:0 toItem:nil attribute:NSLayoutAttributeWidth multiplier:1  constant:textWidth];
+        NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:textHeight*6];
+        NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+        NSLayoutConstraint *constraintY = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+        [self.view addConstraint:constraintX];
+        [self.view addConstraint:constraintY];
+        [self.view addConstraint:widthCon];
+        [self.view addConstraint:heightCon];
         [self.view addSubview:feedback];
     }
 }

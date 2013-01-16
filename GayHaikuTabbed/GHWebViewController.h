@@ -14,6 +14,8 @@
     UINavigationItem *navBarTitle;
     UIAlertView *alert;
     UIWebView *webV;
+    float screenWidth;
+    float screenHeight;
 }
 
 @end

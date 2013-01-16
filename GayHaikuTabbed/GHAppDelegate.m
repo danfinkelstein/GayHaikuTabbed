@@ -18,17 +18,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-        [self.window makeKeyAndVisible];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window makeKeyAndVisible];
+        
+                    //This hides the status bar throughout the app.
+        
+    [UIApplication sharedApplication].statusBarHidden=YES;
 
                 //This sets the app to send user-generated haiku to the Parse database.  It's duplicated in GHHaikuViewController viewDidLoad, because at some point I installed it here and it wasn't working so I installed it there and it started working.  Almost certainly it's only necessary in one of those two places.  To do:  figure out which one.
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
     
-                //This hides the status bar throughout the app.
-    
-    [UIApplication sharedApplication].statusBarHidden=YES;
+
     
 //COMMENT THIS OUT FOR RELEASE:
     
@@ -43,7 +45,7 @@
     
     [TestFlight takeOff:@"91f34663f587b0ef83a11eb009268b4f_MTQ1OTk5MjAxMi0xMC0yMiAwODozNzowNC42MzY4NzM"];
     
-    NSMutableArray *tabItems = [[NSMutableArray alloc] initWithCapacity:2];
+    NSMutableArray *tabItems = [[NSMutableArray alloc] initWithCapacity:5];
     
     GHHaikuViewController *hvc = [[GHHaikuViewController alloc] init];
     hvc.tabBarItem.title = @"Home";
@@ -73,7 +75,7 @@
     UITabBarController *tbc = [[UITabBarController alloc] init];
     tbc.viewControllers = tabItems;
     self.window.rootViewController = tbc;
-    
+
     return YES;
 }
 

@@ -44,7 +44,6 @@
     
                 //Add the background image, choosing the correct one depending on whether you're using a 3.5 or a 4-inch screen.
     
-    
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
@@ -70,11 +69,20 @@
 
 //NEED TO SET WHETHER USER IS ON COMPOSE OR INSTRUCTIONS SCREEN HERE:
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
         background.image = [UIImage imageNamed:@"image-landscape.png"];
     } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
         background.image = [UIImage imageNamed:@"image-portrait.png"];
+    }
+}*/
+
+-(BOOL)shouldAutorotate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
     }
 }
 

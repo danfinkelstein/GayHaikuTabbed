@@ -23,8 +23,11 @@
     UITextView *displayHaikuTextView;           //Textview that displays the current haiku
     GHAppDefaults *userSettings;
     UIImageView *background;
-    float screenHeight;
-    float screenWidth;
+    int screenHeight;
+    int screenWidth;
+    NSLayoutConstraint *toolbarConstraintTop;
+    NSLayoutConstraint *toolbarConstraintWidth;
+    NSLayoutConstraint *toolbarConstraintHeight;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;

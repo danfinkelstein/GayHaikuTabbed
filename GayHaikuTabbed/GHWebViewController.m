@@ -29,6 +29,8 @@
     
     [self loadNavBar:@"Buy"];   
     [self seeNavBar];
+    screenHeight = self.view.bounds.size.height;
+    screenWidth = self.view.bounds.size.width;
     
                 //Create UIWebView.
     
@@ -46,8 +48,13 @@
     [self connectWithURL:urlString andBaseURLString:baseURLString];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    //How to get this to resize properly?
+-(BOOL)shouldAutorotate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
@@ -57,7 +64,7 @@
     if (!indicator)
     {
         indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-        [indicator setCenter:CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2)];
+        [indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
@@ -154,7 +161,7 @@
                 //Creates a nav bar.
     
     [bar removeFromSuperview];
-    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
+    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
     navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
 }
 
@@ -200,7 +207,7 @@
         [webV loadRequest:req];
     }
     webV.scalesPageToFit=YES;
-    [webV setFrame:(CGRectMake(0,toolbarHeight,self.view.bounds.size.width,self.view.bounds.size.height-tabBarHeight))];
+    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,screenHeight-tabBarHeight))];
     [self.view addSubview:webV];
 }
 

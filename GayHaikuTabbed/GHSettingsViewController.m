@@ -71,13 +71,22 @@
     [self displaySettingsScreen];
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+-(BOOL)shouldAutorotate {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
         background.image = [UIImage imageNamed:@"image-landscape.png"];
     } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
         background.image = [UIImage imageNamed:@"image-portrait.png"];
     }
-}
+}*/
 
 -(void)switchToInstructions {
     if (userSettings.instructionsSwipedToFromOptOut==NO) {
