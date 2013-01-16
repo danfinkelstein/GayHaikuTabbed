@@ -18,8 +18,8 @@
     UITextView *swipeInstructions;      //Instructions to swipe to get to GHComposeViewController.
     GHAppDefaults *userSettings;        //Instantiation of GHUserSettings.
     UIImageView *background;
-    float screenWidth;
-    float screenHeight;
+    int screenWidth;
+    int screenHeight;
 }
 
 @end

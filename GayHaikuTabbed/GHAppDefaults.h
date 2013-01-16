@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-extern float const screenWidthPhone;
-extern float const screenWidthPad;
-extern float const screenHeightPad;
-extern float const tabBarHeight;
-extern float const toolbarHeight;
-extern float const keyboardHeight;
-extern float const buttonSideLength;
-extern float const smallFontSize;
-extern float const largeFontSize;
-extern float const gap;
+extern int const screenWidthPhone;
+extern int const screenWidthPad;
+extern int const screenHeightPad;
+extern int const tabBarHeight;
+extern int const toolbarHeight;
+extern int const keyboardHeight;
+extern int const buttonSideLength;
+extern int const smallFontSize;
+extern int const largeFontSize;
+extern int const gap;
 
 @interface GHAppDefaults : NSObject
 

@@ -245,8 +245,8 @@
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
-    float textWidth = xySize.width+16;
-    float textHeight = xySize.height+16;
+    int textWidth = xySize.width+16;
+    int textHeight = xySize.height+16;
     
                 //Set UITextView and its characteristics
     

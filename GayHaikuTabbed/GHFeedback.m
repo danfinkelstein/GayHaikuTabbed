@@ -84,8 +84,8 @@
         }
         feedback.font = [UIFont fontWithName:@"Helvetica Neue" size:fontSize];
         NSString *t = @"If you have any problems with the ap";
-        float textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].width;
-        float textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].height;
+        int textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].width;
+        int textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].height;
         feedback.text=@"Thank you for buying Gay Haiku! \nIf you have any problems with the \napp, or if you want to share any \nthoughts or suggestions, please \nemail me at joel@joelderfner.com.";
         feedback.editable=NO;
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;

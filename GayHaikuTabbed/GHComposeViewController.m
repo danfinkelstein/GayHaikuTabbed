@@ -331,12 +331,12 @@
         instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
-        float textWidth = thisSize.width;
+        int textWidth = thisSize.width;
         const int INSTRUCTIONS_HEIGHT=17;
 
 //Obviously this is an ugly hack and needs to be defined somewhere else.
         
-        float textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
+        int textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
         instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 
