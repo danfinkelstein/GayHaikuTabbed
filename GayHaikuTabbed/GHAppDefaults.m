@@ -16,7 +16,8 @@ int const toolbarHeight = 44;
 int const keyboardHeight = 216;
 int const buttonSideLength = 44;
 int const smallFontSize = 12;
-int const largeFontSize = 14;
+int const mediumFontSize = 14;
+int const largeFontSize = 17;
 int const gap = 10;
 
 @implementation GHAppDefaults
@@ -70,12 +71,12 @@ int const gap = 10;
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-    /*
+    
     self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
     self.author=nil;
-    */
+    
 }
 
 -(BOOL)isPad {

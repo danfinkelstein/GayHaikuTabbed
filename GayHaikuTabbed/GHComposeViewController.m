@@ -83,10 +83,11 @@
     
     UITextView *baba = [[UITextView alloc] init];
     baba.editable=NO;
+    baba.userInteractionEnabled=NO;
     baba.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     baba.backgroundColor = [UIColor clearColor];
     baba.text = word;
-    baba.font = [UIFont fontWithName:@"Zapfino" size:17];
+    baba.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
     return baba;
 }
 

@@ -111,6 +111,7 @@
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
+    instructions.userInteractionEnabled=NO;
     instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
@@ -118,7 +119,7 @@
         instructions.font = [UIFont fontWithName:@"Zapfino" size:36];
     }
     else {
-        instructions.font = [UIFont fontWithName:@"Zapfino" size:17];
+        instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
     }
     return instructions;
 }
@@ -222,7 +223,7 @@
         fontSize = 24;
     }
     else {
-        fontSize = 14;
+        fontSize = mediumFontSize;
     }
     
                     //Set CGSize so that haiku can be laid out in the center.
@@ -237,6 +238,7 @@
     displayHaikuTextView = [[UITextView alloc] init];
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
+    displayHaikuTextView.userInteractionEnabled=NO;
     displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
     [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight)];
@@ -291,7 +293,7 @@
         fontSize = 36;
     }
     else {
-        fontSize = 17;
+        fontSize = largeFontSize;
     }
     CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:fontSize]];
     
@@ -310,7 +312,7 @@
                 //Create "swipe" message to be shown with second haiku and set its location.
     
     leftSwipe = [self createSwipeToAdd:@"Swipe"];
-    CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17]];
+    CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
     

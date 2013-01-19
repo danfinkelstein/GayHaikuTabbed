@@ -16,6 +16,7 @@ extern int const toolbarHeight;
 extern int const keyboardHeight;
 extern int const buttonSideLength;
 extern int const smallFontSize;
+extern int const mediumFontSize;
 extern int const largeFontSize;
 extern int const gap;
 

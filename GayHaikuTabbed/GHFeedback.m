@@ -80,7 +80,7 @@
             fontSize =24;
         }
         else {
-            fontSize=14;
+            fontSize=mediumFontSize;
         }
         feedback.font = [UIFont fontWithName:@"Helvetica Neue" size:fontSize];
         NSString *t = @"If you have any problems with the ap";
