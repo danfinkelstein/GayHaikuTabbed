@@ -37,21 +37,11 @@
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
     background.backgroundColor = [UIColor whiteColor];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"main.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5main.png"];
-        }
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"main.png"];
     }
     else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            //background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
-        }
-        else {
-            //background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
-        }
+        background.image=[UIImage imageNamed:@"5main.png"];
     }
     [self.view addSubview:background];
     [self displayFeedbackText];
@@ -60,15 +50,6 @@
 -(void)setWidthAndHeight {
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
-}
-
--(BOOL)shouldAutorotate {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
 }
 
 -(void)displayFeedbackText {
