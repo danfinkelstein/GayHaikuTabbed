@@ -52,21 +52,11 @@
     CGRect frame;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"instructions.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5instructions.png"];
-        }
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"instructions.png"];
     }
     else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
-        }
+        background.image=[UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:background];
     [self displaySettingsScreen];

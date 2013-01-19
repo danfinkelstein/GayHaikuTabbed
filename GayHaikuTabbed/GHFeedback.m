@@ -56,17 +56,10 @@
     if (!feedback) {
         feedback = [[UITextView alloc] init];
         feedback.backgroundColor = [UIColor clearColor];
-        int fontSize;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            fontSize =24;
-        }
-        else {
-            fontSize=mediumFontSize;
-        }
-        feedback.font = [UIFont fontWithName:@"Helvetica Neue" size:fontSize];
+        feedback.font = [UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
         NSString *t = @"If you have any problems with the ap";
-        int textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].width;
-        int textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize]].height;
+        int textWidth = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]].width;
+        int textHeight = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]].height;
         feedback.text=@"Thank you for buying Gay Haiku! \nIf you have any problems with the \napp, or if you want to share any \nthoughts or suggestions, please \nemail me at joel@joelderfner.com.";
         feedback.editable=NO;
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;

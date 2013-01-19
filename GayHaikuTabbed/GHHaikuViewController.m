@@ -46,23 +46,12 @@
     CGRect frame;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"main.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5main.png"];
-        }
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"main.png"];
     }
     else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            background.image=[UIImage imageNamed:@"iPad portrait GHViewController.jpg"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"iPad landscape GHViewController.jpg"];
-        }
+        background.image=[UIImage imageNamed:@"5main.png"];
     }
-    
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
@@ -118,12 +107,7 @@
     instructions.alpha=1;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        instructions.font = [UIFont fontWithName:@"Zapfino" size:36];
-    }
-    else {
-        instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
-    }
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
     return instructions;
 }
 
@@ -221,18 +205,14 @@
     
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
-    int fontSize;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        fontSize = 24;
-    }
-    else {
-        fontSize = mediumFontSize;
-    }
-    
+
                     //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
-    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize] constrainedToSize:dimensions lineBreakMode:0];
+    
+//If this is a problem, replace mediumFontSize in above line with largeFontSize.
+    
     int textWidth = xySize.width+16;
     int textHeight = xySize.height+16;
     
@@ -242,7 +222,7 @@
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
     displayHaikuTextView.userInteractionEnabled=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
     [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight)];
  
@@ -291,14 +271,7 @@
                 //Create "swipe" message to be shown with first haiku and set its location.
     
     rightSwipe = [self createSwipeToAdd:@"Swipe"];
-    int fontSize;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        fontSize = 36;
-    }
-    else {
-        fontSize = largeFontSize;
-    }
-    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:fontSize]];
+    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
 

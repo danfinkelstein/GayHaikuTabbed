@@ -112,17 +112,6 @@
     CGRect rect;
     xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
     rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.625, xySize.width, xySize.height);
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-
-    }
-    else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            
-        }
-        else {
-            
-        }
-    }
     nextInstructions.frame = rect;
         
                 //Display and animate it.
@@ -162,21 +151,11 @@
     [background removeFromSuperview];
     frame = CGRectMake(0, 0, screenWidth, screenHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"compose.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"compose.png"];
-        }
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"compose.png"];
     }
     else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            
-        }
-        else {
-            
-        }
+        background.image=[UIImage imageNamed:@"compose.png"];
     }
     [self.view addSubview:background];
     
@@ -263,21 +242,11 @@
     [background removeFromSuperview];
     frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
     background = [[UIImageView alloc] initWithFrame:frame];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"instructions.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5instructions.png"];
-        }
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"instructions.png"];
     }
     else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            
-        }
-        else {
-            
-        }
+        background.image=[UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:background];
     
