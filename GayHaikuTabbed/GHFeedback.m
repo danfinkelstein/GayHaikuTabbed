@@ -39,10 +39,10 @@
     background.backgroundColor = [UIColor whiteColor];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"temp background.jpg"];
+            background.image=[UIImage imageNamed:@"main.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+            background.image=[UIImage imageNamed:@"5main.png"];
         }
     }
     else {

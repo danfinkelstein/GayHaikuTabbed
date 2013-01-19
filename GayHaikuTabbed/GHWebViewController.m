@@ -48,15 +48,6 @@
     [self connectWithURL:urlString andBaseURLString:baseURLString];
 }
 
--(BOOL)shouldAutorotate {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
-}
-
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     
                 //Adds activity indicator to screen and starts animating it

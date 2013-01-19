@@ -53,10 +53,10 @@
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"temp background.jpg"];
+            background.image=[UIImage imageNamed:@"instructions.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+            background.image=[UIImage imageNamed:@"5instructions.png"];
         }
     }
     else {
@@ -70,23 +70,6 @@
     [self.view addSubview:background];
     [self displaySettingsScreen];
 }
-
--(BOOL)shouldAutorotate {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
-}
-
-/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
-        background.image = [UIImage imageNamed:@"image-landscape.png"];
-    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
-        background.image = [UIImage imageNamed:@"image-portrait.png"];
-    }
-}*/
 
 -(void)switchToInstructions {
     if (userSettings.instructionsSwipedToFromOptOut==NO) {

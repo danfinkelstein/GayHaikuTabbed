@@ -34,6 +34,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     background.backgroundColor = [UIColor whiteColor];
+    self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     NSLog(@"View loaded.");
    [self setWidthAndHeight];
@@ -45,10 +46,10 @@
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"temp background.jpg"];
+            background.image=[UIImage imageNamed:@"main.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
+            background.image=[UIImage imageNamed:@"5main.png"];
         }
     }
     else {
@@ -104,15 +105,6 @@
     
 }
 
--(BOOL)shouldAutorotate {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
-}
-
 -(UITextView *)createSwipeToAdd: (NSString *)word {
     
                 //Create "Swipe" text and its characteristics
@@ -158,7 +150,6 @@
     
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
-    //navBar = [[UINavigationBar alloc] init];
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
     [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
     
@@ -175,8 +166,8 @@
     
                 //Add navigation bar to screen.
     
-    [navBar pushNavigationItem:titleBar animated:YES];
-    [self.view addSubview:navBar];
+        [navBar pushNavigationItem:titleBar animated:YES];
+        [self.view addSubview:navBar];
     
                 //Fade navigation bar: first delay, so that buttons are pressable, then fade.
     
@@ -188,20 +179,6 @@
                              navBar.alpha = 0;
                          }];
     });
-    
-    /*To add maybe with iPad version?
-     
-     navBar.translatesAutoresizingMaskIntoConstraints=NO;
-     
-     NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:2  constant:0];
-     NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:tabBarHeight];
-     NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:navBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0];
-     [self.view addConstraint:constraintX];
-     [self.view addConstraint:widthCon];
-     [self.view addConstraint:heightCon];
-     
-     */
-    
 }
 
 -(void)addShareButton {
@@ -240,8 +217,15 @@
     
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
+    int fontSize;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        fontSize = 24;
+    }
+    else {
+        fontSize = 14;
+    }
     
-                //Set CGSize so that haiku can be laid out in the center.
+                    //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
@@ -253,7 +237,7 @@
     displayHaikuTextView = [[UITextView alloc] init];
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
     [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight)];
  
@@ -309,19 +293,11 @@
     else {
         fontSize = 17;
     }
-    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:fontSize+16]];
+    CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:fontSize]];
     
-                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text. Not sure why.
-    /*rightSwipe.translatesAutoresizingMaskIntoConstraints=NO;
-    NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeWidth relatedBy:0 toItem:nil attribute:NSLayoutAttributeWidth multiplier:1  constant:xySize.width];
-    NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:xySize.height];
-    NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:.75 constant:0];
-    NSLayoutConstraint *constraintY = [NSLayoutConstraint constraintWithItem:rightSwipe attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:.75 constant:0];
-    [self.view addConstraint:constraintX];
-    [self.view addConstraint:constraintY];
-    [self.view addConstraint:widthCon];
-    [self.view addConstraint:heightCon];*/
-    CGRect rect = CGRectMake((screenWidth - xySize.width-30), screenHeight-200, xySize.width*1.5, xySize.height*2);
+                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
+
+    CGRect rect = CGRectMake((screenWidth - xySize.width-30), screenHeight-240, xySize.width*1.5, xySize.height*2);
     rightSwipe.frame = rect;
     
                 //Display it.
@@ -336,9 +312,9 @@
     leftSwipe = [self createSwipeToAdd:@"Swipe"];
     CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:17]];
     
-                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text. Not sure why.
+                //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
     
-    CGRect rect = CGRectMake(10, screenHeight-200, xySize.width*1.5, xySize.height*2);
+    CGRect rect = CGRectMake(10, screenHeight-240, xySize.width*1.5, xySize.height*2);
     leftSwipe.frame = rect;
     
                 //Display it

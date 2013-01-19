@@ -8,8 +8,6 @@
 
 #import "GHComposeViewController.h" 
 
-//files needed:  short background, tall background, short compose screen no flowers, tall compose screen no flowers, short compose screen with flowers, tall compose screen with flowers.
-
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @end
@@ -48,42 +46,7 @@
     screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"temp background.jpg"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"iPhone5 temp background.jpg"];
-        }
-    }
-    else {
-        if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-            background.image=[UIImage imageNamed:@"image-landscape.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"image-portrait.png"];
-        }
-    }
     [self.view addSubview:background];
-}
-
-//NEED TO SET WHETHER USER IS ON COMPOSE OR INSTRUCTIONS SCREEN HERE:
-
-/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    if((self.interfaceOrientation == UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
-        background.image = [UIImage imageNamed:@"image-landscape.png"];
-    } else  if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){
-        background.image = [UIImage imageNamed:@"image-portrait.png"];
-    }
-}*/
-
--(BOOL)shouldAutorotate {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -198,10 +161,10 @@
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"compose screen temp.png"];
+            background.image=[UIImage imageNamed:@"compose.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"compose screen temp.png"];
+            background.image=[UIImage imageNamed:@"compose.png"];
         }
     }
     else {
@@ -299,10 +262,10 @@
     background = [[UIImageView alloc] initWithFrame:frame];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"temp background.jpg"];
+            background.image=[UIImage imageNamed:@"instructions.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"iPhone5 temp background.png"];
+            background.image=[UIImage imageNamed:@"5instructions.png"];
         }
     }
     else {
@@ -426,12 +389,12 @@
     
                 //Show appropriate screen.
     
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"short compose screen with flowers.png"];
+        /*if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"compose.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"tall compose screen with flowers.png"];
-        }
+            background.image=[UIImage imageNamed:@"5compose.png"];
+        }*/
         [actSheet showFromTabBar:self.tabBarController.tabBar];
     }
 }
@@ -540,12 +503,12 @@
         NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
-        if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"short compose screen with flowers.png"];
+        /*if (screenHeight<500) {
+            background.image=[UIImage imageNamed:@"compose.png"];
         }
         else {
-            background.image=[UIImage imageNamed:@"tall compose screen with flowers.png"];
-        }
+            background.image=[UIImage imageNamed:@"5compose.png"];
+        }*/
         [alert show];
     }
     

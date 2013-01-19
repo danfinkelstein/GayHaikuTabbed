@@ -28,6 +28,7 @@
     NSLayoutConstraint *toolbarConstraintTop;
     NSLayoutConstraint *toolbarConstraintWidth;
     NSLayoutConstraint *toolbarConstraintHeight;
+    IBOutlet UINavigationBar *navBarForPad;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
