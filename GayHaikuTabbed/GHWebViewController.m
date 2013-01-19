@@ -24,6 +24,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     
                 //Load nav bar
     
@@ -57,7 +58,7 @@
         indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
         [indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+        indicator.color=screenColor;
     }
 	[self.view addSubview:indicator];
     [indicator startAnimating];
@@ -161,7 +162,7 @@
                 //Adds the nav bar to the screen.
     
     [bar pushNavigationItem:navBarTitle animated:YES];
-    [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    [bar setTintColor:screenColor];
     [self.view addSubview:bar];
 }
 

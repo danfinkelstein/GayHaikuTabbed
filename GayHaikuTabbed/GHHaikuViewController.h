@@ -21,14 +21,10 @@
     UINavigationBar *navBar;                    //Temporary-view nav bar for sending/editing/deleting
     BOOL comingFromPrevious;                    //So we know which direction to animate haiku view from
     UITextView *displayHaikuTextView;           //Textview that displays the current haiku
-    GHAppDefaults *userSettings;
     UIImageView *background;
+    UIColor *screenColor;
     int screenHeight;
     int screenWidth;
-    NSLayoutConstraint *toolbarConstraintTop;
-    NSLayoutConstraint *toolbarConstraintWidth;
-    NSLayoutConstraint *toolbarConstraintHeight;
-    IBOutlet UINavigationBar *navBarForPad;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;

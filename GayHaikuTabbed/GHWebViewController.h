@@ -16,6 +16,7 @@
     UIWebView *webV;
     int screenWidth;
     int screenHeight;
+    UIColor *screenColor;
 }
 
 @end

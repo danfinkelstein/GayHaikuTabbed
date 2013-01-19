@@ -28,6 +28,7 @@
     int screenHeight;
     int screenWidth;
     CGRect frame;
+    UIColor *screenColor;
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
     GHVerify *ghverify;                 //Instantiation of GHVerify.
     GHAppDefaults *userSettings;       //Instantiation of GHUserSettings.

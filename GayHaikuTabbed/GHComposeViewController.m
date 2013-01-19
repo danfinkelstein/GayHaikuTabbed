@@ -34,6 +34,7 @@
     
     userSettings = [GHAppDefaults sharedInstance];
     [userSettings setUserDefaults];
+    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     animateComposeScreen=NO;
     
                 //Access the shared instance of GHHaiku.
@@ -84,7 +85,8 @@
     UITextView *baba = [[UITextView alloc] init];
     baba.editable=NO;
     baba.userInteractionEnabled=NO;
-    baba.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    baba.textColor = screenColor;
+    baba.alpha = 1;
     baba.backgroundColor = [UIColor clearColor];
     baba.text = word;
     baba.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
@@ -233,7 +235,7 @@
                 //Create translucent toolbar to sit above keyboard.
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    [toolbar setTintColor:screenColor];
     [toolbar sizeToFit];
     
                 //Create "instructions" and "done" buttons and add them to the translucent toolbar.
@@ -296,23 +298,12 @@
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
         int textWidth = thisSize.width;
-        const int INSTRUCTIONS_HEIGHT=17;
+        int INSTRUCTIONS_HEIGHT=17;
 
 //Obviously this is an ugly hack and needs to be defined somewhere else.
         
         int textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
         instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-
-        }
-        else {
-            if (self.interfaceOrientation==UIInterfaceOrientationPortrait || self.interfaceOrientation==UIInterfaceOrientationPortraitUpsideDown) {
-                
-            }
-            else {
-                
-            }
-        }
     }
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right, animate the instructions to the left.

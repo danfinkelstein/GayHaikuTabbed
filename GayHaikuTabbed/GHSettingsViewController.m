@@ -32,6 +32,7 @@
     [userSettings setUserDefaults];
     screenWidth=self.view.bounds.size.width;
     screenHeight=self.view.bounds.size.height;
+    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     
                 //Uncomment next line for testing.
     
@@ -96,7 +97,7 @@
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
-    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.textColor = screenColor;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
     instructions.userInteractionEnabled=NO;

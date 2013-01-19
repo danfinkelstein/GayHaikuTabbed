@@ -20,6 +20,7 @@
     UIImageView *background;
     int screenWidth;
     int screenHeight;
+    UIColor *screenColor;
 }
 
 @end

@@ -19,6 +19,7 @@
 #import "GHAppDefaults.h"
 
 
+
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
 
 @end
@@ -34,6 +35,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     background.backgroundColor = [UIColor whiteColor];
+    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     NSLog(@"View loaded.");
@@ -90,7 +92,7 @@
     
                 //Set up tab bar
     
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    [[UITabBar appearance] setTintColor:screenColor];
     self.tabBarController.delegate=self;
     
                 //Indicate that "swipe" text for previous/next have not been seen yet this session
@@ -112,7 +114,8 @@
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
     instructions.userInteractionEnabled=NO;
-    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.textColor = screenColor;
+    instructions.alpha=1;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -152,7 +155,7 @@
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
-    [navBar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75]];
+    [navBar setTintColor:screenColor];
     
                 //Create UINavigationItem
     
