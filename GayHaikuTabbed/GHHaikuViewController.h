@@ -22,7 +22,9 @@
     BOOL comingFromPrevious;                    //So we know which direction to animate haiku view from
     UITextView *displayHaikuTextView;           //Textview that displays the current haiku
     UIImageView *background;
-    UIColor *screenColor;
+    UIColor *screenColorTrans;
+    UIColor *screenColorOp;
+    GHAppDefaults *userInfo;
     int screenHeight;
     int screenWidth;
 }

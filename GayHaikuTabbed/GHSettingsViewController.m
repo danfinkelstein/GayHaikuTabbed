@@ -99,7 +99,7 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    swipeInstructions = [self createSwipeToAdd:@"Swipe"];
+    swipeInstructions = [self createSwipeToAdd:@"Next"];
     
                 //Locate and frame the text on the right side of the view.
     
@@ -132,6 +132,7 @@
         settingsPartOne.backgroundColor=[UIColor clearColor];
         settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
         settingsPartOne.editable=NO;
+        settingsPartOne.userInteractionEnabled=NO;
         settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
         settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, (screenHeight/2-113), screenWidth - 40, settingsHeight);
     }

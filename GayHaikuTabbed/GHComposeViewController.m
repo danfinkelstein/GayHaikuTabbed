@@ -564,10 +564,10 @@
     
     NSString *perm;
     if (userSettings.checkboxChecked) {
-        perm=@"Yes";
+        perm=@"No";
     }
     else {
-        perm=@"No";
+        perm=@"Yes";
     }
     [haikuObject setObject:perm forKey:@"permission"];
     

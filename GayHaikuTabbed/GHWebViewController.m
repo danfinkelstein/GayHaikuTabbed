@@ -146,6 +146,7 @@
                 //Interrupts loading the current web page.
     
     [webV stopLoading];
+    [indicator stopAnimating];
 }
 
 -(void)loadNavBar:(NSString *)t {

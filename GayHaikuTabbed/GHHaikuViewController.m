@@ -35,7 +35,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     background.backgroundColor = [UIColor whiteColor];
-    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     NSLog(@"View loaded.");
@@ -81,7 +82,7 @@
     
                 //Set up tab bar
     
-    [[UITabBar appearance] setTintColor:screenColor];
+    [[UITabBar appearance] setTintColor:screenColorTrans];
     self.tabBarController.delegate=self;
     
                 //Indicate that "swipe" text for previous/next have not been seen yet this session
@@ -103,7 +104,7 @@
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
     instructions.userInteractionEnabled=NO;
-    instructions.textColor = screenColor;
+    instructions.textColor = screenColorOp;
     instructions.alpha=1;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
@@ -139,7 +140,8 @@
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
-    [navBar setTintColor:screenColor];
+    [navBar setTintColor:screenColorTrans];
+    navBar.translucent=YES;
     
                 //Create UINavigationItem
     
@@ -334,7 +336,11 @@
     if (!self.ghhaiku.newIndex<1)
     {
         self.ghhaiku.newIndex--;
-        
+    }
+    else {
+        self.ghhaiku.newIndex = self.ghhaiku.gayHaiku.count-1;
+    }
+    
                 //Set boolean for direction of animation
         
         comingFromPrevious=YES;
@@ -342,7 +348,6 @@
                 //Display the haiku.
         
         [self displayHaiku];
-    }
 }
 
 #pragma mark ADDITION/DELETION METHODS
@@ -418,7 +423,9 @@
     {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
-        [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", [[UIDevice currentDevice] name]]];
+        if (userInfo.author) {
+            [mailer setSubject:[NSString stringWithFormat:@"%@ has sent you a gay haiku.", userInfo.author]];
+        }
         UIImage *myImage = [self createImage];
         NSData *imageData = UIImagePNGRepresentation(myImage);
         [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"Gay Haiku http://gayhaiku.com"];
@@ -434,6 +441,10 @@
         alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Your device doesn't seem to be able to email this haiku. Perhaps you'd like to tweet it or post it on Facebook instead?" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:Nil];
 }
 
 -(void)twit {
