@@ -70,7 +70,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (userSettings.instructionsSwipedToFromOptOut==YES) {
+    if (userSettings.optOutSeen) {
         [swipeInstructions removeFromSuperview];
     }
     else {
@@ -99,7 +99,7 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    swipeInstructions = [self createSwipeToAdd:@"Next"];
+    swipeInstructions = [self createSwipeToAdd:@"Swipe"];
     
                 //Locate and frame the text on the right side of the view.
     
@@ -116,6 +116,9 @@
 
 -(void)displaySettingsScreen {
 
+    [infoAbout removeFromSuperview];
+    [backButton removeFromSuperview];
+    
                 //Should these be put somewhere else?  They're really constants, not variables.  Above implementation?
     
     int nameFieldHeight = 30;
@@ -130,7 +133,7 @@
         settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
         settingsPartOne.editable=NO;
         settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
-        settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, (screenHeight/2-125), screenWidth - 40, settingsHeight);
+        settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, (screenHeight/2-113), screenWidth - 40, settingsHeight);
     }
     
     if (!nameField)
@@ -160,17 +163,60 @@
         [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }
+        aboutButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"About"]];
+        [aboutButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+        aboutButton.tintColor = screenColor;
+        [aboutButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor, nil] forState:UIControlStateNormal];
+        CGSize size = [@"About" sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize + 12]];
+        aboutButton.frame = CGRectMake(screenWidth/2 - size.width/2, screenHeight-size.height*4, size.width, size.height);
+        aboutButton.tintColor = screenColor;
+        [aboutButton addTarget:self action:@selector(showAbout) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:settingsPartOne];
     [self.view addSubview:nameField];
     [self.view addSubview:settingsPartTwo];
     [self.view addSubview:checkboxButton];
-
+    [self.view addSubview:aboutButton];
     
     for(UIView *view in [self view].subviews){
         [view setUserInteractionEnabled:YES];
     }
 
     [self textFieldShouldReturn:nameField];
+}
+
+-(void)showAbout {
+    
+                        //Clear the screen.
+    
+    [settingsPartOne removeFromSuperview];
+    [settingsPartTwo removeFromSuperview];
+    [checkboxButton removeFromSuperview];
+    [aboutButton removeFromSuperview];
+    [nameField removeFromSuperview];
+    
+                        //Switch the back button.
+    
+        backButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Back"]];
+        [backButton setSegmentedControlStyle:UISegmentedControlStyleBar];
+        backButton.tintColor = screenColor;
+        [backButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor, nil] forState:UIControlStateNormal];
+        CGSize size = [@"Back" sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:largeFontSize + 12]];
+        backButton.frame = CGRectMake(screenWidth/2 - size.width/2, screenHeight-size.height*4, size.width, size.height);
+        [backButton addTarget:self action:@selector(displaySettingsScreen) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:backButton];
+    
+                //Add text.
+    
+    infoAbout = [[UITextView alloc] init];
+    infoAbout.backgroundColor = [UIColor clearColor];
+    infoAbout.font = [UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
+    infoAbout.editable=NO;
+    infoAbout.text=@"Gay Haiku v. 1.0, @2012 by Joel Derfner\n\nThanks to Dan Finkelstein and beta testers.\n\nGraphics by iphone-icon.com.";
+    NSString *blah = @"Gay Haiku v. 1.0, @2012 by Joel Derfner";
+    CGSize xySize = [blah sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]];
+    infoAbout.frame = CGRectMake(screenWidth/2-xySize.width/2, screenHeight/2-(xySize.height*10)/2, xySize.width+12, xySize.height*8);
+    infoAbout.dataDetectorTypes=UIDataDetectorTypeLink;
+    [self.view addSubview:infoAbout];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {

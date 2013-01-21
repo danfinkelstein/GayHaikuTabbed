@@ -275,7 +275,7 @@
         instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
     }
     
-                //If we're coming from the opt-out screen (i.e. swiping from the right, animate the instructions to the left.
+                //If we're coming from the opt-out screen (i.e. swiping from the right), animate the instructions to the left.
     
     if (userSettings.instructionsSwipedToFromOptOut==YES) {
         [self animateView:instructions withDirection:@"left"];

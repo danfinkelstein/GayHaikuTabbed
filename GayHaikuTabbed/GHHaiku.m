@@ -40,8 +40,17 @@
     
     self.newIndex=0;
     
-                //Populate a temporary array with the haiku that self.gayHaiku contains.
+                //Shuffle array.
     
+    for (int i = self.gayHaiku.count - 1; i >= 0; --i) {
+        int r = arc4random_uniform(self.gayHaiku.count);
+        [self.gayHaiku exchangeObjectAtIndex:i withObjectAtIndex:r];
+    }
+    
+    /*
+     
+                //Populate a temporary array with the haiku that self.gayHaiku contains.
+     
     NSMutableArray *arrayForShuffling = [[NSMutableArray alloc] initWithArray:self.gayHaiku];
     int arrayCount = arrayForShuffling.count;
     
@@ -59,7 +68,7 @@
             [arrayForShuffling insertObject:[arrayForShuffling lastObject] atIndex:sortingHat];
             [arrayForShuffling removeLastObject];
         }
-    }
+    }*/
 }
 
 -(void)haikuToShow {
@@ -68,12 +77,12 @@
 
     if (!self.gayHaiku) {
         self.gayHaiku = [[NSMutableArray alloc] initWithArray:self.haikuLoaded];
-        self.newIndex=0; 
+        //self.newIndex=0;
         [self shuffle];
     }
-    if (!self.newIndex) {
+    /*if (!self.newIndex) {
         self.newIndex=0;
-    }
+    }*/
     
                 //If you've gone through the entire array, empty the array of haiku seen and reset the index.
     
