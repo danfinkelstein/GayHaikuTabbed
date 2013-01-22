@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GHAppDefaults.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface GHSettingsViewController : UIViewController <UITextFieldDelegate> {
@@ -20,6 +21,8 @@
     GHAppDefaults *userSettings;        //Instantiation of GHUserSettings.
     int screenHeight;
     int screenWidth;
+    CGRect thisRect;
+    UIImageView *nameFieldImage;
     UIImageView *background;
     UISegmentedControl *aboutButton;
     UISegmentedControl *backButton;

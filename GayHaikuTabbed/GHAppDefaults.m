@@ -22,7 +22,7 @@ int const gap = 10;
 
 @implementation GHAppDefaults
 
-@synthesize checkboxChecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
+@synthesize checkboxUnchecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
 
 + (GHAppDefaults *)sharedInstance {
     
@@ -42,10 +42,10 @@ int const gap = 10;
     
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"checked?"]) {
-        self.checkboxChecked = [defaults boolForKey:@"checked?"];
+        self.checkboxUnchecked = [defaults boolForKey:@"checked?"];
     }
     else {
-        self.checkboxChecked=NO;
+        self.checkboxUnchecked=YES;
     }
     if ([defaults objectForKey:@"author"]) {
         self.author = [defaults objectForKey:@"author"];

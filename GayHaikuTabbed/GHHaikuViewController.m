@@ -565,10 +565,6 @@
     [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    /*UIGraphicsBeginImageContext(self.view.bounds.size);
-    [myImage drawInRect:CGRectMake(0, 0, screenWidth, screenHeight-toolbarHeight)];
-    myImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();*/
     
                 //Return that picture.
     

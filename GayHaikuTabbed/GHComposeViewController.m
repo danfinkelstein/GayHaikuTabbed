@@ -173,7 +173,7 @@
         else {
             textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:largeFontSize];
+        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
         textView.delegate = self;
     }
     
@@ -563,11 +563,11 @@
                 //Indicate whether I have permission to use it.
     
     NSString *perm;
-    if (userSettings.checkboxChecked) {
-        perm=@"No";
+    if (userSettings.checkboxUnchecked) {
+        perm=@"Yes";
     }
     else {
-        perm=@"Yes";
+        perm=@"No";
     }
     [haikuObject setObject:perm forKey:@"permission"];
     

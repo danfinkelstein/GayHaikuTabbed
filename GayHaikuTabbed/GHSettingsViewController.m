@@ -121,7 +121,7 @@
     
                 //Should these be put somewhere else?  They're really constants, not variables.  Above implementation?
     
-    int nameFieldHeight = 30;
+    int nameFieldHeight = 31;
     int settingsHeight = 90;
     int gap = 10;
     
@@ -133,20 +133,23 @@
         settingsPartOne.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
         settingsPartOne.editable=NO;
         settingsPartOne.userInteractionEnabled=NO;
-        settingsPartOne.text = @"I hope to update the Gay Haiku app periodically with new haiku, and, if you'll allow me, I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
+        settingsPartOne.text = @"I hope to update the Gay Haiku app with new haiku, and I'd like permission to include your haiku (or haiku inspired by yours) in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.";
         settingsPartOne.frame = CGRectMake(screenWidth/2-(screenWidth-40)/2, (screenHeight/2-113), screenWidth - 40, settingsHeight);
     }
-    
     if (!nameField)
     {
-        nameField=[[UITextField alloc] initWithFrame:CGRectMake(screenWidth/2-(screenWidth-80)/2, settingsPartOne.center.y + settingsHeight/2 + gap, screenWidth-80, nameFieldHeight)];
-        nameField.borderStyle=UITextBorderStyleRoundedRect;
-        nameField.backgroundColor = [UIColor colorWithRed:255/255.0 green:212/255.0 blue:227/255.0 alpha:1];
-        nameField.placeholder=@"Name (optional)";
+        nameField=[[UITextField alloc] initWithFrame:CGRectMake(screenWidth/2-104, settingsPartOne.center.y + settingsHeight/2 + gap, 208, nameFieldHeight)];
+        nameField.text=@"Name (optional)";
+        nameField.textColor = [UIColor darkGrayColor];
         nameField.clearsOnBeginEditing=YES;
+        nameField.backgroundColor = [UIColor clearColor];
+        nameField.borderStyle=UITextBorderStyleNone;
         nameField.returnKeyType=UIReturnKeyDone;
         nameField.delegate=self;
+        nameFieldImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"input.png"]];
+        nameFieldImage.frame = CGRectMake(screenWidth/2-114, settingsPartOne.center.y + settingsHeight/2 + gap - 3, 228, 31);
     }
+
     if (userSettings.author) {
         nameField.text=userSettings.author;
     }
@@ -161,7 +164,7 @@
     if (!checkboxButton) {
         checkboxButton = [UIButton buttonWithType:UIButtonTypeCustom];
         checkboxButton.frame = CGRectMake(screenWidth/2+((screenWidth-80)/2) - 44, nameField.center.y + nameFieldHeight/2 + gap, buttonSideLength, buttonSideLength);
-        [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
+        [checkboxButton setImage:[UIImage imageNamed:@"checkboxUnchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }
         aboutButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"About"]];
@@ -173,10 +176,12 @@
         aboutButton.tintColor = screenColor;
         [aboutButton addTarget:self action:@selector(showAbout) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:settingsPartOne];
+    [self.view addSubview:nameFieldImage];
     [self.view addSubview:nameField];
     [self.view addSubview:settingsPartTwo];
     [self.view addSubview:checkboxButton];
     [self.view addSubview:aboutButton];
+
     
     for(UIView *view in [self view].subviews){
         [view setUserInteractionEnabled:YES];
@@ -194,6 +199,7 @@
     [checkboxButton removeFromSuperview];
     [aboutButton removeFromSuperview];
     [nameField removeFromSuperview];
+    [nameFieldImage removeFromSuperview];
     
                         //Switch the back button.
     
@@ -212,7 +218,7 @@
     infoAbout.backgroundColor = [UIColor clearColor];
     infoAbout.font = [UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
     infoAbout.editable=NO;
-    infoAbout.text=@"Gay Haiku v. 1.0, @2012 by Joel Derfner\n\nThanks to Dan Finkelstein and beta testers.\n\nGraphics by iphone-icon.com.";
+    infoAbout.text=@"Gay Haiku v. 1.0\n@2012 by Joel Derfner\n\nThanks to Dan Finkelstein and beta testers.\n\nGraphics by iphone-icon.com.";
     NSString *blah = @"Gay Haiku v. 1.0, @2012 by Joel Derfner";
     CGSize xySize = [blah sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]];
     infoAbout.frame = CGRectMake(screenWidth/2-xySize.width/2, screenHeight/2-(xySize.height*10)/2, xySize.width+12, xySize.height*8);
@@ -240,11 +246,11 @@
     
                 //Displays a checkmark if the user has opted out, a blank box if not.
     
-    if (userSettings.checkboxChecked) {
-        [checkboxButton setImage:[UIImage imageNamed:@"checkbox checked.png"] forState:UIControlStateNormal];
+    if (userSettings.checkboxUnchecked) {
+        [checkboxButton setImage:[UIImage imageNamed:@"checkboxUnchecked.png"] forState:UIControlStateNormal];
     }
-    else if (!userSettings.checkboxChecked) {
-        [checkboxButton setImage:[UIImage imageNamed:@"checkbox unchecked.png"] forState:UIControlStateNormal];
+    else if (!userSettings.checkboxUnchecked) {
+        [checkboxButton setImage:[UIImage imageNamed:@"checkboxChecked.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -252,7 +258,7 @@
     
                 //Change the checkbox setting.
     
-    userSettings.checkboxChecked=!userSettings.checkboxChecked;
+    userSettings.checkboxUnchecked=!userSettings.checkboxUnchecked;
     
                 //Display the results of the change.
     
@@ -260,7 +266,7 @@
     
                 //Update the defaults to reflect the change.
     
-    [userSettings.defaults setBool:userSettings.checkboxChecked forKey:@"checked?"];
+    [userSettings.defaults setBool:userSettings.checkboxUnchecked forKey:@"checked?"];
     [userSettings.defaults synchronize];
 }
 
