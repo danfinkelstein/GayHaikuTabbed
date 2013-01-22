@@ -55,13 +55,56 @@
     
     if (!indicator)
     {
-        indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+        indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
         [indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicator.color=screenColor;
     }
 	[self.view addSubview:indicator];
     [indicator startAnimating];
+    
+                //Add buttons with stop-loading button in place of refresh button.
+    
+    NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
+    
+                //Create navigation buttons for the right (stop and refresh).
+    
+    //UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
+    UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
+    
+                //Load the nav bar.
+    
+    [bar removeFromSuperview];
+    [self loadNavBar:@"Buy"];
+    
+                //Add the right buttons to the nav bar.
+    
+    navBarTitle.rightBarButtonItem=stop;
+    navBarTitle.hidesBackButton=YES;
+    
+                //Create whatever left buttons are appropriate and add to the arrays.
+    
+    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
+    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
+    if (webV.canGoBack) {
+        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    }
+    else {
+        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
+    }
+    if (webV.canGoForward) {
+        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    }
+    else {
+        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
+    }
+    
+                //Add the left buttons to the nav bar.
+    
+    [leftButtons addObject:backButt];
+    [leftButtons addObject:forButt];
+    navBarTitle.leftBarButtonItems=leftButtons;
+    [self seeNavBar];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -74,11 +117,9 @@
                 //Create navigation buttons for the right (stop and refresh).
     
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
-    UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
     
                 //Add them to the right array.
     
-    [rightButtons addObject:stop];
     [rightButtons addObject:refresh];
     
                 //Load the nav bar.
@@ -88,22 +129,29 @@
     
                 //Add the right buttons to the nav bar.
     
-    navBarTitle.rightBarButtonItems=rightButtons;
+    navBarTitle.rightBarButtonItem=refresh;
     navBarTitle.hidesBackButton=YES;
     
                 //Create whatever left buttons are appropriate and add to the arrays.
     
+    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
+    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
     if (webV.canGoBack) {
-        UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
-        [leftButtons addObject:backButt];
+        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    }
+    else {
+        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
     }
     if (webV.canGoForward) {
-        UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
-        [leftButtons addObject:forButt];
+        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
-    
+    else {
+        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
+    }
                 //Add the left buttons to the nav bar.
     
+    [leftButtons addObject:backButt];
+    [leftButtons addObject:forButt];
     navBarTitle.leftBarButtonItems=leftButtons;
     
                 //Lose the activity indicator.

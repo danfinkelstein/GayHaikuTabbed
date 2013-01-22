@@ -218,8 +218,8 @@
     infoAbout.backgroundColor = [UIColor clearColor];
     infoAbout.font = [UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
     infoAbout.editable=NO;
-    infoAbout.text=@"Gay Haiku v. 1.0\n@2012 by Joel Derfner\n\nThanks to Dan Finkelstein and beta testers.\n\nGraphics by iphone-icon.com.";
-    NSString *blah = @"Gay Haiku v. 1.0, @2012 by Joel Derfner";
+    infoAbout.text=@"Gay Haiku v. 1.0\n©2012 by Joel Derfner\n\nThanks to Dan Finkelstein and beta testers.\n\nGraphics by iphone-icon.com.";
+    NSString *blah = @"Gay Haiku v. 1.0, ©2012 by Joel Derfner";
     CGSize xySize = [blah sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]];
     infoAbout.frame = CGRectMake(screenWidth/2-xySize.width/2, screenHeight/2-(xySize.height*10)/2, xySize.width+12, xySize.height*8);
     infoAbout.dataDetectorTypes=UIDataDetectorTypeLink;
