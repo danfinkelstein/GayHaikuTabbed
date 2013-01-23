@@ -24,30 +24,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="input.png" translatesAutoresizingMaskIntoConstraints="NO" id="97c-s1-OKn"/>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uy5-vc-lH7">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="NZJ-CF-COd"/>
+                                    <constraint firstAttribute="height" constant="30" type="user" id="nMN-d5-CwZ"/>
                                     <constraint firstAttribute="width" constant="220" id="vYT-1i-dWm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Permission to use your haiku?" translatesAutoresizingMaskIntoConstraints="NO" id="zCI-cj-KDc">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="181" id="bax-iF-8Cn"/>
-                                    <constraint firstAttribute="height" constant="31" id="vnL-QO-dtB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Syllable verification?" translatesAutoresizingMaskIntoConstraints="NO" id="NzZ-Jt-OyY">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="cDf-NU-RbP"/>
-                                    <constraint firstAttribute="height" constant="34" id="wH1-gk-xM6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="A4H-wC-VO7">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="72" id="Vnl-eD-ijp"/>
@@ -71,26 +53,44 @@
                                     <action selector="disableSyllableVerification:" destination="INd-ZO-V20" eventType="valueChanged" id="dDZ-Rf-pLl"/>
                                 </connections>
                             </segmentedControl>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Permission to use your haiku?" translatesAutoresizingMaskIntoConstraints="NO" id="QAN-VN-Dfk">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="V6Y-zk-Xrp"/>
+                                    <constraint firstAttribute="width" constant="184" id="qhJ-jA-t6c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Syllable verification?" translatesAutoresizingMaskIntoConstraints="NO" id="91J-cf-p6a">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="igH-73-oSB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="zCI-cj-KDc" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="1cs-0k-TDG"/>
+                            <constraint firstItem="91J-cf-p6a" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="0oe-jg-CdY"/>
+                            <constraint firstItem="91J-cf-p6a" firstAttribute="trailing" secondItem="QAN-VN-Dfk" secondAttribute="trailing" type="default" id="14w-Ie-nhr"/>
                             <constraint firstItem="A4H-wC-VO7" firstAttribute="trailing" secondItem="QAE-hR-U9v" secondAttribute="trailing" type="default" id="2eo-J6-s4Y"/>
+                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="top" secondItem="mfu-Ti-sbb" secondAttribute="top" constant="129" id="37q-7B-2Fq"/>
+                            <constraint firstItem="91J-cf-p6a" firstAttribute="centerY" secondItem="QAE-hR-U9v" secondAttribute="centerY" type="default" id="7Vu-hi-sYg"/>
                             <constraint firstItem="97c-s1-OKn" firstAttribute="top" secondItem="wql-Lf-Zfk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="8kD-1x-8mb"/>
                             <constraint firstItem="uy5-vc-lH7" firstAttribute="centerX" secondItem="97c-s1-OKn" secondAttribute="centerX" type="default" id="C8O-jO-u6F"/>
-                            <constraint firstItem="zCI-cj-KDc" firstAttribute="top" secondItem="mfu-Ti-sbb" secondAttribute="top" constant="265" id="CBm-gI-J16"/>
-                            <constraint firstItem="A4H-wC-VO7" firstAttribute="top" secondItem="uy5-vc-lH7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Mxd-bz-4mh"/>
+                            <constraint firstItem="97c-s1-OKn" firstAttribute="bottom" secondItem="uy5-vc-lH7" secondAttribute="bottom" type="default" id="EAE-D5-XCT"/>
+                            <constraint firstAttribute="trailing" secondItem="A4H-wC-VO7" secondAttribute="trailing" constant="39" id="Kdd-7x-bpi"/>
+                            <constraint firstItem="QAE-hR-U9v" firstAttribute="top" secondItem="A4H-wC-VO7" secondAttribute="bottom" constant="16" type="user" id="TDz-S4-rGd"/>
                             <constraint firstItem="uy5-vc-lH7" firstAttribute="top" secondItem="wql-Lf-Zfk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="YGn-aV-4vG"/>
-                            <constraint firstAttribute="bottom" secondItem="NzZ-Jt-OyY" secondAttribute="bottom" constant="232" id="Yi1-nx-9VL"/>
-                            <constraint firstItem="A4H-wC-VO7" firstAttribute="leading" secondItem="zCI-cj-KDc" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="aqn-rp-LxU"/>
-                            <constraint firstItem="NzZ-Jt-OyY" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="eVc-Mh-Ic7"/>
                             <constraint firstAttribute="trailing" secondItem="wql-Lf-Zfk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ea5-BY-dMn"/>
-                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="centerX" secondItem="uy5-vc-lH7" secondAttribute="centerX" type="default" id="fMg-8T-Xu6"/>
+                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="centerX" secondItem="97c-s1-OKn" secondAttribute="centerX" type="default" id="gKJ-fH-U36"/>
                             <constraint firstItem="A4H-wC-VO7" firstAttribute="leading" secondItem="QAE-hR-U9v" secondAttribute="leading" type="default" id="hbG-cg-XPG"/>
-                            <constraint firstItem="A4H-wC-VO7" firstAttribute="top" secondItem="97c-s1-OKn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="igF-cg-OoR"/>
-                            <constraint firstItem="A4H-wC-VO7" firstAttribute="top" secondItem="mfu-Ti-sbb" secondAttribute="top" constant="264" id="mmZ-7a-WhW"/>
                             <constraint firstItem="wql-Lf-Zfk" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mya-Ac-yTr"/>
-                            <constraint firstItem="QAE-hR-U9v" firstAttribute="top" secondItem="A4H-wC-VO7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="z7R-CB-KtH"/>
+                            <constraint firstItem="A4H-wC-VO7" firstAttribute="top" secondItem="97c-s1-OKn" secondAttribute="bottom" constant="16" type="user" id="t41-kg-lC7"/>
+                            <constraint firstItem="QAN-VN-Dfk" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="uPM-XM-3i6"/>
+                            <constraint firstItem="QAN-VN-Dfk" firstAttribute="centerY" secondItem="A4H-wC-VO7" secondAttribute="centerY" type="default" id="ymP-4V-S9I"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -109,21 +109,6 @@
     <resources>
         <image name="input.png" width="228" height="31"/>
     </resources>
-    <classes>
-        <class className="GHSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="disableSyllableVerification:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="givePermission:" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="disableVerification" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="permissionDenied" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

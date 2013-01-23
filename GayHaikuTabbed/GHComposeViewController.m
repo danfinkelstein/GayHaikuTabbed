@@ -34,7 +34,7 @@
     
     userSettings = [GHAppDefaults sharedInstance];
     [userSettings setUserDefaults];
-    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     animateComposeScreen=NO;
     
                 //Access the shared instance of GHHaiku.
@@ -111,7 +111,7 @@
     CGSize xySize;
     CGRect rect;
     xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
-    rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.625, xySize.width, xySize.height);
+    rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
     nextInstructions.frame = rect;
         
                 //Display and animate it.
@@ -221,6 +221,7 @@
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar setTintColor:screenColor];
+    toolbar.translucent = YES;
     [toolbar sizeToFit];
     
                 //Create "instructions" and "done" buttons and add them to the translucent toolbar.
@@ -273,12 +274,11 @@
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
         int textWidth = thisSize.width;
-        int INSTRUCTIONS_HEIGHT=17;
 
 //Obviously this is an ugly hack and needs to be defined somewhere else.
         
-        int textHeight = thisSize.height*INSTRUCTIONS_HEIGHT;
-        instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2, textWidth, textHeight);
+        int textHeight = thisSize.height*17;
+        instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight);
     }
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right), animate the instructions to the left.

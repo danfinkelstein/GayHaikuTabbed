@@ -47,6 +47,11 @@
         [self.view addGestureRecognizer:swipeLeft];
     }
     
+                //Add tap gesture recognizer.
+    
+    UITapGestureRecognizer *tapScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayInfo)];
+    [self.view addGestureRecognizer:tapScreen];
+    
                 //Add the background image.
     
     CGRect frame;
@@ -94,6 +99,11 @@
     }
 }
 
+-(void)displayInfo {
+    UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [behindTheScenesInfo show];
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (userSettings.optOutSeen) {
@@ -132,13 +142,15 @@
     NSString *text = [swipeInstructions.text stringByAppendingString:@"compo"];
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
-    CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.625, xySize.width, xySize.height);
+    CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
     swipeInstructions.frame = rect;
     
                 //Display it.
     
     [self.view addSubview:swipeInstructions];
 }
+
+
 
 /*-(void)displaySettingsScreen {
 
