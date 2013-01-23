@@ -28,12 +28,10 @@
     //UISegmentedControl *backButton;
     UIColor *screenColor;
     IBOutlet UISegmentedControl *permissionDenied;
-    IBOutlet UISegmentedControl *large;
     IBOutlet UISegmentedControl *disableVerification;
 }
 
 -(IBAction)givePermission:(UISegmentedControl *)sender;
--(IBAction)determineTextSize:(UISegmentedControl *)sender;
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender;
 
 @end

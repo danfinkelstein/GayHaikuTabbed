@@ -200,6 +200,8 @@
 
 -(void)displayHaiku {
     
+//WHEN LARGE TEXT SIZE IS SELECTED BY DEFAULT, FIRST HAIKU STILL APPEARS IN SMALL TEXT SIZE.  WHY?
+    
                 //Empty screen
     
     [displayHaikuTextView removeFromSuperview];
@@ -209,13 +211,7 @@
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
 
-    int fontSize;
-    if (userInfo.largeText) {
-        fontSize=largeFontSize;
-    }
-    else {
-        fontSize=mediumFontSize;
-    }
+    int fontSize = 15;
     
                     //Set CGSize so that haiku can be laid out in the center.
     

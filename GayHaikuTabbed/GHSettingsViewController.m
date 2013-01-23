@@ -69,14 +69,14 @@
         permissionDenied.selectedSegmentIndex=1;
         [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
     }
-    if (userSettings.largeText==NO) {
+    /*if (userSettings.largeText==NO) {
         large.selectedSegmentIndex=0;
         [large setTitle:@"Small" forSegmentAtIndex:0];
     }
     else {
         large.selectedSegmentIndex=1;
         [large setTitle:@"Large" forSegmentAtIndex:1];
-    }
+    }*/
     if (userSettings.disableSyllableCheck==NO) {
         disableVerification.selectedSegmentIndex=0;
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
@@ -315,7 +315,7 @@
     }
 }
 
--(IBAction)determineTextSize:(UISegmentedControl *)sender {
+/*-(IBAction)determineTextSize:(UISegmentedControl *)sender {
     NSLog(@"large text: %d",userSettings.largeText);
     userSettings.largeText=!userSettings.largeText;
     [userSettings.defaults setBool:userSettings.largeText forKey:@"largeText?"];
@@ -330,7 +330,7 @@
         [large setTitle:@"Large" forSegmentAtIndex:1];
     }
     NSLog(@"%d",large.selectedSegmentIndex);
-}
+}*/
 
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender {
     userSettings.disableSyllableCheck=!userSettings.disableSyllableCheck;

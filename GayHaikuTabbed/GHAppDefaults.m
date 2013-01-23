@@ -74,12 +74,12 @@ int const gap = 10;
     else {
         self.permissionDenied = NO;
     }
-    if ([defaults boolForKey:@"largeText?"]) {
+    /*if ([defaults boolForKey:@"largeText?"]) {
         self.largeText = [defaults boolForKey:@"largeText?"];
     }
     else {
         self.largeText = NO;
-    }
+    }*/
     if ([defaults boolForKey:@"disableSyllableCheck?"]) {
         self.disableSyllableCheck = [defaults boolForKey:@"disableSyllableCheck?"];
     }
