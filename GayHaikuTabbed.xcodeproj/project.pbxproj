@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
 		5D3C89CD169795D600366015 /* temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CC169795D600366015 /* temp background.jpg */; };
 		5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
@@ -94,7 +95,6 @@
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
-		CB52A27416AF5B2E00E860A6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB52A27316AF5B2E00E860A6 /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5D3C89CC169795D600366015 /* temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "temp background.jpg"; sourceTree = "<group>"; };
 		5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iPhone5 temp background.jpg"; sourceTree = "<group>"; };
 		5D64890416791F4100A87596 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart.png"; sourceTree = "<group>"; };
@@ -202,7 +203,6 @@
 		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
-		CB52A27316AF5B2E00E860A6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */,
 				5D8825D51674442B007DF2E2 /* Accounts.framework in Frameworks */,
 				5D8825D61674442B007DF2E2 /* AdSupport.framework in Frameworks */,
 				5D8825D71674442B007DF2E2 /* AudioToolbox.framework in Frameworks */,
@@ -230,7 +231,6 @@
 				5D8825DC16744448007DF2E2 /* StoreKit.framework in Frameworks */,
 				5D8825DD16744448007DF2E2 /* SystemConfiguration.framework in Frameworks */,
 				5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */,
-				CB52A27416AF5B2E00E860A6 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +282,7 @@
 		5DBC945516743DFE000406DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CB52A27316AF5B2E00E860A6 /* Parse.framework */,
+				5D2F68B116B04B65005EAC8E /* Parse.framework */,
 				5DFCCE38169C506C004E63CF /* libz.dylib */,
 				5DFCCE36169C5054004E63CF /* libTestFlight.a */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
@@ -681,6 +681,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"/**",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Downloads\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";
@@ -704,6 +705,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"/**",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Downloads\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";
