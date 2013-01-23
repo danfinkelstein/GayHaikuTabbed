@@ -28,7 +28,8 @@
     
                 //Load nav bar
     
-    [self loadNavBar:@"Buy"];   
+    [self loadNavBar:@"Buy"];
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     [self seeNavBar];
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
@@ -39,6 +40,7 @@
     {
         webV = [[UIWebView alloc] init];
         webV.scalesPageToFit=YES;
+        webV.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     }
     webV.delegate = self;
     
@@ -69,13 +71,15 @@
     
                 //Create navigation buttons for the right (stop and refresh).
     
-    //UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
     UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
+    stop.style = UIBarButtonItemStyleBordered;
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
     
                 //Load the nav bar.
     
     [bar removeFromSuperview];
     [self loadNavBar:@"Buy"];
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
                 //Add the right buttons to the nav bar.
     
@@ -84,26 +88,26 @@
     
                 //Create whatever left buttons are appropriate and add to the arrays.
     
-    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
-    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
+    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
+    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
+    backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     if (webV.canGoBack) {
-        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    }
-    else {
-        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
+        backButt.style = UIBarButtonItemStyleBordered;
     }
     if (webV.canGoForward) {
-        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    }
-    else {
-        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
+        forButt.style = UIBarButtonItemStyleBordered;
     }
     
                 //Add the left buttons to the nav bar.
     
     [leftButtons addObject:backButt];
     [leftButtons addObject:forButt];
-    navBarTitle.leftBarButtonItems=leftButtons;
+    [leftButtons addObject:flex];
+    [leftButtons addObject:stop];
+    bar.items = leftButtons;
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    //navBarTitle.leftBarButtonItems=leftButtons;
     [self seeNavBar];
 }
 
@@ -111,16 +115,51 @@
     
                 //Create the arrays to hold navigation buttons.
     
-    NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
+    [indicator stopAnimating];
+    
+    //NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
     NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
     
                 //Create navigation buttons for the right (stop and refresh).
     
     UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
+    refresh.style = UIBarButtonItemStyleBordered;
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
+    
+    //Load the nav bar.
+    
+    [bar removeFromSuperview];
+    [self loadNavBar:@"Buy"];
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    
+    //Add the right buttons to the nav bar.
+    
+    navBarTitle.rightBarButtonItem=refresh;
+    navBarTitle.hidesBackButton=YES;
+    
+    //Create whatever left buttons are appropriate and add to the arrays.
+    
+    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
+    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
+    backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    if (webV.canGoBack) {
+        backButt.style = UIBarButtonItemStyleBordered;
+    }
+    if (webV.canGoForward) {
+        forButt.style = UIBarButtonItemStyleBordered;
+    }
+    
+    //Add the left buttons to the nav bar.
+    
+    [leftButtons addObject:backButt];
+    [leftButtons addObject:forButt];
+    [leftButtons addObject:flex];
+    [leftButtons addObject:refresh];
     
                 //Add them to the right array.
     
-    [rightButtons addObject:refresh];
+    //[rightButtons addObject:refresh];
     
                 //Load the nav bar.
     
@@ -128,38 +167,8 @@
     [self loadNavBar:@"Buy"];
     
                 //Add the right buttons to the nav bar.
-    
-    navBarTitle.rightBarButtonItem=refresh;
-    navBarTitle.hidesBackButton=YES;
-    
-                //Create whatever left buttons are appropriate and add to the arrays.
-    
-    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webBack")];
-    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStyleBordered target:self action:NSSelectorFromString(@"webForward")];
-    if (webV.canGoBack) {
-        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    }
-    else {
-        backButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
-    }
-    if (webV.canGoForward) {
-        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    }
-    else {
-        forButt.tintColor=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:0.75];
-    }
-                //Add the left buttons to the nav bar.
-    
-    [leftButtons addObject:backButt];
-    [leftButtons addObject:forButt];
-    navBarTitle.leftBarButtonItems=leftButtons;
-    
-                //Lose the activity indicator.
-    
-    [indicator stopAnimating];
-    
-                //Display the nav bar.
-    
+    bar.items=leftButtons;
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     [self seeNavBar];
 }
 
@@ -202,16 +211,23 @@
                 //Creates a nav bar.
     
     [bar removeFromSuperview];
-    bar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
+    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, 32)];
+    }
+    else bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
     navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
+    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
+    bar.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin;
 }
 
 -(void)seeNavBar {
     
                 //Adds the nav bar to the screen.
     
-    [bar pushNavigationItem:navBarTitle animated:YES];
-    [bar setTintColor:screenColor];
+    //[bar pushNavigationItem:navBarTitle animated:YES];
+    [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
+    bar.translucent=YES;
     [self.view addSubview:bar];
 }
 

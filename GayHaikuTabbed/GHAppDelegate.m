@@ -13,6 +13,7 @@
 #import "GHSettingsViewController.h"
 #import "GHFeedback.h"
 #import <Parse/Parse.h>
+#import "GHTabBarController.h"
 
 @implementation GHAppDelegate
 
@@ -67,15 +68,19 @@
     fvc.tabBarItem.image = [UIImage imageNamed:@"18-envelope.png"];
     [tabItems addObject:fvc];
     
-    GHSettingsViewController *svc = [[GHSettingsViewController alloc] init];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    //GHSettingsViewController *svc = [storyboard instantiateInitialViewController];
+    GHSettingsViewController *svc = [storyboard instantiateViewControllerWithIdentifier:@"settings"];
+    //GHSettingsViewController *svc = [[GHSettingsViewController alloc] init];
+    NSLog(@"%@, %@",storyboard,svc);
     svc.tabBarItem.title = @"Settings";
     svc.tabBarItem.image = [UIImage imageNamed:@"20-gear-2.png"];
     [tabItems addObject:svc];
     
-    UITabBarController *tbc = [[UITabBarController alloc] init];
+    GHTabBarController *tbc = [[GHTabBarController alloc] init];
     tbc.viewControllers = tabItems;
     self.window.rootViewController = tbc;
-
+    
     return YES;
 }
 

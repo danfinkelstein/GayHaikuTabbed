@@ -94,6 +94,7 @@
     
     [self displayHaiku];
     [self showNavBarOnTap];
+    userInfo = [GHAppDefaults sharedInstance];
     
 }
 
@@ -208,15 +209,23 @@
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
 
+    int fontSize;
+    if (userInfo.largeText) {
+        fontSize=largeFontSize;
+    }
+    else {
+        fontSize=mediumFontSize;
+    }
+    
                     //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
-    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize] constrainedToSize:dimensions lineBreakMode:0];
     
 //If this is a problem, replace mediumFontSize in above line with largeFontSize.
     
     int textWidth = xySize.width+16;
-    int textHeight = xySize.height+16;
+    textHeight = xySize.height+16;
     
                 //Set UITextView and its characteristics
     
@@ -224,9 +233,9 @@
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
     displayHaikuTextView.userInteractionEnabled=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
-    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight)];
+    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight*2)];
  
                 //Set animation
     

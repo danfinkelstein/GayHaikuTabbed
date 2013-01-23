@@ -199,7 +199,8 @@
     @"simile" : @3,
     @"forever" : @3,
     @"shoreline" : @2,
-    @"poetry" : @3
+    @"poetry" : @3,
+    @"twelve" : @1
     };
     // if one of the preceding words, return special case value
     NSNumber *caught = exceptions[self];
@@ -216,7 +217,6 @@
     @"giu",
     @"ion",
     @"iou",
-    @"twelve",
     @"sia$",
     @"[^aeiuoyt]{2}ed$",
     @".ely$",

@@ -26,6 +26,9 @@ extern int const gap;
 @property (nonatomic) BOOL optOutSeen;                      //Has user ever been shown opt-out screen?
 @property (nonatomic) BOOL instructionsSeen;                //Has user ever been shown the instructions?
 @property (nonatomic) BOOL instructionsSwipedToFromOptOut;  //Has user ever swiped from settings screen to instructions screen?
+@property (nonatomic) BOOL largeText;
+@property (nonatomic) BOOL disableSyllableCheck;
+@property (nonatomic) BOOL permissionDenied;
 @property (nonatomic, strong) NSString *author;             //Author name the user has entered.
 @property (nonatomic, strong) NSUserDefaults *defaults;     //Instantiation of user defaults.
 

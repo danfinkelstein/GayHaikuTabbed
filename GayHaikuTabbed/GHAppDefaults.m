@@ -22,7 +22,7 @@ int const gap = 10;
 
 @implementation GHAppDefaults
 
-@synthesize checkboxUnchecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults;
+@synthesize checkboxUnchecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults, largeText, disableSyllableCheck, permissionDenied;
 
 + (GHAppDefaults *)sharedInstance {
     
@@ -67,6 +67,24 @@ int const gap = 10;
     }
     else {
         self.instructionsSwipedToFromOptOut = NO;
+    }
+    if ([defaults boolForKey:@"permissionDenied?"]) {
+        self.permissionDenied = [defaults boolForKey:@"permissionDenied?"];
+    }
+    else {
+        self.permissionDenied = NO;
+    }
+    if ([defaults boolForKey:@"largeText?"]) {
+        self.largeText = [defaults boolForKey:@"largeText?"];
+    }
+    else {
+        self.largeText = NO;
+    }
+    if ([defaults boolForKey:@"disableSyllableCheck?"]) {
+        self.disableSyllableCheck = [defaults boolForKey:@"disableSyllableCheck?"];
+    }
+    else {
+        self.disableSyllableCheck = NO;
     }
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST

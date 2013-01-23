@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="INd-ZO-V20">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+    </dependencies>
+    <scenes>
+        <!--Settings View Controller-->
+        <scene sceneID="exK-HO-Dar">
+            <objects>
+                <viewController storyboardIdentifier="settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="INd-ZO-V20" customClass="GHSettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mfu-Ti-sbb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wql-Lf-Zfk">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="K5l-f9-aeu"/>
+                                </constraints>
+                                <string key="text">I hope to update the Gay Haiku app with new haiku, and I'd like permission to include your haiku (or haiku inspired by yours) in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="input.png" translatesAutoresizingMaskIntoConstraints="NO" id="97c-s1-OKn"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name (optional)" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uy5-vc-lH7">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="cdY-lO-m4n"/>
+                                    <constraint firstAttribute="height" constant="30" id="scD-td-p1q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Permission to use your haiku?" translatesAutoresizingMaskIntoConstraints="NO" id="uI2-XJ-aOR">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="3nD-oU-JO0"/>
+                                    <constraint firstAttribute="height" constant="24" id="XjJ-pv-hCS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Text (large may affect layout)?" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-37-vBh">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="0uv-DC-jLs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Syllable verification?" translatesAutoresizingMaskIntoConstraints="NO" id="Fzt-7s-7zj">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="r8s-Wr-R1v"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="CFp-xw-pZ1">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="95" id="eJR-Un-A2k"/>
+                                </constraints>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <color key="tintColor" red="0.84313725490196079" green="0.5490196078431373" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="givePermission:" destination="INd-ZO-V20" eventType="valueChanged" id="YgP-Ij-0Kc"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Y4h-zg-jjh">
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <color key="tintColor" red="0.84313725490196079" green="0.5490196078431373" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="determineTextSize:" destination="INd-ZO-V20" eventType="valueChanged" id="kZm-bn-kyT"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="z8f-c3-qLX">
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <color key="tintColor" red="0.84313725490196079" green="0.5490196078431373" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="disableSyllableVerification:" destination="INd-ZO-V20" eventType="valueChanged" id="D5u-1E-u06"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wql-Lf-Zfk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="2p3-r2-dRH"/>
+                            <constraint firstAttribute="trailing" secondItem="z8f-c3-qLX" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="6fp-gK-Q6j"/>
+                            <constraint firstItem="97c-s1-OKn" firstAttribute="top" secondItem="wql-Lf-Zfk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="7JJ-Uj-bZH"/>
+                            <constraint firstItem="uI2-XJ-aOR" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Dpe-iV-w0U"/>
+                            <constraint firstItem="Fzt-7s-7zj" firstAttribute="trailing" secondItem="UPh-37-vBh" secondAttribute="trailing" type="default" id="EKG-oW-Gz0"/>
+                            <constraint firstItem="UPh-37-vBh" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Oxu-7k-ok9"/>
+                            <constraint firstItem="Fzt-7s-7zj" firstAttribute="top" secondItem="z8f-c3-qLX" secondAttribute="top" type="default" id="ZB9-s1-RUn"/>
+                            <constraint firstItem="Y4h-zg-jjh" firstAttribute="leading" secondItem="CFp-xw-pZ1" secondAttribute="leading" type="default" id="ZV0-yC-xPs"/>
+                            <constraint firstItem="Y4h-zg-jjh" firstAttribute="top" secondItem="CFp-xw-pZ1" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="bcd-1E-BKa"/>
+                            <constraint firstItem="UPh-37-vBh" firstAttribute="top" secondItem="Y4h-zg-jjh" secondAttribute="top" type="default" id="bll-tt-0da"/>
+                            <constraint firstItem="z8f-c3-qLX" firstAttribute="top" secondItem="Y4h-zg-jjh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="cag-2G-VQs"/>
+                            <constraint firstItem="uI2-XJ-aOR" firstAttribute="top" secondItem="uy5-vc-lH7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="clG-f4-FnT"/>
+                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="top" secondItem="mfu-Ti-sbb" secondAttribute="top" constant="129" id="gNQ-Zw-pfF"/>
+                            <constraint firstItem="uI2-XJ-aOR" firstAttribute="top" secondItem="97c-s1-OKn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hde-01-dxa"/>
+                            <constraint firstItem="z8f-c3-qLX" firstAttribute="leading" secondItem="Y4h-zg-jjh" secondAttribute="leading" type="default" id="ht2-ED-MA2"/>
+                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="luL-nO-lGR"/>
+                            <constraint firstItem="Fzt-7s-7zj" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="nXF-XV-PuM"/>
+                            <constraint firstAttribute="trailing" secondItem="Y4h-zg-jjh" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="oHi-j0-3rC"/>
+                            <constraint firstItem="uy5-vc-lH7" firstAttribute="centerX" secondItem="97c-s1-OKn" secondAttribute="centerX" type="default" id="qjX-GF-A16"/>
+                            <constraint firstItem="UPh-37-vBh" firstAttribute="trailing" secondItem="uI2-XJ-aOR" secondAttribute="trailing" type="default" id="v1D-ID-7Y6"/>
+                            <constraint firstItem="wql-Lf-Zfk" firstAttribute="centerX" secondItem="uy5-vc-lH7" secondAttribute="centerX" type="default" id="y7x-bn-6oe"/>
+                            <constraint firstAttribute="trailing" secondItem="CFp-xw-pZ1" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="yE1-ft-yiw"/>
+                            <constraint firstItem="uy5-vc-lH7" firstAttribute="top" secondItem="wql-Lf-Zfk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="zbp-uh-kEW"/>
+                            <constraint firstItem="CFp-xw-pZ1" firstAttribute="top" secondItem="uy5-vc-lH7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="zw0-Tc-Vn8"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="disableVerification" destination="z8f-c3-qLX" id="ZG8-zA-QkG"/>
+                        <outlet property="large" destination="Y4h-zg-jjh" id="yl4-7o-Nqt"/>
+                        <outlet property="nameField" destination="uy5-vc-lH7" id="jQJ-n3-EzF"/>
+                        <outlet property="permissionDenied" destination="CFp-xw-pZ1" id="Y97-uk-BjS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1d-JJ-f1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1460" y="-873"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="input.png" width="228" height="31"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

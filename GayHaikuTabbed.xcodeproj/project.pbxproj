@@ -21,8 +21,6 @@
 		5D76BE7316AA2C3C00DB1A87 /* 5instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6B16AA2C3C00DB1A87 /* 5instructions.png */; };
 		5D76BE8416AA384700DB1A87 /* compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE8316AA384700DB1A87 /* compose.png */; };
 		5D76BE8816AA3A7200DB1A87 /* 5compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE8716AA3A7200DB1A87 /* 5compose.png */; };
-		5D8825B416744295007DF2E2 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825B316744295007DF2E2 /* Parse.framework */; };
-		5D8825B516744295007DF2E2 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825B316744295007DF2E2 /* Parse.framework */; };
 		5D8825D51674442B007DF2E2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825B71674430E007DF2E2 /* Accounts.framework */; };
 		5D8825D61674442B007DF2E2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825B81674430E007DF2E2 /* AdSupport.framework */; };
 		5D8825D71674442B007DF2E2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8825B91674430E007DF2E2 /* AudioToolbox.framework */; };
@@ -61,6 +59,8 @@
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA4251169FBA8300187D2B /* GHAppDefaults.m */; };
+		5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */; };
+		5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */; };
 		5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAAC50167462AE008EB101 /* userHaiku.plist */; };
 		5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
 		5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945816743DFF000406DF /* Foundation.framework */; };
@@ -94,6 +94,7 @@
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
+		CB52A27416AF5B2E00E860A6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB52A27316AF5B2E00E860A6 /* Parse.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,7 +122,6 @@
 		5D76BE6B16AA2C3C00DB1A87 /* 5instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5instructions.png; sourceTree = "<group>"; };
 		5D76BE8316AA384700DB1A87 /* compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compose.png; sourceTree = "<group>"; };
 		5D76BE8716AA3A7200DB1A87 /* 5compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5compose.png; sourceTree = "<group>"; };
-		5D8825B316744295007DF2E2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D8825B71674430E007DF2E2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		5D8825B81674430E007DF2E2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5D8825B91674430E007DF2E2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -160,6 +160,9 @@
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
 		5DAA4250169FBA8300187D2B /* GHAppDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDefaults.h; sourceTree = "<group>"; };
 		5DAA4251169FBA8300187D2B /* GHAppDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDefaults.m; sourceTree = "<group>"; };
+		5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		5DAF2E8A16AF48A600597EC0 /* GHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTabBarController.h; sourceTree = "<group>"; };
+		5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTabBarController.m; sourceTree = "<group>"; };
 		5DBAAC50167462AE008EB101 /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DBC945216743DFE000406DF /* GayHaikuTabbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaikuTabbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBC945616743DFE000406DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -199,6 +202,7 @@
 		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
+		CB52A27316AF5B2E00E860A6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,13 +224,13 @@
 				5D8825E01674447B007DF2E2 /* libz.1.1.3.dylib in Frameworks */,
 				5D8825E11674449F007DF2E2 /* MessageUI.framework in Frameworks */,
 				5D8825E21674449F007DF2E2 /* MobileCoreServices.framework in Frameworks */,
-				5D8825B416744295007DF2E2 /* Parse.framework in Frameworks */,
 				5D8825D916744448007DF2E2 /* QuartzCore.framework in Frameworks */,
 				5D8825DA16744448007DF2E2 /* Security.framework in Frameworks */,
 				5D8825DB16744448007DF2E2 /* Social.framework in Frameworks */,
 				5D8825DC16744448007DF2E2 /* StoreKit.framework in Frameworks */,
 				5D8825DD16744448007DF2E2 /* SystemConfiguration.framework in Frameworks */,
 				5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */,
+				CB52A27416AF5B2E00E860A6 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +241,6 @@
 				5DBC948616743E00000406DF /* SenTestingKit.framework in Frameworks */,
 				5DBC948716743E00000406DF /* UIKit.framework in Frameworks */,
 				5DBC948816743E00000406DF /* Foundation.framework in Frameworks */,
-				5D8825B516744295007DF2E2 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +282,7 @@
 		5DBC945516743DFE000406DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB52A27316AF5B2E00E860A6 /* Parse.framework */,
 				5DFCCE38169C506C004E63CF /* libz.dylib */,
 				5DFCCE36169C5054004E63CF /* libTestFlight.a */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
@@ -296,7 +300,6 @@
 				5D8825BA1674430E007DF2E2 /* CFNetwork.framework */,
 				5D8825BB1674430E007DF2E2 /* CoreLocation.framework */,
 				5D8825C91674437A007DF2E2 /* QuartzCore.framework */,
-				5D8825B316744295007DF2E2 /* Parse.framework */,
 				5DBC945616743DFE000406DF /* UIKit.framework */,
 				5DBC945816743DFF000406DF /* Foundation.framework */,
 				5DBC945A16743DFF000406DF /* CoreGraphics.framework */,
@@ -319,6 +322,9 @@
 				5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */,
 				5D8825F6167446C8007DF2E2 /* GHFeedback.h */,
 				5D8825F7167446C8007DF2E2 /* GHFeedback.m */,
+				5DAF2E8A16AF48A600597EC0 /* GHTabBarController.h */,
+				5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */,
+				5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */,
 				5DFCCE2F169A4F7C004E63CF /* Model */,
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
@@ -514,6 +520,7 @@
 				5DD2770616AE05EF001262A0 /* checkboxChecked@2x.png in Resources */,
 				5DD2770716AE05EF001262A0 /* checkboxChecked.png in Resources */,
 				5DD2770916AE1B57001262A0 /* input.png in Resources */,
+				5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +569,7 @@
 				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
 				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
 				5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */,
+				5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +679,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"/**",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -693,6 +702,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"/**",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

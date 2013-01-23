@@ -186,6 +186,12 @@
     textView.editable=YES;
     textView.backgroundColor = [UIColor clearColor];
     textView.hidden=NO;
+    int fontSize;
+    if (userSettings.largeText==YES) {
+        fontSize=mediumFontSize;
+    }
+    else fontSize=smallFontSize;
+    textView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
     
                 //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
     
@@ -383,7 +389,7 @@
     }
 }
 
--(void)verifySyllables {
+-(BOOL)verifySyllables {
     
                 //Create an instance of GHVerify if one doesn't exist.
     
@@ -441,17 +447,17 @@
         NSString *phrase;
         NSString *number;
         if (arrayOfLinesToAlert.count==1) {
-            number = [NSString stringWithFormat:@"line %@",[arrayOfLinesToAlert objectAtIndex:0] ];
+            number = [NSString stringWithFormat:@"line %@ has",[arrayOfLinesToAlert objectAtIndex:0] ];
         }
         else if (arrayOfLinesToAlert.count==2) {
-            number = [NSString stringWithFormat:@"lines %@ and %@",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1]];
+            number = [NSString stringWithFormat:@"lines %@ and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1]];
             }
         else if (arrayOfLinesToAlert.count==3) {
-            number = [NSString stringWithFormat:@"lines %@, %@, and %@",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
+            number = [NSString stringWithFormat:@"lines %@, %@, and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
         }
-        phrase = [NSString stringWithFormat:@"%@ might have the wrong number of syllables. You need 5-7-5. ",number];
+        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
         if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
-                alertMessage = [alertMessage stringByAppendingFormat:@" Also, %@",phrase];
+                alertMessage = [alertMessage stringByAppendingFormat:@" Also, I think %@",phrase];
             }
         else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
         }
@@ -460,27 +466,29 @@
     
                 //If the alert message needs displaying (i.e., if it goes beyond the introductory "I'm sorry" phrase, which is 15 characters long), add an ending to it and display it with an alertView.
     
+    if (userSettings.disableSyllableCheck==YES) {
+        syllablesWrong=YES;
+        [self saveUserHaiku];
+        return YES;
+    }
+    
     if (alertMessage.length>15) {
-        NSString *add = @"Are you certain you'd like to continue saving?";
+        NSString *add = @"If I'm wrong, I'll make note of it so I can do better in future releases. Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
-        /*if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"compose.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5compose.png"];
-        }*/
         [alert show];
+        return YES;
     }
     
                 //Otherwise, save the haiku.
     
     else {
         [self saveUserHaiku];
+        return NO;
     }
 }
 
--(void)checkForRepeats {
+-(BOOL)checkForRepeats {
     
                 //Check to see whether the haiku the user has written is an exact duplicate of one already in the database.
     
@@ -494,31 +502,39 @@
             ghhaiku.justComposed=YES;
             ghhaiku.newIndex = i;
             [self.tabBarController setSelectedIndex:0];
+            return YES;
         }
     }
+    return NO;
+
+//JUST MADE THIS A BOOL--returns added 1/22/13
+    
 }
 
 -(BOOL)saveUserHaiku
 {
-
-                //Get out of this if the haiku is a repeat of one the user has already written.
-    
-    [self checkForRepeats];
     
                 //Add the user's name to the haiku if s/he has entered one.
     
-    NSString *textWithAttribution;
     if (userSettings.author) {
         //Add the user's name to the haiku
-        textWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t%@",userSettings.author];
+        haikuWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t%@",userSettings.author];
     }
     else {
-        textWithAttribution = textView.text;
+        haikuWithAttribution = textView.text;
+    }
+    
+    //Get out of this if the haiku is a repeat of one the user has already written.
+    
+    [self checkForRepeats];
+    if ([self checkForRepeats]==YES) {
+        return YES;
+//JUST ADDED THIS RETURN 1/22/13, and switched position with checking for edited, so that haiku with names won't fail check against haiku without.
     }
     
                 //Create the dictionary item of the new haiku to save in userHaiku.plist.
     
-    NSArray *collectionOfHaiku = [[NSArray alloc] initWithObjects:@"user", textWithAttribution, nil];
+    NSArray *collectionOfHaiku = [[NSArray alloc] initWithObjects:@"user", haikuWithAttribution, nil];
     NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"haiku",nil];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:collectionOfHaiku forKeys:keys];
 
@@ -563,13 +579,26 @@
                 //Indicate whether I have permission to use it.
     
     NSString *perm;
-    if (userSettings.checkboxUnchecked) {
-        perm=@"Yes";
-    }
-    else {
+    if (userSettings.permissionDenied) {
         perm=@"No";
     }
+    else {
+        perm=@"Yes";
+    }
     [haikuObject setObject:perm forKey:@"permission"];
+    
+                //Indicate whether syllables have been misanalyzed.
+    NSString *misanalysis;
+    if (syllablesWrong) {
+        misanalysis=@"Yes";
+    }
+    else {
+        misanalysis=@"No";
+    }
+    syllablesWrong=NO;
+    [haikuObject setObject:misanalysis forKey:@"misanalyzed"];
+    
+//Need to go to parse.com to add the above category to database.
     
                //Send the PFObject.
 
@@ -601,8 +630,13 @@
                 //Otherwise, save haiku despite solecisms.
     
     else if (buttonIndex == 1) {
+        syllablesWrong=YES;
         [self saveUserHaiku];
     }
+}
+
+-(void)reportSyllableMisanalysis {
+    
 }
 
 @end

@@ -10,7 +10,7 @@
 
 @interface GHWebViewController : UIViewController {
     UIActivityIndicatorView *indicator;
-    UINavigationBar *bar;
+    UIToolbar *bar;
     UINavigationItem *navBarTitle;
     UIAlertView *alert;
     UIWebView *webV;

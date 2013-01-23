@@ -27,6 +27,7 @@
     GHAppDefaults *userInfo;
     int screenHeight;
     int screenWidth;
+    float textHeight;
 }
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;

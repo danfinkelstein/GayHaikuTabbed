@@ -59,7 +59,33 @@
         background.image=[UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:background];
-    [self displaySettingsScreen];
+    [self.view sendSubviewToBack:background];
+    
+    if (userSettings.permissionDenied==NO) {
+        permissionDenied.selectedSegmentIndex=0;
+        [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
+    }
+    else {
+        permissionDenied.selectedSegmentIndex=1;
+        [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
+    }
+    if (userSettings.largeText==NO) {
+        large.selectedSegmentIndex=0;
+        [large setTitle:@"Small" forSegmentAtIndex:0];
+    }
+    else {
+        large.selectedSegmentIndex=1;
+        [large setTitle:@"Large" forSegmentAtIndex:1];
+    }
+    if (userSettings.disableSyllableCheck==NO) {
+        disableVerification.selectedSegmentIndex=0;
+        [disableVerification setTitle:@"On" forSegmentAtIndex:0];
+    }
+    else {
+        disableVerification.selectedSegmentIndex=1;
+        [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
+    }
+    nameField.delegate=self;
 }
 
 -(void)switchToInstructions {
@@ -114,7 +140,7 @@
     [self.view addSubview:swipeInstructions];
 }
 
--(void)displaySettingsScreen {
+/*-(void)displaySettingsScreen {
 
     [infoAbout removeFromSuperview];
     [backButton removeFromSuperview];
@@ -167,6 +193,11 @@
         [checkboxButton setImage:[UIImage imageNamed:@"checkboxUnchecked.png"] forState:UIControlStateNormal];
         [checkboxButton addTarget:self action:@selector(checkCheckbox) forControlEvents:UIControlEventTouchUpInside];
     }
+    NSString *textForSettingsThree = @"Gay Haiku v. 1.0, ©2012 by Joel Derfner. Thanks to Dan Finkelstein and beta testers. Graphics by iphone-icon.com.";
+    UITextView *settingsThree = [[UITextView alloc] initWithFrame:CGRectMake(screenWidth/2-150, settingsHeight + gap + nameFieldHeight + gap + 200, 300, 100)];
+    settingsThree.backgroundColor=[UIColor clearColor];
+    settingsThree.text=textForSettingsThree;
+    [self.view addSubview:settingsThree];
         aboutButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"About"]];
         [aboutButton setSegmentedControlStyle:UISegmentedControlStyleBar];
         aboutButton.tintColor = screenColor;
@@ -188,9 +219,9 @@
     }
 
     [self textFieldShouldReturn:nameField];
-}
+}*/
 
--(void)showAbout {
+/*-(void)showAbout {
     
                         //Clear the screen.
     
@@ -224,7 +255,7 @@
     infoAbout.frame = CGRectMake(screenWidth/2-xySize.width/2, screenHeight/2-(xySize.height*10)/2, xySize.width+12, xySize.height*8);
     infoAbout.dataDetectorTypes=UIDataDetectorTypeLink;
     [self.view addSubview:infoAbout];
-}
+}*/
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {
     [tF becomeFirstResponder];
@@ -242,7 +273,7 @@
     }
 }
 
--(void)displayButton {
+/*-(void)displayButton {
     
                 //Displays a checkmark if the user has opted out, a blank box if not.
     
@@ -252,9 +283,9 @@
     else if (!userSettings.checkboxUnchecked) {
         [checkboxButton setImage:[UIImage imageNamed:@"checkboxChecked.png"] forState:UIControlStateNormal];
     }
-}
+}*/
 
-- (void)checkCheckbox {
+/*- (void)checkCheckbox {
     
                 //Change the checkbox setting.
     
@@ -268,6 +299,51 @@
     
     [userSettings.defaults setBool:userSettings.checkboxUnchecked forKey:@"checked?"];
     [userSettings.defaults synchronize];
+}*/
+
+-(IBAction)givePermission:(UISegmentedControl *)sender {
+    userSettings.permissionDenied=!userSettings.permissionDenied;
+    [userSettings.defaults setBool:userSettings.permissionDenied forKey:@"permissionDenied?"];
+    [userSettings.defaults synchronize];
+    if (permissionDenied.selectedSegmentIndex==0) {
+        [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
+        [permissionDenied setTitle:@"" forSegmentAtIndex:1];
+    }
+    else {
+        [permissionDenied setTitle:@"" forSegmentAtIndex:0];
+        [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
+    }
+}
+
+-(IBAction)determineTextSize:(UISegmentedControl *)sender {
+    NSLog(@"large text: %d",userSettings.largeText);
+    userSettings.largeText=!userSettings.largeText;
+    [userSettings.defaults setBool:userSettings.largeText forKey:@"largeText?"];
+    [userSettings.defaults synchronize];
+    NSLog(@"large text: %d",userSettings.largeText);
+    if (large.selectedSegmentIndex==0) {
+        [large setTitle:@"Small" forSegmentAtIndex:0];
+        [large setTitle:@"" forSegmentAtIndex:1];
+    }
+    else {
+        [large setTitle:@"" forSegmentAtIndex:0];
+        [large setTitle:@"Large" forSegmentAtIndex:1];
+    }
+    NSLog(@"%d",large.selectedSegmentIndex);
+}
+
+-(IBAction)disableSyllableVerification:(UISegmentedControl *)sender {
+    userSettings.disableSyllableCheck=!userSettings.disableSyllableCheck;
+    [userSettings.defaults setBool:userSettings.disableSyllableCheck forKey:@"disableSyllableCheck?"];
+    [userSettings.defaults synchronize];
+    if (disableVerification.selectedSegmentIndex==0) {
+        [disableVerification setTitle:@"On" forSegmentAtIndex:0];
+        [disableVerification setTitle:@"" forSegmentAtIndex:1];
+    }
+    else {
+        [disableVerification setTitle:@"" forSegmentAtIndex:0];
+        [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
