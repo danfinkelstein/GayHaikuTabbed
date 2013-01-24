@@ -56,7 +56,8 @@
     
                 //If the user hasn't ever seen the opt out screen, show it.
 
-    if (userSettings.optOutSeen==NO) { 
+    if (userSettings.optOutSeen==NO) {
+        NSLog(@"Sending to opt-out");
         [self.tabBarController setSelectedIndex:4];
     }
     
@@ -515,16 +516,16 @@
 {
     
                 //Add the user's name to the haiku if s/he has entered one.
-    
     if (userSettings.author) {
+        NSLog(@"adding author name: %@",userSettings.author);
         //Add the user's name to the haiku
-        haikuWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t\t%@",userSettings.author];
+        haikuWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t%@",userSettings.author];
     }
     else {
         haikuWithAttribution = textView.text;
     }
     
-    //Get out of this if the haiku is a repeat of one the user has already written.
+                //Get out of this if the haiku is a repeat of one the user has already written.
     
     [self checkForRepeats];
     if ([self checkForRepeats]==YES) {

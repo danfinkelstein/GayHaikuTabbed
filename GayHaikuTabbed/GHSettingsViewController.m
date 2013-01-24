@@ -41,6 +41,7 @@
                 //Add swipe gesure recognizer if user has never swiped from settings to instructions.
     
    if (userSettings.instructionsSwipedToFromOptOut==NO) {
+       NSLog(@"Adding swipe gesture recognizer");
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
         swipeLeft.numberOfTouchesRequired = 1;
         swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -74,14 +75,6 @@
         permissionDenied.selectedSegmentIndex=1;
         [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
     }
-    /*if (userSettings.largeText==NO) {
-        large.selectedSegmentIndex=0;
-        [large setTitle:@"Small" forSegmentAtIndex:0];
-    }
-    else {
-        large.selectedSegmentIndex=1;
-        [large setTitle:@"Large" forSegmentAtIndex:1];
-    }*/
     if (userSettings.disableSyllableCheck==NO) {
         disableVerification.selectedSegmentIndex=0;
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
@@ -91,12 +84,16 @@
         [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
     }
     nameField.delegate=self;
+    /*if (!userSettings.optOutSeen) {
+        [self addSwipeForRight];
+    }
+    /*userSettings.optOutSeen=YES;
+    [userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
+    [userSettings.defaults synchronize];*/
 }
 
 -(void)switchToInstructions {
-    if (userSettings.instructionsSwipedToFromOptOut==NO) {
-        [self.tabBarController setSelectedIndex:1];
-    }
+    [self.tabBarController setSelectedIndex:1];
 }
 
 -(void)displayInfo {
@@ -104,8 +101,8 @@
     [behindTheScenesInfo show];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (userSettings.optOutSeen) {
         [swipeInstructions removeFromSuperview];
     }
@@ -149,8 +146,6 @@
     
     [self.view addSubview:swipeInstructions];
 }
-
-
 
 /*-(void)displaySettingsScreen {
 

@@ -69,10 +69,7 @@
     [tabItems addObject:fvc];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
-    //GHSettingsViewController *svc = [storyboard instantiateInitialViewController];
     GHSettingsViewController *svc = [storyboard instantiateViewControllerWithIdentifier:@"settings"];
-    //GHSettingsViewController *svc = [[GHSettingsViewController alloc] init];
-    NSLog(@"%@, %@",storyboard,svc);
     svc.tabBarItem.title = @"Settings";
     svc.tabBarItem.image = [UIImage imageNamed:@"20-gear-2.png"];
     [tabItems addObject:svc];

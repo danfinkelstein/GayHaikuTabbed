@@ -16,8 +16,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
 #import <Social/Social.h>
-#import "GHAppDefaults.h"
-
 
 
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
@@ -75,6 +73,7 @@
     self.ghhaiku = [GHHaiku sharedInstance];
     [self.ghhaiku loadHaiku];
     
+    
                 //Add Parse
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
@@ -98,7 +97,7 @@
     
 }
 
--(UITextView *)createSwipeToAdd: (NSString *)word {
+-(UITextView *)createSwipeToAdd {
     
                 //Create "Swipe" text and its characteristics
     
@@ -106,9 +105,8 @@
     instructions.editable=NO;
     instructions.userInteractionEnabled=NO;
     instructions.textColor = screenColorOp;
-    instructions.alpha=1;
     instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = word;
+    instructions.text = @"Swipe";
     instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
     return instructions;
 }
@@ -198,6 +196,24 @@
 
 #pragma mark DISPLAY METHODS
 
+-(void)measureWidthOfTextView {
+    if (!verify) {
+        verify = [[GHVerify alloc] init];
+    }
+    float widthOfLongestLineSoFar = 0.0;
+    NSArray *lines = [verify splitHaikuIntoLines:self.ghhaiku.text];
+    NSLog(@"array: %@",lines);
+    for (int i = 0; i < lines.count; i++) {
+        CGSize sizeOfLine = [[verify.listOfLines objectAtIndex:i] sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
+        float widthOfLineUnderConsideration = sizeOfLine.width;
+        NSLog(@"Width of line %d is %f",i,widthOfLineUnderConsideration);
+        if (widthOfLongestLineSoFar<widthOfLineUnderConsideration) {
+            widthOfLongestLineSoFar = widthOfLineUnderConsideration;
+        }
+    }
+    textWidth = widthOfLongestLineSoFar;
+}
+
 -(void)displayHaiku {
     
 //WHEN LARGE TEXT SIZE IS SELECTED BY DEFAULT, FIRST HAIKU STILL APPEARS IN SMALL TEXT SIZE.  WHY?
@@ -210,17 +226,20 @@
     
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
-
+    NSLog(@"%@",self.ghhaiku.text);
+    [self measureWidthOfTextView];
+    NSLog(@"In display method, longest line width is %f",textWidth);
+    
     int fontSize = 15;
     
                     //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize] constrainedToSize:dimensions lineBreakMode:0];
-    
+
 //If this is a problem, replace mediumFontSize in above line with largeFontSize.
     
-    int textWidth = xySize.width+16;
+    //int textWidth = xySize.width+16;
     textHeight = xySize.height+16;
     
                 //Set UITextView and its characteristics
@@ -231,7 +250,7 @@
     displayHaikuTextView.userInteractionEnabled=NO;
     displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
-    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(xySize.width/2),screenHeight/2-xySize.height,textWidth,textHeight*2)];
+    [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(textWidth/2),screenHeight/2-xySize.height,textWidth/2 + screenWidth/2,textHeight*2)];
  
                 //Set animation
     
@@ -277,7 +296,7 @@
     
                 //Create "swipe" message to be shown with first haiku and set its location.
     
-    rightSwipe = [self createSwipeToAdd:@"Swipe"];
+    rightSwipe = [self createSwipeToAdd];
     CGSize xySize = [rightSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
@@ -294,7 +313,7 @@
     
                 //Create "swipe" message to be shown with second haiku and set its location.
     
-    leftSwipe = [self createSwipeToAdd:@"Swipe"];
+    leftSwipe = [self createSwipeToAdd];
     CGSize xySize = [leftSwipe.text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
     
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.

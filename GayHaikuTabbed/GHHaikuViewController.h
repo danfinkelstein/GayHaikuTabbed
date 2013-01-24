@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
 #import "GHAppDefaults.h"
+#import "GHVerify.h"
 
 @interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate> {
     BOOL leftSwipeSeen;                         //Whether the user has seen "swipe" to get to previous screen
@@ -25,8 +26,10 @@
     UIColor *screenColorTrans;
     UIColor *screenColorOp;
     GHAppDefaults *userInfo;
+    GHVerify *verify;
     int screenHeight;
     int screenWidth;
+    float textWidth;
     float textHeight;
 }
 

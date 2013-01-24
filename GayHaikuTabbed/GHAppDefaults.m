@@ -74,12 +74,6 @@ int const gap = 10;
     else {
         self.permissionDenied = NO;
     }
-    /*if ([defaults boolForKey:@"largeText?"]) {
-        self.largeText = [defaults boolForKey:@"largeText?"];
-    }
-    else {
-        self.largeText = NO;
-    }*/
     if ([defaults boolForKey:@"disableSyllableCheck?"]) {
         self.disableSyllableCheck = [defaults boolForKey:@"disableSyllableCheck?"];
     }
@@ -88,6 +82,7 @@ int const gap = 10;
     }
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+    
     
     self.optOutSeen=NO;
     self.instructionsSeen=NO;
