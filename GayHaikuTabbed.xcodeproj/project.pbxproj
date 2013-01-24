@@ -10,6 +10,9 @@
 		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
 		5D3C89CD169795D600366015 /* temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CC169795D600366015 /* temp background.jpg */; };
 		5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */; };
+		5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
+		5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
+		5D5F878416B1E538000444BC /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
 		5D64890716791F4100A87596 /* 80-shopping-cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */; };
 		5D64891116791FC700A87596 /* 216-compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890C16791FC700A87596 /* 216-compose.png */; };
@@ -51,12 +54,6 @@
 		5D882609167446C8007DF2E2 /* GHVerify.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825FB167446C8007DF2E2 /* GHVerify.m */; };
 		5D88260A167446C8007DF2E2 /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */; };
 		5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */; };
-		5D88261616745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261116745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m */; };
-		5D88261716745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261116745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m */; };
-		5D88261816745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261316745CD3007DF2E2 /* NSString+RegexReplace.m */; };
-		5D88261916745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261316745CD3007DF2E2 /* NSString+RegexReplace.m */; };
-		5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */; };
-		5D88261B16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */; };
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA4251169FBA8300187D2B /* GHAppDefaults.m */; };
@@ -111,6 +108,12 @@
 		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5D3C89CC169795D600366015 /* temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "temp background.jpg"; sourceTree = "<group>"; };
 		5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iPhone5 temp background.jpg"; sourceTree = "<group>"; };
+		5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+SimpleRegex.h"; sourceTree = "<group>"; };
+		5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
+		5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
+		5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexReplace.m"; sourceTree = "<group>"; };
+		5D5F878016B1E538000444BC /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
+		5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D64890416791F4100A87596 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart.png"; sourceTree = "<group>"; };
 		5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart@2x.png"; sourceTree = "<group>"; };
 		5D64890C16791FC700A87596 /* 216-compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "216-compose.png"; sourceTree = "<group>"; };
@@ -152,12 +155,6 @@
 		5D8825FB167446C8007DF2E2 /* GHVerify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHVerify.m; sourceTree = "<group>"; };
 		5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDelegate.h; sourceTree = "<group>"; };
 		5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDelegate.m; sourceTree = "<group>"; };
-		5D88261016745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+SimpleRegex.h"; sourceTree = "<group>"; };
-		5D88261116745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
-		5D88261216745CD3007DF2E2 /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
-		5D88261316745CD3007DF2E2 /* NSString+RegexReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexReplace.m"; sourceTree = "<group>"; };
-		5D88261416745CD3007DF2E2 /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
-		5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
 		5DAA4250169FBA8300187D2B /* GHAppDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDefaults.h; sourceTree = "<group>"; };
 		5DAA4251169FBA8300187D2B /* GHAppDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDefaults.m; sourceTree = "<group>"; };
@@ -250,12 +247,12 @@
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5D88261016745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.h */,
-				5D88261116745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m */,
-				5D88261216745CD3007DF2E2 /* NSString+RegexReplace.h */,
-				5D88261316745CD3007DF2E2 /* NSString+RegexReplace.m */,
-				5D88261416745CD3007DF2E2 /* NSString+RNTextStatistics.h */,
-				5D88261516745CD3007DF2E2 /* NSString+RNTextStatistics.m */,
+				5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */,
+				5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */,
+				5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */,
+				5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */,
+				5D5F878016B1E538000444BC /* NSString+RNTextStatistics.h */,
+				5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -564,9 +561,6 @@
 				5D882606167446C8007DF2E2 /* GHHaiku.m in Sources */,
 				5D882608167446C8007DF2E2 /* GHVerify.m in Sources */,
 				5D88260A167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
-				5D88261616745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m in Sources */,
-				5D88261816745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */,
-				5D88261A16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
 				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
 				5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */,
 				5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */,
@@ -585,9 +579,9 @@
 				5D882607167446C8007DF2E2 /* GHHaiku.m in Sources */,
 				5D882609167446C8007DF2E2 /* GHVerify.m in Sources */,
 				5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
-				5D88261716745CD3007DF2E2 /* NSRegularExpression+SimpleRegex.m in Sources */,
-				5D88261916745CD3007DF2E2 /* NSString+RegexReplace.m in Sources */,
-				5D88261B16745CD3007DF2E2 /* NSString+RNTextStatistics.m in Sources */,
+				5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */,
+				5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */,
+				5D5F878416B1E538000444BC /* NSString+RNTextStatistics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
