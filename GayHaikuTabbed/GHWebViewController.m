@@ -28,8 +28,7 @@
     
                 //Load nav bar
     
-    [self loadNavBar:@"Buy"];
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    [self loadNavBar];
     [self seeNavBar];
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
@@ -41,6 +40,7 @@
         webV = [[UIWebView alloc] init];
         webV.scalesPageToFit=YES;
         webV.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+        //webV.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     }
     webV.delegate = self;
     
@@ -49,6 +49,10 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self layoutForInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
@@ -78,7 +82,7 @@
                 //Load the nav bar.
     
     [bar removeFromSuperview];
-    [self loadNavBar:@"Buy"];
+    [self loadNavBar];
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
                 //Add the right buttons to the nav bar.
@@ -129,7 +133,7 @@
     //Load the nav bar.
     
     [bar removeFromSuperview];
-    [self loadNavBar:@"Buy"];
+    [self loadNavBar];
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
     //Add the right buttons to the nav bar.
@@ -157,14 +161,10 @@
     [leftButtons addObject:flex];
     [leftButtons addObject:refresh];
     
-                //Add them to the right array.
-    
-    //[rightButtons addObject:refresh];
-    
                 //Load the nav bar.
     
     [bar removeFromSuperview];
-    [self loadNavBar:@"Buy"];
+    [self loadNavBar];
     
                 //Add the right buttons to the nav bar.
     bar.items=leftButtons;
@@ -206,7 +206,7 @@
     [indicator stopAnimating];
 }
 
--(void)loadNavBar:(NSString *)t {
+-(void)loadNavBar {
     
                 //Creates a nav bar.
     
@@ -215,20 +215,25 @@
         bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, 32)];
     }
     else bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
-    navBarTitle = [[UINavigationItem alloc] initWithTitle:t];
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
-    bar.autoresizingMask=UIViewAutoresizingFlexibleBottomMargin;
 }
 
 -(void)seeNavBar {
     
                 //Adds the nav bar to the screen.
     
-    //[bar pushNavigationItem:navBarTitle animated:YES];
     [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
     bar.translucent=YES;
     [self.view addSubview:bar];
+}
+
+- (void) layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Adjust the toolbar height depending on the screen orientation
+    CGSize toolbarSize = [bar sizeThatFits:self.view.bounds.size];
+    bar.frame = CGRectMake(0, 0, toolbarSize.width, toolbarSize.height);
+    webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType {

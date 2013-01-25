@@ -213,8 +213,6 @@
 
 -(void)displayHaiku {
     
-//WHEN LARGE TEXT SIZE IS SELECTED BY DEFAULT, FIRST HAIKU STILL APPEARS IN SMALL TEXT SIZE.  WHY?
-    
                 //Empty screen
     
     [displayHaikuTextView removeFromSuperview];
@@ -362,11 +360,11 @@
     
                 //Set boolean for direction of animation
         
-        comingFromPrevious=YES;
+    comingFromPrevious=YES;
         
                 //Display the haiku.
         
-        [self displayHaiku];
+    [self displayHaiku];
 }
 
 #pragma mark ADDITION/DELETION METHODS

@@ -13,19 +13,11 @@
 
 @interface GHSettingsViewController : UIViewController <UITextFieldDelegate> {
     IBOutlet UITextField *nameField;             //Field for user to enter name.
-    //UIButton *checkboxButton;           //Button for user to opt out of my including haiku in future versions of app.
-    //UITextView *infoAbout;
-    //UITextView *settingsPartOne;          //Text asking for name.
-    //UITextView *settingsPartTwo;          //Test asking for opt-out.
     UITextView *swipeInstructions;        //Instructions to swipe to get to GHComposeViewController.
     GHAppDefaults *userSettings;            //Instantiation of GHUserSettings.
     int screenHeight;
     int screenWidth;
-    //CGRect thisRect;
-    //UIImageView *nameFieldImage;
     UIImageView *background;
-    //UISegmentedControl *aboutButton;
-    //UISegmentedControl *backButton;
     UIColor *screenColor;
     IBOutlet UISegmentedControl *permissionDenied;
     IBOutlet UISegmentedControl *disableVerification;

@@ -54,21 +54,34 @@
         background.image=[UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:background];
+    
+    //UNCOMMENT THESE LINES FOR TESTING:
+    
+    //userSettings.optOutSeen=NO;
+    //userSettings.instructionsSeen=NO;
+    //userSettings.instructionsSwipedToFromOptOut=NO;
+    //userSettings.author=nil;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+    [self showWhatNeedsShowing];
+}
+
+-(void)showWhatNeedsShowing {
     
                 //If the user hasn't ever seen the opt out screen, show it.
-
+    
+    NSLog(@"from compose opt out seen: %d",userSettings.optOutSeen);
+    
     if (userSettings.optOutSeen==NO) {
         [self.tabBarController setSelectedIndex:4];
     }
     
                 //Otherwise, if the user hasn't ever seen instructions screen, show it.
     
-    else if (userSettings.instructionsSeen==NO) { 
+    else if (userSettings.instructionsSeen==NO) {
         [self displayInstructionsScreen];
         
                 //Indicate that, since we're on instructions screen, if we go to the compose screen it should animate.
@@ -78,7 +91,7 @@
     
                 //Otherwise, show the compose screen.  Indicate we're NOT coming from instructions screen so that compose screen won't be animated.
     
-    else { 
+    else {
         animateComposeScreen=NO;
         [self displayComposeScreen];
     }
@@ -114,6 +127,7 @@
     NSString *text = [word stringByAppendingString:@"compo"];
     
                 //Locate and frame the text on the right side of the view.
+    
     CGSize xySize;
     CGRect rect;
     xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
@@ -352,6 +366,7 @@
     }
     
                 //If user HAS made changes, show alert view with appropriate destructive button title depending on whether it's a new haiku or an edited one.
+    
     else {
         NSString *destroyButtonTitle;
         if (ghhaiku.userIsEditing) {
@@ -361,16 +376,6 @@
             destroyButtonTitle=@"Discard";
         }
         actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:destroyButtonTitle otherButtonTitles:@"Save", nil];
-        [actSheet showFromTabBar:self.tabBarController.tabBar];
-    
-                //Show appropriate screen.
-    
-        /*if (screenHeight<500) {
-            background.image=[UIImage imageNamed:@"compose.png"];
-        }
-        else {
-            background.image=[UIImage imageNamed:@"5compose.png"];
-        }*/
         [actSheet showFromTabBar:self.tabBarController.tabBar];
     }
 }
@@ -399,9 +404,6 @@
 }
 
 -(BOOL)verifySyllables {
-    
-    NSArray *ar = [ghverify splitHaikuIntoWords:textView.text];
-    NSLog(@"array: %@",ar);
     
                 //Create an instance of GHVerify if one doesn't exist.
     
@@ -580,8 +582,6 @@
     
 //COMMENT THE FOLLOWING LINES FOR TESTING
     
-    /*
-    
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
     
@@ -613,13 +613,9 @@
     syllablesWrong=NO;
     [haikuObject setObject:misanalysis forKey:@"misanalyzed"];
     
-//Need to go to parse.com to add the above category to database.
-    
                //Send the PFObject.
 
     [haikuObject saveEventually];
-     
-     */
     
 //END COMMENT FOR TESTING
     
