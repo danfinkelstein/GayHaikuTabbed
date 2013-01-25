@@ -84,12 +84,6 @@
         [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
     }
     nameField.delegate=self;
-    /*if (!userSettings.optOutSeen) {
-        [self addSwipeForRight];
-    }
-    /*userSettings.optOutSeen=YES;
-    [userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
-    [userSettings.defaults synchronize];*/
 }
 
 -(void)switchToInstructions {

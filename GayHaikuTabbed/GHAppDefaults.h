@@ -22,7 +22,7 @@ extern int const gap;
 
 @interface GHAppDefaults : NSObject
 
-@property (nonatomic) BOOL checkboxUnchecked;                 //Has user checked "don't use my haiku"?
+@property (nonatomic) BOOL checkboxUnchecked;               //Has user checked "don't use my haiku"?
 @property (nonatomic) BOOL optOutSeen;                      //Has user ever been shown opt-out screen?
 @property (nonatomic) BOOL instructionsSeen;                //Has user ever been shown the instructions?
 @property (nonatomic) BOOL instructionsSwipedToFromOptOut;  //Has user ever swiped from settings screen to instructions screen?
@@ -34,6 +34,5 @@ extern int const gap;
 
 + (GHAppDefaults *)sharedInstance;
 -(void)setUserDefaults;
--(BOOL)isPad;
 
 @end

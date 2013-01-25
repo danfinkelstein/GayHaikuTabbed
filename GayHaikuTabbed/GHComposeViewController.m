@@ -47,6 +47,12 @@
     screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
+    if (screenHeight<500) {
+        background.image=[UIImage imageNamed:@"instructions.png"];
+    }
+    else {
+        background.image=[UIImage imageNamed:@"5instructions.png"];
+    }
     [self.view addSubview:background];
 }
 
@@ -57,7 +63,6 @@
                 //If the user hasn't ever seen the opt out screen, show it.
 
     if (userSettings.optOutSeen==NO) {
-        NSLog(@"Sending to opt-out");
         [self.tabBarController setSelectedIndex:4];
     }
     
@@ -245,18 +250,21 @@
 
 -(void)displayInstructionsScreen {
     
-                //In case user is coming from the compose screen, which has a different background image, set the background image for the screen.
+                //If user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
-    [background removeFromSuperview];
-    frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
-    background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"instructions.png"];
+    if (background.image==[UIImage imageNamed:@"compose.png"] || background.image==[UIImage imageNamed:@"5compose.png"]) {
+            [background removeFromSuperview];
+            frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+            background = [[UIImageView alloc] initWithFrame:frame];
+            if (screenHeight<500) {
+                background.image=[UIImage imageNamed:@"instructions.png"];
+            }
+            else {
+                background.image=[UIImage imageNamed:@"5instructions.png"];
+            }
+            [self.view addSubview:background];
+    
     }
-    else {
-        background.image=[UIImage imageNamed:@"5instructions.png"];
-    }
-    [self.view addSubview:background];
     
                 //Hide the textview and resign first responder.
     
@@ -392,6 +400,9 @@
 
 -(BOOL)verifySyllables {
     
+    NSArray *ar = [ghverify splitHaikuIntoWords:textView.text];
+    NSLog(@"array: %@",ar);
+    
                 //Create an instance of GHVerify if one doesn't exist.
     
     if (!ghverify) {
@@ -448,15 +459,15 @@
         NSString *phrase;
         NSString *number;
         if (arrayOfLinesToAlert.count==1) {
-            number = [NSString stringWithFormat:@"line %@ has",[arrayOfLinesToAlert objectAtIndex:0] ];
+            number = [NSString stringWithFormat:@"I think line %@ has",[arrayOfLinesToAlert objectAtIndex:0] ];
         }
         else if (arrayOfLinesToAlert.count==2) {
-            number = [NSString stringWithFormat:@"lines %@ and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1]];
+            number = [NSString stringWithFormat:@"I think lines %@ and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1]];
             }
         else if (arrayOfLinesToAlert.count==3) {
-            number = [NSString stringWithFormat:@"lines %@, %@, and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
+            number = [NSString stringWithFormat:@"I think lines %@, %@, and %@ have",[arrayOfLinesToAlert objectAtIndex:0],[arrayOfLinesToAlert objectAtIndex:1],[arrayOfLinesToAlert objectAtIndex:2]];
         }
-        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
+        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). If I'm wrong, I'll make note of it so I can do better in future releases. ",number];
         if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
                 alertMessage = [alertMessage stringByAppendingFormat:@" Also, I think %@",phrase];
             }
@@ -474,7 +485,7 @@
     }
     
     if (alertMessage.length>15) {
-        NSString *add = @"If I'm wrong, I'll make note of it so I can do better in future releases. Are you certain you'd like to continue saving?";
+        NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
         [alert show];
@@ -517,7 +528,6 @@
     
                 //Add the user's name to the haiku if s/he has entered one.
     if (userSettings.author) {
-        NSLog(@"adding author name: %@",userSettings.author);
         //Add the user's name to the haiku
         haikuWithAttribution = [textView.text stringByAppendingFormat:@"\n\n\t%@",userSettings.author];
     }
@@ -568,6 +578,10 @@
     
                 //Create a PFObject to send to parse.com with the text of the haiku
     
+//COMMENT THE FOLLOWING LINES FOR TESTING
+    
+    /*
+    
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:textView.text forKey:@"haiku"];
     
@@ -604,6 +618,10 @@
                //Send the PFObject.
 
     [haikuObject saveEventually];
+     
+     */
+    
+//END COMMENT FOR TESTING
     
                 //Indicate that the current haiku is a user-composed one so the home screen knows what to display.
     
@@ -634,10 +652,6 @@
         syllablesWrong=YES;
         [self saveUserHaiku];
     }
-}
-
--(void)reportSyllableMisanalysis {
-    
 }
 
 @end

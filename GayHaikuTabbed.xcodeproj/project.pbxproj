@@ -12,7 +12,6 @@
 		5D3C89D01697974B00366015 /* iPhone5 temp background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5D3C89CF1697974A00366015 /* iPhone5 temp background.jpg */; };
 		5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
 		5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
-		5D5F878416B1E538000444BC /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
 		5D64890716791F4100A87596 /* 80-shopping-cart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */; };
 		5D64891116791FC700A87596 /* 216-compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890C16791FC700A87596 /* 216-compose.png */; };
@@ -56,6 +55,10 @@
 		5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */; };
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
+		5D962A9816B203AA002AE486 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */; };
+		5D962AA116B205CF002AE486 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */; };
+		5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
+		5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
 		5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA4251169FBA8300187D2B /* GHAppDefaults.m */; };
 		5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */; };
 		5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */; };
@@ -112,8 +115,6 @@
 		5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
 		5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
 		5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexReplace.m"; sourceTree = "<group>"; };
-		5D5F878016B1E538000444BC /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
-		5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D64890416791F4100A87596 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart.png"; sourceTree = "<group>"; };
 		5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80-shopping-cart@2x.png"; sourceTree = "<group>"; };
 		5D64890C16791FC700A87596 /* 216-compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "216-compose.png"; sourceTree = "<group>"; };
@@ -156,6 +157,8 @@
 		5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDelegate.h; sourceTree = "<group>"; };
 		5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDelegate.m; sourceTree = "<group>"; };
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
+		5D962A9616B203AA002AE486 /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
+		5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5DAA4250169FBA8300187D2B /* GHAppDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDefaults.h; sourceTree = "<group>"; };
 		5DAA4251169FBA8300187D2B /* GHAppDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDefaults.m; sourceTree = "<group>"; };
 		5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -247,12 +250,12 @@
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5D962A9616B203AA002AE486 /* NSString+RNTextStatistics.h */,
+				5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */,
 				5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */,
 				5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */,
 				5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */,
 				5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */,
-				5D5F878016B1E538000444BC /* NSString+RNTextStatistics.h */,
-				5D5F878116B1E538000444BC /* NSString+RNTextStatistics.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -553,6 +556,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */,
+				5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */,
+				5D962AA116B205CF002AE486 /* NSString+RNTextStatistics.m in Sources */,
 				5DBC946316743DFF000406DF /* main.m in Sources */,
 				5D8825FE167446C8007DF2E2 /* GHHaikuViewController.m in Sources */,
 				5D882600167446C8007DF2E2 /* GHComposeViewController.m in Sources */,
@@ -581,7 +587,7 @@
 				5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
 				5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */,
-				5D5F878416B1E538000444BC /* NSString+RNTextStatistics.m in Sources */,
+				5D962A9816B203AA002AE486 /* NSString+RNTextStatistics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

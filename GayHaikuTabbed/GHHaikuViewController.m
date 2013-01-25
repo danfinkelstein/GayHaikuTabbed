@@ -37,7 +37,6 @@
     screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
-    NSLog(@"View loaded.");
    [self setWidthAndHeight];
     
                 //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
@@ -202,11 +201,9 @@
     }
     float widthOfLongestLineSoFar = 0.0;
     NSArray *lines = [verify splitHaikuIntoLines:self.ghhaiku.text];
-    NSLog(@"array: %@",lines);
     for (int i = 0; i < lines.count; i++) {
         CGSize sizeOfLine = [[verify.listOfLines objectAtIndex:i] sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
         float widthOfLineUnderConsideration = sizeOfLine.width;
-        NSLog(@"Width of line %d is %f",i,widthOfLineUnderConsideration);
         if (widthOfLongestLineSoFar<widthOfLineUnderConsideration) {
             widthOfLongestLineSoFar = widthOfLineUnderConsideration;
         }
@@ -226,9 +223,7 @@
     
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
-    NSLog(@"%@",self.ghhaiku.text);
     [self measureWidthOfTextView];
-    NSLog(@"In display method, longest line width is %f",textWidth);
     
     int fontSize = 15;
     

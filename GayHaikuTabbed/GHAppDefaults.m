@@ -83,22 +83,10 @@ int const gap = 10;
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-    
     self.optOutSeen=NO;
     self.instructionsSeen=NO;
     self.instructionsSwipedToFromOptOut=NO;
     self.author=nil;
-     
-    
-}
-
--(BOOL)isPad {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
 }
 
 @end

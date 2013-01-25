@@ -20,11 +20,18 @@
     return self.listOfLines;
 }
 
+-(NSArray *)splitHaikuIntoWords: (NSString *)haiku {
+    NSArray *listOfWords = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@" "]];
+    return listOfWords;
+}
+
+//Thanks to Ryan Nystrom for the code in the RNTextStatistics category.
+
 -(int) syllablesInLine: (NSString *)line {
     
                 //Counts number of lines in haiku.
     
-    int number = [line syllableCount];
+    int number = [line syllableTotal];
     return number;
 }
 
