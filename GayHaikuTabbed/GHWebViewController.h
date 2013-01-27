@@ -14,8 +14,6 @@
     UINavigationItem *navBarTitle;
     UIAlertView *alert;
     UIWebView *webV;
-    int screenWidth;
-    int screenHeight;
     UIColor *screenColor;
 }
 

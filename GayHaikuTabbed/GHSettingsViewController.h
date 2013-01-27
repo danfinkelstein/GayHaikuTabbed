@@ -15,8 +15,6 @@
     IBOutlet UITextField *nameField;             //Field for user to enter name.
     UITextView *swipeInstructions;        //Instructions to swipe to get to GHComposeViewController.
     GHAppDefaults *userSettings;            //Instantiation of GHUserSettings.
-    int screenHeight;
-    int screenWidth;
     UIImageView *background;
     UIColor *screenColor;
     IBOutlet UISegmentedControl *permissionDenied;

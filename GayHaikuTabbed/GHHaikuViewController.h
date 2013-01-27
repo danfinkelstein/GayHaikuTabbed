@@ -24,11 +24,8 @@
     UITextView *displayHaikuTextView;           //Textview that displays the current haiku
     UIImageView *background;
     UIColor *screenColorTrans;
-    UIColor *screenColorOp;
     GHAppDefaults *userInfo;
     GHVerify *verify;
-    int screenHeight;
-    int screenWidth;
     float textWidth;
     float textHeight;
 }

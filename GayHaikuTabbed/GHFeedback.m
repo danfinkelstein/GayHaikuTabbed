@@ -33,7 +33,8 @@
             //Creates a UIImageView in which and a CGRect with which to display the background image.  
 
     CGRect frame;
-    [self setWidthAndHeight];
+    screenHeight = self.view.bounds.size.height;
+    screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     background = [[UIImageView alloc] initWithFrame:frame];
     background.backgroundColor = [UIColor whiteColor];
@@ -45,11 +46,6 @@
     }
     [self.view addSubview:background];
     [self displayFeedbackText];
-}
-
--(void)setWidthAndHeight {
-    screenHeight = self.view.bounds.size.height;
-    screenWidth = self.view.bounds.size.width;
 }
 
 -(void)displayFeedbackText {

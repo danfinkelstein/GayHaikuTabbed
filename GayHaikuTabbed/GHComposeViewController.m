@@ -175,7 +175,7 @@
         background.image=[UIImage imageNamed:@"compose.png"];
     }
     else {
-        background.image=[UIImage imageNamed:@"compose.png"];
+        background.image=[UIImage imageNamed:@"5compose.png"];
     }
     [self.view addSubview:background];
     

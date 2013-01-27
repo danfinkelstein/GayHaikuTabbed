@@ -8,17 +8,16 @@
 
 #import "GHAppDefaults.h"
 
-int const screenWidthPhone = 320;
-int const screenWidthPad = 1024;
-int const screenHeightPad = 768;
 int const tabBarHeight = 49;
 int const toolbarHeight = 44;
 int const keyboardHeight = 216;
 int const buttonSideLength = 44;
 int const smallFontSize = 12;
-int const mediumFontSize = 14;
+int const mediumFontSize = 15;
 int const largeFontSize = 17;
 int const gap = 10;
+int screenHeight;
+int screenWidth;
 
 @implementation GHAppDefaults
 

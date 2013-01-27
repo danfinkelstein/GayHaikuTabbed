@@ -34,10 +34,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     background.backgroundColor = [UIColor whiteColor];
     screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
-   [self setWidthAndHeight];
+    screenHeight = self.view.bounds.size.height;
+    screenWidth = self.view.bounds.size.width;
     
                 //Add the UIImageView that corresponds to the size of the iPhone, and add the background image
     
@@ -103,6 +103,7 @@
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
     instructions.userInteractionEnabled=NO;
+    UIColor *screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.textColor = screenColorOp;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = @"Swipe";
@@ -178,11 +179,6 @@
     titleBar.rightBarButtonItem = send;
 }
 
--(void)setWidthAndHeight {
-    screenWidth = self.view.bounds.size.width;
-    screenHeight = self.view.bounds.size.height;
-}
-
 -(void)addLeftButtons {
     
                 //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
@@ -202,7 +198,7 @@
     float widthOfLongestLineSoFar = 0.0;
     NSArray *lines = [verify splitHaikuIntoLines:self.ghhaiku.text];
     for (int i = 0; i < lines.count; i++) {
-        CGSize sizeOfLine = [[verify.listOfLines objectAtIndex:i] sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
+        CGSize sizeOfLine = [[verify.listOfLines objectAtIndex:i] sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize]];
         float widthOfLineUnderConsideration = sizeOfLine.width;
         if (widthOfLongestLineSoFar<widthOfLineUnderConsideration) {
             widthOfLongestLineSoFar = widthOfLineUnderConsideration;
@@ -222,13 +218,11 @@
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
     [self measureWidthOfTextView];
-    
-    int fontSize = 15;
-    
+
                     //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
-    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:fontSize] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize] constrainedToSize:dimensions lineBreakMode:0];
 
 //If this is a problem, replace mediumFontSize in above line with largeFontSize.
     
@@ -241,7 +235,7 @@
     displayHaikuTextView.backgroundColor = [UIColor clearColor];
     displayHaikuTextView.editable=NO;
     displayHaikuTextView.userInteractionEnabled=NO;
-    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
+    displayHaikuTextView.font=[UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
     displayHaikuTextView.text=self.ghhaiku.text;
     [displayHaikuTextView setFrame:CGRectMake((screenWidth/2)-(textWidth/2),screenHeight/2-xySize.height,textWidth/2 + screenWidth/2,textHeight*2)];
  

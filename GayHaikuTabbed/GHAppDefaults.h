@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern int const screenWidthPhone;
-extern int const screenWidthPad;
-extern int const screenHeightPad;
 extern int const tabBarHeight;
 extern int const toolbarHeight;
 extern int const keyboardHeight;
@@ -19,6 +16,8 @@ extern int const smallFontSize;
 extern int const mediumFontSize;
 extern int const largeFontSize;
 extern int const gap;
+extern int screenHeight;
+extern int screenWidth;
 
 @interface GHAppDefaults : NSObject
 

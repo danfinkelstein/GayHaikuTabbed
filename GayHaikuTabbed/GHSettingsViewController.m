@@ -38,7 +38,7 @@
     
     //userSettings.optOutSeen=NO;
     
-                //Add swipe gesure recognizer if user has never swiped from settings to instructions.
+                //Add swipe gesture recognizer if user has never swiped from settings to instructions.
     
    if (userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
@@ -110,7 +110,7 @@
 
 -(UITextView *)createSwipeToAdd: (NSString *)word {
     
-    //Create "Swipe" text and its characteristics
+                //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
@@ -119,9 +119,7 @@
     instructions.text = word;
     instructions.userInteractionEnabled=NO;
     instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
-    userSettings.optOutSeen=YES;
-    [userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
-    [userSettings.defaults synchronize];
+
     return instructions;
 }
 
@@ -138,6 +136,9 @@
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
     swipeInstructions.frame = rect;
+    userSettings.optOutSeen=YES;
+    [userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
+    [userSettings.defaults synchronize];
     
                 //Display it.
     
@@ -154,16 +155,21 @@
     
     if (nameField.text.length>0) {
         userSettings.author=nameField.text;
-        //userSettings.defaults = [NSUserDefaults standardUserDefaults];
         [userSettings.defaults setObject:nameField.text forKey:@"author"];
         [userSettings.defaults synchronize];
     }
 }
 
 -(IBAction)givePermission:(UISegmentedControl *)sender {
+    
+                //Change the bool for the permissionDenied property and synchronize the default.
+    
     userSettings.permissionDenied=!userSettings.permissionDenied;
     [userSettings.defaults setBool:userSettings.permissionDenied forKey:@"permissionDenied?"];
     [userSettings.defaults synchronize];
+    
+                //Change the display of the UISegmentedControl
+    
     if (permissionDenied.selectedSegmentIndex==0) {
         [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
         [permissionDenied setTitle:@"" forSegmentAtIndex:1];
@@ -175,9 +181,15 @@
 }
 
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender {
+    
+                //Change the bool for the disableVerification property and synchronize the default.
+    
     userSettings.disableSyllableCheck=!userSettings.disableSyllableCheck;
     [userSettings.defaults setBool:userSettings.disableSyllableCheck forKey:@"disableSyllableCheck?"];
     [userSettings.defaults synchronize];
+    
+                //Change the display of the UISegmentedControl
+    
     if (disableVerification.selectedSegmentIndex==0) {
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
         [disableVerification setTitle:@"" forSegmentAtIndex:1];
