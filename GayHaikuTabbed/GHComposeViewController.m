@@ -193,7 +193,7 @@
         else {
             textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
+        textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         textView.delegate = self;
     }
     
@@ -206,12 +206,7 @@
     textView.editable=YES;
     textView.backgroundColor = [UIColor clearColor];
     textView.hidden=NO;
-    int fontSize;
-    if (userSettings.largeText==YES) {
-        fontSize=mediumFontSize;
-    }
-    else fontSize=smallFontSize;
-    textView.font=[UIFont fontWithName:@"Helvetica Neue" size:fontSize];
+    textView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
     
                 //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
     

@@ -25,13 +25,12 @@
     return listOfWords;
 }
 
-//Thanks to Ryan Nystrom for the code in the RNTextStatistics category.
-
 -(int) syllablesInLine: (NSString *)line {
     
                 //Counts number of lines in haiku.
     
-    int number = [line syllableTotal];
+    //int number = [line syllableTotal];
+    int number = [self syllableTotal:line];
     return number;
 }
 
@@ -94,6 +93,156 @@
         }
     }
     return YES;
+}
+
+- (NSInteger)syllableTotal: (NSString *)sg {
+    NSString *cleanText = [sg cleanText];
+    __block NSInteger syllableCount = 0;
+    NSArray *words = [cleanText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [words enumerateObjectsUsingBlock:^(NSString *word, NSUInteger idx, BOOL *stop) {
+        NSLog(@"%@ %d",[words objectAtIndex:idx],[self syllableCount:word]);
+        syllableCount += [self syllableCount:word];
+    }];
+    NSLog(@"syllable count during syllable total: %d",syllableCount);
+    return syllableCount;
+}
+
+- (NSInteger)syllableCount: (NSString *)s {
+    if ([s isEqualToString:@""]) {
+        return 0;
+    }
+    
+    // remove non-alpha chars
+    NSString *strippedString = [s stringByReplacingRegularExpression:@"[^A-Za-z]" withString:@"" options:kNilOptions];
+    // use lowercase for brevity w/ options + patterns
+    NSString *lowercase = [strippedString lowercaseString];
+    
+    // altered in enumerate blocks
+    __block NSInteger syllableCount = 0;
+    
+    // special rules that don't follow syllable matching patterns
+    exceptions = [self loadSyllableCheckExceptions];
+    
+    // if one of the preceding words, return special case value
+    NSNumber *caught = exceptions[lowercase];
+    if (caught) {
+        return caught.integerValue;
+    }
+    
+    // These syllables would be counted as two but should be one
+    NSArray *subSyllables = @[
+    @"cial",
+    @"tia",
+    @"cius",
+    @"cious",
+    @"giu",
+    @"ion",
+    @"iou",
+    @"sia$",
+    @"[^aeiuoyt]{2}ed$",
+    @".ely$",
+    @"[cg]h?e[rsd]?$",
+    @"rved?$",
+    @"[aeiouy][dt]es?$",
+    @"[aeiouy][^aeiouydt]e[rsd]?$",
+    //"^[dr]e[aeiou][^aeiou]+$" // Sorts out deal deign etc
+    @"[aeiouy]rse$",
+    ];
+    
+    // These syllables would be counted as one but should be two
+    NSArray *addSyllables = @[
+    @"ia",
+    @"riet",
+    @"dien",
+    @"iu",
+    @"io",
+    @"ii",
+    @"[aeiouym]bl$",
+    @"[aeiou]{3}",
+    @"^mc",
+    @"ism$",
+    @"([^aeiouy])\1l$",
+    @"[^l]lien",
+    @"^coa[dglx].",
+    @"[^gq]ua[^auieo]",
+    @"dnt$",
+    @"uity$",
+    @"ie(r|st)$"
+    ];
+    
+    // Single syllable prefixes and suffixes
+    NSArray *prefixSuffix = @[
+    @"^un",
+    @"^fore",
+    @"ly$",
+    @"less$",
+    @"ful$",
+    @"ers?$",
+    @"ings?$",
+    ];
+    
+    // remove prefix & suffix, count how many are removed
+    NSInteger prefixesSuffixesCount = 0;
+    NSString *strippedPrefixesSuffixes = [NSRegularExpression stringByReplacingOccurenceOfPatterns:prefixSuffix inString:lowercase options:kNilOptions withTemplate:@"" count:&prefixesSuffixesCount];
+    
+    // removed non-word chars from word
+    NSString *strippedNonWord = [strippedPrefixesSuffixes stringByReplacingRegularExpression:@"[^a-z]" withString:@"" options:kNilOptions];
+    NSString *nonVowelPattern = @"[aeiouy]+";
+    NSError *vowelError = nil;
+    NSRegularExpression *nonVowelRegex = [[NSRegularExpression alloc] initWithPattern:nonVowelPattern options:kNilOptions error:&vowelError];
+    NSArray *wordPartsResults = [nonVowelRegex matchesInString:strippedNonWord options:kNilOptions range:NSMakeRange(0, [strippedNonWord length])];
+    
+    NSMutableArray *wordParts = [NSMutableArray array];
+    [wordPartsResults enumerateObjectsUsingBlock:^(NSTextCheckingResult *match, NSUInteger idx, BOOL *stop) {
+        NSString *substr = [strippedNonWord substringWithRange:match.range];
+        if (substr) {
+            [wordParts addObject:substr];
+        }
+    }];
+    
+    __block NSInteger wordPartCount = 0;
+    [wordParts enumerateObjectsUsingBlock:^(NSString *part, NSUInteger idx, BOOL *stop) {
+        if (! [part isEqualToString:@""]) {
+            wordPartCount++;
+        }
+    }];
+    
+    syllableCount = wordPartCount + prefixesSuffixesCount;
+    
+    // Some syllables do not follow normal rules - check for them
+    // Thanks to Joe Kovar for correcting a bug in the following lines
+    [subSyllables enumerateObjectsUsingBlock:^(NSString *subSyllable, NSUInteger idx, BOOL *stop) {
+        NSError *error = nil;
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:subSyllable options:kNilOptions error:&error];
+        syllableCount -= [regex numberOfMatchesInString:strippedNonWord options:kNilOptions range:NSMakeRange(0, [strippedNonWord length])];
+    }];
+    
+    [addSyllables enumerateObjectsUsingBlock:^(NSString *addSyllable, NSUInteger idx, BOOL *stop) {
+        NSError *error = nil;
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:addSyllable options:kNilOptions error:&error];
+        syllableCount += [regex numberOfMatchesInString:strippedNonWord options:kNilOptions range:NSMakeRange(0, [strippedNonWord length])];
+    }];
+    
+    syllableCount = syllableCount <= 0 ? 1 : syllableCount;
+    NSLog(@"syllable count from syllableCount:  %d",syllableCount);
+    return syllableCount;
+}
+
+-(NSDictionary *)loadSyllableCheckExceptions {
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"exceptions"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath: path]) {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"exceptions" ofType:@"plist"];
+        [fileManager copyItemAtPath:bundle toPath: path error:&error];
+    }
+    
+    //Loads an array with the contents of "path".
+    
+    NSDictionary *ex = [[NSDictionary alloc] initWithContentsOfFile:path];
+    return ex;
 }
 
 @end

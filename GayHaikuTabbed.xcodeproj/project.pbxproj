@@ -62,6 +62,7 @@
 		5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA4251169FBA8300187D2B /* GHAppDefaults.m */; };
 		5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */; };
 		5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */; };
+		5DB6742C16B49C6B0039C72B /* exceptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB6742B16B49C6B0039C72B /* exceptions.plist */; };
 		5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAAC50167462AE008EB101 /* userHaiku.plist */; };
 		5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
 		5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945816743DFF000406DF /* Foundation.framework */; };
@@ -164,6 +165,7 @@
 		5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		5DAF2E8A16AF48A600597EC0 /* GHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTabBarController.h; sourceTree = "<group>"; };
 		5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTabBarController.m; sourceTree = "<group>"; };
+		5DB6742B16B49C6B0039C72B /* exceptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exceptions.plist; sourceTree = "<group>"; };
 		5DBAAC50167462AE008EB101 /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DBC945216743DFE000406DF /* GayHaikuTabbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaikuTabbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBC945616743DFE000406DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -376,6 +378,7 @@
 				5DBC945F16743DFF000406DF /* InfoPlist.strings */,
 				5DBC946216743DFF000406DF /* main.m */,
 				5DBC946416743DFF000406DF /* GayHaikuTabbed-Prefix.pch */,
+				5DB6742B16B49C6B0039C72B /* exceptions.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				5DD2770716AE05EF001262A0 /* checkboxChecked.png in Resources */,
 				5DD2770916AE1B57001262A0 /* input.png in Resources */,
 				5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */,
+				5DB6742C16B49C6B0039C72B /* exceptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "NSString+RNTextStatistics.h"
+#import "NSRegularExpression+SimpleRegex.h"
+#import "NSString+RegexReplace.h"
 #import "GHHaiku.h"
 
 typedef enum {
@@ -16,7 +18,9 @@ typedef enum {
     tooManyLines
 } numberOfLines;
 
-@interface GHVerify : NSObject
+@interface GHVerify : NSObject {
+    NSDictionary *exceptions;
+}
 
 @property (nonatomic, strong) NSArray *listOfLines;             //An array of lines in the haiku.
 @property (nonatomic, strong) NSMutableArray *linesAfterCheck;  //An array to hold the syllable verification of each line.
