@@ -120,11 +120,11 @@
     }
     
                 //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
-    /*
-     else if ([fileManager fileExistsAtPath: path]) {
-        [fileManager removeItemAtPath:path error:&error];
-     }
-     */
+    
+//     else if ([fileManager fileExistsAtPath: path]) {
+//        [fileManager removeItemAtPath:path error:&error];
+//     }
+    
     
                 //Loads an array with the contents of "path".
     
@@ -143,11 +143,11 @@
     
                 //UNCOMMENT, RUN, AND THEN RECOMMENT THIS SECTION IF NEED TO DELETE LOCAL HAIKU DOCUMENT (FOR TESTING USER-GENERATED HAIKU, ETC.).
     
-    /*
-     else if ([userFileManager fileExistsAtPath: userPath]) {
-     [userFileManager removeItemAtPath:userPath error:&error];
-     }
-     */
+    
+//     else if ([userFileManager fileExistsAtPath: userPath]) {
+//     [userFileManager removeItemAtPath:userPath error:&error];
+//     }
+    
     
                 //Loads an array with the contents of "userPath".
 

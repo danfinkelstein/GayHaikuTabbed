@@ -35,8 +35,7 @@
     
                 //Create UIWebView.
     
-    if (!webV)
-    {
+    if (!webV) {
         webV = [[UIWebView alloc] init];
         webV.scalesPageToFit=YES;
         webV.autoresizingMask=UIViewAutoresizingFlexibleWidth;
@@ -59,8 +58,7 @@
     
                 //Adds activity indicator to screen and starts animating it
     
-    if (!indicator)
-    {
+    if (!indicator) {
         indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
         [indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -111,7 +109,6 @@
     [leftButtons addObject:stop];
     bar.items = leftButtons;
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    //navBarTitle.leftBarButtonItems=leftButtons;
     [self seeNavBar];
 }
 
@@ -121,7 +118,6 @@
     
     [indicator stopAnimating];
     
-    //NSMutableArray *rightButtons = [[NSMutableArray alloc] init];
     NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
     
                 //Create navigation buttons for the right (stop and refresh).
@@ -130,18 +126,18 @@
     refresh.style = UIBarButtonItemStyleBordered;
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
     
-    //Load the nav bar.
+                //Load the nav bar.
     
     [bar removeFromSuperview];
     [self loadNavBar];
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
-    //Add the right buttons to the nav bar.
+                //Add the right buttons to the nav bar.
     
     navBarTitle.rightBarButtonItem=refresh;
     navBarTitle.hidesBackButton=YES;
     
-    //Create whatever left buttons are appropriate and add to the arrays.
+                //Create whatever left buttons are appropriate and add to the arrays.
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
@@ -154,7 +150,7 @@
         forButt.style = UIBarButtonItemStyleBordered;
     }
     
-    //Add the left buttons to the nav bar.
+                //Add the left buttons to the nav bar.
     
     [leftButtons addObject:backButt];
     [leftButtons addObject:forButt];
@@ -167,6 +163,7 @@
     [self loadNavBar];
     
                 //Add the right buttons to the nav bar.
+    
     bar.items=leftButtons;
     bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     [self seeNavBar];
@@ -228,9 +225,10 @@
     [self.view addSubview:bar];
 }
 
-- (void) layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Adjust the toolbar height depending on the screen orientation
+- (void) layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
+                // Adjust the toolbar height depending on the screen orientation
+    
     CGSize toolbarSize = [bar sizeThatFits:self.view.bounds.size];
     bar.frame = CGRectMake(0, 0, toolbarSize.width, toolbarSize.height);
     webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);

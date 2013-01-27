@@ -84,9 +84,9 @@
     }
     nameField.delegate=self;
     
-    //COMMENT THIS OUT
+                //UNCOMMENT THIS FOR TESTING
     
-    userSettings.optOutSeen=NO;
+    //userSettings.optOutSeen=NO;
 }
 
 -(void)switchToInstructions {

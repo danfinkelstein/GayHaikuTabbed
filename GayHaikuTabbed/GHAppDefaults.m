@@ -81,12 +81,12 @@ int screenWidth;
     }
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
-    /*
-    self.optOutSeen=NO;
-    self.instructionsSeen=NO;
-    self.instructionsSwipedToFromOptOut=NO;
-    self.author=nil;
-     */
+    
+//    self.optOutSeen=NO;
+//    self.instructionsSeen=NO;
+//    self.instructionsSwipedToFromOptOut=NO;
+//    self.author=nil;
+    
 }
 
 @end
