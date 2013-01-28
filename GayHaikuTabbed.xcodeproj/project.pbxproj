@@ -52,8 +52,6 @@
 		5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */; };
 		5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
 		5D88262316745EAB007DF2E2 /* gayHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D88262116745EAB007DF2E2 /* gayHaiku.plist */; };
-		5D962A9816B203AA002AE486 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */; };
-		5D962AA116B205CF002AE486 /* NSString+RNTextStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */; };
 		5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
 		5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
 		5D9A464316B5C74300C7572B /* 5compose.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D9A464216B5C74300C7572B /* 5compose.png */; };
@@ -149,8 +147,6 @@
 		5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDelegate.h; sourceTree = "<group>"; };
 		5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDelegate.m; sourceTree = "<group>"; };
 		5D88262116745EAB007DF2E2 /* gayHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku.plist; sourceTree = "<group>"; };
-		5D962A9616B203AA002AE486 /* NSString+RNTextStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RNTextStatistics.h"; sourceTree = "<group>"; };
-		5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RNTextStatistics.m"; sourceTree = "<group>"; };
 		5D9A464216B5C74300C7572B /* 5compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5compose.png; sourceTree = "<group>"; };
 		5DAA4250169FBA8300187D2B /* GHAppDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAppDefaults.h; sourceTree = "<group>"; };
 		5DAA4251169FBA8300187D2B /* GHAppDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAppDefaults.m; sourceTree = "<group>"; };
@@ -240,8 +236,6 @@
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5D962A9616B203AA002AE486 /* NSString+RNTextStatistics.h */,
-				5D962A9716B203AA002AE486 /* NSString+RNTextStatistics.m */,
 				5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */,
 				5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */,
 				5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */,
@@ -538,7 +532,6 @@
 			files = (
 				5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */,
-				5D962AA116B205CF002AE486 /* NSString+RNTextStatistics.m in Sources */,
 				5DBC946316743DFF000406DF /* main.m in Sources */,
 				5D8825FE167446C8007DF2E2 /* GHHaikuViewController.m in Sources */,
 				5D882600167446C8007DF2E2 /* GHComposeViewController.m in Sources */,
@@ -567,7 +560,6 @@
 				5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
 				5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */,
-				5D962A9816B203AA002AE486 /* NSString+RNTextStatistics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

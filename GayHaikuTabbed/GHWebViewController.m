@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIWebView *webV;
 @property (nonatomic, strong) UIToolbar *bar;
 @property (nonatomic, strong) UINavigationItem *navBarTitle;
+@property (nonatomic, strong) GHAppDefaults *userInfo;
 
 @end
 
@@ -53,6 +54,7 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
+    self.userInfo = [[GHAppDefaults alloc] init];
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -64,10 +66,10 @@
                 //Adds activity indicator to screen and starts animating it
     
     if (!self.indicator) {
-        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
+        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, activityViewerDimension, activityViewerDimension)];
         [self.indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        self.indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+        self.indicator.color=self.userInfo.screenColorTrans;
     }
 	[self.view addSubview:self.indicator];
     [self.indicator startAnimating];
@@ -97,8 +99,8 @@
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
-    backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    backButt.tintColor = self.userInfo.screenColorTrans;
+    forButt.tintColor = self.userInfo.screenColorTrans;
     if (self.webV.canGoBack) {
         backButt.style = UIBarButtonItemStyleBordered;
     }
@@ -146,8 +148,8 @@
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
-    backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
+    backButt.tintColor = self.userInfo.screenColorTrans;
+    forButt.tintColor = self.userInfo.screenColorTrans;
     if (self.webV.canGoBack) {
         backButt.style = UIBarButtonItemStyleBordered;
     }
@@ -214,9 +216,9 @@
     
     [self.bar removeFromSuperview];
     if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, 32)];
+        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, shortToolbarHeight)];
     }
-    else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
+    else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
 }
@@ -225,7 +227,7 @@
     
                 //Adds the nav bar to the screen.
     
-    [self.bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
+    [self.bar setTintColor:self.userInfo.screenColorTrans];
     self.bar.translucent=YES;
     [self.view addSubview:self.bar];
 }

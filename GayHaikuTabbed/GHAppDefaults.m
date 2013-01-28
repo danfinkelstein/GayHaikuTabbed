@@ -10,6 +10,8 @@
 
 int const tabBarHeight = 49;
 int const toolbarHeight = 44;
+int const shortToolbarHeight = 32;
+int const activityViewerDimension = 32;
 int const keyboardHeight = 216;
 int const buttonSideLength = 44;
 int const smallFontSize = 12;
@@ -21,7 +23,7 @@ int screenWidth;
 
 @implementation GHAppDefaults
 
-@synthesize checkboxUnchecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults, largeText, disableSyllableCheck, permissionDenied;
+@synthesize checkboxUnchecked, optOutSeen, instructionsSeen, instructionsSwipedToFromOptOut, author, defaults, largeText, disableSyllableCheck, permissionDenied, screenColorOp, screenColorTrans;
 
 + (GHAppDefaults *)sharedInstance {
     
@@ -79,6 +81,8 @@ int screenWidth;
     else {
         self.disableSyllableCheck = NO;
     }
+    screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     
                 //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     

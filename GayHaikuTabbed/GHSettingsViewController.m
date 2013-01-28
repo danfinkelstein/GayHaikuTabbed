@@ -43,7 +43,7 @@
     
                 //Add swipe gesture recognizer if user has never swiped from settings to instructions.
     
-   if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
+    if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
         swipeLeft.numberOfTouchesRequired = 1;
         swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -117,7 +117,7 @@
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
-    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
+    instructions.textColor = self.userSettings.screenColorOp;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
     instructions.userInteractionEnabled=NO;

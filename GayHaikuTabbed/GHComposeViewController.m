@@ -13,7 +13,6 @@
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, strong) UIImageView *background;
-@property (nonatomic, strong) UIColor *screenColor;
 @property (nonatomic, strong) UITextView *instructions;
 @property (nonatomic, strong) UITextView *nextInstructions;
 @property (nonatomic, strong) UITextView *textView;
@@ -45,7 +44,6 @@
     
     self.userSettings = [GHAppDefaults sharedInstance];
     [self.userSettings setUserDefaults];
-    self.screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     self.animateComposeScreen=NO;
     
                 //Access the shared instance of GHHaiku.
@@ -115,7 +113,7 @@
     UITextView *baba = [[UITextView alloc] init];
     baba.editable=NO;
     baba.userInteractionEnabled=NO;
-    baba.textColor = self.screenColor;
+    baba.textColor = self.userSettings.screenColorOp;
     baba.backgroundColor = [UIColor clearColor];
     baba.text = word;
     baba.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
@@ -245,8 +243,8 @@
                 //Create translucent toolbar to sit above keyboard.
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setTintColor:self.screenColor];
-    toolbar.translucent = YES;
+    [toolbar setTintColor:self.userSettings.screenColorTrans];
+    toolbar.translucent=YES;
     [toolbar sizeToFit];
     
                 //Create "instructions" and "done" buttons and add them to the translucent toolbar.

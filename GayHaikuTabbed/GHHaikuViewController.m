@@ -23,7 +23,6 @@
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) GHAppDefaults *userInfo;
-@property (strong, nonatomic) UIColor *screenColorTrans;
 @property (strong, nonatomic) UIAlertView *alert;
 @property (strong, nonatomic) UINavigationBar *navBar;
 @property (strong, nonatomic) UINavigationItem *titleBar;
@@ -50,7 +49,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *background;
     background.backgroundColor = [UIColor whiteColor];
-    self.screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     screenHeight = self.view.bounds.size.height;
@@ -97,7 +95,7 @@
     
                 //Set up tab bar
     
-    [[UITabBar appearance] setTintColor:self.screenColorTrans];
+    [[UITabBar appearance] setTintColor:self.userInfo.screenColorTrans];
     self.tabBarController.delegate=self;
     
                 //Indicate that "swipe" text for previous/next have not been seen yet this session
@@ -120,8 +118,7 @@
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
     instructions.userInteractionEnabled=NO;
-    UIColor *screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
-    instructions.textColor = screenColorOp;
+    instructions.textColor = self.userInfo.screenColorOp;
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = @"Swipe";
     instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
@@ -156,7 +153,7 @@
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     _navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, toolbarHeight)];
-    [_navBar setTintColor:self.screenColorTrans];
+    [_navBar setTintColor:self.userInfo.screenColorTrans];
     _navBar.translucent=YES;
     
                 //Create UINavigationItem

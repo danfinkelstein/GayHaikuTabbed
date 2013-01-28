@@ -10,6 +10,8 @@
 
 extern int const tabBarHeight;
 extern int const toolbarHeight;
+extern int const shortToolbarHeight;
+extern int const activityViewerDimension;
 extern int const keyboardHeight;
 extern int const buttonSideLength;
 extern int const smallFontSize;
@@ -30,6 +32,8 @@ extern int screenWidth;
 @property (nonatomic) BOOL permissionDenied;
 @property (nonatomic, strong) NSString *author;             //Author name the user has entered.
 @property (nonatomic, strong) NSUserDefaults *defaults;     //Instantiation of user defaults.
+@property (nonatomic, strong) UIColor *screenColorTrans;
+@property (nonatomic, strong) UIColor *screenColorOp;
 
 + (GHAppDefaults *)sharedInstance;
 -(void)setUserDefaults;
