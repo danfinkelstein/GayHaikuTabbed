@@ -7,8 +7,12 @@
 //
 
 #import "GHSettingsViewController.h"
+#import "GHAppDefaults.h"
 
 @interface GHSettingsViewController () <UITextFieldDelegate>
+
+@property (nonatomic, strong) GHAppDefaults *userSettings;
+@property (nonatomic, strong) UITextView *swipeInstructions;
 
 @end
 
@@ -28,11 +32,10 @@
     
                 //Load user defaults.
     
-    userSettings = [GHAppDefaults sharedInstance];
-    [userSettings setUserDefaults];
+    self.userSettings = [GHAppDefaults sharedInstance];
+    [self.userSettings setUserDefaults];
     screenWidth=self.view.bounds.size.width;
     screenHeight=self.view.bounds.size.height;
-    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     
                 //Uncomment next line for testing.
     
@@ -40,7 +43,7 @@
     
                 //Add swipe gesture recognizer if user has never swiped from settings to instructions.
     
-   if (userSettings.instructionsSwipedToFromOptOut==NO) {
+   if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
         swipeLeft.numberOfTouchesRequired = 1;
         swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -56,7 +59,7 @@
     
     CGRect frame;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    background = [[UIImageView alloc] initWithFrame:frame];
+    UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"instructions.png"];
     }
@@ -66,7 +69,7 @@
     [self.view addSubview:background];
     [self.view sendSubviewToBack:background];
     
-    if (userSettings.permissionDenied==NO) {
+    if (self.userSettings.permissionDenied==NO) {
         permissionDenied.selectedSegmentIndex=0;
         [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
     }
@@ -74,7 +77,7 @@
         permissionDenied.selectedSegmentIndex=1;
         [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
     }
-    if (userSettings.disableSyllableCheck==NO) {
+    if (self.userSettings.disableSyllableCheck==NO) {
         disableVerification.selectedSegmentIndex=0;
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
     }
@@ -100,8 +103,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (userSettings.optOutSeen) {
-        [swipeInstructions removeFromSuperview];
+    if (self.userSettings.optOutSeen) {
+        [self.swipeInstructions removeFromSuperview];
     }
     else {
         [self addSwipeForRight];
@@ -114,7 +117,7 @@
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable=NO;
-    instructions.textColor = screenColor;
+    instructions.textColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
     instructions.userInteractionEnabled=NO;
@@ -127,22 +130,22 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    swipeInstructions = [self createSwipeToAdd:@"Next"];
+    self.swipeInstructions = [self createSwipeToAdd:@"Next"];
     
                 //Locate and frame the text on the right side of the view.
     
-    NSString *text = [swipeInstructions.text stringByAppendingString:@"compo"];
+    NSString *text = [self.swipeInstructions.text stringByAppendingString:@"compo"];
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
-    swipeInstructions.frame = rect;
-    userSettings.optOutSeen=YES;
-    [userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
-    [userSettings.defaults synchronize];
+    self.swipeInstructions.frame = rect;
+    self.userSettings.optOutSeen=YES;
+    [self.userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
+    [self.userSettings.defaults synchronize];
     
                 //Display it.
     
-    [self.view addSubview:swipeInstructions];
+    [self.view addSubview:self.swipeInstructions];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {
@@ -154,9 +157,9 @@
                 //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
     
     if (nameField.text.length>0) {
-        userSettings.author=nameField.text;
-        [userSettings.defaults setObject:nameField.text forKey:@"author"];
-        [userSettings.defaults synchronize];
+        self.userSettings.author=nameField.text;
+        [self.userSettings.defaults setObject:nameField.text forKey:@"author"];
+        [self.userSettings.defaults synchronize];
     }
 }
 
@@ -164,9 +167,9 @@
     
                 //Change the bool for the permissionDenied property and synchronize the default.
     
-    userSettings.permissionDenied=!userSettings.permissionDenied;
-    [userSettings.defaults setBool:userSettings.permissionDenied forKey:@"permissionDenied?"];
-    [userSettings.defaults synchronize];
+    self.userSettings.permissionDenied=!self.userSettings.permissionDenied;
+    [self.userSettings.defaults setBool:self.userSettings.permissionDenied forKey:@"permissionDenied?"];
+    [self.userSettings.defaults synchronize];
     
                 //Change the display of the UISegmentedControl
     
@@ -184,9 +187,9 @@
     
                 //Change the bool for the disableVerification property and synchronize the default.
     
-    userSettings.disableSyllableCheck=!userSettings.disableSyllableCheck;
-    [userSettings.defaults setBool:userSettings.disableSyllableCheck forKey:@"disableSyllableCheck?"];
-    [userSettings.defaults synchronize];
+    self.userSettings.disableSyllableCheck=!self.userSettings.disableSyllableCheck;
+    [self.userSettings.defaults setBool:self.userSettings.disableSyllableCheck forKey:@"disableSyllableCheck?"];
+    [self.userSettings.defaults synchronize];
     
                 //Change the display of the UISegmentedControl
     

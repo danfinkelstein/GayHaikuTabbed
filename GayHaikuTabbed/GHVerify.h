@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSString+RNTextStatistics.h"
+//#import "NSString+RNTextStatistics.h"
 #import "NSRegularExpression+SimpleRegex.h"
 #import "NSString+RegexReplace.h"
 #import "GHHaiku.h"

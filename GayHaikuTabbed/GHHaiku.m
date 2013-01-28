@@ -47,28 +47,7 @@
         [self.gayHaiku exchangeObjectAtIndex:i withObjectAtIndex:r];
     }
     
-    /*
-     
-                //Populate a temporary array with the haiku that self.gayHaiku contains.
-     
-    NSMutableArray *arrayForShuffling = [[NSMutableArray alloc] initWithArray:self.gayHaiku];
-    int arrayCount = arrayForShuffling.count;
-    
-                //Empty self.gayHaiku.
-    
-    self.gayHaiku = [[NSMutableArray alloc] init];
-    
-                //Repopulate self.gayHaiku randomly with the items it used to hold (items now in the temporary array arrayForShuffling).
-    
-    for (int i=0; i<arrayCount; i++) {
-        int sortingHat = [self chooseNumber:arrayForShuffling.count];
-        [self.gayHaiku addObject:[arrayForShuffling objectAtIndex:sortingHat]];
-        [arrayForShuffling removeObjectAtIndex:sortingHat];
-        if (arrayForShuffling.count>0) {
-            [arrayForShuffling insertObject:[arrayForShuffling lastObject] atIndex:sortingHat];
-            [arrayForShuffling removeLastObject];
-        }
-    }*/
+
 }
 
 -(void)haikuToShow {
@@ -80,9 +59,6 @@
         //self.newIndex=0;
         [self shuffle];
     }
-    /*if (!self.newIndex) {
-        self.newIndex=0;
-    }*/
     
                 //If you've gone through the entire array, empty the array of haiku seen and reset the index.
     
@@ -92,11 +68,11 @@
     
                 //Set the current text to be the text of the haiku at newIndex
     
-    self.text = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"haiku"];
+    self.text = [self.gayHaiku[self.newIndex] valueForKey:@"haiku"];
         
                 //Indicate whether it's a user-generated haiku or not.
     
-    NSString *cat = [[self.gayHaiku objectAtIndex:self.newIndex] valueForKey:@"category"];
+    NSString *cat = [self.gayHaiku[self.newIndex] valueForKey:@"category"];
     if ([cat isEqualToString:@"user"]) {
         self.isUserHaiku=YES;
     }
@@ -111,7 +87,7 @@
     
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"gayHaiku.plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath: path]) {
@@ -133,7 +109,7 @@
                 //This loads the haiku from userHaiku.plist to the file "userPath".
     
     NSArray *userPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *userDocumentsDirectory = [userPaths objectAtIndex:0];
+    NSString *userDocumentsDirectory = userPaths[0];
     NSString *userPath = [userDocumentsDirectory stringByAppendingPathComponent:@"userHaiku.plist"];
     NSFileManager *userFileManager = [NSFileManager defaultManager];
     if (![userFileManager fileExistsAtPath: userPath]) {
@@ -160,7 +136,7 @@
                 //Saves array of user haiku to plist in docs folder.
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:string];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath: path]) {

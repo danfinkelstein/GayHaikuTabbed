@@ -8,6 +8,7 @@
 
 #import "GHFeedback.h"
 #import "GHAppDefaults.h"
+#import "GHHaiku.h"
 
 @interface GHFeedback ()
 
@@ -36,21 +37,20 @@
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
-    background = [[UIImageView alloc] initWithFrame:frame];
-    background.backgroundColor = [UIColor whiteColor];
+    UIImageView *bground = [[UIImageView alloc] initWithFrame:frame];
+    bground.backgroundColor = [UIColor whiteColor];
     if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"main.png"];
+        bground.image=[UIImage imageNamed:@"main.png"];
     }
     else {
-        background.image=[UIImage imageNamed:@"5main.png"];
+        bground.image=[UIImage imageNamed:@"5main.png"];
     }
-    [self.view addSubview:background];
+    [self.view addSubview:bground];
     [self displayFeedbackText];
 }
 
 -(void)displayFeedbackText {
-    if (!feedback) {
-        feedback = [[UITextView alloc] init];
+        UITextView *feedback = [[UITextView alloc] init];
         feedback.backgroundColor = [UIColor clearColor];
         feedback.font = [UIFont fontWithName:@"Helvetica Neue" size:mediumFontSize];
         NSString *t = @"If you have any problems with the ap";
@@ -69,7 +69,6 @@
         [self.view addConstraint:widthCon];
         [self.view addConstraint:heightCon];
         [self.view addSubview:feedback];
-    }
 }
 
 - (void)didReceiveMemoryWarning

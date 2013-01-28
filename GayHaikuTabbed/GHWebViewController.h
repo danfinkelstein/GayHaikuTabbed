@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GHWebViewController : UIViewController {
-    UIActivityIndicatorView *indicator;
-    UIToolbar *bar;
-    UINavigationItem *navBarTitle;
-    UIAlertView *alert;
-    UIWebView *webV;
-    UIColor *screenColor;
-}
+@interface GHWebViewController : UIViewController
 
 @end

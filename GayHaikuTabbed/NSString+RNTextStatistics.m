@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+/*
 #import "NSString+RNTextStatistics.h"
 #import "NSRegularExpression+SimpleRegex.h"
 #import "NSString+RegexReplace.h"
@@ -172,19 +172,19 @@
 }
 
 - (NSInteger)syllableTotal {
-    /*NSString *cleanText = [self cleanText];
+    NSString *cleanText = [self cleanText];
     __block NSInteger syllableCount = 0;
     NSArray *words = [cleanText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [words enumerateObjectsUsingBlock:^(NSString *word, NSUInteger idx, BOOL *stop) {
         NSLog(@"%@ %d",[words objectAtIndex:idx],[word syllableCount]);
         syllableCount += [word syllableCount];
     }];
-    return syllableCount;*/
+    return syllableCount;
     return 0;
 }
 
 -(NSDictionary *)loadSyllableCheckExceptions {
-    /*NSError *error;
+    NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"exceptions"];
@@ -197,12 +197,12 @@
     //Loads an array with the contents of "path".
     
     NSDictionary *ex = [[NSDictionary alloc] initWithContentsOfFile:path];
-    return ex;*/
+    return ex;
     return 0;
 }
 
 - (NSInteger)syllableCount {
-    /*if ([self isEqualToString:@""]) {
+    if ([self isEqualToString:@""]) {
         return 0;
     }
     
@@ -318,9 +318,9 @@
     }];
     
     syllableCount = syllableCount <= 0 ? 1 : syllableCount;
-    return syllableCount;*/
+    return syllableCount;
     return 0;
 }
 
 
-@end
+@end*/

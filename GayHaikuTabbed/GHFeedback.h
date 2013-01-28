@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GHHaiku.h"
 
-@interface GHFeedback : UIViewController {
-    UITextView *feedback;      //Text telling user how to get in touch with me.
-    UIImageView *background;
-}
+@interface GHFeedback : UIViewController
 
 @end

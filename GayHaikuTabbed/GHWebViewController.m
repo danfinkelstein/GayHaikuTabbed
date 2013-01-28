@@ -11,6 +11,12 @@
 
 @interface GHWebViewController () <UIWebViewDelegate>
 
+@property (nonatomic, strong) UIActivityIndicatorView *indicator;
+@property (nonatomic, strong) UIAlertView *alert;
+@property (nonatomic, strong) UIWebView *webV;
+@property (nonatomic, strong) UIToolbar *bar;
+@property (nonatomic, strong) UINavigationItem *navBarTitle;
+
 @end
 
 @implementation GHWebViewController
@@ -24,7 +30,6 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    screenColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     
                 //Load nav bar
     
@@ -35,13 +40,13 @@
     
                 //Create UIWebView.
     
-    if (!webV) {
-        webV = [[UIWebView alloc] init];
-        webV.scalesPageToFit=YES;
-        webV.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    if (!self.webV) {
+        self.webV = [[UIWebView alloc] init];
+        self.webV.scalesPageToFit=YES;
+        self.webV.autoresizingMask=UIViewAutoresizingFlexibleWidth;
         //webV.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     }
-    webV.delegate = self;
+    self.webV.delegate = self;
     
                 //Load Amazon page.
     
@@ -58,14 +63,14 @@
     
                 //Adds activity indicator to screen and starts animating it
     
-    if (!indicator) {
-        indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
-        [indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
-        [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicator.color=screenColor;
+    if (!self.indicator) {
+        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [self.indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
+        [self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.indicator.color=[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     }
-	[self.view addSubview:indicator];
-    [indicator startAnimating];
+	[self.view addSubview:self.indicator];
+    [self.indicator startAnimating];
     
                 //Add buttons with stop-loading button in place of refresh button.
     
@@ -79,14 +84,14 @@
     
                 //Load the nav bar.
     
-    [bar removeFromSuperview];
+    [self.bar removeFromSuperview];
     [self loadNavBar];
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
                 //Add the right buttons to the nav bar.
     
-    navBarTitle.rightBarButtonItem=stop;
-    navBarTitle.hidesBackButton=YES;
+    self.navBarTitle.rightBarButtonItem=stop;
+    self.navBarTitle.hidesBackButton=YES;
     
                 //Create whatever left buttons are appropriate and add to the arrays.
     
@@ -94,10 +99,10 @@
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
     backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    if (webV.canGoBack) {
+    if (self.webV.canGoBack) {
         backButt.style = UIBarButtonItemStyleBordered;
     }
-    if (webV.canGoForward) {
+    if (self.webV.canGoForward) {
         forButt.style = UIBarButtonItemStyleBordered;
     }
     
@@ -107,8 +112,8 @@
     [leftButtons addObject:forButt];
     [leftButtons addObject:flex];
     [leftButtons addObject:stop];
-    bar.items = leftButtons;
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    self.bar.items = leftButtons;
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     [self seeNavBar];
 }
 
@@ -116,7 +121,7 @@
     
                 //Create the arrays to hold navigation buttons.
     
-    [indicator stopAnimating];
+    [self.indicator stopAnimating];
     
     NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
     
@@ -128,14 +133,14 @@
     
                 //Load the nav bar.
     
-    [bar removeFromSuperview];
+    [self.bar removeFromSuperview];
     [self loadNavBar];
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     
                 //Add the right buttons to the nav bar.
     
-    navBarTitle.rightBarButtonItem=refresh;
-    navBarTitle.hidesBackButton=YES;
+    self.navBarTitle.rightBarButtonItem=refresh;
+    self.navBarTitle.hidesBackButton=YES;
     
                 //Create whatever left buttons are appropriate and add to the arrays.
     
@@ -143,10 +148,10 @@
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
     backButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     forButt.tintColor = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
-    if (webV.canGoBack) {
+    if (self.webV.canGoBack) {
         backButt.style = UIBarButtonItemStyleBordered;
     }
-    if (webV.canGoForward) {
+    if (self.webV.canGoForward) {
         forButt.style = UIBarButtonItemStyleBordered;
     }
     
@@ -159,13 +164,13 @@
     
                 //Load the nav bar.
     
-    [bar removeFromSuperview];
+    [self.bar removeFromSuperview];
     [self loadNavBar];
     
                 //Add the right buttons to the nav bar.
     
-    bar.items=leftButtons;
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    self.bar.items=leftButtons;
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     [self seeNavBar];
 }
 
@@ -178,60 +183,60 @@
     
                 //Allow the user to go to the previous web page.
     
-    [webV goBack];
+    [self.webV goBack];
 }
 
 -(void)webForward {
     
                 //Allow the user to follow a link.
     
-    [webV goForward];
+    [self.webV goForward];
 }
 
 -(void)webRefresh {
     
                 //Refreshes the current web page.
     
-    [webV reload];
+    [self.webV reload];
 }
 
 -(void)webStop {
     
                 //Interrupts loading the current web page.
     
-    [webV stopLoading];
-    [indicator stopAnimating];
+    [self.webV stopLoading];
+    [self.indicator stopAnimating];
 }
 
 -(void)loadNavBar {
     
                 //Creates a nav bar.
     
-    [bar removeFromSuperview];
+    [self.bar removeFromSuperview];
     if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, 32)];
+        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, 32)];
     }
-    else bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
-    bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
+    else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
+    self.bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
 }
 
 -(void)seeNavBar {
     
                 //Adds the nav bar to the screen.
     
-    [bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
-    bar.translucent=YES;
-    [self.view addSubview:bar];
+    [self.bar setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
+    self.bar.translucent=YES;
+    [self.view addSubview:self.bar];
 }
 
 - (void) layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
                 // Adjust the toolbar height depending on the screen orientation
     
-    CGSize toolbarSize = [bar sizeThatFits:self.view.bounds.size];
-    bar.frame = CGRectMake(0, 0, toolbarSize.width, toolbarSize.height);
-    webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);
+    CGSize toolbarSize = [self.bar sizeThatFits:self.view.bounds.size];
+    self.bar.frame = CGRectMake(0, 0, toolbarSize.width, toolbarSize.height);
+    self.webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType {
@@ -242,9 +247,9 @@
         NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com"];
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil) {
-            [indicator stopAnimating];
-            alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            [self.indicator stopAnimating];
+            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [self.alert show];
         }
     }
     return YES;
@@ -264,19 +269,19 @@
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
-        [webV loadRequest:req];
+        [self.webV loadRequest:req];
     }
-    webV.scalesPageToFit=YES;
-    [webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,screenHeight-tabBarHeight))];
-    [self.view addSubview:webV];
+    self.webV.scalesPageToFit=YES;
+    [self.webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,screenHeight-tabBarHeight))];
+    [self.view addSubview:self.webV];
 }
 
 -(BOOL)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
                 //What to do in case of failure to connect.
     
-    alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [self.alert show];
     return YES;
 }
 

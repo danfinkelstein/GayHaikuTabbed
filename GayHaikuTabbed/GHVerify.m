@@ -74,11 +74,11 @@
         
                 //Create a variable representing the number of syllables in a given line.
         
-        int extant = [self syllablesInLine:[self.listOfLines objectAtIndex:i]];
+        int extant = [self syllablesInLine:self.listOfLines[i]];
         
                 //Create a variable representing the number of syllables that SHOULD be in that line.
         
-        int ideal = [[syllablesInLine objectAtIndex:i] integerValue];
+        int ideal = [syllablesInLine[i] integerValue];
         
                 //Compare those two variables and add a record of the comparison to the array self.linesAfterCheck.
         
@@ -95,15 +95,40 @@
     return YES;
 }
 
+- (NSString*)cleanText: (NSString *)t {
+    NSString *text = [t copy];
+    // Strip tags
+    text = [[NSRegularExpression simpleRegex:@"<[^>]+>"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@""];
+    // Replace commas, hyphens, quotes etc (count them as spaces)
+    text = [[NSRegularExpression simpleRegex:@"[,:;\\(\\)\\-]"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@""];
+    // Unify terminators
+    text = [[NSRegularExpression simpleRegex:@"[\\.\\!\\?]"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@"."];
+    // trim whitespace
+    text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    // add ending terminator if it's not there
+    text = [text stringByAppendingString:@"."];
+    // Replace new lines with spaces
+    text = [[NSRegularExpression simpleRegex:@"[ ]*(\\n|\\r\\n|\\r)[ ]*"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@" "];
+    // Check for duplicated terminators
+    text = [[NSRegularExpression simpleRegex:@"\\.[\\.]+"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@"."];
+    // Pad sentence terminators
+    text = [[NSRegularExpression simpleRegex:@"[ ]*([\\.])\\s"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@". "];
+    // Remove "words" comprised only of numbers
+    text = [[NSRegularExpression simpleRegex:@"\\s[0-9]+\\s"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@" "];
+    // Remove multiple spaces
+    text = [[NSRegularExpression simpleRegex:@"\\s+$"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@" "];
+    text = [[NSRegularExpression simpleRegex:@"\\s+"] stringByReplacingMatchesInString:text options:kNilOptions range:NSMakeRange(0, [text length]) withTemplate:@" "];
+    return text;
+}
+
 - (NSInteger)syllableTotal: (NSString *)sg {
-    NSString *cleanText = [sg cleanText];
+    NSString *cleanText = [self cleanText:sg];
     __block NSInteger syllableCount = 0;
     NSArray *words = [cleanText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [words enumerateObjectsUsingBlock:^(NSString *word, NSUInteger idx, BOOL *stop) {
-        NSLog(@"%@ %d",[words objectAtIndex:idx],[self syllableCount:word]);
+        NSLog(@"%@ %d",words[idx],[self syllableCount:word]);
         syllableCount += [self syllableCount:word];
     }];
-    NSLog(@"syllable count during syllable total: %d",syllableCount);
     return syllableCount;
 }
 
@@ -224,14 +249,13 @@
     }];
     
     syllableCount = syllableCount <= 0 ? 1 : syllableCount;
-    NSLog(@"syllable count from syllableCount:  %d",syllableCount);
     return syllableCount;
 }
 
 -(NSDictionary *)loadSyllableCheckExceptions {
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"exceptions"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath: path]) {
