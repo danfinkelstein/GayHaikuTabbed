@@ -14,9 +14,12 @@
     IBOutlet UITextField *nameField;             //Field for user to enter name.
     IBOutlet UISegmentedControl *permissionDenied;
     IBOutlet UISegmentedControl *disableVerification;
+    IBOutlet UISegmentedControl *segCont;
 }
 
 -(IBAction)givePermission:(UISegmentedControl *)sender;
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender;
+-(IBAction)displayInfo:(id)sender;
+
 
 @end

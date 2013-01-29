@@ -9,6 +9,7 @@
 #import "GHComposeViewController.h" 
 #import "GHVerify.h"
 #import "GHAppDefaults.h"
+#import "GHVerify.h"
 
 @interface GHComposeViewController () <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate,UIActionSheetDelegate>
 
@@ -54,7 +55,7 @@
     
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
-    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
     self.background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         self.background.image=[UIImage imageNamed:@"instructions.png"];
@@ -81,8 +82,6 @@
 -(void)showWhatNeedsShowing {
     
                 //If the user hasn't ever seen the opt out screen, show it.
-    
-    NSLog(@"from compose opt out seen: %d",self.userSettings.optOutSeen);
     
     if (self.userSettings.optOutSeen==NO) {
         [self.tabBarController setSelectedIndex:4];
@@ -160,8 +159,8 @@
     
                 //Indicate which direction animation is going.
     
-    if (direction==@"right") transition.subtype =kCATransitionFromRight;
-    else if (direction==@"left") transition.subtype = kCATransitionFromLeft;
+    if ([direction isEqualToString:@"right"]) transition.subtype =kCATransitionFromRight;
+    else if ([direction isEqualToString:@"left"]) transition.subtype = kCATransitionFromLeft;
 
                 //Add animation.
     
@@ -177,7 +176,7 @@
                 //Change the screen to the compose screen.
     
     [self.background removeFromSuperview];
-    frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight);
     self.background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         self.background.image=[UIImage imageNamed:@"compose.png"];
@@ -201,7 +200,6 @@
         else {
             self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        self.textView.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
         self.textView.delegate = self;
     }
     
@@ -214,7 +212,7 @@
     self.textView.editable=YES;
     self.textView.backgroundColor = [UIColor clearColor];
     self.textView.hidden=NO;
-    self.textView.font=[UIFont fontWithName:@"Helvetica Neue" size:14];
+    self.textView.font=[UIFont fontWithName:@"Georgia" size:14];
     
                 //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
     
@@ -222,7 +220,8 @@
         self.textView.text = @"";
     }
     else {
-        self.textView.text = ghhaiku.text;
+        GHVerify *ghv = [[GHVerify alloc] init];
+        self.textView.text=[ghv removeAuthor:ghhaiku.text];
     }
     
                 //Show the textView and set up the keyboard.
@@ -271,7 +270,7 @@
     
     if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
             [self.background removeFromSuperview];
-            frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+            CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
             self.background = [[UIImageView alloc] initWithFrame:frame];
             if (screenHeight<500) {
                 self.background.image=[UIImage imageNamed:@"instructions.png"];
@@ -294,11 +293,11 @@
     {
         self.instructions = [[UITextView alloc] init];
         self.instructions.backgroundColor=[UIColor clearColor];
-        self.instructions.font = [UIFont fontWithName:@"Helvetica Neue" size:smallFontSize];
+        self.instructions.font = [UIFont fontWithName:@"Georgia" size:smallFontSize];
         self.instructions.editable=NO;
         self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         NSString *t = @"thinkers to express their ideas about the world in three lin";
-        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Helvetica Neue" size:smallFontSize]];
+        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:smallFontSize]];
         int textWidth = thisSize.width;
 
 //Obviously this is an ugly hack and needs to be defined somewhere else.
@@ -422,13 +421,15 @@
     
                 //Construct the part of the alert message correcting the number of lines, if one be necessary.
     
-    NSString *alertMessage=@"I'm sorry, but ";
-
+    NSString *alertMessage;
+    BOOL somethingIsAmiss;
     if (ghverify.numberOfLinesAsProperty==tooFewLines) {
-        alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too few lines."];
+        alertMessage = @"Your haiku might have too few lines";
+        somethingIsAmiss=YES;
     }
     else if (ghverify.numberOfLinesAsProperty==tooManyLines) {
-        alertMessage = [alertMessage stringByAppendingString:@"your haiku seems to have too many lines."];
+        alertMessage = @"Your haiku might have too many lines";
+        somethingIsAmiss=YES;
     }
     
                 //Create an iterator for the array of lines in the haiku.
@@ -459,40 +460,50 @@
                 //If there are syllable errors, add notification of these to the alert message.
     
     if (arrayOfLinesToAlert.count>0) {
+        
+        if (somethingIsAmiss==YES) {
+            alertMessage=[alertMessage stringByAppendingString:@". Also, though the syllable-counting algorithm is imperfect, "];
+        }
+        else {
+            alertMessage = @"Though the syllable-counting algorithm is imperfect, ";
+            somethingIsAmiss=YES;
+        }
         NSString *phrase;
         NSString *number;
         if (arrayOfLinesToAlert.count==1) {
-            number = [NSString stringWithFormat:@"I think line %@ has",arrayOfLinesToAlert[0] ];
+            number = [NSString stringWithFormat:@"line %@ seems to have",arrayOfLinesToAlert[0] ];
         }
         else if (arrayOfLinesToAlert.count==2) {
-            number = [NSString stringWithFormat:@"I think lines %@ and %@ have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1]];
+            number = [NSString stringWithFormat:@"lines %@ and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1]];
             }
         else if (arrayOfLinesToAlert.count==3) {
-            number = [NSString stringWithFormat:@"I think lines %@, %@, and %@ have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1],arrayOfLinesToAlert[2]];
+            number = [NSString stringWithFormat:@"lines %@, %@, and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1],arrayOfLinesToAlert[2]];
         }
-        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). If I'm wrong, I'll make note of it so I can do better in future releases. ",number];
-        if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
-                alertMessage = [alertMessage stringByAppendingFormat:@" Also, I think %@",phrase];
-            }
-        else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
+        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
+        //if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
+                //alertMessage = [alertMessage stringByAppendingFormat:@" Also, I think %@",phrase];
+            //}
+        //else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
+        alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
         }
     
     arrayOfLinesToAlert=Nil;
     
-                //If the alert message needs displaying (i.e., if it goes beyond the introductory "I'm sorry" phrase, which is 15 characters long), add an ending to it and display it with an alertView.
+                //If the alert message needs displaying, add an ending to it and display it with an alertView.
     
     if (self.userSettings.disableSyllableCheck==YES) {
         self.syllablesWrong=YES;
         [self saveUserHaiku];
         return YES;
     }
-    
-    if (alertMessage.length>15) {
+    //if (alertMessage.length>15) {
+    if (somethingIsAmiss) {
         NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
         UIAlertView *alert;
         alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
         [alert show];
+        somethingIsAmiss=NO;
         return YES;
     }
     

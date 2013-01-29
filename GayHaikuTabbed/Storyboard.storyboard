@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="INd-ZO-V20">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="INd-ZO-V20">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Settings View Controller-->
@@ -18,7 +18,7 @@
                                     <constraint firstAttribute="height" constant="89" id="qH9-b5-Apf"/>
                                 </constraints>
                                 <string key="text">I hope to update the Gay Haiku app with new haiku, and I'd like permission to include your haiku (or haiku inspired by yours) in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="input.png" translatesAutoresizingMaskIntoConstraints="NO" id="97c-s1-OKn"/>
@@ -27,7 +27,7 @@
                                     <constraint firstAttribute="height" constant="30" type="user" id="nMN-d5-CwZ"/>
                                     <constraint firstAttribute="width" constant="220" id="vYT-1i-dWm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="A4H-wC-VO7">
@@ -59,7 +59,7 @@
                                     <constraint firstAttribute="height" constant="31" id="V6Y-zk-Xrp"/>
                                     <constraint firstAttribute="width" constant="184" id="qhJ-jA-t6c"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Syllable verification?" translatesAutoresizingMaskIntoConstraints="NO" id="91J-cf-p6a">
@@ -67,9 +67,22 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="igH-73-oSB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zw5-6j-TTL">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="oJO-vr-QT7"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <color key="tintColor" red="0.84313725490196079" green="0.54117647058823526" blue="0.69411764705882351" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="displayInfo:" destination="INd-ZO-V20" eventType="valueChanged" id="Bjn-d1-hIj"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -84,12 +97,14 @@
                             <constraint firstAttribute="trailing" secondItem="A4H-wC-VO7" secondAttribute="trailing" constant="39" id="Kdd-7x-bpi"/>
                             <constraint firstItem="QAE-hR-U9v" firstAttribute="top" secondItem="A4H-wC-VO7" secondAttribute="bottom" constant="16" type="user" id="TDz-S4-rGd"/>
                             <constraint firstItem="uy5-vc-lH7" firstAttribute="top" secondItem="wql-Lf-Zfk" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="YGn-aV-4vG"/>
+                            <constraint firstAttribute="bottom" secondItem="zw5-6j-TTL" secondAttribute="bottom" constant="42" id="eRZ-jw-OQQ"/>
                             <constraint firstAttribute="trailing" secondItem="wql-Lf-Zfk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ea5-BY-dMn"/>
                             <constraint firstItem="wql-Lf-Zfk" firstAttribute="centerX" secondItem="97c-s1-OKn" secondAttribute="centerX" type="default" id="gKJ-fH-U36"/>
                             <constraint firstItem="A4H-wC-VO7" firstAttribute="leading" secondItem="QAE-hR-U9v" secondAttribute="leading" type="default" id="hbG-cg-XPG"/>
                             <constraint firstItem="wql-Lf-Zfk" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mya-Ac-yTr"/>
                             <constraint firstItem="A4H-wC-VO7" firstAttribute="top" secondItem="97c-s1-OKn" secondAttribute="bottom" constant="16" type="user" id="t41-kg-lC7"/>
                             <constraint firstItem="QAN-VN-Dfk" firstAttribute="leading" secondItem="mfu-Ti-sbb" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="uPM-XM-3i6"/>
+                            <constraint firstItem="zw5-6j-TTL" firstAttribute="centerX" secondItem="uy5-vc-lH7" secondAttribute="centerX" type="default" id="wts-UO-gGA"/>
                             <constraint firstItem="QAN-VN-Dfk" firstAttribute="centerY" secondItem="A4H-wC-VO7" secondAttribute="centerY" type="default" id="ymP-4V-S9I"/>
                         </constraints>
                     </view>
@@ -99,6 +114,7 @@
                         <outlet property="disableVerification" destination="QAE-hR-U9v" id="8wy-Ja-0l2"/>
                         <outlet property="nameField" destination="uy5-vc-lH7" id="jQJ-n3-EzF"/>
                         <outlet property="permissionDenied" destination="A4H-wC-VO7" id="YHs-gP-GUp"/>
+                        <outlet property="segCont" destination="zw5-6j-TTL" id="p8X-XR-lAa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B1d-JJ-f1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -109,6 +125,23 @@
     <resources>
         <image name="input.png" width="228" height="31"/>
     </resources>
+    <classes>
+        <class className="GHSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="disableSyllableVerification:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="displayInfo:"/>
+                <relationship kind="action" name="givePermission:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="disableVerification" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="permissionDenied" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="segCont" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

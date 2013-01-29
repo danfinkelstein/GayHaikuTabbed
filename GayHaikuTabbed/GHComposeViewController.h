@@ -14,7 +14,6 @@
 #import "GHHaiku.h"
 
 @interface GHComposeViewController : UIViewController <UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
-    CGRect frame;
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
 }
 

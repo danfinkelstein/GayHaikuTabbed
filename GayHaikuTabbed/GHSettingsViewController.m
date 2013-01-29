@@ -8,6 +8,7 @@
 
 #import "GHSettingsViewController.h"
 #import "GHAppDefaults.h"
+#import "GHHaikuViewController.h"
 
 @interface GHSettingsViewController () <UITextFieldDelegate>
 
@@ -50,11 +51,6 @@
         [self.view addGestureRecognizer:swipeLeft];
     }
     
-                //Add tap gesture recognizer.
-    
-    UITapGestureRecognizer *tapScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayInfo)];
-    [self.view addGestureRecognizer:tapScreen];
-    
                 //Add the background image.
     
     CGRect frame;
@@ -87,6 +83,9 @@
     }
     nameField.delegate=self;
     
+    [segCont removeAllSegments];
+    [segCont insertSegmentWithTitle:@"About" atIndex:0 animated:NO];
+    
                 //UNCOMMENT THIS FOR TESTING
     
     //userSettings.optOutSeen=NO;
@@ -96,9 +95,10 @@
     [self.tabBarController setSelectedIndex:1];
 }
 
--(void)displayInfo {
-    UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers. " delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+-(IBAction)displayInfo:(id)sender {
+    UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [behindTheScenesInfo show];
+    segCont.selectedSegmentIndex=-1;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -130,7 +130,7 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    self.swipeInstructions = [self createSwipeToAdd:@"Next"];
+    self.swipeInstructions = [self createSwipeToAdd:@"Swipe"];
     
                 //Locate and frame the text on the right side of the view.
     

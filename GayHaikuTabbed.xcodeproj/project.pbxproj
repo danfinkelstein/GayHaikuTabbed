@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
+		5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */; };
 		5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
 		5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
@@ -81,6 +82,9 @@
 		5DC62D7316ADEEFC006A4C62 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */; };
 		5DC62D7F16ADFC95006A4C62 /* input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC62D7E16ADFC95006A4C62 /* input@2x.png */; };
 		5DD2770916AE1B57001262A0 /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DD2770816AE1B57001262A0 /* input.png */; };
+		5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */; };
+		5DFA48F916B78EC700AF85DF /* untitled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA48F816B78EC700AF85DF /* untitled.png */; };
+		5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */; };
 		5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE27169A077A004E63CF /* 20-gear-2.png */; };
 		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
 		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
@@ -102,6 +106,8 @@
 
 /* Begin PBXFileReference section */
 		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
+		5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMActivityInstagram.m; sourceTree = "<group>"; };
+		5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMActivityInstagram.h; sourceTree = "<group>"; };
 		5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+SimpleRegex.h"; sourceTree = "<group>"; };
 		5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
 		5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
@@ -180,6 +186,9 @@
 		5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DC62D7E16ADFC95006A4C62 /* input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input@2x.png"; sourceTree = "<group>"; };
 		5DD2770816AE1B57001262A0 /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
+		5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundForFacebook.png; sourceTree = "<group>"; };
+		5DFA48F816B78EC700AF85DF /* untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitled.png; sourceTree = "<group>"; };
+		5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroungForInstagram.png; sourceTree = "<group>"; };
 		5DFCCE27169A077A004E63CF /* 20-gear-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2.png"; sourceTree = "<group>"; };
 		5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2@2x.png"; sourceTree = "<group>"; };
 		5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSettingsViewController.h; sourceTree = "<group>"; };
@@ -236,6 +245,8 @@
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */,
+				5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */,
 				5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */,
 				5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */,
 				5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */,
@@ -321,6 +332,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */,
+				5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */,
 				5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */,
 				5DC62D7016ADEEF8006A4C62 /* Default@2x.png */,
 				5DC62D6E16ADEEF3006A4C62 /* Default.png */,
@@ -336,6 +349,7 @@
 				5DBE121C1680BE3A007324B6 /* webForward@2x.png */,
 				5DBE121A1680BE3A007324B6 /* webBack.png */,
 				5DBE121B1680BE3A007324B6 /* webBack@2x.png */,
+				5DFA48F816B78EC700AF85DF /* untitled.png */,
 				5DFF8A09167ED7C900845EC4 /* 18-envelope.png */,
 				5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */,
 				5D6489161679207F00A87596 /* 53-house.png */,
@@ -495,6 +509,9 @@
 				5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */,
 				5DB6742C16B49C6B0039C72B /* exceptions.plist in Resources */,
 				5D9A464316B5C74300C7572B /* 5compose.png in Resources */,
+				5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */,
+				5DFA48F916B78EC700AF85DF /* untitled.png in Resources */,
+				5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +577,7 @@
 				5D88260B167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
 				5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */,
+				5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

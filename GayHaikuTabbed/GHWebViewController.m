@@ -34,8 +34,8 @@
     
                 //Load nav bar
     
-    [self loadNavBar];
-    [self seeNavBar];
+    [self loadBar];
+    [self seeBar];
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     
@@ -54,7 +54,7 @@
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
-    self.userInfo = [[GHAppDefaults alloc] init];
+    self.userInfo = [GHAppDefaults sharedInstance];
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -73,29 +73,32 @@
     }
 	[self.view addSubview:self.indicator];
     [self.indicator startAnimating];
+    [self createToolbarWithButton:@"webStop"];
+}
+
+-(void)createToolbarWithButton: (NSString *)title {
     
-                //Add buttons with stop-loading button in place of refresh button.
-    
-    NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
+    NSMutableArray *buttons = [[NSMutableArray alloc] init];
     
                 //Create navigation buttons for the right (stop and refresh).
     
-    UIBarButtonItem *stop = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(@"webStop")];
-    stop.style = UIBarButtonItemStyleBordered;
+    UIBarButtonItem *variable;
+    
+    if ([title isEqualToString:@"webRefresh"]) {
+        variable = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(title)];
+    }
+    else {
+        variable = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(title)];
+    }
+    variable.style = UIBarButtonItemStyleBordered;
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
     
-                //Load the nav bar.
+    //Load the nav bar.
     
-    [self.bar removeFromSuperview];
-    [self loadNavBar];
+    [self loadBar];
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    
-                //Add the right buttons to the nav bar.
-    
-    self.navBarTitle.rightBarButtonItem=stop;
-    self.navBarTitle.hidesBackButton=YES;
-    
-                //Create whatever left buttons are appropriate and add to the arrays.
+      
+    //Create whatever left buttons are appropriate and add to the arrays.
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
@@ -108,15 +111,19 @@
         forButt.style = UIBarButtonItemStyleBordered;
     }
     
-                //Add the left buttons to the nav bar.
+    //Add the left buttons to the nav bar.
     
-    [leftButtons addObject:backButt];
-    [leftButtons addObject:forButt];
-    [leftButtons addObject:flex];
-    [leftButtons addObject:stop];
-    self.bar.items = leftButtons;
+    [buttons addObject:backButt];
+    [buttons addObject:forButt];
+    [buttons addObject:flex];
+    [buttons addObject:variable];
+        
+    //Add the right buttons to the nav bar.
+    
+    self.bar.items=buttons;
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    [self seeNavBar];
+    
+    [self seeBar];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -124,56 +131,7 @@
                 //Create the arrays to hold navigation buttons.
     
     [self.indicator stopAnimating];
-    
-    NSMutableArray *leftButtons = [[NSMutableArray alloc] init];
-    
-                //Create navigation buttons for the right (stop and refresh).
-    
-    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:NSSelectorFromString(@"webRefresh")];
-    refresh.style = UIBarButtonItemStyleBordered;
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
-    
-                //Load the nav bar.
-    
-    [self.bar removeFromSuperview];
-    [self loadNavBar];
-    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    
-                //Add the right buttons to the nav bar.
-    
-    self.navBarTitle.rightBarButtonItem=refresh;
-    self.navBarTitle.hidesBackButton=YES;
-    
-                //Create whatever left buttons are appropriate and add to the arrays.
-    
-    UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
-    UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
-    backButt.tintColor = self.userInfo.screenColorTrans;
-    forButt.tintColor = self.userInfo.screenColorTrans;
-    if (self.webV.canGoBack) {
-        backButt.style = UIBarButtonItemStyleBordered;
-    }
-    if (self.webV.canGoForward) {
-        forButt.style = UIBarButtonItemStyleBordered;
-    }
-    
-                //Add the left buttons to the nav bar.
-    
-    [leftButtons addObject:backButt];
-    [leftButtons addObject:forButt];
-    [leftButtons addObject:flex];
-    [leftButtons addObject:refresh];
-    
-                //Load the nav bar.
-    
-    [self.bar removeFromSuperview];
-    [self loadNavBar];
-    
-                //Add the right buttons to the nav bar.
-    
-    self.bar.items=leftButtons;
-    self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
-    [self seeNavBar];
+    [self createToolbarWithButton:@"webRefresh"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -199,18 +157,21 @@
     
                 //Refreshes the current web page.
     
+    [self createToolbarWithButton:@"webStop"];
     [self.webV reload];
+
 }
 
 -(void)webStop {
     
                 //Interrupts loading the current web page.
     
+    [self createToolbarWithButton:@"webRefresh"];
     [self.webV stopLoading];
     [self.indicator stopAnimating];
 }
 
--(void)loadNavBar {
+-(void)loadBar {
     
                 //Creates a nav bar.
     
@@ -223,7 +184,7 @@
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
 }
 
--(void)seeNavBar {
+-(void)seeBar {
     
                 //Adds the nav bar to the screen.
     
@@ -250,7 +211,7 @@
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil) {
             [self.indicator stopAnimating];
-            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [self.alert show];
         }
     }
@@ -282,7 +243,7 @@
     
                 //What to do in case of failure to connect.
     
-    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm so sorry!" message:@"Unfortunately, I seem to be having a hard time connecting to the Internet.  Would you mind trying again later?  I promise to make it worth your while." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [self.alert show];
     return YES;
 }

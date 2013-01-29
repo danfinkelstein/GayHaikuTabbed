@@ -31,5 +31,6 @@ typedef enum {
 -(NSArray *)splitHaikuIntoLines: (NSString *)haiku;             //Splits the haiku into lines.
 -(int)syllablesInLine: (NSString *)line;                        //Counts the syllables in the given line.
 -(BOOL)checkHaikuSyllables;                                     //Checks whether lines have correct number of syllables.
+-(NSString *)removeAuthor:(NSString *)s;
 
 @end

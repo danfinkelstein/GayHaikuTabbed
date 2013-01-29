@@ -20,6 +20,21 @@
     return self.listOfLines;
 }
 
+-(NSString *)removeAuthor:(NSString *)s {
+    NSArray *arrayOfLines = [self splitHaikuIntoLines:s];
+    if (arrayOfLines.count>3) {
+        NSString *string = arrayOfLines[0];
+        string = [string stringByAppendingString:@"\n"];
+        string = [string stringByAppendingString:arrayOfLines[1]];
+        string = [string stringByAppendingString:@"\n"];
+        string = [string stringByAppendingString:arrayOfLines[2]];
+        return string;
+    }
+    else {
+        return s;
+    }
+}
+
 -(NSArray *)splitHaikuIntoWords: (NSString *)haiku {
     NSArray *listOfWords = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@" "]];
     return listOfWords;
@@ -126,7 +141,10 @@
     __block NSInteger syllableCount = 0;
     NSArray *words = [cleanText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [words enumerateObjectsUsingBlock:^(NSString *word, NSUInteger idx, BOOL *stop) {
-        NSLog(@"%@ %d",words[idx],[self syllableCount:word]);
+        
+//UNCOMMENT NEXT LINE TO CHECK SYLLABLES IN MISANALYZED LINES.
+        
+        //NSLog(@"%@ %d",words[idx],[self syllableCount:word]);
         syllableCount += [self syllableCount:word];
     }];
     return syllableCount;
