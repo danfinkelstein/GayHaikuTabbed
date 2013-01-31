@@ -288,13 +288,13 @@
 			isa = PBXGroup;
 			children = (
 				5D2F68B116B04B65005EAC8E /* Parse.framework */,
-				5DFCCE38169C506C004E63CF /* libz.dylib */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
 				5D8825CB1674437A007DF2E2 /* Social.framework */,
 				5D8825CC1674437A007DF2E2 /* StoreKit.framework */,
 				5D8825CD1674437A007DF2E2 /* SystemConfiguration.framework */,
 				5D8825CE1674437A007DF2E2 /* Twitter.framework */,
 				5D8825C71674435A007DF2E2 /* libz.1.1.3.dylib */,
+				5DFCCE38169C506C004E63CF /* libz.dylib */,
 				5D8825C516744346007DF2E2 /* libsqlite3.dylib */,
 				5D8825C116744326007DF2E2 /* MessageUI.framework */,
 				5D8825C216744326007DF2E2 /* MobileCoreServices.framework */,

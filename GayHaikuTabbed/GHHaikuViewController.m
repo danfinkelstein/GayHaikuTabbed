@@ -387,13 +387,11 @@
     
     NSString *cat=@"user";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category == %@", cat];
-    for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++)
-    {
+    for (int i=0; i<[self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate].count; i++) {
         NSArray *filtArr = [self.ghhaiku.gayHaiku filteredArrayUsingPredicate:predicate];
         id haikuToDelete = filtArr[i];
         NSString *haikuString = [haikuToDelete valueForKey:@"haiku"];
-        if ([haikuString isEqualToString:self.displayHaikuTextView.text])
-        {
+        if ([haikuString isEqualToString:self.displayHaikuTextView.text]) {
             [self.ghhaiku.gayHaiku removeObjectIdenticalTo:self.ghhaiku.gayHaiku[i]];
             [self.ghhaiku saveToDocsFolder:@"userHaiku.plist"];
             break;
