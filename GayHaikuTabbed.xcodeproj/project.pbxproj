@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
 		5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */; };
+		5D4B4B2916B899A800D6FD0A /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */; };
+		5D4B4B2A16B8A86B00D6FD0A /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */; };
+		5D4B4B2B16B8A86B00D6FD0A /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */; };
 		5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */; };
 		5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5F877F16B1E538000444BC /* NSString+RegexReplace.m */; };
 		5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890416791F4100A87596 /* 80-shopping-cart.png */; };
@@ -17,6 +20,9 @@
 		5D64891216791FC700A87596 /* 216-compose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890D16791FC700A87596 /* 216-compose@2x.png */; };
 		5D6489181679207F00A87596 /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489161679207F00A87596 /* 53-house.png */; };
 		5D6489191679207F00A87596 /* 53-house@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489171679207F00A87596 /* 53-house@2x.png */; };
+		5D6BF93016B9F0820076DC35 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF92E16B9F0820076DC35 /* instagram.png */; };
+		5D6BF93116B9F0820076DC35 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF92F16B9F0820076DC35 /* instagram@2x.png */; };
+		5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */; };
 		5D76BE7016AA2C3C00DB1A87 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6816AA2C3C00DB1A87 /* main.png */; };
 		5D76BE7116AA2C3C00DB1A87 /* 5main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6916AA2C3C00DB1A87 /* 5main.png */; };
 		5D76BE7216AA2C3C00DB1A87 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6A16AA2C3C00DB1A87 /* instructions.png */; };
@@ -108,6 +114,8 @@
 		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMActivityInstagram.m; sourceTree = "<group>"; };
 		5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMActivityInstagram.h; sourceTree = "<group>"; };
+		5D4B4B2716B899A800D6FD0A /* DMResizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMResizerViewController.h; sourceTree = "<group>"; };
+		5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMResizerViewController.m; sourceTree = "<group>"; };
 		5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+SimpleRegex.h"; sourceTree = "<group>"; };
 		5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+SimpleRegex.m"; sourceTree = "<group>"; };
 		5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexReplace.h"; sourceTree = "<group>"; };
@@ -118,6 +126,9 @@
 		5D64890D16791FC700A87596 /* 216-compose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "216-compose@2x.png"; sourceTree = "<group>"; };
 		5D6489161679207F00A87596 /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
 		5D6489171679207F00A87596 /* 53-house@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house@2x.png"; sourceTree = "<group>"; };
+		5D6BF92E16B9F0820076DC35 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
+		5D6BF92F16B9F0820076DC35 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
+		5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMResizerViewController.xib; sourceTree = "<group>"; };
 		5D76BE6816AA2C3C00DB1A87 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
 		5D76BE6916AA2C3C00DB1A87 /* 5main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5main.png; sourceTree = "<group>"; };
 		5D76BE6A16AA2C3C00DB1A87 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
@@ -245,8 +256,11 @@
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */,
+				5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */,
+				5D4B4B2716B899A800D6FD0A /* DMResizerViewController.h */,
+				5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */,
 				5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */,
+				5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */,
 				5D5F877C16B1E538000444BC /* NSRegularExpression+SimpleRegex.h */,
 				5D5F877D16B1E538000444BC /* NSRegularExpression+SimpleRegex.m */,
 				5D5F877E16B1E538000444BC /* NSString+RegexReplace.h */,
@@ -332,6 +346,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5D6BF92E16B9F0820076DC35 /* instagram.png */,
+				5D6BF92F16B9F0820076DC35 /* instagram@2x.png */,
 				5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */,
 				5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */,
 				5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */,
@@ -512,6 +528,9 @@
 				5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */,
 				5DFA48F916B78EC700AF85DF /* untitled.png in Resources */,
 				5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */,
+				5D6BF93016B9F0820076DC35 /* instagram.png in Resources */,
+				5D6BF93116B9F0820076DC35 /* instagram@2x.png in Resources */,
+				5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +566,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D4B4B2A16B8A86B00D6FD0A /* DMResizerViewController.m in Sources */,
+				5D4B4B2B16B8A86B00D6FD0A /* DMActivityInstagram.m in Sources */,
 				5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */,
 				5DBC946316743DFF000406DF /* main.m in Sources */,
@@ -578,6 +599,7 @@
 				5D5F878216B1E538000444BC /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D5F878316B1E538000444BC /* NSString+RegexReplace.m in Sources */,
 				5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */,
+				5D4B4B2916B899A800D6FD0A /* DMResizerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

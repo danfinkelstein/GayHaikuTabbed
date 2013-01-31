@@ -19,6 +19,8 @@
 
 @implementation GHSettingsViewController
 
+#pragma mark SETUP/CREATION METHODS
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -91,16 +93,6 @@
     //userSettings.optOutSeen=NO;
 }
 
--(void)switchToInstructions {
-    [self.tabBarController setSelectedIndex:1];
-}
-
--(IBAction)displayInfo:(id)sender {
-    UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [behindTheScenesInfo show];
-    segCont.selectedSegmentIndex=-1;
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.userSettings.optOutSeen) {
@@ -146,6 +138,16 @@
                 //Display it.
     
     [self.view addSubview:self.swipeInstructions];
+}
+
+-(void)switchToInstructions {
+    [self.tabBarController setSelectedIndex:1];
+}
+
+-(IBAction)displayInfo:(id)sender {
+    UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [behindTheScenesInfo show];
+    segCont.selectedSegmentIndex=-1;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {
@@ -208,8 +210,7 @@
     return YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

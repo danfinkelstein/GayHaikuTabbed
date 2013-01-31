@@ -81,8 +81,7 @@
     }
 }
 
--(void) loadHaiku
-{
+-(void) loadHaiku {
                 //This loads the haiku from gayHaiku.plist to the file "path".
     
     NSError *error;

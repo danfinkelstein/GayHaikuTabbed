@@ -125,6 +125,4 @@
     return (imageSize.height == imageSize.width);
 }
 
-
-
 @end

@@ -25,8 +25,9 @@
 
 @implementation GHComposeViewController
 
--(void)viewDidLoad
-{
+#pragma mark SETUP/CREATION METHODS
+
+-(void)viewDidLoad {
     [super viewDidLoad];
     
                 //Create and add swipe gesture recognizers
@@ -125,7 +126,7 @@
     
     NSString *word;
     if (self.userSettings.instructionsSeen==NO) {
-        word = @"Next";
+        word = @"Swipe";
     }
     else {
         word = @"Swipe to compose";
@@ -145,6 +146,90 @@
     
     [self animateView:self.nextInstructions withDirection:direction];
     [self.view addSubview:self.nextInstructions];
+}
+
+#pragma mark DISPLAY METHODS
+
+-(void)displayInstructionsScreen {
+    
+    //If user is coming from the compose screen, which has a different background image, set the background image for the screen.
+    
+    if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
+        [self.background removeFromSuperview];
+        CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+        self.background = [[UIImageView alloc] initWithFrame:frame];
+        if (screenHeight<500) {
+            self.background.image=[UIImage imageNamed:@"instructions.png"];
+        }
+        else {
+            self.background.image=[UIImage imageNamed:@"5instructions.png"];
+        }
+        [self.view addSubview:self.background];
+        
+    }
+    
+    //Hide the textview and resign first responder.
+    
+    self.textView.hidden=YES;
+    [self.textView resignFirstResponder];
+    
+    //Create the instructions if they don't exist and set their attributes.
+    
+    if (!self.instructions)
+    {
+        self.instructions = [[UITextView alloc] init];
+        self.instructions.backgroundColor=[UIColor clearColor];
+        self.instructions.font = [UIFont fontWithName:@"Georgia" size:smallFontSize];
+        self.instructions.editable=NO;
+        self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
+        NSString *t = @"thinkers to express their ideas about the world in three lin";
+        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:smallFontSize]];
+        int textWidth = thisSize.width;
+        
+        //Obviously this is an ugly hack and needs to be defined somewhere else.
+        
+        int textHeight = thisSize.height*17;
+        self.instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight);
+    }
+    
+    //If we're coming from the opt-out screen (i.e. swiping from the right), animate the instructions to the left.
+    
+    if (self.userSettings.instructionsSwipedToFromOptOut==YES) {
+        [self animateView:self.instructions withDirection:@"left"];
+        [self addSwipeForRight:@"left"];
+    }
+    
+    //If we're coming from the compose screen (i.e. swiping from the left), animate the instructions to the left.
+    
+    else if (self.userSettings.instructionsSwipedToFromOptOut==NO) { //If we're coming from the compose screen, animate instructions from right.
+        [self animateView:self.instructions withDirection:@"right"];
+        [self addSwipeForRight:@"right"];
+    }
+    
+    //Set boolean to indicate that the opt-out to instructions swipe has happened, and update the defaults.
+    
+    if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
+        self.userSettings.instructionsSwipedToFromOptOut=YES;
+        [self.userSettings.defaults setBool:YES forKey:@"instructionsSwipedTo?"];
+        [self.userSettings.defaults synchronize];
+    }
+    
+    //Set boolean to indicate that the instructions have been seen, and update the defaults
+    
+    if (self.userSettings.instructionsSeen==NO) {
+        self.userSettings.instructionsSeen=YES;
+        [self.userSettings.defaults setBool:YES forKey:@"instructionsSeen?"];
+        [self.userSettings.defaults synchronize];
+    }
+    
+    //If we're coming from the compose screen, make sure the instructions are visible.  Add them to the view.
+    
+    self.instructions.hidden=NO;
+    [self.view addSubview:self.instructions];
+    
+    //Animate the compose screen if that's where we go next.
+    
+    self.animateComposeScreen=YES;
 }
 
 -(void)animateView:(UIView *)tv withDirection: (NSString *)direction {
@@ -167,7 +252,7 @@
     [tv.layer addAnimation:transition forKey:nil];
 }
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
@@ -264,99 +349,18 @@
     [self doActionSheet];
 }
 
--(void)displayInstructionsScreen {
-    
-                //If user is coming from the compose screen, which has a different background image, set the background image for the screen.
-    
-    if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
-            [self.background removeFromSuperview];
-            CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
-            self.background = [[UIImageView alloc] initWithFrame:frame];
-            if (screenHeight<500) {
-                self.background.image=[UIImage imageNamed:@"instructions.png"];
-            }
-            else {
-                self.background.image=[UIImage imageNamed:@"5instructions.png"];
-            }
-            [self.view addSubview:self.background];
-    
-    }
-    
-                //Hide the textview and resign first responder.
-    
-    self.textView.hidden=YES;
-    [self.textView resignFirstResponder];
-    
-                //Create the instructions if they don't exist and set their attributes.
-    
-    if (!self.instructions)
-    {
-        self.instructions = [[UITextView alloc] init];
-        self.instructions.backgroundColor=[UIColor clearColor];
-        self.instructions.font = [UIFont fontWithName:@"Georgia" size:smallFontSize];
-        self.instructions.editable=NO;
-        self.instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
-        NSString *t = @"thinkers to express their ideas about the world in three lin";
-        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:smallFontSize]];
-        int textWidth = thisSize.width;
-
-//Obviously this is an ugly hack and needs to be defined somewhere else.
-        
-        int textHeight = thisSize.height*17;
-        self.instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight);
-    }
-    
-                //If we're coming from the opt-out screen (i.e. swiping from the right), animate the instructions to the left.
-    
-    if (self.userSettings.instructionsSwipedToFromOptOut==YES) {
-        [self animateView:self.instructions withDirection:@"left"];
-        [self addSwipeForRight:@"left"];
-    }
-    
-                //If we're coming from the compose screen (i.e. swiping from the left), animate the instructions to the left. 
-    
-    else if (self.userSettings.instructionsSwipedToFromOptOut==NO) { //If we're coming from the compose screen, animate instructions from right.
-        [self animateView:self.instructions withDirection:@"right"];
-        [self addSwipeForRight:@"right"];
-    }
-    
-                //Set boolean to indicate that the opt-out to instructions swipe has happened, and update the defaults.
-    
-    if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
-        self.userSettings.instructionsSwipedToFromOptOut=YES;
-        [self.userSettings.defaults setBool:YES forKey:@"instructionsSwipedTo?"];
-        [self.userSettings.defaults synchronize];
-    }
-    
-                //Set boolean to indicate that the instructions have been seen, and update the defaults
-    
-    if (self.userSettings.instructionsSeen==NO) {
-        self.userSettings.instructionsSeen=YES;
-        [self.userSettings.defaults setBool:YES forKey:@"instructionsSeen?"];
-        [self.userSettings.defaults synchronize];
-    }
-    
-                //If we're coming from the compose screen, make sure the instructions are visible.  Add them to the view.
-    
-    self.instructions.hidden=NO;
-    [self.view addSubview:self.instructions];
-    
-                //Animate the compose screen if that's where we go next.
-    
-    self.animateComposeScreen=YES;
-}
-
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     [textField becomeFirstResponder];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
--(void)doActionSheet
-{
+#pragma mark SAVING METHODS
+
+-(void)doActionSheet {
     [self.textView resignFirstResponder];
     UIActionSheet *actSheet;
     

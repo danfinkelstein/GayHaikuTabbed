@@ -18,7 +18,7 @@
 #import <Social/Social.h>
 #import "GHAppDefaults.h"
 #import "GHVerify.h"
-
+#import "DMActivityInstagram.h"
 
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate, UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate>
 
@@ -43,8 +43,7 @@
 
 #pragma mark CREATION/SETUP METHODS
 
--(void)viewDidLoad
-{
+-(void)viewDidLoad{
     [super viewDidLoad];
     UIImageView *background;
     self.view.autoresizesSubviews=YES;
@@ -128,8 +127,7 @@
     
                 //When the user returns from the compose screen having just composed a new haiku, replace whatever haiku was showing before with the new user haiku.
     
-    if (self.ghhaiku.justComposed==YES)
-    {
+    if (self.ghhaiku.justComposed==YES) {
         [super viewWillAppear:animated];
         [self displayHaiku];
         [self showNavBarOnTap];
@@ -185,7 +183,7 @@
     
                 //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
     
-    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showMessage)];
+    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
     send.style=UIBarButtonItemStyleBordered;
     self.titleBar.rightBarButtonItem = send;
 }
@@ -410,30 +408,7 @@
 
 #pragma mark SHARING METHODS
 
--(void)actionSheet:(UIActionSheet *)actSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-                //Take user to email, Facebook, or Twitter, depending on which option s/he's selected in the action sheet.
-    
-    {
-        if (buttonIndex == 0)
-        {
-            [self openMail];
-        }
-        else if (buttonIndex == 1)
-        {
-            [self faceBook];
-        }
-        else if (buttonIndex == 2)
-        {
-            [self twit];
-        }
-        else if (buttonIndex == 3) {
-            NSLog(@"Sending to instagram.");
-            [self instagram];
-        }
-    }
-}
-
+/*
 -(void)openMail {
     
                 //Open Mail program and create email with haiku attached as image.
@@ -443,11 +418,10 @@
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
         [mailer setSubject:[NSString stringWithFormat:@"Gay Haiku"]];
-        //UIImage *myImage = [self createImage];
         UIImage *myImage = [self addTextToImage:[UIImage imageNamed: @"backgroundForFacebook.png"] withFontSize:15];
         NSData *imageData = UIImagePNGRepresentation(myImage);
         [mailer addAttachmentData:imageData mimeType:@"image/jpg" fileName:@"Gay Haiku http://gayhaiku.com"];
-        NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app (http://gayhaiku.com).";
+        NSString *emailBody = @"I thought you might like this gay haiku from the Gay Haiku iPhone app.";
         [mailer setMessageBody:emailBody isHTML:NO];
         [self presentViewController:mailer animated:YES completion:NULL];
     }
@@ -468,104 +442,25 @@
         [self.alert show];
     }
 }
+*/
 
--(void)instagram {
-
+-(void)share {
+    DMActivityInstagram *activity = [[DMActivityInstagram alloc] init];
+    UIImage *myImage = [self addTextToImage:[UIImage imageNamed:@"backgroundForFacebook"] withFontSize:15];
+    myImage = [self resizeImage:myImage inRect:CGRectMake(0, 0, 612, 612)];
+    NSString *shareText = self.ghhaiku.text;
+    shareText = [shareText stringByAppendingString:@"\n\n#gayhaiku"];
+    NSURL *shareURL = [NSURL URLWithString:@"http://gayhaiku.com"];
+    NSArray *activityItems = @[myImage, shareText, shareURL];
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:@[activity]];
+    [self presentViewController:activityController animated:YES completion:nil];
+    NSLog(@"Yup!");
 }
 
 -(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {
     UIActivity *activity;
     [activity activityDidFinish:YES];
     NSLog(@"Sent to instagram.");
-}
-
--(void)twit {
-    
-                //Set share mode to tweet and share the haiku.
-    
-    self.serviceType=SLServiceTypeTwitter;
-    [self share];
-}
-
--(void)faceBook {
-    
-                //Set share mode to Facebook and share the haiku.
-    
-    self.serviceType=SLServiceTypeFacebook;
-    [self share];
-}
-
--(void)share {
-    
-                //Send the haiku if it can be sent.
-    
-    if ([SLComposeViewController isAvailableForServiceType:self.serviceType])
-    {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:self.serviceType];
-        SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result){
-            
-                //Create an alert message and show it in case of success.
-            
-            if (result != SLComposeViewControllerResultCancelled)
-            {
-                NSString *yesItSent;
-                if (self.serviceType==SLServiceTypeTwitter)
-                {
-                    yesItSent = @"Tweet twitted.";
-                }
-                else if (self.serviceType==SLServiceTypeFacebook)
-                {
-                    yesItSent = @"Haiku posted.";
-                }
-                self.alert = [[UIAlertView alloc] initWithTitle:yesItSent message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [self.alert show];
-            }
-            [controller dismissViewControllerAnimated:YES completion:Nil];
-        };
-        controller.completionHandler = myBlock;
-        NSString *msgText;
-        
-                //Add line breaks to haiku in case of tweet.
-        
-        if (self.serviceType==SLServiceTypeTwitter)
-        {
-            NSString *stringWithoutLineBreaks = [self.ghhaiku.text stringByAppendingString:@"\\n"];
-            if([stringWithoutLineBreaks rangeOfString:@"\\n"].location != NSNotFound) {
-                //Check to make sure this actually does add line breaks in Twitter posting.
-                msgText = [stringWithoutLineBreaks stringByReplacingOccurrencesOfString:@"\\n" withString:@"<br/>"];
-            }
-            else msgText=self.ghhaiku.text;
-        }
-        
-                //Or just a regular Facebook message.
-        
-        else if (self.serviceType==SLServiceTypeFacebook)
-        {
-            msgText = [self.ghhaiku.text stringByAppendingString:@"\n\n\t--gayhaiku.com"];
-            [controller setInitialText:msgText];
-            
-//Check what this does.
-            
-            [controller addURL:[NSURL URLWithString:@"http://www.gayhaiku.com"]];
-        }             
-                    //Create the image.
-            
-        UIImage *pic;
-        pic = [self addTextToImage:[UIImage imageNamed:@"backgroundForFacebook"] withFontSize:15];
-        [controller addImage:pic];
- 
-                    //Post/tweet. You're done.
-        
-        [self presentViewController:controller animated:YES completion:Nil];
-    }
-    
-                //Show an error alert message if there are login problems.
-    
-    else
-    {
-        self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having trouble logging in. Please check your phone settings or try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [self.alert show];
-    }
 }
 
 -(UITextView *)createTextViewForDisplay:(NSString *)s {
@@ -594,9 +489,8 @@
     return myImage;
 }
 
--(UIImage*)resizedImage:(UIImage *)inImage inRect:(CGRect) thumbRect
-{
-	CGImageRef			imageRef = [inImage CGImage];
+-(UIImage *)resizeImage:(UIImage *)im inRect:(CGRect) thumbRect {
+	CGImageRef			imageRef = [im CGImage];
 	CGImageAlphaInfo	alphaInfo = CGImageGetAlphaInfo(imageRef);
 	
 	// There's a wierdness with kCGImageAlphaNone and CGBitmapContextCreate
@@ -630,19 +524,6 @@
 	CGImageRelease(ref);
     
 	return result;
-}
-
-
--(void)showMessage {
-    
-                //Offer user the choice to email, post on Facebook, tweet, or post on Instagram.
-    
-    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email",@"Facebook",@"Twitter",@"Instagram", nil];
-    if (self.navBar)
-    {
-        [self.navBar removeFromSuperview];
-    }
-    [actSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 @end
