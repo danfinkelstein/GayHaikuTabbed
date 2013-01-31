@@ -30,22 +30,7 @@
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
-    
 
-    
-//COMMENT THIS OUT FOR RELEASE:
-    
-    #define TESTING 1
-    #ifdef TESTING
-        [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-    #endif
-    
-                //This connects beta testers to the app on testflightapp.com.
-    
-//TO CHANGE FOR RELEASE:  in Build Settings (top item in Project Navigator, choose Project rather than Targets), Deployment:  Strip Linked Product set to YES.  Strip Debug Symbols During Copy for Release set to YES.
-    
-    //[TestFlight takeOff:@"91f34663f587b0ef83a11eb009268b4f_MTQ1OTk5MjAxMi0xMC0yMiAwODozNzowNC42MzY4NzM"];
-    
     NSMutableArray *tabItems = [[NSMutableArray alloc] initWithCapacity:5];
     
     GHHaikuViewController *hvc = [[GHHaikuViewController alloc] init];

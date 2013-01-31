@@ -20,9 +20,9 @@
 		5D64891216791FC700A87596 /* 216-compose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D64890D16791FC700A87596 /* 216-compose@2x.png */; };
 		5D6489181679207F00A87596 /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489161679207F00A87596 /* 53-house.png */; };
 		5D6489191679207F00A87596 /* 53-house@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489171679207F00A87596 /* 53-house@2x.png */; };
-		5D6BF93016B9F0820076DC35 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF92E16B9F0820076DC35 /* instagram.png */; };
-		5D6BF93116B9F0820076DC35 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF92F16B9F0820076DC35 /* instagram@2x.png */; };
 		5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */; };
+		5D6BF93A16BA232D0076DC35 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93816BA232D0076DC35 /* instagram.png */; };
+		5D6BF93B16BA232D0076DC35 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93916BA232D0076DC35 /* instagram@2x.png */; };
 		5D76BE7016AA2C3C00DB1A87 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6816AA2C3C00DB1A87 /* main.png */; };
 		5D76BE7116AA2C3C00DB1A87 /* 5main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6916AA2C3C00DB1A87 /* 5main.png */; };
 		5D76BE7216AA2C3C00DB1A87 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6A16AA2C3C00DB1A87 /* instructions.png */; };
@@ -94,7 +94,6 @@
 		5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE27169A077A004E63CF /* 20-gear-2.png */; };
 		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
 		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
-		5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE36169C5054004E63CF /* libTestFlight.a */; };
 		5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFCCE38169C506C004E63CF /* libz.dylib */; };
 		5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A09167ED7C900845EC4 /* 18-envelope.png */; };
 		5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */; };
@@ -126,9 +125,9 @@
 		5D64890D16791FC700A87596 /* 216-compose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "216-compose@2x.png"; sourceTree = "<group>"; };
 		5D6489161679207F00A87596 /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
 		5D6489171679207F00A87596 /* 53-house@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house@2x.png"; sourceTree = "<group>"; };
-		5D6BF92E16B9F0820076DC35 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
-		5D6BF92F16B9F0820076DC35 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
 		5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMResizerViewController.xib; sourceTree = "<group>"; };
+		5D6BF93816BA232D0076DC35 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
+		5D6BF93916BA232D0076DC35 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
 		5D76BE6816AA2C3C00DB1A87 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
 		5D76BE6916AA2C3C00DB1A87 /* 5main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5main.png; sourceTree = "<group>"; };
 		5D76BE6A16AA2C3C00DB1A87 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
@@ -204,8 +203,6 @@
 		5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2@2x.png"; sourceTree = "<group>"; };
 		5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSettingsViewController.h; sourceTree = "<group>"; };
 		5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSettingsViewController.m; sourceTree = "<group>"; };
-		5DFCCE33169C4FDE004E63CF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		5DFCCE36169C5054004E63CF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		5DFCCE38169C506C004E63CF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DFF8A09167ED7C900845EC4 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
@@ -226,7 +223,6 @@
 				5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */,
 				5D8825E3167444B0007DF2E2 /* Twitter.framework in Frameworks */,
 				5D8825DF1674447B007DF2E2 /* libsqlite3.dylib in Frameworks */,
-				5DFCCE37169C5055004E63CF /* libTestFlight.a in Frameworks */,
 				5DFCCE39169C506C004E63CF /* libz.dylib in Frameworks */,
 				5D8825E01674447B007DF2E2 /* libz.1.1.3.dylib in Frameworks */,
 				5D8825E11674449F007DF2E2 /* MessageUI.framework in Frameworks */,
@@ -293,7 +289,6 @@
 			children = (
 				5D2F68B116B04B65005EAC8E /* Parse.framework */,
 				5DFCCE38169C506C004E63CF /* libz.dylib */,
-				5DFCCE36169C5054004E63CF /* libTestFlight.a */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
 				5D8825CB1674437A007DF2E2 /* Social.framework */,
 				5D8825CC1674437A007DF2E2 /* StoreKit.framework */,
@@ -337,7 +332,6 @@
 				5DFCCE2F169A4F7C004E63CF /* Model */,
 				5D8825FC167446C8007DF2E2 /* GHAppDelegate.h */,
 				5D8825FD167446C8007DF2E2 /* GHAppDelegate.m */,
-				5DFCCE33169C4FDE004E63CF /* TestFlight.h */,
 				5DBC945D16743DFF000406DF /* Supporting Files */,
 			);
 			path = GayHaikuTabbed;
@@ -346,8 +340,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5D6BF92E16B9F0820076DC35 /* instagram.png */,
-				5D6BF92F16B9F0820076DC35 /* instagram@2x.png */,
+				5D6BF93816BA232D0076DC35 /* instagram.png */,
+				5D6BF93916BA232D0076DC35 /* instagram@2x.png */,
 				5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */,
 				5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */,
 				5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */,
@@ -528,9 +522,9 @@
 				5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */,
 				5DFA48F916B78EC700AF85DF /* untitled.png in Resources */,
 				5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */,
-				5D6BF93016B9F0820076DC35 /* instagram.png in Resources */,
-				5D6BF93116B9F0820076DC35 /* instagram@2x.png in Resources */,
 				5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */,
+				5D6BF93A16BA232D0076DC35 /* instagram.png in Resources */,
+				5D6BF93B16BA232D0076DC35 /* instagram@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +637,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -658,7 +652,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -672,7 +666,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -681,7 +675,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
