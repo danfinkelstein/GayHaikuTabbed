@@ -56,7 +56,7 @@
                 //Add the background image.
     
     CGRect frame;
-    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         background.image=[UIImage imageNamed:@"instructions.png"];
@@ -113,7 +113,7 @@
     instructions.backgroundColor = [UIColor clearColor];
     instructions.text = word;
     instructions.userInteractionEnabled=NO;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
 
     return instructions;
 }
@@ -128,7 +128,7 @@
     
     NSString *text = [self.swipeInstructions.text stringByAppendingString:@"compo"];
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
-    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize] constrainedToSize:dimensions lineBreakMode:0];
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
     self.swipeInstructions.frame = rect;
     self.userSettings.optOutSeen=YES;

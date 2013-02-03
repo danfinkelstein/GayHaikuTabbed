@@ -12,10 +12,8 @@
 @interface GHWebViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
-@property (nonatomic, strong) UIAlertView *alert;
 @property (nonatomic, strong) UIWebView *webV;
 @property (nonatomic, strong) UIToolbar *bar;
-@property (nonatomic, strong) UINavigationItem *navBarTitle;
 @property (nonatomic, strong) GHAppDefaults *userInfo;
 
 @end
@@ -66,7 +64,7 @@
                 //Adds activity indicator to screen and starts animating it
     
     if (!self.indicator) {
-        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, activityViewerDimension, activityViewerDimension)];
+        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, ACTIVITY_VIEWER_DIMENSION, ACTIVITY_VIEWER_DIMENSION)];
         [self.indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
         [self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
         self.indicator.color=self.userInfo.screenColorTrans;
@@ -177,9 +175,9 @@
     
     [self.bar removeFromSuperview];
     if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
-        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, shortToolbarHeight)];
+        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, SHORT_TOOLBAR_HEIGHT)];
     }
-    else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbarHeight)];
+    else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, TOOLBAR_HEIGHT)];
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleWidth;
     self.bar.autoresizingMask=UIViewAutoresizingFlexibleHeight;
 }
@@ -202,7 +200,7 @@
     self.webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);
 }
 
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)req navigationType:(UIWebViewNavigationType)navigationType {
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     
                 //Sets up and displays error message in case of failure to connect.
     
@@ -211,8 +209,8 @@
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         if (data == nil) {
             [self.indicator stopAnimating];
-            self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [self.alert show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }
     return YES;
@@ -229,13 +227,13 @@
     
                 //Connect to the Internet.
     
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (conn) {
-        [self.webV loadRequest:req];
+        [self.webV loadRequest:request];
     }
     self.webV.scalesPageToFit=YES;
-    [self.webV setFrame:(CGRectMake(0,toolbarHeight,screenWidth,screenHeight-tabBarHeight))];
+    [self.webV setFrame:(CGRectMake(0,TOOLBAR_HEIGHT,screenWidth,screenHeight-TAB_BAR_HEIGHT))];
     [self.view addSubview:self.webV];
 }
 
@@ -243,8 +241,8 @@
     
                 //What to do in case of failure to connect.
     
-    self.alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [self.alert show];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"I'm sorry." message:@"Unfortunately, this iPhone is having a hard time connecting to the Internet.  Please do try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
     return YES;
 }
 

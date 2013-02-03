@@ -42,7 +42,7 @@
     swipeRight.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
     
-                //Set defaults, including user defaults, non-animated compose screen, and syllable check activated.
+                //Set defaults, including user defaults, non-animated compose screen, and (implicitly, by not declaring it) deactivate disable syllable check.
     
     self.userSettings = [GHAppDefaults sharedInstance];
     [self.userSettings setUserDefaults];
@@ -56,7 +56,7 @@
     
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
-    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     self.background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         self.background.image=[UIImage imageNamed:@"instructions.png"];
@@ -77,10 +77,6 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    [self showWhatNeedsShowing];
-}
-
--(void)showWhatNeedsShowing {
     
                 //If the user hasn't ever seen the opt out screen, show it.
     
@@ -116,7 +112,7 @@
     baba.textColor = self.userSettings.screenColorOp;
     baba.backgroundColor = [UIColor clearColor];
     baba.text = word;
-    baba.font = [UIFont fontWithName:@"Zapfino" size:largeFontSize];
+    baba.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
     return baba;
 }
 
@@ -132,14 +128,18 @@
         word = @"Swipe to compose";
     }
     self.nextInstructions = [self createSwipeToAdd:word];
-    NSString *text = [word stringByAppendingString:@"compo"];
+    NSString *text;
+    if (self.userSettings.instructionsSeen==NO) {
+        text = [word stringByAppendingString:@"compo"];
+    }
+    else {
+        text = [word stringByAppendingString:@"co"];
+    }
     
                 //Locate and frame the text on the right side of the view.
     
-    CGSize xySize;
-    CGRect rect;
-    xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:largeFontSize]];
-    rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
+    CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
+    CGRect rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
     self.nextInstructions.frame = rect;
         
                 //Display and animate it.
@@ -158,11 +158,11 @@
     {
         _instructions = [[UITextView alloc] init];
         _instructions.backgroundColor=[UIColor clearColor];
-        _instructions.font = [UIFont fontWithName:@"Georgia" size:smallFontSize];
+        _instructions.font = [UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE];
         _instructions.editable=NO;
         _instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         NSString *t = @"thinkers to express their ideas about the world in three lin";
-        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:smallFontSize]];
+        CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE]];
         int textWidth = thisSize.width;
         
         //Obviously this is an ugly hack and needs to be defined somewhere else.
@@ -179,7 +179,7 @@
     
     if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
         [self.background removeFromSuperview];
-        CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-tabBarHeight);
+        CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
         self.background = [[UIImageView alloc] initWithFrame:frame];
         if (screenHeight<500) {
             self.background.image=[UIImage imageNamed:@"instructions.png"];
@@ -548,12 +548,13 @@
 
 -(BOOL)saveUserHaiku {
     
-                //Add the user's name to the haiku if s/he has entered one.
-    
     NSString *haikuWithAttribution;
+    
+                //If user has entered name...
+    
     if (self.userSettings.author) {
         
-                //Add the user's name to the haiku
+                //...add it to the haiku.
         
         haikuWithAttribution = [self.textView.text stringByAppendingFormat:@"\n\n\t%@",self.userSettings.author];
     }
@@ -566,7 +567,9 @@
     [self checkForRepeats];
     if ([self checkForRepeats]==YES) {
         return YES;
-//JUST ADDED THIS RETURN 1/22/13, and switched position with checking for edited, so that haiku with names won't fail check against haiku without.
+        
+//JUST ADDED THIS RETURN 1/22/13, and switched position with checking for edited, so that haiku with names won't fail check against haiku without.  Make sure to verify functionality.
+        
     }
     
                 //Create the dictionary item of the new haiku to save in userHaiku.plist.
@@ -627,6 +630,7 @@
     [haikuObject setObject:perm forKey:@"permission"];
     
                 //Indicate whether syllables have been misanalyzed.
+    
     NSString *misanalysis;
     if (self.syllablesWrong!=YES) {
         misanalysis=@"Yes";
@@ -660,13 +664,13 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger) buttonIndex {
     
-                //If there are syllable solecisms and user choice is "continue editing," return to the textView.
+                //If there are putative syllable errors and user choice is "continue editing," return to the textView.
     
     if (buttonIndex == 0) {
         [self.textView becomeFirstResponder];
     }
     
-                //Otherwise, save haiku despite solecisms.
+                //Otherwise, save haiku despite errors.
     
     else if (buttonIndex == 1) {
         self.syllablesWrong=YES;

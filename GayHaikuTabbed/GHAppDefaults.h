@@ -8,16 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-extern int const tabBarHeight;
-extern int const toolbarHeight;
-extern int const shortToolbarHeight;
-extern int const activityViewerDimension;
-extern int const keyboardHeight;
-extern int const buttonSideLength;
-extern int const smallFontSize;
-extern int const mediumFontSize;
-extern int const largeFontSize;
-extern int const gap;
+extern int const TAB_BAR_HEIGHT;
+extern int const TOOLBAR_HEIGHT;
+extern int const SHORT_TOOLBAR_HEIGHT;
+extern int const ACTIVITY_VIEWER_DIMENSION;
+extern int const SMALL_FONT_SIZE;
+extern int const MEDIUM_FONT_SIZE;
+extern int const LARGE_FONT_SIZE;
 extern int screenHeight;
 extern int screenWidth;
 

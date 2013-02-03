@@ -8,16 +8,13 @@
 
 #import "GHAppDefaults.h"
 
-int const tabBarHeight = 49;
-int const toolbarHeight = 44;
-int const shortToolbarHeight = 32;
-int const activityViewerDimension = 32;
-int const keyboardHeight = 216;
-int const buttonSideLength = 44;
-int const smallFontSize = 12;
-int const mediumFontSize = 15;
-int const largeFontSize = 17;
-int const gap = 10;
+int const TAB_BAR_HEIGHT = 49;
+int const TOOLBAR_HEIGHT = 44;
+int const SHORT_TOOLBAR_HEIGHT = 32;
+int const ACTIVITY_VIEWER_DIMENSION = 32;
+int const SMALL_FONT_SIZE = 12;
+int const MEDIUM_FONT_SIZE = 15;
+int const LARGE_FONT_SIZE = 17;
 int screenHeight;
 int screenWidth;
 

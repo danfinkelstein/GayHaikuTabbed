@@ -32,7 +32,7 @@
     CGRect frame;
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
-    frame = CGRectMake(0, 0, screenWidth, (screenHeight-tabBarHeight));
+    frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     UIImageView *bground = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
         bground.image=[UIImage imageNamed:@"main.png"];
@@ -47,10 +47,10 @@
 -(void)displayFeedbackText {
         UITextView *feedback = [[UITextView alloc] init];
         feedback.backgroundColor = [UIColor clearColor];
-        feedback.font = [UIFont fontWithName:@"Georgia" size:mediumFontSize];
+        feedback.font = [UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE];
         NSString *t = @"If you have any problems with the ap";
-        int textWidth = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:mediumFontSize]].width;
-        int textHeight = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:mediumFontSize]].height;
+        int textWidth = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE]].width;
+        int textHeight = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE]].height;
         feedback.text=@"Thank you for buying Gay Haiku! \nIf you have any problems with the \napp, or if you want to share any \nthoughts or suggestions, please \nemail me at joel@joelderfner.com.";
         feedback.editable=NO;
         feedback.dataDetectorTypes=UIDataDetectorTypeAll;
