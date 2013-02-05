@@ -66,7 +66,7 @@
     }
     [self.view addSubview:self.background];
     
-    //UNCOMMENT THESE LINES FOR TESTING:
+                //UNCOMMENT THESE LINES FOR TESTING:
     
     //userSettings.optOutSeen=NO;
     //userSettings.instructionsSeen=NO;
@@ -488,10 +488,6 @@
             number = [NSString stringWithFormat:@"lines %@, %@, and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1],arrayOfLinesToAlert[2]];
         }
         phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
-        //if ([alertMessage characterAtIndex:alertMessage.length-1]=='.') {
-                //alertMessage = [alertMessage stringByAppendingFormat:@" Also, I think %@",phrase];
-            //}
-        //else alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
         alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
         }
     

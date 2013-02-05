@@ -17,7 +17,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="89" id="qH9-b5-Apf"/>
                                 </constraints>
-                                <string key="text">I hope to update the Gay Haiku app with new haiku, and I'd like permission to include your haiku (or haiku inspired by yours) in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.</string>
+                                <string key="text">I hope to update the Gay Haiku app with new haiku, and I'd like permission to include your haiku in future updates.  If you're okay with my doing so, please enter your name here so I can give you credit.</string>
                                 <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -125,6 +125,23 @@
     <resources>
         <image name="input.png" width="228" height="31"/>
     </resources>
+    <classes>
+        <class className="GHSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GHSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="disableSyllableVerification:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="displayInfo:"/>
+                <relationship kind="action" name="givePermission:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="disableVerification" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="permissionDenied" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="segCont" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

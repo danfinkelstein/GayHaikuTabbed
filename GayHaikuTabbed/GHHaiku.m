@@ -29,7 +29,6 @@
                 //Choose a random number between 0 and a given number of haiku.
 
     int x;
-    //x = (arc4random() % howManyHaiku);
     x = arc4random_uniform(howManyHaiku);
     return x;
 }
@@ -46,8 +45,6 @@
         int r = arc4random_uniform(self.gayHaiku.count);
         [self.gayHaiku exchangeObjectAtIndex:i withObjectAtIndex:r];
     }
-    
-
 }
 
 -(void)haikuToShow {
@@ -56,7 +53,6 @@
 
     if (!self.gayHaiku) {
         self.gayHaiku = [[NSMutableArray alloc] initWithArray:self.haikuLoaded];
-        //self.newIndex=0;
         [self shuffle];
     }
     

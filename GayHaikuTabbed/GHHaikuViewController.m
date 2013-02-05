@@ -23,8 +23,6 @@
 @interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (strong, nonatomic) GHAppDefaults *userInfo;
-//@property (strong, nonatomic) UINavigationBar *navBar;
-//@property (strong, nonatomic) UINavigationItem *titleBar;
 @property (strong, nonatomic) UIToolbar *bar;
 @property (strong, nonatomic) UITextView *displayHaikuTextView;
 @property (strong, nonatomic) UITextView *leftSwipe;
@@ -113,12 +111,12 @@
                 //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
-    instructions.editable=NO;
-    instructions.userInteractionEnabled=NO;
-    instructions.textColor = self.userInfo.screenColorOp;
-    instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = @"Swipe";
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
+    [instructions setEditable:NO];
+    [instructions setUserInteractionEnabled:NO];
+    [instructions setTextColor : self.userInfo.screenColorOp];
+    [instructions setBackgroundColor : [UIColor clearColor]];
+    [instructions setText : @"Swipe"];
+    [instructions setFont : [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
     return instructions;
 }
 
@@ -132,6 +130,7 @@
         [self createToolbar];
         self.ghhaiku.justComposed=NO;
     }
+    self.ghhaiku.userIsEditing=NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,16 +149,16 @@
     
                 //Create required buttons for the right (stop and refresh).
 
-    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
-    send.style = UIBarButtonItemStyleBordered;
+    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    [send setStyle : UIBarButtonItemStyleBordered];
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
     
                 //Create whatever left buttons are appropriate and add to the arrays.
     
     if (self.ghhaiku.isUserHaiku) {
-        UIBarButtonItem *trashButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:Nil];
+        UIBarButtonItem *trashButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
         trashButt.style = UIBarButtonItemStyleBordered;
-        UIBarButtonItem *editButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:Nil];
+        UIBarButtonItem *editButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
         trashButt.tintColor = self.userInfo.screenColorTrans;
         editButt.tintColor = self.userInfo.screenColorTrans;
         [buttons addObject:editButt];
@@ -280,7 +279,7 @@
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
 
     CGRect rect = CGRectMake((screenWidth - xySize.width-30), screenHeight-240, xySize.width*1.5, xySize.height*2);
-    self.rightSwipe.frame = rect;
+    [self.rightSwipe setFrame : rect];
     
                 //Display it.
     
@@ -297,7 +296,7 @@
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
     
     CGRect rect = CGRectMake(10, screenHeight-240, xySize.width*1.5, xySize.height*2);
-    self.leftSwipe.frame = rect;
+    [self.leftSwipe setFrame : rect];
     
                 //Display it
     
@@ -420,17 +419,17 @@
 
 -(UITextView *)createTextViewForDisplay:(NSString *)s {
     UITextView *tv = [[UITextView alloc] init];
-    tv.font=[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE];
-    tv.editable=NO;
-    tv.userInteractionEnabled=NO;
-    tv.backgroundColor=[UIColor clearColor];
-    tv.text=s;
+    [tv setFont:[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE]];
+    [tv setEditable:NO];
+    [tv setUserInteractionEnabled:NO];
+    [tv setBackgroundColor:[UIColor clearColor]];
+    [tv setText:s];
     return tv;
 }
 
 -(UIImage *)addTextToImage:(UIImage *)myImage withFontSize:(int)sz {
     GHVerify *ghv = [[GHVerify alloc] init];
-    NSString *string=[ghv removeAuthor:self.displayHaikuTextView.text];
+    NSString *string = [ghv removeAuthor:self.displayHaikuTextView.text];
     NSString *myWatermarkText = [string stringByAppendingString:@"\n\n\t--gayhaiku.com"];
     NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Georgia" size:sz], NSFontAttributeName, nil];
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:myWatermarkText attributes:attrs];
