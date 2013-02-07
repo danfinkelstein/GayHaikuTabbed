@@ -48,8 +48,8 @@
     
     if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
-        swipeLeft.numberOfTouchesRequired = 1;
-        swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+        [swipeLeft setNumberOfTouchesRequired : 1];
+        [swipeLeft setDirection : UISwipeGestureRecognizerDirectionLeft];
         [self.view addGestureRecognizer:swipeLeft];
     }
     
@@ -59,38 +59,38 @@
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"instructions.png"];
+        [background setImage : [UIImage imageNamed:@"instructions.png"]];
     }
     else {
-        background.image=[UIImage imageNamed:@"5instructions.png"];
+        [background setImage : [UIImage imageNamed:@"5instructions.png"]];
     }
     [self.view addSubview:background];
     [self.view sendSubviewToBack:background];
     
     if (self.userSettings.permissionDenied==NO) {
-        permissionDenied.selectedSegmentIndex=0;
+        [permissionDenied setSelectedSegmentIndex : 0];
         [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
     }
     else {
-        permissionDenied.selectedSegmentIndex=1;
+        [permissionDenied setSelectedSegmentIndex : 1];
         [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
     }
     if (self.userSettings.disableSyllableCheck==NO) {
-        disableVerification.selectedSegmentIndex=0;
+        [disableVerification setSelectedSegmentIndex : 0];
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
     }
     else {
-        disableVerification.selectedSegmentIndex=1;
+        [disableVerification setSelectedSegmentIndex : 1];
         [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
     }
-    nameField.delegate=self;
+    [nameField setDelegate : self];
     
     [segCont removeAllSegments];
     [segCont insertSegmentWithTitle:@"About" atIndex:0 animated:NO];
     
                 //UNCOMMENT THIS FOR TESTING
     
-    //userSettings.optOutSeen=NO;
+    //[userSettings setOptOutSeen : NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -103,17 +103,17 @@
     }
 }
 
--(UITextView *)createSwipeToAdd: (NSString *)word {
+-(UITextView *)createSwipeToAdd {
     
                 //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
-    instructions.editable=NO;
-    instructions.textColor = self.userSettings.screenColorOp;
-    instructions.backgroundColor = [UIColor clearColor];
-    instructions.text = word;
-    instructions.userInteractionEnabled=NO;
-    instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
+    [instructions setEditable : NO];
+    [instructions setTextColor : self.userSettings.screenColorOp];
+    [instructions setBackgroundColor : [UIColor clearColor]];
+    [instructions setText : @"Swipe"];
+    [instructions setUserInteractionEnabled : NO];
+    [instructions setFont : [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
 
     return instructions;
 }
@@ -122,7 +122,7 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    self.swipeInstructions = [self createSwipeToAdd:@"Swipe"];
+    self.swipeInstructions = [self createSwipeToAdd];
     
                 //Locate and frame the text on the right side of the view.
     
@@ -130,8 +130,8 @@
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
-    self.swipeInstructions.frame = rect;
-    self.userSettings.optOutSeen=YES;
+    [self.swipeInstructions setFrame : rect];
+    [self.userSettings setOptOutSeen : YES];
     [self.userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
     [self.userSettings.defaults synchronize];
     
@@ -147,7 +147,7 @@
 -(IBAction)displayInfo:(id)sender {
     UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [behindTheScenesInfo show];
-    segCont.selectedSegmentIndex=-1;
+    [segCont setSelectedSegmentIndex : -1];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {
@@ -159,7 +159,7 @@
                 //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
     
     if (nameField.text.length>0) {
-        self.userSettings.author=nameField.text;
+        [self.userSettings setAuthor : nameField.text];
         [self.userSettings.defaults setObject:nameField.text forKey:@"author"];
         [self.userSettings.defaults synchronize];
     }

@@ -9,25 +9,25 @@
 #import "GHHaikuViewController.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
+//#import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
-#import <Twitter/Twitter.h>
-#import <Twitter/TWTweetComposeViewController.h>
-#import <MobileCoreServices/MobileCoreServices.h>
+//#import <Twitter/Twitter.h>
+//#import <Twitter/TWTweetComposeViewController.h>
+//#import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
-#import <Social/Social.h>
+//#import <Social/Social.h>
 #import "GHAppDefaults.h"
 #import "GHVerify.h"
 #import "DMActivityInstagram.h"
 
-@interface GHHaikuViewController ()<UITextViewDelegate,MFMailComposeViewControllerDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate>
+@interface GHHaikuViewController ()<UITextViewDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate> //MFMailComposeViewControllerDelegate,
 
 @property (strong, nonatomic) GHAppDefaults *userInfo;
 @property (strong, nonatomic) UIToolbar *bar;
+@property (strong, nonatomic) UINavigationBar *navBar;
 @property (strong, nonatomic) UITextView *displayHaikuTextView;
 @property (strong, nonatomic) UITextView *leftSwipe;
 @property (strong, nonatomic) UITextView *rightSwipe;
-@property (nonatomic) int textWidth;
 @property (nonatomic) BOOL appIsComingFromPreviousHaiku;
 @property (nonatomic) BOOL rightSwipeHasBeenSeen;
 @property (nonatomic) BOOL leftSwipeHasBeenSeen;
@@ -43,7 +43,7 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     UIImageView *background;
-    self.view.autoresizesSubviews=YES;
+    //self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
@@ -54,26 +54,26 @@
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        background.image=[UIImage imageNamed:@"main.png"];
+        [background setImage : [UIImage imageNamed:@"main.png"]];
     }
     else {
-        background.image=[UIImage imageNamed:@"5main.png"];
+        [background setImage : [UIImage imageNamed:@"5main.png"]];
     }
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPreviousHaiku)];
-    swipeRight.numberOfTouchesRequired = 1;
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [swipeRight setNumberOfTouchesRequired : 1];
+    [swipeRight setDirection : UISwipeGestureRecognizerDirectionRight];
     [self.view addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToNextHaiku)];
-    swipeLeft.numberOfTouchesRequired = 1;
-    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [swipeLeft setNumberOfTouchesRequired : 1];
+    [swipeLeft setDirection : UISwipeGestureRecognizerDirectionLeft];
     [self.view addGestureRecognizer:swipeLeft];
     
-    UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createToolbar)];
+    UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNavBar)];
     [self.view addGestureRecognizer:tapBar];
     
                 //Load array of haiku
@@ -101,9 +101,8 @@
                 //Display first haiku and show (and fade) the nav bar
     
     [self displayHaiku];
-    [self createToolbar];
+    [self createNavBar];
     self.userInfo = [GHAppDefaults sharedInstance];
-    
 }
 
 -(UITextView *)createSwipeToAdd {
@@ -127,68 +126,80 @@
     if (self.ghhaiku.justComposed==YES) {
         [super viewWillAppear:animated];
         [self displayHaiku];
-        [self createToolbar];
-        self.ghhaiku.justComposed=NO;
+        [self createNavBar];
+        [self.ghhaiku setJustComposed:NO];
     }
-    self.ghhaiku.userIsEditing=NO;
+    [self.ghhaiku setUserIsEditing:NO];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(void)createToolbar {
+-(void)createNavBar {
     
-        [self.bar removeFromSuperview];
-
-        self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, TOOLBAR_HEIGHT)];
-        [self.bar setTintColor:self.userInfo.screenColorTrans];
-        [self.bar setTranslucent:YES];
-
-    NSMutableArray *buttons = [[NSMutableArray alloc] init];
+                //Remove the nav bar if it exists.
     
-                //Create required buttons for the right (stop and refresh).
-
-    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    [send setStyle : UIBarButtonItemStyleBordered];
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
+    [self.navBar removeFromSuperview];
     
-                //Create whatever left buttons are appropriate and add to the arrays.
+                //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
-    if (self.ghhaiku.isUserHaiku) {
-        UIBarButtonItem *trashButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
-        trashButt.style = UIBarButtonItemStyleBordered;
-        UIBarButtonItem *editButt = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
-        trashButt.tintColor = self.userInfo.screenColorTrans;
-        editButt.tintColor = self.userInfo.screenColorTrans;
-        [buttons addObject:editButt];
-        [buttons addObject:trashButt];
+    self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TOOLBAR_HEIGHT)];
+    [self.navBar setTintColor:self.userInfo.screenColorTrans];
+    [self.navBar setTranslucent:YES];
+    
+                //Create UINavigationItem
+    
+    UINavigationItem *titleBar = [[UINavigationItem alloc] init];
+    
+                //Add share button and, if appropriate, delete and edit buttons
+    
+    UIBarButtonItem *send = [self addShareButton];
+    titleBar.rightBarButtonItem = send;
+    if (self.ghhaiku.isUserHaiku==YES) {
+        NSArray *leftItems = [self addLeftButtons];
+        titleBar.leftBarButtonItems = leftItems;
     }
     
-                //Add the buttons to the nav bar.
+                //Add navigation bar to screen.
     
-    [buttons addObject:flex];
-    [buttons addObject:send];
-    self.bar.items=buttons;
-    [self.bar setTintColor:self.userInfo.screenColorTrans];
-    self.bar.translucent=YES;
-    [self.view addSubview:self.bar];
+    [self.navBar pushNavigationItem:titleBar animated:YES];
+    [self.view addSubview:self.navBar];
     
-    //Fade navigation bar: first delay, so that buttons are pressable, then fade.
+                //Fade navigation bar: first delay, so that buttons are pressable, then fade.
     
     double delayInSeconds = 3.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [UIView animateWithDuration:.5
                          animations:^{
-                             self.bar.alpha = 0;
+                             self.navBar.alpha = 0;
                          }];
     });
 }
 
+-(UIBarButtonItem *)addShareButton {
+    
+                //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
+    
+    UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+    [send setStyle:UIBarButtonItemStyleBordered];
+    return send;
+}
+
+-(NSArray *)addLeftButtons {
+    
+                //Add buttons allowing the user to delete and/or edit haiku s/he's composed.
+    
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
+    NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
+    return leftItems;
+}
+
 #pragma mark DISPLAY METHODS
 
--(void)measureWidthOfTextView {
+-(int)measureWidthOfTextView {
     GHVerify *verify = [[GHVerify alloc] init];
     float widthOfLongestLineSoFar = 0.0;
     NSArray *lines = [verify splitHaikuIntoLines:self.ghhaiku.text];
@@ -199,7 +210,8 @@
             widthOfLongestLineSoFar = widthOfLineUnderConsideration;
         }
     }
-    self.textWidth = widthOfLongestLineSoFar;
+    int textWidth = widthOfLongestLineSoFar;
+    return textWidth;
 }
 
 -(void)displayHaiku {
@@ -212,38 +224,35 @@
     
     self.ghhaiku=[GHHaiku sharedInstance];
     [self.ghhaiku haikuToShow];
-    [self measureWidthOfTextView];
 
-                    //Set CGSize so that haiku can be laid out in the center.
+                //Set CGSize so that haiku can be laid out in the center.
     
     CGSize dimensions = CGSizeMake(screenWidth, screenHeight);
     CGSize xySize = [self.ghhaiku.text sizeWithFont:[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE] constrainedToSize:dimensions lineBreakMode:0];
-
-//If this is a problem, replace mediumFontSize in above line with largeFontSize.
-    
     int textHeight = xySize.height+16;
+    int textWidth = [self measureWidthOfTextView];
     
                 //Set UITextView and its characteristics
     
     self.displayHaikuTextView = [self createTextViewForDisplay:self.ghhaiku.text];
-    self.displayHaikuTextView.frame = CGRectMake((screenWidth/2)-(self.textWidth/2),screenHeight/2-xySize.height,self.textWidth/2 + screenWidth/2,textHeight*2);
+    [self.displayHaikuTextView setFrame : CGRectMake((screenWidth/2)-(textWidth/2),screenHeight/2-xySize.height,textWidth/2 + screenWidth/2,textHeight*2)];
  
                 //Set animation
     
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.25;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
+    [transition setDuration : 0.25];
+    [transition setTimingFunction : [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [transition setType : kCATransitionPush];
     
                 //Set direction of animation depending on whether we're going to a previous or a next haiku.
     
     if (self.appIsComingFromPreviousHaiku==NO) {
-        transition.subtype =kCATransitionFromRight;
+        [transition setSubtype : kCATransitionFromRight];
     }
     else {
-        transition.subtype=kCATransitionFromLeft;
+        [transition setSubtype : kCATransitionFromLeft];
     }
-    transition.delegate = self;
+    [transition setDelegate : self];
     [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
     
                 //Add text to view.
@@ -252,8 +261,7 @@
     
                 //Remove navBar from view, just in case delete/edit version has been showing for user-generated haiku, so that user can't accidentally delete or edit default haiku.
     
-    //[self.navBar removeFromSuperview];
-    [self.bar removeFromSuperview];
+    [self.navBar removeFromSuperview];
     
                 //Show swipe for next/swipe for previous instructions if appropriate (and adjust booleans accordingly; remove them if appropriate.
     
@@ -313,7 +321,7 @@
     
                 //Set boolean for direction of animation.
     
-    self.appIsComingFromPreviousHaiku=NO;
+    [self setAppIsComingFromPreviousHaiku : NO];
     
                 //Show next haiku in array
     
@@ -323,7 +331,7 @@
     
     if (self.leftSwipeHasBeenSeen==NO) {
         [self addSwipeForPreviousView];
-        self.leftSwipeHasBeenSeen=YES;
+        [self setLeftSwipeHasBeenSeen : YES];
     }
     else {
         [self.leftSwipe removeFromSuperview];
@@ -339,7 +347,7 @@
         self.ghhaiku.newIndex--;
     }
     else {
-        self.ghhaiku.newIndex = self.ghhaiku.gayHaiku.count-1;
+        [self.ghhaiku setNewIndex : self.ghhaiku.gayHaiku.count-1];
     }
     
                 //Set boolean for direction of animation
@@ -357,7 +365,7 @@
     
                 //Indicate we're in editing mode and go to the compose screen.
     
-    self.ghhaiku.userIsEditing=YES;
+    [self.ghhaiku setUserIsEditing : YES];
     [self.tabBarController setSelectedIndex:1];
 }
 
@@ -370,8 +378,7 @@
                 //Clear the screen
     
     [self.displayHaikuTextView removeFromSuperview];
-    //[self.navBar removeFromSuperview];
-    [self.bar removeFromSuperview];
+    [self.navBar removeFromSuperview];
     
                 //Save the new set of user haiku, now missing the deleted haiku, to the docs folder.
     
@@ -398,11 +405,7 @@
 
 -(void)share {
     DMActivityInstagram *activity = [[DMActivityInstagram alloc] init];
-    UIImage *myImage = [self addTextToImage:[UIImage imageNamed:@"backgroundForFacebook.png"] withFontSize:15];
-    myImage = [self resizeImage:myImage inRect:CGRectMake(0, 0, 612, 612)];
-    
-//It would be better to pass @"backgroundforInstagram.png" and 32 as arguments to the method addTextToImage:(UIImage *)myImage withFontSize:(int)sz than to pass @"backgroundForFacebook.png" and 15 and then resize the image, as is done here, but, inexplicably, doing the former returns no usable UIImage.
-    
+    UIImage *myImage = [self addTextToImage:[UIImage imageNamed:@"backgroundForShare.png"] withFontSize:24];   
     NSString *shareText = self.ghhaiku.text;
     shareText = [shareText stringByAppendingString:@"\n\n#gayhaiku"];
     NSURL *shareURL = [NSURL URLWithString:@"http://gayhaiku.com"];
@@ -414,7 +417,6 @@
 -(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {
     UIActivity *activity;
     [activity activityDidFinish:YES];
-    NSLog(@"Sent to instagram.");
 }
 
 -(UITextView *)createTextViewForDisplay:(NSString *)s {
@@ -441,43 +443,6 @@
     myImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return myImage;
-}
-
--(UIImage *)resizeImage:(UIImage *)im inRect:(CGRect) thumbRect {
-	CGImageRef			imageRef = [im CGImage];
-	CGImageAlphaInfo	alphaInfo = CGImageGetAlphaInfo(imageRef);
-	
-	// There's a wierdness with kCGImageAlphaNone and CGBitmapContextCreate
-	// see Supported Pixel Formats in the Quartz 2D Programming Guide
-	// Creating a Bitmap Graphics Context section
-	// only RGB 8 bit images with alpha of kCGImageAlphaNoneSkipFirst, kCGImageAlphaNoneSkipLast, kCGImageAlphaPremultipliedFirst,
-	// and kCGImageAlphaPremultipliedLast, with a few other oddball image kinds are supported
-	// The images on input here are likely to be png or jpeg files
-	if (alphaInfo == kCGImageAlphaNone)
-		alphaInfo = kCGImageAlphaNoneSkipLast;
-    
-                // Build a bitmap context that's the size of the thumbRect
-	CGContextRef bitmap = CGBitmapContextCreate(
-                                                NULL,
-                                                thumbRect.size.width,		// width
-                                                thumbRect.size.height,		// height
-                                                CGImageGetBitsPerComponent(imageRef),	// really needs to always be 8
-                                                4 * thumbRect.size.width,	// rowbytes
-                                                CGImageGetColorSpace(imageRef),
-                                                alphaInfo
-                                                );
-    
-                // Draw into the context, this scales the image
-	CGContextDrawImage(bitmap, thumbRect, imageRef);
-    
-                // Get an image from the context and a UIImage
-	CGImageRef	ref = CGBitmapContextCreateImage(bitmap);
-	UIImage*	result = [UIImage imageWithCGImage:ref];
-    
-	CGContextRelease(bitmap);	// ok if NULL
-	CGImageRelease(ref);
-    
-	return result;
 }
 
 @end

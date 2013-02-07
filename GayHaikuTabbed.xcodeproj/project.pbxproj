@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D2A023E16C349D30012FCFA /* instagramicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023D16C349D30012FCFA /* instagramicon.png */; };
+		5D2A024016C349E00012FCFA /* instagramicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023F16C349E00012FCFA /* instagramicon@2x.png */; };
 		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
 		5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */; };
 		5D4B4B2916B899A800D6FD0A /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */; };
@@ -21,8 +23,6 @@
 		5D6489181679207F00A87596 /* 53-house.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489161679207F00A87596 /* 53-house.png */; };
 		5D6489191679207F00A87596 /* 53-house@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6489171679207F00A87596 /* 53-house@2x.png */; };
 		5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */; };
-		5D6BF93A16BA232D0076DC35 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93816BA232D0076DC35 /* instagram.png */; };
-		5D6BF93B16BA232D0076DC35 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6BF93916BA232D0076DC35 /* instagram@2x.png */; };
 		5D76BE7016AA2C3C00DB1A87 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6816AA2C3C00DB1A87 /* main.png */; };
 		5D76BE7116AA2C3C00DB1A87 /* 5main.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6916AA2C3C00DB1A87 /* 5main.png */; };
 		5D76BE7216AA2C3C00DB1A87 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D76BE6A16AA2C3C00DB1A87 /* instructions.png */; };
@@ -88,9 +88,7 @@
 		5DC62D7316ADEEFC006A4C62 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */; };
 		5DC62D7F16ADFC95006A4C62 /* input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DC62D7E16ADFC95006A4C62 /* input@2x.png */; };
 		5DD2770916AE1B57001262A0 /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DD2770816AE1B57001262A0 /* input.png */; };
-		5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */; };
-		5DFA48F916B78EC700AF85DF /* untitled.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA48F816B78EC700AF85DF /* untitled.png */; };
-		5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */; };
+		5DFA491E16B8303000AF85DF /* backgroundForShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFA491D16B8303000AF85DF /* backgroundForShare.png */; };
 		5DFCCE29169A077A004E63CF /* 20-gear-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE27169A077A004E63CF /* 20-gear-2.png */; };
 		5DFCCE2A169A077A004E63CF /* 20-gear-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */; };
 		5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFCCE2D169A07C9004E63CF /* GHSettingsViewController.m */; };
@@ -110,6 +108,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D2A023D16C349D30012FCFA /* instagramicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagramicon.png; sourceTree = "<group>"; };
+		5D2A023F16C349E00012FCFA /* instagramicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagramicon@2x.png"; sourceTree = "<group>"; };
 		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMActivityInstagram.m; sourceTree = "<group>"; };
 		5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMActivityInstagram.h; sourceTree = "<group>"; };
@@ -126,8 +126,6 @@
 		5D6489161679207F00A87596 /* 53-house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house.png"; sourceTree = "<group>"; };
 		5D6489171679207F00A87596 /* 53-house@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "53-house@2x.png"; sourceTree = "<group>"; };
 		5D6BF93216BA1FE10076DC35 /* DMResizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMResizerViewController.xib; sourceTree = "<group>"; };
-		5D6BF93816BA232D0076DC35 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
-		5D6BF93916BA232D0076DC35 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
 		5D76BE6816AA2C3C00DB1A87 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
 		5D76BE6916AA2C3C00DB1A87 /* 5main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5main.png; sourceTree = "<group>"; };
 		5D76BE6A16AA2C3C00DB1A87 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
@@ -196,9 +194,7 @@
 		5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5DC62D7E16ADFC95006A4C62 /* input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input@2x.png"; sourceTree = "<group>"; };
 		5DD2770816AE1B57001262A0 /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
-		5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundForFacebook.png; sourceTree = "<group>"; };
-		5DFA48F816B78EC700AF85DF /* untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = untitled.png; sourceTree = "<group>"; };
-		5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroungForInstagram.png; sourceTree = "<group>"; };
+		5DFA491D16B8303000AF85DF /* backgroundForShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundForShare.png; sourceTree = "<group>"; };
 		5DFCCE27169A077A004E63CF /* 20-gear-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2.png"; sourceTree = "<group>"; };
 		5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear-2@2x.png"; sourceTree = "<group>"; };
 		5DFCCE2C169A07C9004E63CF /* GHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSettingsViewController.h; sourceTree = "<group>"; };
@@ -249,6 +245,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D2A023316C2CA6B0012FCFA /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				5D2A023D16C349D30012FCFA /* instagramicon.png */,
+				5D2A023F16C349E00012FCFA /* instagramicon@2x.png */,
+				5DFCCE27169A077A004E63CF /* 20-gear-2.png */,
+				5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */,
+				5DBE12191680BE3A007324B6 /* webForward.png */,
+				5DBE121C1680BE3A007324B6 /* webForward@2x.png */,
+				5DBE121A1680BE3A007324B6 /* webBack.png */,
+				5DBE121B1680BE3A007324B6 /* webBack@2x.png */,
+				5DFF8A09167ED7C900845EC4 /* 18-envelope.png */,
+				5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */,
+				5D6489161679207F00A87596 /* 53-house.png */,
+				5D6489171679207F00A87596 /* 53-house@2x.png */,
+				5D64890C16791FC700A87596 /* 216-compose.png */,
+				5D64890D16791FC700A87596 /* 216-compose@2x.png */,
+				5D64890416791F4100A87596 /* 80-shopping-cart.png */,
+				5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
+		5D2A023416C2CA850012FCFA /* views */ = {
+			isa = PBXGroup;
+			children = (
+				5DFA491D16B8303000AF85DF /* backgroundForShare.png */,
+				5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */,
+				5DC62D7016ADEEF8006A4C62 /* Default@2x.png */,
+				5DC62D6E16ADEEF3006A4C62 /* Default.png */,
+				5D76BE8316AA384700DB1A87 /* compose.png */,
+				5D9A464216B5C74300C7572B /* 5compose.png */,
+				5D76BE6816AA2C3C00DB1A87 /* main.png */,
+				5D76BE6916AA2C3C00DB1A87 /* 5main.png */,
+				5D76BE6A16AA2C3C00DB1A87 /* instructions.png */,
+				5D76BE6B16AA2C3C00DB1A87 /* 5instructions.png */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
 		5D88262016745CF1007DF2E2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,34 +376,8 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5D6BF93816BA232D0076DC35 /* instagram.png */,
-				5D6BF93916BA232D0076DC35 /* instagram@2x.png */,
-				5DFA491D16B8303000AF85DF /* backgroungForInstagram.png */,
-				5DFA48B616B7304C00AF85DF /* backgroundForFacebook.png */,
-				5DC62D7216ADEEFC006A4C62 /* Default-568h@2x.png */,
-				5DC62D7016ADEEF8006A4C62 /* Default@2x.png */,
-				5DC62D6E16ADEEF3006A4C62 /* Default.png */,
-				5D76BE8316AA384700DB1A87 /* compose.png */,
-				5D9A464216B5C74300C7572B /* 5compose.png */,
-				5D76BE6816AA2C3C00DB1A87 /* main.png */,
-				5D76BE6916AA2C3C00DB1A87 /* 5main.png */,
-				5D76BE6A16AA2C3C00DB1A87 /* instructions.png */,
-				5D76BE6B16AA2C3C00DB1A87 /* 5instructions.png */,
-				5DFCCE27169A077A004E63CF /* 20-gear-2.png */,
-				5DFCCE28169A077A004E63CF /* 20-gear-2@2x.png */,
-				5DBE12191680BE3A007324B6 /* webForward.png */,
-				5DBE121C1680BE3A007324B6 /* webForward@2x.png */,
-				5DBE121A1680BE3A007324B6 /* webBack.png */,
-				5DBE121B1680BE3A007324B6 /* webBack@2x.png */,
-				5DFA48F816B78EC700AF85DF /* untitled.png */,
-				5DFF8A09167ED7C900845EC4 /* 18-envelope.png */,
-				5DFF8A0A167ED7C900845EC4 /* 18-envelope@2x.png */,
-				5D6489161679207F00A87596 /* 53-house.png */,
-				5D6489171679207F00A87596 /* 53-house@2x.png */,
-				5D64890C16791FC700A87596 /* 216-compose.png */,
-				5D64890D16791FC700A87596 /* 216-compose@2x.png */,
-				5D64890416791F4100A87596 /* 80-shopping-cart.png */,
-				5D64890516791F4100A87596 /* 80-shopping-cart@2x.png */,
+				5D2A023316C2CA6B0012FCFA /* icons */,
+				5D2A023416C2CA850012FCFA /* views */,
 				5DD2770816AE1B57001262A0 /* input.png */,
 				5DC62D7E16ADFC95006A4C62 /* input@2x.png */,
 				5DBCD61F1676A7970029F453 /* icon57.png */,
@@ -519,12 +529,10 @@
 				5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */,
 				5DB6742C16B49C6B0039C72B /* exceptions.plist in Resources */,
 				5D9A464316B5C74300C7572B /* 5compose.png in Resources */,
-				5DFA48B716B7304C00AF85DF /* backgroundForFacebook.png in Resources */,
-				5DFA48F916B78EC700AF85DF /* untitled.png in Resources */,
-				5DFA491E16B8303000AF85DF /* backgroungForInstagram.png in Resources */,
+				5DFA491E16B8303000AF85DF /* backgroundForShare.png in Resources */,
 				5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */,
-				5D6BF93A16BA232D0076DC35 /* instagram.png in Resources */,
-				5D6BF93B16BA232D0076DC35 /* instagram@2x.png in Resources */,
+				5D2A023E16C349D30012FCFA /* instagramicon.png in Resources */,
+				5D2A024016C349E00012FCFA /* instagramicon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

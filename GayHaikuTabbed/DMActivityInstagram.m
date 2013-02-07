@@ -19,7 +19,7 @@
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"instagram.png"];
+    return [UIImage imageNamed:@"instagramicon.png"];
 }
 
 

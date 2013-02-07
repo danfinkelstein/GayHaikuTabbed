@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GHHaiku.h"
 
-@interface GHHaikuViewController : UIViewController <UITextViewDelegate,UIGestureRecognizerDelegate>
+@interface GHHaikuViewController : UIViewController //<UITextViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) GHHaiku *ghhaiku;
 

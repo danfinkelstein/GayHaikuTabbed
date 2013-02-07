@@ -21,5 +21,4 @@
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender;
 -(IBAction)displayInfo:(id)sender;
 
-
 @end
