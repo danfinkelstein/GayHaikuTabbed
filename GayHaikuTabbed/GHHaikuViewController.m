@@ -43,7 +43,6 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     UIImageView *background;
-    //self.view.autoresizesSubviews=YES;
     [self.view addSubview:background];
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
