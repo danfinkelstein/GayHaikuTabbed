@@ -53,23 +53,23 @@
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        [background setImage : [UIImage imageNamed:@"main.png"]];
+        background.image = [UIImage imageNamed:@"main.png"];
     }
     else {
-        [background setImage : [UIImage imageNamed:@"5main.png"]];
+        background.image = [UIImage imageNamed:@"5main.png"];
     }
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPreviousHaiku)];
-    [swipeRight setNumberOfTouchesRequired : 1];
-    [swipeRight setDirection : UISwipeGestureRecognizerDirectionRight];
+    swipeRight.numberOfTouchesRequired = 1;
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToNextHaiku)];
-    [swipeLeft setNumberOfTouchesRequired : 1];
-    [swipeLeft setDirection : UISwipeGestureRecognizerDirectionLeft];
+    swipeLeft.numberOfTouchesRequired = 1;
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeft];
     
     UITapGestureRecognizer *tapBar = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createNavBar)];
@@ -109,12 +109,12 @@
                 //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
-    [instructions setEditable:NO];
-    [instructions setUserInteractionEnabled:NO];
-    [instructions setTextColor : self.userInfo.screenColorOp];
-    [instructions setBackgroundColor : [UIColor clearColor]];
-    [instructions setText : @"Swipe"];
-    [instructions setFont : [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
+    instructions.editable = NO;
+    instructions.userInteractionEnabled = NO;
+    instructions.textColor = self.userInfo.screenColorOp;
+    instructions.backgroundColor = [UIColor clearColor];
+    instructions.text = @"Swipe";
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
     return instructions;
 }
 
@@ -128,7 +128,7 @@
         [self createNavBar];
         [self.ghhaiku setJustComposed:NO];
     }
-    [self.ghhaiku setUserIsEditing:NO];
+    self.ghhaiku.userIsEditing = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,8 +144,8 @@
                 //Create UINavigationBar. The reason this isn't lazily instantiated is to remove the glitch whereby, if the user has tapped a user haiku and shown the trash/edit buttons in the nav bar, the next non-user haiku tapped shows those buttons momentarily before they disappear.
     
     self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TOOLBAR_HEIGHT)];
-    [self.navBar setTintColor:self.userInfo.screenColorTrans];
-    [self.navBar setTranslucent:YES];
+    self.navBar.tintColor = self.userInfo.screenColorTrans;
+    self.navBar.translucent = YES;
     
                 //Create UINavigationItem
     
@@ -182,7 +182,7 @@
                 //Add a button allowing the user to share the haiku via Facebook, Twitter, or email.
     
     UIBarButtonItem *send = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-    [send setStyle:UIBarButtonItemStyleBordered];
+    send.style = UIBarButtonItemStyleBordered;
     return send;
 }
 
@@ -234,24 +234,24 @@
                 //Set UITextView and its characteristics
     
     self.displayHaikuTextView = [self createTextViewForDisplay:self.ghhaiku.text];
-    [self.displayHaikuTextView setFrame : CGRectMake((screenWidth/2)-(textWidth/2),screenHeight/2-xySize.height,textWidth/2 + screenWidth/2,textHeight*2)];
+    self.displayHaikuTextView.frame = CGRectMake((screenWidth/2)-(textWidth/2),screenHeight/2-xySize.height,textWidth/2 + screenWidth/2,textHeight*2);
  
                 //Set animation
     
     CATransition *transition = [CATransition animation];
-    [transition setDuration : 0.25];
-    [transition setTimingFunction : [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [transition setType : kCATransitionPush];
+    transition.duration = 0.25;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
     
                 //Set direction of animation depending on whether we're going to a previous or a next haiku.
     
     if (self.appIsComingFromPreviousHaiku==NO) {
-        [transition setSubtype : kCATransitionFromRight];
+        transition.subtype = kCATransitionFromRight;
     }
     else {
-        [transition setSubtype : kCATransitionFromLeft];
+        transition.subtype = kCATransitionFromLeft;
     }
-    [transition setDelegate : self];
+    transition.delegate = self;
     [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
     
                 //Add text to view.
@@ -286,7 +286,7 @@
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
 
     CGRect rect = CGRectMake((screenWidth - xySize.width-30), screenHeight-240, xySize.width*1.5, xySize.height*2);
-    [self.rightSwipe setFrame : rect];
+    self.rightSwipe.frame = rect;
     
                 //Display it.
     
@@ -303,7 +303,7 @@
                 //We need xySize.width*1.5 and xySize.height*2 because using just xySize.width and xySize.height cuts off the text--UITextView has padding built in.
     
     CGRect rect = CGRectMake(10, screenHeight-240, xySize.width*1.5, xySize.height*2);
-    [self.leftSwipe setFrame : rect];
+    self.leftSwipe.frame = rect;
     
                 //Display it
     
@@ -320,7 +320,7 @@
     
                 //Set boolean for direction of animation.
     
-    [self setAppIsComingFromPreviousHaiku : NO];
+    self.appIsComingFromPreviousHaiku = NO;
     
                 //Show next haiku in array
     
@@ -330,7 +330,7 @@
     
     if (self.leftSwipeHasBeenSeen==NO) {
         [self addSwipeForPreviousView];
-        [self setLeftSwipeHasBeenSeen : YES];
+        self.leftSwipeHasBeenSeen = YES;
     }
     else {
         [self.leftSwipe removeFromSuperview];
@@ -346,7 +346,7 @@
         self.ghhaiku.newIndex--;
     }
     else {
-        [self.ghhaiku setNewIndex : self.ghhaiku.gayHaiku.count-1];
+        self.ghhaiku.newIndex = self.ghhaiku.gayHaiku.count-1;
     }
     
                 //Set boolean for direction of animation
@@ -364,8 +364,8 @@
     
                 //Indicate we're in editing mode and go to the compose screen.
     
-    [self.ghhaiku setUserIsEditing : YES];
-    [self.tabBarController setSelectedIndex:1];
+    self.ghhaiku.userIsEditing = YES;
+    self.tabBarController.selectedIndex = 1;
 }
 
 -(void)deleteHaiku {
@@ -420,11 +420,11 @@
 
 -(UITextView *)createTextViewForDisplay:(NSString *)s {
     UITextView *tv = [[UITextView alloc] init];
-    [tv setFont:[UIFont fontWithName:@"Georgia" size:MEDIUM_FONT_SIZE]];
-    [tv setEditable:NO];
-    [tv setUserInteractionEnabled:NO];
-    [tv setBackgroundColor:[UIColor clearColor]];
-    [tv setText:s];
+    tv.font = [UIFont fontWithName:@"Georgia" size : MEDIUM_FONT_SIZE];
+    tv.editable = NO;
+    tv.userInteractionEnabled = NO;
+    tv.backgroundColor = [UIColor clearColor];
+    tv.text = s;
     return tv;
 }
 

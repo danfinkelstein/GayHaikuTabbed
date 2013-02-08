@@ -41,11 +41,10 @@
     
     if (!self.webV) {
         self.webV = [[UIWebView alloc] init];
-        [self.webV setScalesPageToFit : YES];
-        [self.webV setAutoresizingMask : UIViewAutoresizingFlexibleWidth];
-        //webV.autoresizingMask=UIViewAutoresizingFlexibleHeight;
+        self.webV.scalesPageToFit = YES;
+        self.webV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
-    [self.webV setDelegate : self];
+    self.webV.delegate = self;
     
                 //Load Amazon page.
     
@@ -65,9 +64,9 @@
     
     if (!self.indicator) {
         self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, ACTIVITY_VIEWER_DIMENSION, ACTIVITY_VIEWER_DIMENSION)];
-        [self.indicator setCenter:CGPointMake(screenWidth/2, screenHeight/2)];
-        [self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self.indicator setColor : self.userInfo.screenColorTrans];
+        self.indicator.center = CGPointMake(screenWidth/2, screenHeight/2);
+        self.indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+        self.indicator.color = self.userInfo.screenColorTrans;
     }
 	[self.view addSubview:self.indicator];
     [self.indicator startAnimating];
@@ -88,25 +87,25 @@
     else {
         variable = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:NSSelectorFromString(title)];
     }
-    [variable setStyle : UIBarButtonItemStyleBordered];
+    variable.style = UIBarButtonItemStyleBordered;
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:Nil];
     
                 //Load the nav bar.
     
     [self loadBar];
-    [self.bar setAutoresizingMask : UIViewAutoresizingFlexibleWidth];
+    self.bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
       
                 //Create whatever left buttons are appropriate and add to the arrays.
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
     UIBarButtonItem *forButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webForward.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webForward")];
-    [backButt setTintColor : self.userInfo.screenColorTrans];
-    [forButt setTintColor : self.userInfo.screenColorTrans];
+    backButt.tintColor = self.userInfo.screenColorTrans;
+    forButt.tintColor = self.userInfo.screenColorTrans;
     if (self.webV.canGoBack) {
-        [backButt setStyle : UIBarButtonItemStyleBordered];
+        backButt.style = UIBarButtonItemStyleBordered;
     }
     if (self.webV.canGoForward) {
-        [forButt setStyle : UIBarButtonItemStyleBordered];
+        forButt.style = UIBarButtonItemStyleBordered;
     }
     
                 //Add the buttons to the bar.
@@ -118,8 +117,8 @@
         
                 //Set and show the bar.
     
-    [self.bar setItems : buttons];
-    [self.bar setAutoresizingMask : UIViewAutoresizingFlexibleWidth];
+    self.bar.items = buttons;
+    self.bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self seeBar];
 }
 
@@ -177,16 +176,16 @@
         self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenHeight, SHORT_TOOLBAR_HEIGHT)];
     }
     else self.bar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, TOOLBAR_HEIGHT)];
-    [self.bar setAutoresizingMask : UIViewAutoresizingFlexibleWidth];
-    [self.bar setAutoresizingMask : UIViewAutoresizingFlexibleHeight];
+    self.bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.bar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 }
 
 -(void)seeBar {
     
                 //Adds the nav bar to the screen.
     
-    [self.bar setTintColor:self.userInfo.screenColorTrans];
-    [self.bar setTranslucent : YES];
+    self.bar.tintColor = self.userInfo.screenColorTrans;
+    self.bar.translucent = YES;
     [self.view addSubview:self.bar];
 }
 
@@ -195,8 +194,8 @@
                 // Adjust the toolbar height depending on the screen orientation
     
     CGSize toolbarSize = [self.bar sizeThatFits:self.view.bounds.size];
-    [self.bar setFrame : CGRectMake(0, 0, toolbarSize.width, toolbarSize.height)];
-    [self.webV setFrame : CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height)];
+    self.bar.frame = CGRectMake(0, 0, toolbarSize.width, toolbarSize.height);
+    self.webV.frame = CGRectMake(0, toolbarSize.height, toolbarSize.width, self.view.bounds.size.height-toolbarSize.height);
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -219,7 +218,7 @@
     
                 //Returns user to home screen upon user okay of same in case of failure to connect.
     
-    [self.tabBarController setSelectedIndex:0];
+    self.tabBarController.selectedIndex = 0;
 }
 
 -(void)connectWithURL:(NSString *)us andBaseURLString:(NSString *)bus {
@@ -231,8 +230,8 @@
     if (conn) {
         [self.webV loadRequest:request];
     }
-    [self.webV setScalesPageToFit : YES];
-    [self.webV setFrame:(CGRectMake(0,TOOLBAR_HEIGHT,screenWidth,screenHeight-TAB_BAR_HEIGHT))];
+    self.webV.scalesPageToFit = YES;
+    self.webV.frame = (CGRectMake(0,TOOLBAR_HEIGHT,screenWidth,screenHeight-TAB_BAR_HEIGHT));
     [self.view addSubview:self.webV];
 }
 

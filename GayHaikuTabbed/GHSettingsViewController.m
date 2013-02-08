@@ -59,31 +59,31 @@
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        [background setImage : [UIImage imageNamed:@"instructions.png"]];
+        background.image = [UIImage imageNamed:@"instructions.png"];
     }
     else {
-        [background setImage : [UIImage imageNamed:@"5instructions.png"]];
+        background.image = [UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:background];
     [self.view sendSubviewToBack:background];
     
     if (self.userSettings.permissionDenied==NO) {
-        [permissionDenied setSelectedSegmentIndex : 0];
+        permissionDenied.selectedSegmentIndex = 0;
         [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
     }
     else {
-        [permissionDenied setSelectedSegmentIndex : 1];
+        permissionDenied.selectedSegmentIndex = 1;
         [permissionDenied setTitle:@"No" forSegmentAtIndex:1];
     }
     if (self.userSettings.disableSyllableCheck==NO) {
-        [disableVerification setSelectedSegmentIndex : 0];
+        disableVerification.selectedSegmentIndex = 0;
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
     }
     else {
-        [disableVerification setSelectedSegmentIndex : 1];
+        disableVerification.selectedSegmentIndex = 1;
         [disableVerification setTitle:@"Off" forSegmentAtIndex:1];
     }
-    [nameField setDelegate : self];
+    nameField.delegate = self;
     
     [segCont removeAllSegments];
     [segCont insertSegmentWithTitle:@"About" atIndex:0 animated:NO];
@@ -108,12 +108,12 @@
                 //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
-    [instructions setEditable : NO];
-    [instructions setTextColor : self.userSettings.screenColorOp];
-    [instructions setBackgroundColor : [UIColor clearColor]];
-    [instructions setText : @"Swipe"];
-    [instructions setUserInteractionEnabled : NO];
-    [instructions setFont : [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
+    instructions.editable = NO;
+    instructions.textColor = self.userSettings.screenColorOp;
+    instructions.backgroundColor = [UIColor clearColor];
+    instructions.text = @"Swipe";
+    instructions.userInteractionEnabled = NO;
+    instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
 
     return instructions;
 }
@@ -130,8 +130,8 @@
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE] constrainedToSize:dimensions lineBreakMode:0];
     CGRect rect = CGRectMake((dimensions.width - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
-    [self.swipeInstructions setFrame : rect];
-    [self.userSettings setOptOutSeen : YES];
+    self.swipeInstructions.frame = rect;
+    self.userSettings.optOutSeen = YES;
     [self.userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
     [self.userSettings.defaults synchronize];
     
@@ -141,13 +141,13 @@
 }
 
 -(void)switchToInstructions {
-    [self.tabBarController setSelectedIndex:1];
+    self.tabBarController.selectedIndex = 1;
 }
 
 -(IBAction)displayInfo:(id)sender {
     UIAlertView *behindTheScenesInfo = [[UIAlertView alloc] initWithTitle:@"Gay Haiku v. 1.0" message:@"©2012 by Joel Derfner. Graphics by iphone-icon.com. Thanks to Dan Finkelstein, Matt Caldwell, and beta testers." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [behindTheScenesInfo show];
-    [segCont setSelectedSegmentIndex : -1];
+    segCont.selectedSegmentIndex = -1;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)tF {
@@ -159,7 +159,7 @@
                 //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
     
     if (nameField.text.length>0) {
-        [self.userSettings setAuthor : nameField.text];
+        self.userSettings.author = nameField.text;
         [self.userSettings.defaults setObject:nameField.text forKey:@"author"];
         [self.userSettings.defaults synchronize];
     }

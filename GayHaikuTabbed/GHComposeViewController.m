@@ -33,20 +33,20 @@
                 //Create and add swipe gesture recognizers
     
     UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(displayComposeScreen)];
-    [swipeRight setNumberOfTouchesRequired : 1];
-    [swipeRight setDirection : UISwipeGestureRecognizerDirectionRight];
+    swipeRight.numberOfTouchesRequired = 1;
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRight];
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(displayInstructionsScreen)];
-    [swipeLeft setNumberOfTouchesRequired : 1];
-    [swipeRight setDirection : UISwipeGestureRecognizerDirectionLeft];
+    swipeLeft.numberOfTouchesRequired = 1;;
+    swipeRight.direction = UISwipeGestureRecognizerDirectionLeft;;
     [self.view addGestureRecognizer:swipeLeft];
     
                 //Set defaults, including user defaults, non-animated compose screen, and (implicitly, by not declaring it) deactivate disable syllable check.
     
-    [self setUserSettings : [GHAppDefaults sharedInstance]];
+    self.userSettings = [GHAppDefaults sharedInstance];
     [self.userSettings setUserDefaults];
-    [self setAnimateComposeScreen : NO];
+    self.animateComposeScreen = NO;
     
                 //Access the shared instance of GHHaiku.
 
@@ -57,12 +57,12 @@
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
-    [self setBackground : [[UIImageView alloc] initWithFrame:frame]];
+    self.background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        [self.background setImage : [UIImage imageNamed:@"instructions.png"]];
+        self.background.image = [UIImage imageNamed:@"instructions.png"];
     }
     else {
-        [self.background setImage : [UIImage imageNamed:@"5instructions.png"]];
+        self.background.image = [UIImage imageNamed:@"5instructions.png"];
     }
     [self.view addSubview:self.background];
     
@@ -81,7 +81,7 @@
                 //If the user hasn't ever seen the opt out screen, show it.
     
     if (self.userSettings.optOutSeen==NO) {
-        [self.tabBarController setSelectedIndex:4];
+        self.tabBarController.selectedIndex = 4;
     }
     
                 //Otherwise, if the user hasn't ever seen instructions screen, show it.
@@ -91,13 +91,13 @@
         
                 //Indicate that, since we're on instructions screen, if we go to the compose screen it should animate.
         
-        [self setAnimateComposeScreen : YES];
+        self.animateComposeScreen = YES;
     }
     
                 //Otherwise, show the compose screen.  Indicate we're NOT coming from instructions screen so that compose screen won't be animated.
     
     else {
-        [self setAnimateComposeScreen : NO];
+        self.animateComposeScreen = NO;
         [self displayComposeScreen];
     }
 }
@@ -107,12 +107,12 @@
                 //Create "Swipe" text and its characteristics
     
     UITextView *tV = [[UITextView alloc] init];
-    [tV setEditable : NO];
-    [tV setUserInteractionEnabled : NO];
-    [tV setTextColor : self.userSettings.screenColorOp];
-    [tV setBackgroundColor : [UIColor clearColor]];
-    [tV setText : word];
-    [tV setFont : [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
+    tV.editable = NO;
+    tV.userInteractionEnabled = NO;
+    tV.textColor = self.userSettings.screenColorOp;
+    tV.backgroundColor = [UIColor clearColor];
+    tV.text = word;
+    tV.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
     return tV;
 }
 
@@ -140,7 +140,7 @@
     
     CGSize xySize = [text sizeWithFont:[UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE]];
     CGRect rect = CGRectMake((screenWidth - xySize.width), screenHeight*0.75, xySize.width, xySize.height);
-    [self.nextInstructions setFrame : rect];
+    self.nextInstructions.frame = rect;
         
                 //Display and animate it.
     
@@ -157,10 +157,10 @@
     if (!_instructions)
     {
         _instructions = [[UITextView alloc] init];
-        [_instructions setBackgroundColor : [UIColor clearColor]];
-        [_instructions setFont:[UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE]];
-        [_instructions setEditable : NO];
-        [_instructions setText : @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!"];
+        _instructions.backgroundColor = [UIColor clearColor];
+        _instructions.font = [UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE];
+        _instructions.editable = NO;
+        _instructions.text = @"\nFor millennia, the Japanese haiku has allowed great\nthinkers to express their ideas about the world in three\nlines of five, seven, and five syllables respectively.\n\nContrary to popular belief, the three lines need not be\nthree separate sentences. Rather, either the first two\nlines are one thought and the third is another or the\nfirst line is one thought and the last two are another;\nthe two thoughts are often separated by punctuation.\n\nHave a fabulous time composing your own gay haiku!";
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE]];
         int textWidth = thisSize.width;
@@ -168,7 +168,7 @@
         //Obviously this is an ugly hack and needs to be defined somewhere else.
         
         int textHeight = thisSize.height*17;
-        [_instructions setFrame : CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight)];
+        _instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight);
     }
     return _instructions;
 }
@@ -182,10 +182,10 @@
         CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
         self.background = [[UIImageView alloc] initWithFrame:frame];
         if (screenHeight<500) {
-            [self.background setImage : [UIImage imageNamed:@"instructions.png"]];
+            self.background.image = [UIImage imageNamed:@"instructions.png"];
         }
         else {
-            [self.background setImage : [UIImage imageNamed:@"5instructions.png"]];
+            self.background.image = [UIImage imageNamed:@"5instructions.png"];
         }
         [self.view addSubview:self.background];
         
@@ -193,7 +193,7 @@
     
                 //Hide the textview and resign first responder.
     
-    [self.textView setHidden : YES];
+    self.textView.hidden = YES;
     [self.textView resignFirstResponder];
     
                 //If we're coming from the opt-out screen (i.e. swiping from the right), animate the instructions to the left.
@@ -216,7 +216,7 @@
                 //Set boolean to indicate that the opt-out to instructions swipe has happened, and update the defaults.
     
     if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
-        [self.userSettings setInstructionsSwipedToFromOptOut : YES];
+        self.userSettings.instructionsSwipedToFromOptOut = YES;
         [self.userSettings.defaults setBool:YES forKey:@"instructionsSwipedTo?"];
         [self.userSettings.defaults synchronize];
     }
@@ -224,19 +224,19 @@
                 //Set boolean to indicate that the instructions have been seen, and update the defaults
     
     if (self.userSettings.instructionsSeen==NO) {
-        [self.userSettings setInstructionsSeen : YES];
+        self.userSettings.instructionsSeen = YES;
         [self.userSettings.defaults setBool:YES forKey:@"instructionsSeen?"];
         [self.userSettings.defaults synchronize];
     }
     
                 //If we're coming from the compose screen, make sure the instructions are visible.  Add them to the view.
     
-    [self.instructions setHidden : NO];
+    self.instructions.hidden = NO;
     [self.view addSubview:self.instructions];
     
                 //Animate the compose screen if that's where we go next.
     
-    [self setAnimateComposeScreen : YES];
+    self.animateComposeScreen = YES;
 }
 
 -(void)animateView:(UIView *)tv withDirection: (NSString *)direction {
@@ -244,15 +244,15 @@
                 //Set animation.
     
     CATransition *transition = [CATransition animation];
-    [transition setDuration : 0.25];
-    [transition setTimingFunction : [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [transition setType : kCATransitionPush];
-    [transition setDelegate : self];
+    transition.duration = 0.25;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.delegate = self;
     
                 //Indicate which direction animation is going.
     
-    if ([direction isEqualToString:@"right"]) [transition setSubtype :kCATransitionFromRight];
-    else if ([direction isEqualToString:@"left"]) [transition setSubtype : kCATransitionFromLeft];
+    if ([direction isEqualToString:@"right"]) transition.subtype =kCATransitionFromRight;
+    else if ([direction isEqualToString:@"left"]) transition.subtype = kCATransitionFromLeft;
 
                 //Add animation.
     
@@ -271,16 +271,16 @@
     CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight);
     self.background = [[UIImageView alloc] initWithFrame:frame];
     if (screenHeight<500) {
-        [self.background setImage : [UIImage imageNamed:@"compose.png"]];
+        self.background.image = [UIImage imageNamed:@"compose.png"];
     }
     else {
-        [self.background setImage : [UIImage imageNamed:@"5compose.png"]];
+        self.background.image = [UIImage imageNamed:@"5compose.png"];
     }
     [self.view addSubview:self.background];
     
                 //Hide the instructions and the swipe-for-next text.
     
-    [self.instructions setHidden : YES];
+    self.instructions.hidden = YES;
     [self.nextInstructions removeFromSuperview];
     
                 //Create the textView if it doesn't exist.
@@ -292,7 +292,7 @@
         else {
             self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
         }
-        [self.textView setDelegate : self];
+        self.textView.delegate = self;
     }
     
                 //Create the translucent toolbar for above the keyboard.
@@ -301,19 +301,19 @@
     
                 //Set the textView's attributes.
     
-    [self.textView setEditable : YES];
-    [self.textView setBackgroundColor : [UIColor clearColor]];
-    [self.textView setHidden : NO];
-    [self.textView setFont : [UIFont fontWithName:@"Georgia" size:14]];
+    self.textView.editable = YES;
+    self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.hidden = NO;
+    self.textView.font = [UIFont fontWithName:@"Georgia" size:14];
     
                 //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
     
     if (ghhaiku.userIsEditing==NO || ghhaiku.isUserHaiku==NO) {
-        [self.textView setText : @""];
+        self.textView.text = @"";
     }
     else {
         GHVerify *ghv = [[GHVerify alloc] init];
-        [self.textView setText : [ghv removeAuthor:ghhaiku.text]];
+        self.textView.text = [ghv removeAuthor:ghhaiku.text];
     }
     
                 //Show the textView and set up the keyboard.
@@ -325,7 +325,7 @@
     
     if (self.animateComposeScreen == YES) {
         [self animateView:self.view withDirection:@"right"];
-        [self setAnimateComposeScreen : NO];
+        self.animateComposeScreen = NO;
     }
 }
 
@@ -334,8 +334,8 @@
                 //Create translucent toolbar to sit above keyboard.
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setTintColor:self.userSettings.screenColorTrans];
-    [toolbar setTranslucent : YES];
+    toolbar.tintColor=self.userSettings.screenColorTrans;
+    toolbar.translucent = YES;
     [toolbar sizeToFit];
     
                 //Create "instructions" and "done" buttons and add them to the translucent toolbar.
@@ -344,8 +344,8 @@
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
     NSArray *itemsArray = [NSArray arrayWithObjects:instructionsButton, flexButton, doneButton, nil];
-    [toolbar setItems:itemsArray];
-    [self.textView setInputAccessoryView:toolbar];
+    toolbar.items = itemsArray;
+    self.textView.inputAccessoryView = toolbar;
 }
     
 -(void)resignKeyboard {
@@ -374,8 +374,8 @@
                 //If user hasn't made any changes, simply return to home screen and current haiku.
     
     if (self.textView.text.length==0) {
-        [self.textView setText : @""];
-        [self.tabBarController setSelectedIndex:0];
+        self.textView.text = @"";
+        self.tabBarController.selectedIndex = 0;
     }
     
                 //If user HAS made changes, show alert view with appropriate destructive button title depending on whether it's a new haiku or an edited one.
@@ -398,8 +398,8 @@
                 //If the action sheet button is "cancel" or "discard changes," return to the home screen.
     
     if (buttonIndex==0) {
-        [self.textView setText : @""];
-        [self.tabBarController setSelectedIndex:0];
+        self.textView.text = @"";
+        self.tabBarController.selectedIndex = 0;
     }
     
                 //If the action sheet button is "save," save the haiku.
@@ -499,7 +499,7 @@
                 //If the alert message needs displaying, add an ending to it and display it with an alertView.
     
     if (self.userSettings.disableSyllableCheck==YES) {
-        [self setSyllablesWrong : YES];
+        self.syllablesWrong = YES;
         [self saveUserHaiku];
         return YES;
     }
@@ -532,9 +532,9 @@
                 //If it is, set that haiku to be the current haiku and return to the home screen.
         
         if ([self.textView.text isEqualToString:haikuToCheck]) {
-            [ghhaiku setJustComposed : YES];
-            [ghhaiku setNewIndex : i];
-            [self.tabBarController setSelectedIndex:0];
+            ghhaiku.justComposed = YES;
+            ghhaiku.newIndex = i;
+            self.tabBarController.selectedIndex = 0;
             return YES;
         }
     }
@@ -582,13 +582,13 @@
     else if (ghhaiku.userIsEditing==YES && self.textView.text.length>0) {
         [ghhaiku.gayHaiku insertObject:dictToSave atIndex:ghhaiku.newIndex];
         [ghhaiku.gayHaiku removeObjectAtIndex:ghhaiku.newIndex+1];
-        [ghhaiku setUserIsEditing : NO];
+        ghhaiku.userIsEditing = NO;
     }
     
                 //If there's no actual haiku, return to the home screen.
     
     else if (!self.textView.text.length>0) {
-        [self.tabBarController setSelectedIndex:0];
+        self.tabBarController.selectedIndex = 0;
         return YES;
     }
     
@@ -629,7 +629,7 @@
     else {
         misanalysis=@"No";
     }
-    [self setSyllablesWrong : NO];
+    self.syllablesWrong = NO;
     [haikuObject setObject:misanalysis forKey:@"misanalyzed"];
     
                //Send the PFObject.
@@ -640,7 +640,7 @@
     
                 //Indicate that the current haiku is a user-composed one so the home screen knows what to display.
     
-    [ghhaiku setJustComposed : YES];
+    ghhaiku.justComposed = YES;
     
                 //Remove unnecessary UITextViews from view.
     
@@ -649,7 +649,7 @@
     
                 //Return to home screen.
     
-    [self.tabBarController setSelectedIndex:0];
+    self.tabBarController.selectedIndex = 0;
     return YES;
 }
 
@@ -664,7 +664,7 @@
                 //Otherwise, save haiku despite errors.
     
     else if (buttonIndex == 1) {
-        [self setSyllablesWrong : YES];
+        self.syllablesWrong = YES;
         [self saveUserHaiku];
     }
 }
