@@ -13,7 +13,7 @@
 #import <Parse/Parse.h>
 #import "GHHaiku.h"
 
-@interface GHComposeViewController : UIViewController { //<UITextViewDelegate,UIAlertViewDelegate,UITextFieldDelegate> {
+@interface GHComposeViewController : UIViewController {
     GHHaiku *ghhaiku;                   //Instantiation of GHHaiku.
 }
 

@@ -56,15 +56,9 @@
     
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
-    CGRect frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
+    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
     self.background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        self.background.image = [UIImage imageNamed:@"instructions.png"];
-    }
-    else {
-        self.background.image = [UIImage imageNamed:@"5instructions.png"];
-    }
-    [self.view addSubview:self.background];
+    //[self.view addSubview:self.background];
     
                 //UNCOMMENT THESE LINES FOR TESTING:
     
@@ -173,22 +167,18 @@
     return _instructions;
 }
 
+-(void)setBackgroundImageForIPhone4:(NSString *)x forIPhone5:(NSString *)y {
+    [self.background removeFromSuperview];
+    self.background.image = screenHeight<500 ? [UIImage imageNamed:x]:[UIImage imageNamed:y];
+    [self.view addSubview:self.background];
+}
+
 -(void)displayInstructionsScreen {
     
                 //If user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
     if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
-        [self.background removeFromSuperview];
-        CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
-        self.background = [[UIImageView alloc] initWithFrame:frame];
-        if (screenHeight<500) {
-            self.background.image = [UIImage imageNamed:@"instructions.png"];
-        }
-        else {
-            self.background.image = [UIImage imageNamed:@"5instructions.png"];
-        }
-        [self.view addSubview:self.background];
-        
+        [self setBackgroundImageForIPhone4:@"instructions.png" forIPhone5:@"5instructions.png"];
     }
     
                 //Hide the textview and resign first responder.
@@ -208,7 +198,7 @@
     else if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         
                 //If we're coming from the compose screen, animate instructions from right.
-            
+        
         [self animateView:self.instructions withDirection:@"right"];
         [self addSwipeForRight:@"right"];
     }
@@ -259,23 +249,11 @@
     [tv.layer addAnimation:transition forKey:nil];
 }
 
--(void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 -(void)displayComposeScreen {
     
                 //Change the screen to the compose screen.
     
-    [self.background removeFromSuperview];
-    CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight);
-    self.background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        self.background.image = [UIImage imageNamed:@"compose.png"];
-    }
-    else {
-        self.background.image = [UIImage imageNamed:@"5compose.png"];
-    }
+    [self setBackgroundImageForIPhone4:@"compose.png" forIPhone5:@"5compose.png"];
     [self.view addSubview:self.background];
     
                 //Hide the instructions and the swipe-for-next text.
@@ -286,12 +264,9 @@
                 //Create the textView if it doesn't exist.
     
     if (!self.textView) {
-        if (screenHeight<500) {
-            self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 135)];
-        }
-        else {
-            self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, 222)];
-        }
+        int x;
+        x = screenHeight<500? 115 : 202;
+        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, x)];
         self.textView.delegate = self;
     }
     

@@ -130,11 +130,6 @@
     [self createToolbarWithButton:@"webRefresh"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 -(void)webBack {
     
                 //Allow the user to go to the previous web page.

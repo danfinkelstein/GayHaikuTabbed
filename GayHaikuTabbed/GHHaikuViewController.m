@@ -9,18 +9,13 @@
 #import "GHHaikuViewController.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-//#import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
-//#import <Twitter/Twitter.h>
-//#import <Twitter/TWTweetComposeViewController.h>
-//#import <MobileCoreServices/MobileCoreServices.h>
 #import <Parse/Parse.h>
-//#import <Social/Social.h>
 #import "GHAppDefaults.h"
 #import "GHVerify.h"
 #import "DMActivityInstagram.h"
 
-@interface GHHaikuViewController ()<UITextViewDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate> //MFMailComposeViewControllerDelegate,
+@interface GHHaikuViewController ()<UITextViewDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (strong, nonatomic) GHAppDefaults *userInfo;
 @property (strong, nonatomic) UIToolbar *bar;
@@ -52,12 +47,7 @@
     CGRect frame;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
     background = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        background.image = [UIImage imageNamed:@"main.png"];
-    }
-    else {
-        background.image = [UIImage imageNamed:@"5main.png"];
-    }
+    background.image = screenHeight<500 ? [UIImage imageNamed:@"main.png"]:[UIImage imageNamed:@"5main.png"];
     [self.view addSubview:background];
     
                 //Create and add gesture recognizers. Swiping from the right calls goToNextHaiku; swiping from the left calls goToPreviousHaiku. Tapping calls showNavBarOnTap.
@@ -129,10 +119,6 @@
         [self.ghhaiku setJustComposed:NO];
     }
     self.ghhaiku.userIsEditing = NO;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 -(void)createNavBar {
