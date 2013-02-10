@@ -27,6 +27,11 @@
 
 #pragma mark SETUP/CREATION METHODS
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    return self;
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     
@@ -58,6 +63,10 @@
     screenWidth = self.view.bounds.size.width;
     CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
     self.background = [[UIImageView alloc] initWithFrame:frame];
+    
+                //Background image is set here so that if we swipe here from settings screen background remains the same.  Without this, background is black.
+    
+    [self setBackgroundImageForIPhone4:@"instructions.png" forIPhone5:@"5instructions.png"];
     
                 //UNCOMMENT THESE LINES FOR TESTING:
     
@@ -113,21 +122,13 @@
 
                 //Create the text to tell the user to swipe to the next screen.
     
-    NSString *word;
-    if (self.userSettings.instructionsSeen==NO) {
-        word = @"Swipe";
-    }
-    else {
-        word = @"Swipe to compose";
-    }
+    NSString *word = (self.userSettings.instructionsSeen==NO) ? @"Swipe" : @"Swipe to compose";
     self.nextInstructions = [self createSwipeToAdd:word];
-    NSString *text;
-    if (self.userSettings.instructionsSeen==NO) {
-        text = [word stringByAppendingString:@"compo"];
-    }
-    else {
-        text = [word stringByAppendingString:@"co"];
-    }
+    
+                //This is a hack to deal with padding built in to margins of UITextView and ought to be replaced with UILabel in place of UITextView.
+    
+    NSString *x = (self.userSettings.instructionsSeen==NO) ? @"compo" : @"co";
+    NSString *text = [word stringByAppendingString:x];
     
                 //Locate and frame the text on the right side of the view.
     
@@ -173,7 +174,7 @@
     
                 //If user is coming from the compose screen, which has a different background image, set the background image for the screen.
     
-    if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"]) {
+    if (self.background.image==[UIImage imageNamed:@"compose.png"] || self.background.image==[UIImage imageNamed:@"5compose.png"] ) {
         [self setBackgroundImageForIPhone4:@"instructions.png" forIPhone5:@"5instructions.png"];
     }
     
@@ -276,7 +277,7 @@
     self.textView.hidden = NO;
     self.textView.font = [UIFont fontWithName:@"Georgia" size:14];
     
-                //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku.
+                //If the user is NOT editing a user haiku, set the textView's text to nil.  If the user IS editing a user haiku, set the textView's text to that haiku with the author attribution removed.
     
     if (ghhaiku.userIsEditing==NO || ghhaiku.isUserHaiku==NO) {
         self.textView.text = @"";
@@ -310,10 +311,12 @@
     
                 //Create "instructions" and "done" buttons and add them to the translucent toolbar.
     
+                //If there's a "hint" function in a future release that gives user a random first line, it ought to go in a button here.
+    
     UIBarButtonItem *instructionsButton = [[UIBarButtonItem alloc] initWithTitle:@"Instructions" style:UIBarButtonItemStyleBordered target:self action:@selector(displayInstructionsScreen)];
     UIBarButtonItem *flexButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneButton =[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(resignKeyboard)];
-    NSArray *itemsArray = [NSArray arrayWithObjects:instructionsButton, flexButton, doneButton, nil];
+    NSArray *itemsArray = @[instructionsButton, flexButton, doneButton];
     toolbar.items = itemsArray;
     self.textView.inputAccessoryView = toolbar;
 }
@@ -351,13 +354,7 @@
                 //If user HAS made changes, show alert view with appropriate destructive button title depending on whether it's a new haiku or an edited one.
     
     else {
-        NSString *destroyButtonTitle;
-        if (ghhaiku.userIsEditing) {
-            destroyButtonTitle=@"Discard Changes";
-        }
-        else {
-            destroyButtonTitle=@"Discard";
-        }
+        NSString *destroyButtonTitle = (ghhaiku.userIsEditing) ? @"Discard Changes" : @"Discard";
         actSheet = [[UIActionSheet alloc] initWithTitle:nil delegate: self cancelButtonTitle:@"Continue Editing" destructiveButtonTitle:destroyButtonTitle otherButtonTitles:@"Save", nil];
         [actSheet showFromTabBar:self.tabBarController.tabBar];
     }
@@ -415,13 +412,7 @@
     
                 //Create an iterator for the array of lines in the haiku.
     
-    int k;
-    if (ghverify.listOfLines.count<3) {
-        k=ghverify.listOfLines.count;
-    }
-    else {
-        k=3;
-    }
+    int k = (ghverify.listOfLines.count<3) ? ghverify.listOfLines.count : 3;
     
                 //Create an array to hold the record of lines that have an incorrect number of syllables.
     
@@ -449,7 +440,6 @@
             alertMessage = @"Though the syllable-counting algorithm is imperfect, ";
             somethingIsAmiss=YES;
         }
-        NSString *phrase;
         NSString *number;
         if (arrayOfLinesToAlert.count==1) {
             number = [NSString stringWithFormat:@"line %@ seems to have",arrayOfLinesToAlert[0] ];
@@ -460,7 +450,7 @@
         else if (arrayOfLinesToAlert.count==3) {
             number = [NSString stringWithFormat:@"lines %@, %@, and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1],arrayOfLinesToAlert[2]];
         }
-        phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
+        NSString *phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
         alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
     }
     
@@ -476,8 +466,7 @@
     if (somethingIsAmiss) {
         NSString *add = @"Are you certain you'd like to continue saving?";
         alertMessage = [alertMessage stringByAppendingFormat:@" %@",add];
-        UIAlertView *alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:alertMessage delegate:self cancelButtonTitle:@"Edit" otherButtonTitles:@"Save", nil];
         [alert show];
         somethingIsAmiss=NO;
         return YES;
@@ -536,8 +525,8 @@
     
                 //Create the dictionary item of the new haiku to save in userHaiku.plist.
     
-    NSArray *collectionOfHaiku = [[NSArray alloc] initWithObjects:@"user", haikuWithAttribution, nil];
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"category",@"haiku",nil];
+    NSArray *collectionOfHaiku = @[@"user", haikuWithAttribution];
+    NSArray *keys = @[@"category",@"haiku"];
     NSDictionary *dictToSave = [[NSDictionary alloc] initWithObjects:collectionOfHaiku forKeys:keys];
 
                 //If the saved haiku is a new haiku, advance the current index by one and insert the new haiku at that position.
@@ -568,7 +557,7 @@
     
                 //Create a PFObject to send to parse.com with the text of the haiku
     
-//COMMENT THE FOLLOWING LINES FOR TESTING
+//COMMENT THE FOLLOWING LINES OUT FOR TESTING
     
     PFObject *haikuObject = [PFObject objectWithClassName:@"TestObject"];
     [haikuObject setObject:self.textView.text forKey:@"haiku"];
@@ -581,24 +570,15 @@
     
                 //Indicate whether I have permission to use it.
     
-    NSString *perm;
-    if (self.userSettings.permissionDenied) {
-        perm=@"No";
-    }
-    else {
-        perm=@"Yes";
-    }
+    NSString *perm = (self.userSettings.permissionDenied) ? @"No" : @"Yes"; 
     [haikuObject setObject:perm forKey:@"permission"];
     
                 //Indicate whether syllables have been misanalyzed.
     
-    NSString *misanalysis;
-    if (self.syllablesWrong!=YES) {
-        misanalysis=@"Yes";
-    }
-    else {
-        misanalysis=@"No";
-    }
+    NSString *misanalysis = (self.syllablesWrong!=YES) ? @"Yes" : @"No";
+    
+//CHECK ABOVE.
+    
     self.syllablesWrong = NO;
     [haikuObject setObject:misanalysis forKey:@"misanalyzed"];
     

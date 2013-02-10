@@ -84,7 +84,7 @@
     
                 //Create an array to hold the correct number of syllables in the lines to evaluate against.
     
-    NSArray *syllablesInLine = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:5], [NSNumber numberWithInt:7], [NSNumber numberWithInt:5], nil ];
+    NSArray *syllablesInLine = @[@5,@7,@5];
     
                 //Evaluate the lines to make sure they have the correct number of syllables.
     

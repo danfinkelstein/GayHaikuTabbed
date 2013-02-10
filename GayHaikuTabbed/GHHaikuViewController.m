@@ -35,6 +35,11 @@
 
 #pragma mark CREATION/SETUP METHODS
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    return self;
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     UIImageView *background;
@@ -178,7 +183,7 @@
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteHaiku)];
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editHaiku)];
-    NSArray *leftItems = [[NSArray alloc] initWithObjects:editButton, deleteButton, nil];
+    NSArray *leftItems = @[editButton, deleteButton];
     return leftItems;
 }
 
@@ -231,12 +236,7 @@
     
                 //Set direction of animation depending on whether we're going to a previous or a next haiku.
     
-    if (self.appIsComingFromPreviousHaiku==NO) {
-        transition.subtype = kCATransitionFromRight;
-    }
-    else {
-        transition.subtype = kCATransitionFromLeft;
-    }
+    transition.subtype = (self.appIsComingFromPreviousHaiku==NO) ? kCATransitionFromRight : kCATransitionFromLeft;
     transition.delegate = self;
     [self.displayHaikuTextView.layer addAnimation:transition forKey:nil];
     
