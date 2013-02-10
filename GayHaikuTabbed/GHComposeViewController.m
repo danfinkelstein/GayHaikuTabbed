@@ -58,7 +58,6 @@
     screenWidth = self.view.bounds.size.width;
     CGRect frame = CGRectMake(0, 0, screenWidth, screenHeight-TAB_BAR_HEIGHT);
     self.background = [[UIImageView alloc] initWithFrame:frame];
-    //[self.view addSubview:self.background];
     
                 //UNCOMMENT THESE LINES FOR TESTING:
     
@@ -158,9 +157,6 @@
         NSString *t = @"thinkers to express their ideas about the world in three lin";
         CGSize thisSize = [t sizeWithFont:[UIFont fontWithName:@"Georgia" size:SMALL_FONT_SIZE]];
         int textWidth = thisSize.width;
-        
-        //Obviously this is an ugly hack and needs to be defined somewhere else.
-        
         int textHeight = thisSize.height*17;
         _instructions.frame = CGRectMake(screenWidth/2-textWidth/2, screenHeight/2-textHeight/2 + 32, textWidth, textHeight);
     }
@@ -264,8 +260,7 @@
                 //Create the textView if it doesn't exist.
     
     if (!self.textView) {
-        int x;
-        x = screenHeight<500? 115 : 202;
+        int x = screenHeight<500? 115 : 202;
         self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, x)];
         self.textView.delegate = self;
     }
@@ -461,13 +456,13 @@
         }
         else if (arrayOfLinesToAlert.count==2) {
             number = [NSString stringWithFormat:@"lines %@ and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1]];
-            }
+        }
         else if (arrayOfLinesToAlert.count==3) {
             number = [NSString stringWithFormat:@"lines %@, %@, and %@ seem to have",arrayOfLinesToAlert[0],arrayOfLinesToAlert[1],arrayOfLinesToAlert[2]];
         }
         phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
         alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
-        }
+    }
     
     arrayOfLinesToAlert=Nil;
     

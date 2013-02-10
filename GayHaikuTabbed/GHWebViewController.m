@@ -94,7 +94,7 @@
     
     [self loadBar];
     self.bar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-      
+    
                 //Create whatever left buttons are appropriate and add to the arrays.
     
     UIBarButtonItem *backButt = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"webBack.png"] style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"webBack")];
@@ -114,7 +114,7 @@
     [buttons addObject:forButt];
     [buttons addObject:flex];
     [buttons addObject:variable];
-        
+    
                 //Set and show the bar.
     
     self.bar.items = buttons;
