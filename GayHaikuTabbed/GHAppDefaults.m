@@ -39,45 +39,15 @@ int screenWidth;
                 //Set session settings to user defaults, if such exist.
     
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"checked?"]) {
-        self.checkboxUnchecked = [defaults boolForKey:@"checked?"];
-    }
-    else {
-        self.checkboxUnchecked=YES;
-    }
     if ([defaults objectForKey:@"author"]) {
-        self.author = [defaults objectForKey:@"author"];
+        self.author = ([defaults objectForKey:@"author"]) ? [defaults objectForKey:@"author"] : nil;
     }
-    if ([defaults boolForKey:@"optOutSeen?"]) {
-        self.optOutSeen = [defaults boolForKey:@"optOutSeen?"];
-    }
-    else {
-        self.optOutSeen = NO;
-    }
-    if ([defaults boolForKey:@"instructionsSeen?"]) {
-        self.instructionsSeen = [defaults boolForKey:@"instructionsSeen?"];
-    }
-    else {
-        self.instructionsSeen = NO;
-    }
-    if ([defaults boolForKey:@"instructionsSwipedTo?"]) {
-        self.instructionsSwipedToFromOptOut = [defaults boolForKey:@"instructionsSwipedTo?"];
-    }
-    else {
-        self.instructionsSwipedToFromOptOut = NO;
-    }
-    if ([defaults boolForKey:@"permissionDenied?"]) {
-        self.permissionDenied = [defaults boolForKey:@"permissionDenied?"];
-    }
-    else {
-        self.permissionDenied = NO;
-    }
-    if ([defaults boolForKey:@"disableSyllableCheck?"]) {
-        self.disableSyllableCheck = [defaults boolForKey:@"disableSyllableCheck?"];
-    }
-    else {
-        self.disableSyllableCheck = NO;
-    }
+    self.checkboxUnchecked = ([defaults boolForKey:@"checked?"]) ? [defaults boolForKey:@"checked?"] : YES;
+    self.optOutSeen = ([defaults boolForKey:@"optOutSeen?"]) ? [defaults boolForKey:@"optOutSeen?"] : NO;
+    self.instructionsSeen = ([defaults boolForKey:@"instructionsSeen?"]) ? [defaults boolForKey:@"instructionsSeen?"] : NO;
+    self.instructionsSwipedToFromOptOut = ([defaults boolForKey:@"instructionsSwipedTo?"]) ? [defaults boolForKey:@"instructionsSwipedTo?"] : NO;
+    self.permissionDenied = ([defaults boolForKey:@"permissionDenied?"]) ? [defaults boolForKey:@"permissionDenied?"]:NO;
+    self.disableSyllableCheck = ([defaults boolForKey:@"disableSyllableCheck?"]) ? [defaults boolForKey:@"disableSyllableCheck?"] : NO;
     screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     

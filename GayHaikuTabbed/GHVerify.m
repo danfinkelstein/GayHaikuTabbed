@@ -22,6 +22,9 @@
 
 -(NSString *)removeAuthor:(NSString *)s {
     NSArray *arrayOfLines = [self splitHaikuIntoLines:s];
+    
+                //If the haiku has more than three lines--that is, if it has an author attribution--remove all lines after the third.  This also removes actual haiku lines when the user has saved haiku with more than three lines, but since this is only for purposes of checking against haiku already saved and not for actual saving this shouldn't create any real problem.
+    
     if (arrayOfLines.count>3) {
         NSString *string = arrayOfLines[0];
         string = [string stringByAppendingString:@"\n"];
@@ -36,7 +39,7 @@
 }
 
 -(NSArray *)splitHaikuIntoWords: (NSString *)haiku {
-    NSArray *listOfWords = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@" "]];
+    NSArray *listOfWords = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     return listOfWords;
 }
 

@@ -50,14 +50,14 @@
     feedback.editable = NO;
     feedback.dataDetectorTypes = UIDataDetectorTypeAll;
     feedback.translatesAutoresizingMaskIntoConstraints = NO;
-    NSLayoutConstraint *widthCon = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeWidth relatedBy:0 toItem:nil attribute:NSLayoutAttributeWidth multiplier:1  constant:textWidth];
-    NSLayoutConstraint *heightCon = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:textHeight*6];
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeWidth relatedBy:0 toItem:nil attribute:NSLayoutAttributeWidth multiplier:1  constant:textWidth];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeHeight relatedBy:0 toItem:nil attribute:NSLayoutAttributeHeight multiplier:1  constant:textHeight*6];
     NSLayoutConstraint *constraintX = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
         NSLayoutConstraint *constraintY = [NSLayoutConstraint constraintWithItem:feedback attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
         [self.view addConstraint:constraintX];
         [self.view addConstraint:constraintY];
-        [self.view addConstraint:widthCon];
-        [self.view addConstraint:heightCon];
+        [self.view addConstraint:widthConstraint];
+        [self.view addConstraint:heightConstraint];
         [self.view addSubview:feedback];
 }
 
