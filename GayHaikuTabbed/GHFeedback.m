@@ -33,14 +33,9 @@
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
-    UIImageView *bground = [[UIImageView alloc] initWithFrame:frame];
-    if (screenHeight<500) {
-        bground.image = [UIImage imageNamed:@"main.png"];
-    }
-    else {
-        bground.image = [UIImage imageNamed:@"5main.png"];
-    }
-    [self.view addSubview:bground];
+    UIImageView *background = [[UIImageView alloc] initWithFrame:frame];
+    background.image = screenHeight<500 ? [UIImage imageNamed:@"main.png"]:[UIImage imageNamed:@"5main.png"];
+    [self.view addSubview:background];
     [self displayFeedbackText];
 }
 
