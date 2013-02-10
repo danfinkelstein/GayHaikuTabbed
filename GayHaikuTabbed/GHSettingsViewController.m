@@ -48,8 +48,8 @@
     
     if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
-        [swipeLeft setNumberOfTouchesRequired : 1];
-        [swipeLeft setDirection : UISwipeGestureRecognizerDirectionLeft];
+        swipeLeft.numberOfTouchesRequired = 1;
+        swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
         [self.view addGestureRecognizer:swipeLeft];
     }
     
@@ -85,7 +85,7 @@
     
                 //UNCOMMENT THIS FOR TESTING
     
-    //[userSettings setOptOutSeen : NO];
+    //userSettings.optOutSeen = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated {

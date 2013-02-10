@@ -221,8 +221,8 @@
                 //Connect to the Internet.
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:us] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval: 10];
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (conn) {
+    NSURLConnection *connect = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (connect) {
         [self.webV loadRequest:request];
     }
     self.webV.scalesPageToFit = YES;
