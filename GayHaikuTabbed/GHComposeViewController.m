@@ -579,8 +579,6 @@
     
     NSString *misanalysis = (self.syllablesWrong!=YES) ? @"Yes" : @"No";
     
-//CHECK ABOVE.
-    
     self.syllablesWrong = NO;
     [haikuObject setObject:misanalysis forKey:@"misanalyzed"];
     

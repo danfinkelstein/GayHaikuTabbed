@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D00580F16CF4B79008026EF /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D00580E16CF4B79008026EF /* userHaiku.plist */; };
 		5D2A023E16C349D30012FCFA /* instagramicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023D16C349D30012FCFA /* instagramicon.png */; };
 		5D2A024016C349E00012FCFA /* instagramicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023F16C349E00012FCFA /* instagramicon@2x.png */; };
 		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
@@ -66,7 +67,6 @@
 		5DAF2E8916AF3C1100597EC0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8816AF3C1100597EC0 /* Storyboard.storyboard */; };
 		5DAF2E8C16AF48A600597EC0 /* GHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */; };
 		5DB6742C16B49C6B0039C72B /* exceptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DB6742B16B49C6B0039C72B /* exceptions.plist */; };
-		5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAAC50167462AE008EB101 /* userHaiku.plist */; };
 		5DBC945716743DFF000406DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945616743DFE000406DF /* UIKit.framework */; };
 		5DBC945916743DFF000406DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945816743DFF000406DF /* Foundation.framework */; };
 		5DBC945B16743DFF000406DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DBC945A16743DFF000406DF /* CoreGraphics.framework */; };
@@ -108,6 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D00580E16CF4B79008026EF /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5D2A023D16C349D30012FCFA /* instagramicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagramicon.png; sourceTree = "<group>"; };
 		5D2A023F16C349E00012FCFA /* instagramicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagramicon@2x.png"; sourceTree = "<group>"; };
 		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
@@ -168,7 +169,6 @@
 		5DAF2E8A16AF48A600597EC0 /* GHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTabBarController.h; sourceTree = "<group>"; };
 		5DAF2E8B16AF48A600597EC0 /* GHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTabBarController.m; sourceTree = "<group>"; };
 		5DB6742B16B49C6B0039C72B /* exceptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = exceptions.plist; sourceTree = "<group>"; };
-		5DBAAC50167462AE008EB101 /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
 		5DBC945216743DFE000406DF /* GayHaikuTabbed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GayHaikuTabbed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBC945616743DFE000406DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5DBC945816743DFF000406DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -383,7 +383,7 @@
 				5DBCD61F1676A7970029F453 /* icon57.png */,
 				5DBCD61C1676A7910029F453 /* icon114.png */,
 				5D88262116745EAB007DF2E2 /* gayHaiku.plist */,
-				5DBAAC50167462AE008EB101 /* userHaiku.plist */,
+				5D00580E16CF4B79008026EF /* userHaiku.plist */,
 				5DBC945E16743DFF000406DF /* GayHaikuTabbed-Info.plist */,
 				5DBC945F16743DFF000406DF /* InfoPlist.strings */,
 				5DBC946216743DFF000406DF /* main.m */,
@@ -499,7 +499,6 @@
 			files = (
 				5DBC946116743DFF000406DF /* InfoPlist.strings in Resources */,
 				5D88262216745EAB007DF2E2 /* gayHaiku.plist in Resources */,
-				5DBAAC51167462AE008EB101 /* userHaiku.plist in Resources */,
 				5DBCD61D1676A7910029F453 /* icon114.png in Resources */,
 				5DBCD6201676A7970029F453 /* icon57.png in Resources */,
 				5D64890616791F4100A87596 /* 80-shopping-cart.png in Resources */,
@@ -533,6 +532,7 @@
 				5D6BF93316BA1FE10076DC35 /* DMResizerViewController.xib in Resources */,
 				5D2A023E16C349D30012FCFA /* instagramicon.png in Resources */,
 				5D2A024016C349E00012FCFA /* instagramicon@2x.png in Resources */,
+				5D00580F16CF4B79008026EF /* userHaiku.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,6 +50,10 @@
         [self.view addGestureRecognizer:swipeLeft];
     }
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    tap.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:tap];
+    
                 //Add the background image.
     
     CGRect frame;
@@ -82,23 +86,27 @@
     
                 //UNCOMMENT THIS FOR TESTING
     
+                //userSettings.optOutSeen = NO;
+    
    if (self.userSettings.optOutSeen==NO) {
         
-        //Set animation
+                //Set animation
         
         CATransition *transition = [CATransition animation];
         transition.duration = 0.25;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         
-        //Set direction of animation depending on whether we're going to a previous or a next haiku.
+                //Set direction of animation.
         
         transition.subtype = kCATransitionFromRight;
         transition.delegate = self;
         [self.view.layer addAnimation:transition forKey:nil];
     }
-    
-    //userSettings.optOutSeen = NO;
+}
+
+-(void)dismissKeyboard {
+    [nameField resignFirstResponder];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
