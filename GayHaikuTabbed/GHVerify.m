@@ -47,7 +47,6 @@
     
                 //Counts number of lines in haiku.
     
-    //int number = [line syllableTotal];
     int number = [self syllableTotal:line];
     return number;
 }
@@ -70,13 +69,7 @@
     
                 //If the haiku has too few lines, limit the number of lines evaluated to the number of lines the haiku has.  Otherwise, evaluate three lines.
     
-    int k;
-    if (self.listOfLines.count<3) {
-        k=self.listOfLines.count;
-    }
-    else {
-        k=3;
-    }
+    int k = (self.listOfLines.count<3) ? self.listOfLines.count : 3;
     
                 //Create an array to hold evaluations of lines in the haiku.
     

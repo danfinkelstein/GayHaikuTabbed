@@ -35,21 +35,33 @@
     screenHeight = self.view.bounds.size.height;
     screenWidth = self.view.bounds.size.width;
     
-                //Create UIWebView.
-    
-    if (!self.webV) {
-        self.webV = [[UIWebView alloc] init];
-        self.webV.scalesPageToFit = YES;
-        self.webV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    }
-    self.webV.delegate = self;
-    
                 //Load Amazon page.
     
     NSString *baseURLString = @"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full";
     NSString *urlString = [baseURLString stringByAppendingPathComponent:@"http://www.amazon.com/Books-by-Joel-Derfner/lm/RVZNXKV59PL51/ref=cm_lm_byauthor_full"];
     [self connectWithURL:urlString andBaseURLString:baseURLString];
     self.userInfo = [GHAppDefaults sharedInstance];
+}
+
+-(UIWebView *)webV {
+    
+    if (!_webV) {
+        _webV = [[UIWebView alloc] init];
+        _webV.scalesPageToFit = YES;
+        _webV.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _webV.delegate = self;
+    }
+return _webV;
+}
+
+-(UIActivityIndicatorView *)indicator {
+    if (!_indicator) {
+        _indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, ACTIVITY_VIEWER_DIMENSION, ACTIVITY_VIEWER_DIMENSION)];
+        _indicator.center = CGPointMake(screenWidth/2, screenHeight/2);
+        _indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+        _indicator.color = self.userInfo.screenColorTrans;
+    }
+    return _indicator;
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -60,12 +72,6 @@
     
                 //Adds activity indicator to screen and starts animating it
     
-    if (!self.indicator) {
-        self.indicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, ACTIVITY_VIEWER_DIMENSION, ACTIVITY_VIEWER_DIMENSION)];
-        self.indicator.center = CGPointMake(screenWidth/2, screenHeight/2);
-        self.indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        self.indicator.color = self.userInfo.screenColorTrans;
-    }
 	[self.view addSubview:self.indicator];
     [self.indicator startAnimating];
     [self createToolbarWithButton:@"webStop"];

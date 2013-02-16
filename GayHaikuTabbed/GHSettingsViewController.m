@@ -82,6 +82,22 @@
     
                 //UNCOMMENT THIS FOR TESTING
     
+   if (self.userSettings.optOutSeen==NO) {
+        
+        //Set animation
+        
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.25;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionPush;
+        
+        //Set direction of animation depending on whether we're going to a previous or a next haiku.
+        
+        transition.subtype = kCATransitionFromRight;
+        transition.delegate = self;
+        [self.view.layer addAnimation:transition forKey:nil];
+    }
+    
     //userSettings.optOutSeen = NO;
 }
 

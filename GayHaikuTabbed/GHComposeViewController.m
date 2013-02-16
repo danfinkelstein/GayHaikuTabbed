@@ -246,6 +246,16 @@
     [tv.layer addAnimation:transition forKey:nil];
 }
 
+-(UITextView *)textView {
+    if (!_textView) {
+        int x = screenHeight<500? 115 : 202;
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, x)];
+        _textView.delegate = self;
+        
+    }
+    return _textView;
+}
+
 -(void)displayComposeScreen {
     
                 //Change the screen to the compose screen.
@@ -260,11 +270,6 @@
     
                 //Create the textView if it doesn't exist.
     
-    if (!self.textView) {
-        int x = screenHeight<500? 115 : 202;
-        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 40, 240, x)];
-        self.textView.delegate = self;
-    }
     
                 //Create the translucent toolbar for above the keyboard.
     
@@ -400,7 +405,7 @@
                 //Construct the part of the alert message correcting the number of lines, if one be necessary.
     
     NSString *alertMessage;
-    BOOL somethingIsAmiss;
+    BOOL somethingIsAmiss = NO;
     if (ghverify.numberOfLinesAsProperty==tooFewLines) {
         alertMessage = @"Your haiku might have too few lines";
         somethingIsAmiss=YES;
@@ -453,7 +458,6 @@
         NSString *phrase = [NSString stringWithFormat:@"%@ the wrong number of syllables (you need 5-7-5). ",number];
         alertMessage = [alertMessage stringByAppendingFormat:@"%@",phrase];
     }
-    
     arrayOfLinesToAlert=Nil;
     
                 //If the alert message needs displaying, add an ending to it and display it with an alertView.
@@ -471,9 +475,7 @@
         somethingIsAmiss=NO;
         return YES;
     }
-    
                 //Otherwise, save the haiku.
-    
     else {
         [self saveUserHaiku];
         return NO;
@@ -605,7 +607,7 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger) buttonIndex {
     
-                //If there are putative syllable errors and user choice is "continue editing," return to the textView.
+                //If there are ostensible syllable errors and user choice is "continue editing," return to the textView.
     
     if (buttonIndex == 0) {
         [self.textView becomeFirstResponder];

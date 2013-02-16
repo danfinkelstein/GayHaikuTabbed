@@ -24,15 +24,6 @@
     return sharedInstance;
 }
 
--(int)chooseNumber: (int)howManyHaiku {
-    
-                //Choose a random number between 0 and a given number of haiku.
-
-    int x;
-    x = arc4random_uniform(howManyHaiku);
-    return x;
-}
-
 -(void)shuffle {
     
                 //(Re)set the index to 0.

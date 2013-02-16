@@ -13,7 +13,6 @@
 
 +(GHHaiku *)sharedInstance;
 
--(int)chooseNumber:(int)blah;
 -(void)haikuToShow;
 
 @property (nonatomic) int newIndex;                             //Index of the current haiku.

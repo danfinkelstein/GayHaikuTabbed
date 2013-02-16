@@ -18,7 +18,6 @@
 @interface GHHaikuViewController ()<UITextViewDelegate,UIGestureRecognizerDelegate,UITabBarControllerDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (strong, nonatomic) GHAppDefaults *userInfo;
-@property (strong, nonatomic) UIToolbar *bar;
 @property (strong, nonatomic) UINavigationBar *navBar;
 @property (strong, nonatomic) UITextView *displayHaikuTextView;
 @property (strong, nonatomic) UITextView *leftSwipe;
@@ -85,6 +84,7 @@
                 //Set up tab bar
     
     [[UITabBar appearance] setTintColor:self.userInfo.screenColorTrans];
+    [[UITabBar appearance] setSelectedImageTintColor:[UIColor colorWithRed:227/255.0 green:180/255.0 blue:204/255.0 alpha:1]];
     self.tabBarController.delegate=self;
     
                 //Indicate that "swipe" text for previous/next have not been seen yet this session
