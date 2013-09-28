@@ -12,9 +12,19 @@
 
 @synthesize listOfLines, ghhaiku, linesAfterCheck, numberOfLinesAsProperty;
 
+-(void)giveSyllableCountsPerWord: (NSString *)haiku {
+    NSArray *arrayOfWords = [haiku componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    for (int i = 0; i<arrayOfWords.count; i++) {
+        NSLog(@"%@: %d",arrayOfWords[i], [self syllablesInLine:arrayOfWords[i]]);
+    }
+}
+
 -(NSArray *)splitHaikuIntoLines: (NSString *)haiku {
     
-                //Splits NSString into lines separated by \n character.
+    //Splits NSString into lines separated by \n character.
+    
+    //Uncomment this to test misanalyzed haiku.
+    //[self giveSyllableCountsPerWord:haiku];
     
     self.listOfLines = [[NSArray alloc] initWithArray:[haiku componentsSeparatedByString:@"\n"] ];
     return self.listOfLines;
@@ -23,7 +33,7 @@
 -(NSString *)removeAuthor:(NSString *)s {
     NSArray *arrayOfLines = [self splitHaikuIntoLines:s];
     
-                //If the haiku has more than three lines--that is, if it has an author attribution--remove all lines after the third.  This also removes actual haiku lines when the user has saved haiku with more than three lines, but since this is only for purposes of checking against haiku already saved and not for actual saving this shouldn't create any real problem.
+    //If the haiku has more than three lines--that is, if it has an author attribution--remove all lines after the third.  This also removes actual haiku lines when the user has saved haiku with more than three lines, but since this is only for purposes of checking against haiku already saved and not for actual saving this shouldn't create any real problem.
     
     if (arrayOfLines.count>3) {
         NSString *string = arrayOfLines[0];
@@ -45,17 +55,17 @@
 
 -(int) syllablesInLine: (NSString *)line {
     
-                //Counts number of lines in haiku.
+    //Counts number of lines in haiku.
     
     int number = [self syllableTotal:line];
     return number;
 }
 
 -(BOOL)checkHaikuSyllables {
-
+    
     self.ghhaiku = [GHHaiku sharedInstance];
     
-                //Determine whether the haiku has too many lines, too few lines, or the correct number of lines.
+    //Determine whether the haiku has too many lines, too few lines, or the correct number of lines.
     
     if (self.listOfLines.count>3) {
         self.numberOfLinesAsProperty=tooManyLines;
@@ -67,31 +77,31 @@
         self.numberOfLinesAsProperty = rightNumberOfLines;
     }
     
-                //If the haiku has too few lines, limit the number of lines evaluated to the number of lines the haiku has.  Otherwise, evaluate three lines.
+    //If the haiku has too few lines, limit the number of lines evaluated to the number of lines the haiku has.  Otherwise, evaluate three lines.
     
     int k = (self.listOfLines.count<3) ? self.listOfLines.count : 3;
     
-                //Create an array to hold evaluations of lines in the haiku.
+    //Create an array to hold evaluations of lines in the haiku.
     
     self.linesAfterCheck = [[NSMutableArray alloc] init];
     
-                //Create an array to hold the correct number of syllables in the lines to evaluate against.
+    //Create an array to hold the correct number of syllables in the lines to evaluate against.
     
     NSArray *syllablesInLine = @[@5,@7,@5];
     
-                //Evaluate the lines to make sure they have the correct number of syllables.
+    //Evaluate the lines to make sure they have the correct number of syllables.
     
     for (int i=0; i<k; i++) {
         
-                //Create a variable representing the number of syllables in a given line.
+        //Create a variable representing the number of syllables in a given line.
         
         int extant = [self syllablesInLine:self.listOfLines[i]];
         
-                //Create a variable representing the number of syllables that SHOULD be in that line.
+        //Create a variable representing the number of syllables that SHOULD be in that line.
         
         int ideal = [syllablesInLine[i] integerValue];
         
-                //Compare those two variables and add a record of the comparison to the array self.linesAfterCheck.
+        //Compare those two variables and add a record of the comparison to the array self.linesAfterCheck.
         
         if (extant<ideal) {
             [self.linesAfterCheck addObject:@"too few"];
@@ -138,7 +148,7 @@
     NSArray *words = [cleanText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [words enumerateObjectsUsingBlock:^(NSString *word, NSUInteger idx, BOOL *stop) {
         
-//UNCOMMENT NEXT LINE TO CHECK SYLLABLES IN MISANALYZED LINES.
+        //UNCOMMENT NEXT LINE TO CHECK SYLLABLES IN MISANALYZED LINES.
         
         //NSLog(@"%@ %d",words[idx],[self syllableCount:word]);
         syllableCount += [self syllableCount:word];
@@ -170,55 +180,55 @@
     
     // These syllables would be counted as two but should be one
     NSArray *subSyllables = @[
-    @"cial",
-    @"tia",
-    @"cius",
-    @"cious",
-    @"giu",
-    @"ion",
-    @"iou",
-    @"sia$",
-    @"[^aeiuoyt]{2}ed$",
-    @".ely$",
-    @"[cg]h?e[rsd]?$",
-    @"rved?$",
-    @"[aeiouy][dt]es?$",
-    @"[aeiouy][^aeiouydt]e[rsd]?$",
-    //"^[dr]e[aeiou][^aeiou]+$" // Sorts out deal deign etc
-    @"[aeiouy]rse$",
-    ];
+                              @"cial",
+                              @"tia",
+                              @"cius",
+                              @"cious",
+                              @"giu",
+                              @"ion",
+                              @"iou",
+                              @"sia$",
+                              @"[^aeiuoyt]{2}ed$",
+                              @".ely$",
+                              @"[cg]h?e[rsd]?$",
+                              @"rved?$",
+                              @"[aeiouy][dt]es?$",
+                              @"[aeiouy][^aeiouydt]e[rsd]?$",
+                              //"^[dr]e[aeiou][^aeiou]+$" // Sorts out deal deign etc
+                              @"[aeiouy]rse$",
+                              ];
     
     // These syllables would be counted as one but should be two
     NSArray *addSyllables = @[
-    @"ia",
-    @"riet",
-    @"dien",
-    @"iu",
-    @"io",
-    @"ii",
-    @"[aeiouym]bl$",
-    @"[aeiou]{3}",
-    @"^mc",
-    @"ism$",
-    @"([^aeiouy])\1l$",
-    @"[^l]lien",
-    @"^coa[dglx].",
-    @"[^gq]ua[^auieo]",
-    @"dnt$",
-    @"uity$",
-    @"ie(r|st)$"
-    ];
+                              @"ia",
+                              @"riet",
+                              @"dien",
+                              @"iu",
+                              @"io",
+                              @"ii",
+                              @"[aeiouym]bl$",
+                              @"[aeiou]{3}",
+                              @"^mc",
+                              @"ism$",
+                              @"([^aeiouy])\1l$",
+                              @"[^l]lien",
+                              @"^coa[dglx].",
+                              @"[^gq]ua[^auieo]",
+                              @"dnt$",
+                              @"uity$",
+                              @"ie(r|st)$"
+                              ];
     
     // Single syllable prefixes and suffixes
     NSArray *prefixSuffix = @[
-    @"^un",
-    @"^fore",
-    @"ly$",
-    @"less$",
-    @"ful$",
-    @"ers?$",
-    @"ings?$",
-    ];
+                              @"^un",
+                              @"^fore",
+                              @"ly$",
+                              @"less$",
+                              @"ful$",
+                              @"ers?$",
+                              @"ings?$",
+                              ];
     
     // remove prefix & suffix, count how many are removed
     NSInteger prefixesSuffixesCount = 0;

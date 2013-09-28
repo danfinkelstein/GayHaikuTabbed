@@ -21,16 +21,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
-        
-                    //This hides the status bar throughout the app.
-        
+    
+    //This hides the status bar throughout the app.
+    
     [UIApplication sharedApplication].statusBarHidden=YES;
-
-                //This sets the app to send user-generated haiku to the Parse database.  It's duplicated in GHHaikuViewController viewDidLoad, because at some point I installed it here and it wasn't working so I installed it there and it started working.  Almost certainly it's only necessary in one of those two places.  To do:  figure out which one.
+    
+    //This sets the app to send user-generated haiku to the Parse database.  It's duplicated in GHHaikuViewController viewDidLoad, because at some point I installed it here and it wasn't working so I installed it there and it started working.  Almost certainly it's only necessary in one of those two places.  To do:  figure out which one.
     
     [Parse setApplicationId:@"M7vcXO7ccmhNUbnLhmfnnmV8ezLvvuMvHwNZXrs8"
                   clientKey:@"Aw8j7MhJwsHxW1FxoHKuXojNGvrPSjDkACs7egRi"];
-
+    
     NSMutableArray *tabItems = [[NSMutableArray alloc] initWithCapacity:5];
     
     GHHaikuViewController *hvc = [[GHHaikuViewController alloc] init];
@@ -69,7 +69,7 @@
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -78,7 +78,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

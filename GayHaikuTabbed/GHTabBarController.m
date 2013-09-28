@@ -27,6 +27,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    if (NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1) {
+        //iOS7 code
+        [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
+        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:227/255.0 green:180/255.0 blue:204/255.0 alpha:1]];
+    }
+    else {
+        //iOS6 code
+        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1]];
+        [[UITabBar appearance] setSelectedImageTintColor:[UIColor colorWithRed:227/255.0 green:180/255.0 blue:204/255.0 alpha:1]];
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

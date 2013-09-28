@@ -24,7 +24,7 @@ int screenWidth;
 
 + (GHAppDefaults *)sharedInstance {
     
-                //Make GHAppDefaults a singleton class.
+    //Make GHAppDefaults a singleton class.
     
     static GHAppDefaults *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -36,7 +36,7 @@ int screenWidth;
 
 -(void)setUserDefaults {
     
-                //Set session settings to user defaults, if such exist.
+    //Set session settings to user defaults, if such exist.
     
     if (!self.defaults) self.defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"author"]) {
@@ -48,15 +48,16 @@ int screenWidth;
     self.instructionsSwipedToFromOptOut = ([defaults boolForKey:@"instructionsSwipedTo?"]) ? [defaults boolForKey:@"instructionsSwipedTo?"] : NO;
     self.permissionDenied = ([defaults boolForKey:@"permissionDenied?"]) ? [defaults boolForKey:@"permissionDenied?"]:NO;
     self.disableSyllableCheck = ([defaults boolForKey:@"disableSyllableCheck?"]) ? [defaults boolForKey:@"disableSyllableCheck?"] : NO;
+    self.fourThirteenSeen = ([defaults boolForKey:@"fourThirteenSeen?"]) ? [defaults boolForKey:@"fourThirteenSeen?"] : NO;
     screenColorOp = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:1];
     screenColorTrans = [UIColor colorWithRed:123/255.0 green:47/255.0 blue:85/255.0 alpha:.75];
     
-                //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
+    //UNCOMMENT THIS SECTION IF NECESSARY TO TEST
     
-//    self.optOutSeen=NO;
-//    self.instructionsSeen=NO;
-//    self.instructionsSwipedToFromOptOut=NO;
-//    self.author=nil;
+    //    self.optOutSeen=NO;
+    //    self.instructionsSeen=NO;
+    //    self.instructionsSwipedToFromOptOut=NO;
+    //    self.author=nil;
     
 }
 

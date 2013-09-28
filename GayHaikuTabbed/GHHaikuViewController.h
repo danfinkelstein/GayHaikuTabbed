@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GHHaiku.h"
+#import "GHHaikuCollection.h"
 
-@interface GHHaikuViewController : UIViewController 
+@interface GHHaikuViewController : UIViewController
 
-@property (nonatomic, strong) GHHaiku *ghhaiku;
+@property (nonatomic, strong) GHHaikuCollection *haikuCollection;
 
 @end

@@ -13,13 +13,17 @@
 
 +(GHHaiku *)sharedInstance;
 
--(void)haikuToShow;
+-(void)haikuToShowFavorites;
+-(void)haikuToShowAll;
 
 @property (nonatomic) int newIndex;                             //Index of the current haiku.
+@property (nonatomic) int newFavoritesIndex;
 @property (nonatomic) BOOL justComposed;                        //Alerts home screen to display properly upon return from compose screen.
 @property (nonatomic) BOOL isUserHaiku;                         //Indicates that haiku was written by the user.
+@property (nonatomic) BOOL isFavorite;
 @property (nonatomic) BOOL userIsEditing;                       //Alerts compose screen that user is editing (rather than composing afresh).
 @property (nonatomic, strong) NSMutableArray *gayHaiku;         //Array of all haiku.
+@property (nonatomic, strong) NSMutableArray *favoriteHaiku;
 @property (nonatomic, strong) NSString *text;                   //Text of haiku.
 @property (nonatomic, strong) NSMutableArray *haikuLoaded;      //Array of haiku loaded from plist.
 

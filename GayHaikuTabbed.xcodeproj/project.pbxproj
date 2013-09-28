@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5D00580F16CF4B79008026EF /* userHaiku.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D00580E16CF4B79008026EF /* userHaiku.plist */; };
+		5D0C9D1617F64E8700007570 /* gayHaiku413.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5D0C9D1517F64E8600007570 /* gayHaiku413.plist */; };
+		5D0C9D1917F64F9200007570 /* GHHaikuCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0C9D1817F64F9200007570 /* GHHaikuCollection.m */; };
+		5D0C9D1C17F64FC800007570 /* GHHaikuInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0C9D1B17F64FC800007570 /* GHHaikuInstance.m */; };
+		5D0C9D1E17F6508100007570 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D0C9D1D17F6508100007570 /* Parse.framework */; };
 		5D2A023E16C349D30012FCFA /* instagramicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023D16C349D30012FCFA /* instagramicon.png */; };
 		5D2A024016C349E00012FCFA /* instagramicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A023F16C349E00012FCFA /* instagramicon@2x.png */; };
-		5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2F68B116B04B65005EAC8E /* Parse.framework */; };
 		5D4B4B2616B856D900D6FD0A /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */; };
 		5D4B4B2916B899A800D6FD0A /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */; };
 		5D4B4B2A16B8A86B00D6FD0A /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4B4B2816B899A800D6FD0A /* DMResizerViewController.m */; };
@@ -109,9 +112,14 @@
 
 /* Begin PBXFileReference section */
 		5D00580E16CF4B79008026EF /* userHaiku.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userHaiku.plist; sourceTree = "<group>"; };
+		5D0C9D1517F64E8600007570 /* gayHaiku413.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gayHaiku413.plist; sourceTree = "<group>"; };
+		5D0C9D1717F64F9200007570 /* GHHaikuCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaikuCollection.h; sourceTree = "<group>"; };
+		5D0C9D1817F64F9200007570 /* GHHaikuCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaikuCollection.m; sourceTree = "<group>"; };
+		5D0C9D1A17F64FC800007570 /* GHHaikuInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHHaikuInstance.h; sourceTree = "<group>"; };
+		5D0C9D1B17F64FC800007570 /* GHHaikuInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHHaikuInstance.m; sourceTree = "<group>"; };
+		5D0C9D1D17F6508100007570 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5D2A023D16C349D30012FCFA /* instagramicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagramicon.png; sourceTree = "<group>"; };
 		5D2A023F16C349E00012FCFA /* instagramicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagramicon@2x.png"; sourceTree = "<group>"; };
-		5D2F68B116B04B65005EAC8E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../../../Downloads/Parse.framework; sourceTree = "<group>"; };
 		5D4B4B2416B856D900D6FD0A /* DMActivityInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMActivityInstagram.m; sourceTree = "<group>"; };
 		5D4B4B2516B856D900D6FD0A /* DMActivityInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMActivityInstagram.h; sourceTree = "<group>"; };
 		5D4B4B2716B899A800D6FD0A /* DMResizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMResizerViewController.h; sourceTree = "<group>"; };
@@ -209,7 +217,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D2F68B216B04B65005EAC8E /* Parse.framework in Frameworks */,
 				5D8825D51674442B007DF2E2 /* Accounts.framework in Frameworks */,
 				5D8825D61674442B007DF2E2 /* AdSupport.framework in Frameworks */,
 				5D8825D71674442B007DF2E2 /* AudioToolbox.framework in Frameworks */,
@@ -224,6 +231,7 @@
 				5D8825E11674449F007DF2E2 /* MessageUI.framework in Frameworks */,
 				5D8825E21674449F007DF2E2 /* MobileCoreServices.framework in Frameworks */,
 				5D8825D916744448007DF2E2 /* QuartzCore.framework in Frameworks */,
+				5D0C9D1E17F6508100007570 /* Parse.framework in Frameworks */,
 				5D8825DA16744448007DF2E2 /* Security.framework in Frameworks */,
 				5D8825DB16744448007DF2E2 /* Social.framework in Frameworks */,
 				5D8825DC16744448007DF2E2 /* StoreKit.framework in Frameworks */,
@@ -323,7 +331,7 @@
 		5DBC945516743DFE000406DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5D2F68B116B04B65005EAC8E /* Parse.framework */,
+				5D0C9D1D17F6508100007570 /* Parse.framework */,
 				5D8825CA1674437A007DF2E2 /* Security.framework */,
 				5D8825CB1674437A007DF2E2 /* Social.framework */,
 				5D8825CC1674437A007DF2E2 /* StoreKit.framework */,
@@ -376,6 +384,7 @@
 		5DBC945D16743DFF000406DF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5D0C9D1517F64E8600007570 /* gayHaiku413.plist */,
 				5D2A023316C2CA6B0012FCFA /* icons */,
 				5D2A023416C2CA850012FCFA /* views */,
 				5DD2770816AE1B57001262A0 /* input.png */,
@@ -417,6 +426,10 @@
 			children = (
 				5D8825F8167446C8007DF2E2 /* GHHaiku.h */,
 				5D8825F9167446C8007DF2E2 /* GHHaiku.m */,
+				5D0C9D1717F64F9200007570 /* GHHaikuCollection.h */,
+				5D0C9D1817F64F9200007570 /* GHHaikuCollection.m */,
+				5D0C9D1A17F64FC800007570 /* GHHaikuInstance.h */,
+				5D0C9D1B17F64FC800007570 /* GHHaikuInstance.m */,
 				5D8825FA167446C8007DF2E2 /* GHVerify.h */,
 				5D8825FB167446C8007DF2E2 /* GHVerify.m */,
 				5DAA4250169FBA8300187D2B /* GHAppDefaults.h */,
@@ -510,6 +523,7 @@
 				5DFF8A0B167ED7C900845EC4 /* 18-envelope.png in Resources */,
 				5DFF8A0C167ED7C900845EC4 /* 18-envelope@2x.png in Resources */,
 				5DBE121D1680BE3A007324B6 /* webForward.png in Resources */,
+				5D0C9D1617F64E8700007570 /* gayHaiku413.plist in Resources */,
 				5DBE121E1680BE3A007324B6 /* webBack.png in Resources */,
 				5DBE121F1680BE3A007324B6 /* webBack@2x.png in Resources */,
 				5DBE12201680BE3A007324B6 /* webForward@2x.png in Resources */,
@@ -570,6 +584,7 @@
 			files = (
 				5D4B4B2A16B8A86B00D6FD0A /* DMResizerViewController.m in Sources */,
 				5D4B4B2B16B8A86B00D6FD0A /* DMActivityInstagram.m in Sources */,
+				5D0C9D1C17F64FC800007570 /* GHHaikuInstance.m in Sources */,
 				5D962AA316B20653002AE486 /* NSRegularExpression+SimpleRegex.m in Sources */,
 				5D962AA216B2062A002AE486 /* NSString+RegexReplace.m in Sources */,
 				5DBC946316743DFF000406DF /* main.m in Sources */,
@@ -579,6 +594,7 @@
 				5D882604167446C8007DF2E2 /* GHFeedback.m in Sources */,
 				5D882606167446C8007DF2E2 /* GHHaiku.m in Sources */,
 				5D882608167446C8007DF2E2 /* GHVerify.m in Sources */,
+				5D0C9D1917F64F9200007570 /* GHHaikuCollection.m in Sources */,
 				5D88260A167446C8007DF2E2 /* GHAppDelegate.m in Sources */,
 				5DFCCE2E169A07C9004E63CF /* GHSettingsViewController.m in Sources */,
 				5DAA4252169FBA8300187D2B /* GHAppDefaults.m in Sources */,
@@ -693,9 +709,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"/**",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Downloads\"",
+					"\\\"$(SRCROOT)\\\"/**",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/../../../Downloads\\\"",
+					/Users/joel/Development/GayHaikuTabbed,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";
@@ -717,9 +734,10 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"/**",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Downloads\"",
+					"\\\"$(SRCROOT)\\\"/**",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/../../../Downloads\\\"",
+					/Users/joel/Development/GayHaikuTabbed,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GayHaikuTabbed/GayHaikuTabbed-Prefix.pch";

@@ -30,18 +30,21 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-                //Load user defaults.
+    //Load user defaults.
     
     self.userSettings = [GHAppDefaults sharedInstance];
     [self.userSettings setUserDefaults];
     screenWidth=self.view.bounds.size.width;
     screenHeight=self.view.bounds.size.height;
+    if (NSFoundationVersionNumber>NSFoundationVersionNumber_iOS_6_1) {
+        self.tabBarController.tabBar.translucent = NO;
+    }
     
-                //Uncomment next line for testing.
+    //Uncomment next line for testing.
     
     //userSettings.optOutSeen=NO;
     
-                //Add swipe gesture recognizer if user has never swiped from settings to instructions.
+    //Add swipe gesture recognizer if user has never swiped from settings to instructions.
     
     if (self.userSettings.instructionsSwipedToFromOptOut==NO) {
         UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchToInstructions)];
@@ -54,7 +57,7 @@
     tap.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:tap];
     
-                //Add the background image.
+    //Add the background image.
     
     CGRect frame;
     frame = CGRectMake(0, 0, screenWidth, (screenHeight-TAB_BAR_HEIGHT));
@@ -84,25 +87,29 @@
     [segCont removeAllSegments];
     [segCont insertSegmentWithTitle:@"About" atIndex:0 animated:NO];
     
-                //UNCOMMENT THIS FOR TESTING
+    //UNCOMMENT THIS FOR TESTING
     
-                //userSettings.optOutSeen = NO;
+    //userSettings.optOutSeen = NO;
     
-   if (self.userSettings.optOutSeen==NO) {
+    if (self.userSettings.optOutSeen==NO) {
         
-                //Set animation
+        //Set animation
         
         CATransition *transition = [CATransition animation];
         transition.duration = 0.25;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         transition.type = kCATransitionPush;
         
-                //Set direction of animation.
+        //Set direction of animation.
         
         transition.subtype = kCATransitionFromRight;
         transition.delegate = self;
         [self.view.layer addAnimation:transition forKey:nil];
     }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 -(void)dismissKeyboard {
@@ -121,7 +128,7 @@
 
 -(UITextView *)createSwipeToAdd {
     
-                //Create "Swipe" text and its characteristics
+    //Create "Swipe" text and its characteristics
     
     UITextView *instructions = [[UITextView alloc] init];
     instructions.editable = NO;
@@ -130,17 +137,17 @@
     instructions.text = @"Swipe";
     instructions.userInteractionEnabled = NO;
     instructions.font = [UIFont fontWithName:@"Zapfino" size:LARGE_FONT_SIZE];
-
+    
     return instructions;
 }
 
 -(void)addSwipeForRight {
-
-                //Create the text to tell the user to swipe to the next screen.
+    
+    //Create the text to tell the user to swipe to the next screen.
     
     self.swipeInstructions = [self createSwipeToAdd];
     
-                //Locate and frame the text on the right side of the view.
+    //Locate and frame the text on the right side of the view.
     
     NSString *text = [self.swipeInstructions.text stringByAppendingString:@"compo"];
     CGSize dimensions = CGSizeMake(screenWidth, 400); //Why did I choose 400?
@@ -151,7 +158,7 @@
     [self.userSettings.defaults setBool:YES forKey:@"optOutSeen?"];
     [self.userSettings.defaults synchronize];
     
-                //Display it.
+    //Display it.
     
     [self.view addSubview:self.swipeInstructions];
 }
@@ -172,7 +179,7 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)tF {
     
-                //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
+    //If user has entered text for "user name" field in Opt Out, save this information in user defaults so that this name will be associated with any future haiku written by this user.
     
     if (nameField.text.length>0) {
         self.userSettings.author = nameField.text;
@@ -183,13 +190,13 @@
 
 -(IBAction)givePermission:(UISegmentedControl *)sender {
     
-                //Change the bool for the permissionDenied property and synchronize the default.
+    //Change the bool for the permissionDenied property and synchronize the default.
     
     self.userSettings.permissionDenied=!self.userSettings.permissionDenied;
     [self.userSettings.defaults setBool:self.userSettings.permissionDenied forKey:@"permissionDenied?"];
     [self.userSettings.defaults synchronize];
     
-                //Change the display of the UISegmentedControl
+    //Change the display of the UISegmentedControl
     
     if (permissionDenied.selectedSegmentIndex==0) {
         [permissionDenied setTitle:@"Yes" forSegmentAtIndex:0];
@@ -203,13 +210,13 @@
 
 -(IBAction)disableSyllableVerification:(UISegmentedControl *)sender {
     
-                //Change the bool for the disableVerification property and synchronize the default.
+    //Change the bool for the disableVerification property and synchronize the default.
     
     self.userSettings.disableSyllableCheck=!self.userSettings.disableSyllableCheck;
     [self.userSettings.defaults setBool:self.userSettings.disableSyllableCheck forKey:@"disableSyllableCheck?"];
     [self.userSettings.defaults synchronize];
     
-                //Change the display of the UISegmentedControl
+    //Change the display of the UISegmentedControl
     
     if (disableVerification.selectedSegmentIndex==0) {
         [disableVerification setTitle:@"On" forSegmentAtIndex:0];
